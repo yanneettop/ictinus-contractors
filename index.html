@@ -1,0 +1,922 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta property="og:title" content="Ictinus Contractors"/>
+    <meta property="og:description" content="London based Renovation company"/>
+    <meta property="og:image" content="https://static.getmocha.com/og.png" type="image/png"/>
+    <meta property="og:url" content="https://ictinus.mocha.app"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:author" content="Ictinus Contractors"/>
+    <meta property="og:site_name" content="Ictinus Contractors"/>
+    <meta property="twitter:card" content="summary_large_image"/>
+    <meta property="twitter:site" content="@ictinus"/>
+    <meta property="twitter:title" content="Ictinus Contractors"/>
+    <meta property="twitter:description" content="London based Renovation company"/>
+    <meta property="twitter:image" content="https://static.getmocha.com/og.png" type="image/png"/>
+    <link rel="shortcut icon" href="https://static.getmocha.com/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="https://static.getmocha.com/apple-touch-icon.png" type="image/png"/>
+    <meta name="description" content="Handyman and renovation work in London. Small fixes to full refurb. Email quotes within 24 hours."/>
+    <title>Ictinus Contractors</title>
+    <script type="module" crossorigin src="/assets/index-DBPLraOk.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CBNFhEJ3.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* ── Trust Row ── */
+      .ict-trust-row {
+        background: #F5F3ED;
+        border-top: 1px solid rgba(143,111,30,0.15);
+        border-bottom: 1px solid rgba(143,111,30,0.15);
+        padding: 1.5rem 1rem;
+      }
+      .ict-trust-row .trust-inner {
+        max-width: 72rem;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      @media(min-width:640px) {
+        .ict-trust-row .trust-inner { grid-template-columns: repeat(3,1fr); gap: 1rem; }
+      }
+      .ict-trust-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        justify-content: center;
+      }
+      .ict-trust-icon {
+        flex-shrink: 0;
+        width: 2.25rem;
+        height: 2.25rem;
+        background: rgba(212,175,55,0.15);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ict-trust-icon svg { width: 1.1rem; height: 1.1rem; color: #B08D2A; }
+      .ict-trust-text {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.9rem;
+        color: #2d2d2d;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+      }
+
+      /* ── Quote Section ── */
+      .ict-quote-section {
+        background: linear-gradient(to bottom, #FAF9F6, #F5F3ED);
+        padding: 5rem 1rem;
+        position: relative;
+      }
+      .ict-quote-inner {
+        max-width: 40rem;
+        margin: 0 auto;
+      }
+      .ict-quote-label {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #B08D2A;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+      .ict-quote-heading {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2d2d2d;
+        text-align: center;
+        margin-bottom: 0.75rem;
+        line-height: 1.25;
+      }
+      @media(min-width:768px) {
+        .ict-quote-heading { font-size: 2.5rem; }
+      }
+      .ict-quote-subtitle {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.95rem;
+        color: #2d2d2db3;
+        text-align: center;
+        max-width: 32rem;
+        margin: 0 auto 2.5rem;
+        line-height: 1.6;
+      }
+      .ict-form-card {
+        background: #fff;
+        border-radius: 0.75rem;
+        padding: 2rem 1.5rem;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+        border: 1px solid rgba(143,111,30,0.1);
+      }
+      @media(min-width:768px) {
+        .ict-form-card { padding: 2.5rem 2rem; }
+      }
+      .ict-form-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      @media(min-width:640px) {
+        .ict-form-grid { grid-template-columns: 1fr 1fr; }
+      }
+      .ict-form-group { display: flex; flex-direction: column; }
+      .ict-form-group.full-width { grid-column: 1 / -1; }
+      .ict-form-group label {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #2d2d2d;
+        margin-bottom: 0.4rem;
+        letter-spacing: 0.02em;
+      }
+      .ict-form-group label .req { color: #B08D2A; margin-left: 2px; }
+      .ict-form-group input,
+      .ict-form-group select,
+      .ict-form-group textarea {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.9rem;
+        color: #2d2d2d;
+        background: #FAF9F6;
+        border: 1px solid rgba(143,111,30,0.2);
+        border-radius: 0.5rem;
+        padding: 0.65rem 0.85rem;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .ict-form-group input:focus,
+      .ict-form-group select:focus,
+      .ict-form-group textarea:focus {
+        border-color: #C9A227;
+        box-shadow: 0 0 0 3px rgba(201,162,39,0.12);
+      }
+      .ict-form-group input::placeholder,
+      .ict-form-group textarea::placeholder { color: #2d2d2d50; }
+      .ict-form-group select { cursor: pointer; }
+      .ict-form-group textarea { resize: vertical; min-height: 5rem; }
+
+      .ict-photo-note {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.78rem;
+        color: #2d2d2db3;
+        margin-top: 0.3rem;
+        font-style: italic;
+      }
+
+      .ict-submit-btn {
+        display: block;
+        width: 100%;
+        font-family: 'Lora', Georgia, serif;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #2d2d2d;
+        background: linear-gradient(135deg, #D4AF37, #C9A227);
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.85rem 2rem;
+        cursor: pointer;
+        letter-spacing: 0.03em;
+        transition: transform 0.2s, box-shadow 0.2s;
+        margin-top: 0.5rem;
+      }
+      .ict-submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(212,175,55,0.3);
+      }
+
+      .ict-email-note {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.82rem;
+        color: #2d2d2db3;
+        text-align: center;
+        margin-top: 1.5rem;
+        line-height: 1.55;
+        border-top: 1px solid rgba(143,111,30,0.1);
+        padding-top: 1.25rem;
+      }
+
+      /* ── Form notice banner ── */
+      .ict-form-notice {
+        display: none;
+        margin-top: 1.25rem;
+        padding: 1rem 1.25rem;
+        border-radius: 0.5rem;
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.9rem;
+        line-height: 1.55;
+        text-align: center;
+        animation: ict-fadeIn 0.35s ease;
+      }
+      .ict-form-notice.show { display: block; }
+      .ict-form-notice.info {
+        background: rgba(212,175,55,0.1);
+        border: 1px solid rgba(201,162,39,0.3);
+        color: #6B5A1A;
+      }
+      .ict-form-notice.error {
+        background: rgba(220,53,69,0.08);
+        border: 1px solid rgba(220,53,69,0.25);
+        color: #9B2C2C;
+      }
+      .ict-form-notice strong {
+        display: block;
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+      }
+      @keyframes ict-fadeIn {
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── Validation error state ── */
+      .ict-form-group input:invalid:not(:placeholder-shown),
+      .ict-form-group textarea:invalid:not(:placeholder-shown) {
+        border-color: rgba(220,53,69,0.4);
+      }
+      .ict-form-group .field-error {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.72rem;
+        color: #c53030;
+        margin-top: 0.2rem;
+        display: none;
+      }
+
+      /* ── Smaller Projects Section ── */
+      .ict-small-projects {
+        background: linear-gradient(to bottom, #FAF9F6, #F5F3ED);
+        padding: 5rem 1rem;
+      }
+      .ict-small-projects-inner {
+        max-width: 72rem;
+        margin: 0 auto;
+      }
+      .ict-section-label {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #B08D2A;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+      .ict-section-heading {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #2d2d2d;
+        text-align: center;
+        margin-bottom: 0.75rem;
+        line-height: 1.25;
+      }
+      @media(min-width:768px) {
+        .ict-section-heading { font-size: 2.25rem; }
+      }
+      .ict-section-subtitle {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.95rem;
+        color: #2d2d2db3;
+        text-align: center;
+        max-width: 36rem;
+        margin: 0 auto 2.5rem;
+        line-height: 1.6;
+      }
+      .ict-small-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        margin-bottom: 2.5rem;
+      }
+      @media(min-width:640px) {
+        .ict-small-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media(min-width:1024px) {
+        .ict-small-grid { grid-template-columns: repeat(3, 1fr); }
+      }
+      .ict-small-card {
+        background: #fff;
+        border: 1px solid rgba(143,111,30,0.1);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        transition: transform 0.25s, box-shadow 0.25s;
+      }
+      .ict-small-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(212,175,55,0.12);
+      }
+      .ict-small-card-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: rgba(212,175,55,0.12);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.85rem;
+      }
+      .ict-small-card-icon svg { width: 1.2rem; height: 1.2rem; color: #B08D2A; }
+      .ict-small-card h3 {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #2d2d2d;
+        margin-bottom: 0.4rem;
+      }
+      .ict-small-card p {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.85rem;
+        color: #2d2d2db3;
+        line-height: 1.55;
+      }
+      .ict-section-closing {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.92rem;
+        color: #2d2d2d;
+        text-align: center;
+        max-width: 40rem;
+        margin: 0 auto;
+        line-height: 1.6;
+        font-style: italic;
+      }
+
+      /* ── Areas We Cover Section ── */
+      .ict-areas-section {
+        background: #F5F3ED;
+        padding: 4rem 1rem;
+        border-top: 1px solid rgba(143,111,30,0.1);
+      }
+      .ict-areas-inner {
+        max-width: 48rem;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .ict-areas-copy {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.95rem;
+        color: #2d2d2db3;
+        line-height: 1.65;
+        margin-bottom: 1.5rem;
+      }
+      .ict-areas-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 0.75rem;
+        margin-bottom: 1.75rem;
+      }
+      .ict-area-tag {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: #2d2d2d;
+        background: #fff;
+        border: 1px solid rgba(143,111,30,0.15);
+        border-radius: 2rem;
+        padding: 0.35rem 0.9rem;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+      }
+      .ict-areas-cta {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.9rem;
+        color: #2d2d2d;
+        line-height: 1.55;
+      }
+      .ict-areas-cta a {
+        color: #B08D2A;
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        cursor: pointer;
+      }
+
+      /* ── Hero Insurance Badge ── */
+      .ict-hero-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+        opacity: 0.85;
+      }
+      .ict-hero-badge span {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.78rem;
+        color: #E6DCC8;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 500;
+        text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+      }
+      .ict-hero-badge .badge-dot {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #D4AF37;
+        flex-shrink: 0;
+      }
+
+      /* ── Footer Insurance Line ── */
+      .ict-footer-insurance {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.78rem;
+        color: rgba(255,255,255,0.55);
+        margin-top: 0.65rem;
+        line-height: 1.5;
+        letter-spacing: 0.01em;
+      }
+
+      /* ── Before & After Section ── */
+      .ict-ba-section {
+        background: linear-gradient(to bottom, #F5F3ED, #FAF9F6);
+        padding: 5rem 1rem;
+        border-top: 1px solid rgba(143,111,30,0.08);
+      }
+      .ict-ba-inner {
+        max-width: 60rem;
+        margin: 0 auto;
+      }
+      .ict-ba-block {
+        background: #fff;
+        border: 1px solid rgba(143,111,30,0.1);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      }
+      .ict-ba-block:last-child { margin-bottom: 0; }
+      .ict-ba-block-title {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #2d2d2d;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      .ict-ba-images {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 0.85rem;
+      }
+      .ict-ba-img-wrap {
+        flex: 1;
+        position: relative;
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+      .ict-ba-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        aspect-ratio: 4/3;
+        display: block;
+        border-radius: 0.5rem;
+      }
+      .ict-ba-label {
+        position: absolute;
+        top: 0.6rem;
+        left: 0.6rem;
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.62rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.2rem 0.55rem;
+        border-radius: 0.25rem;
+        line-height: 1.4;
+      }
+      .ict-ba-label.before {
+        background: rgba(45,45,45,0.75);
+        color: #fff;
+      }
+      .ict-ba-label.after {
+        background: rgba(212,175,55,0.9);
+        color: #2d2d2d;
+      }
+      .ict-ba-caption {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 0.85rem;
+        color: #2d2d2db3;
+        text-align: center;
+        line-height: 1.55;
+        font-style: italic;
+      }
+      @media(max-width:639px) {
+        .ict-ba-images { flex-direction: column; }
+        .ict-ba-block { padding: 1.25rem; }
+      }
+
+      /* ── Smooth scroll ── */
+      html { scroll-behavior: smooth; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+    (function() {
+      // Wait for React to finish rendering
+      function waitForRender(cb, maxWait) {
+        var start = Date.now();
+        (function check() {
+          var root = document.getElementById('root');
+          var nav = root && root.querySelector('nav');
+          var sections = root && root.querySelectorAll('section');
+          if (nav && sections.length >= 4) { cb(); return; }
+          if (Date.now() - start > (maxWait || 6000)) { cb(); return; }
+          requestAnimationFrame(check);
+        })();
+      }
+
+      waitForRender(function() {
+        var root = document.getElementById('root');
+        var mainDiv = root.querySelector('.min-h-screen');
+        if (!mainDiv) return;
+
+        var children = mainDiv.children;
+        var heroSection = children[1]; // Hero is index 1
+        var servicesSection = children[2]; // Services is index 2
+        var whyChooseSection = children[3]; // "Why Choose Us" is index 3
+        var portfolioSection = children[4]; // Portfolio is index 4
+        var dividerSection = children[5]; // Divider is index 5
+        var testimonialsSection = children[6]; // Testimonials is index 6
+        var ctaSection = children[7]; // CTA "Ready to Transform" is index 7
+        var footer = children[8]; // Footer is index 8
+
+        // ── 1. REWRITE HERO ──
+        if (heroSection && heroSection.tagName === 'SECTION') {
+          var contentWrapper = heroSection.querySelector('.relative.z-10');
+          if (contentWrapper) {
+            contentWrapper.innerHTML = '\
+              <h1 style="font-family:Playfair Display,Georgia,serif;font-size:2.25rem;font-weight:700;color:#fff;margin-bottom:0.75rem;line-height:1.15;text-align:center;text-shadow:0 2px 16px rgba(0,0,0,0.45)">\
+                Handyman &amp; Renovation<br>Work in London\
+              </h1>\
+              <div class="ict-hero-badge">\
+                <span>Fully Insured</span>\
+                <span class="badge-dot"></span>\
+                <span>London Based</span>\
+              </div>\
+              <p style="font-family:Lora,Georgia,serif;font-size:1.1rem;color:#E6DCC8;margin-bottom:2.5rem;max-width:36rem;margin-left:auto;margin-right:auto;text-align:center;line-height:1.65;text-shadow:0 1px 8px rgba(0,0,0,0.35)">\
+                Small projects to full refurbishments. High standards, clean finish, clear communication.\
+              </p>\
+              <div style="display:flex;flex-direction:column;gap:1rem;align-items:center" id="ict-hero-ctas">\
+                <a href="javascript:void(0)" onclick="event.stopPropagation();document.getElementById(\'quote\').scrollIntoView({behavior:\'smooth\'});return false;" style="display:inline-block;padding:0.85rem 2.25rem;background:linear-gradient(135deg,#D4AF37,#C9A227);color:#2d2d2d;font-family:Lora,Georgia,serif;font-weight:600;font-size:1rem;border-radius:0.5rem;text-decoration:none;text-align:center;min-width:220px;letter-spacing:0.03em;box-shadow:0 4px 16px rgba(212,175,55,0.35);transition:transform 0.2s,box-shadow 0.2s;cursor:pointer" onmouseover="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 8px 24px rgba(212,175,55,0.45)\'" onmouseout="this.style.transform=\'none\';this.style.boxShadow=\'0 4px 16px rgba(212,175,55,0.35)\'">\
+                  Request a Quote\
+                </a>\
+                <a href="javascript:void(0)" onclick="event.stopPropagation();document.getElementById(\'services\').scrollIntoView({behavior:\'smooth\'});return false;" style="display:inline-block;padding:0.85rem 2.25rem;border:2px solid #D4AF37;color:#fff;font-family:Lora,Georgia,serif;font-weight:600;font-size:1rem;border-radius:0.5rem;text-decoration:none;text-align:center;min-width:220px;letter-spacing:0.03em;transition:background 0.2s,color 0.2s;cursor:pointer" onmouseover="this.style.background=\'#D4AF37\';this.style.color=\'#2d2d2d\'" onmouseout="this.style.background=\'transparent\';this.style.color=\'#fff\'">\
+                  View Services\
+                </a>\
+              </div>\
+            ';
+          }
+          // Responsive: widen hero heading on desktop
+          var style = document.createElement('style');
+          style.textContent = '@media(min-width:768px){.relative.z-10 h1{font-size:3.75rem!important}#ict-hero-ctas{flex-direction:row!important}}';
+          document.head.appendChild(style);
+        }
+
+        // ── 2. ADD id="services" TO SERVICES SECTION ──
+        if (servicesSection) {
+          servicesSection.id = 'services';
+        }
+
+        // ── 3. INSERT TRUST ROW AFTER HERO ──
+        var trustRow = document.createElement('div');
+        trustRow.className = 'ict-trust-row';
+        trustRow.innerHTML = '\
+          <div class="trust-inner">\
+            <div class="ict-trust-item">\
+              <div class="ict-trust-icon">\
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>\
+              </div>\
+              <span class="ict-trust-text">Fully Insured</span>\
+            </div>\
+            <div class="ict-trust-item">\
+              <div class="ict-trust-icon">\
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>\
+              </div>\
+              <span class="ict-trust-text">Clean &amp; Respectful Work</span>\
+            </div>\
+            <div class="ict-trust-item">\
+              <div class="ict-trust-icon">\
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>\
+              </div>\
+              <span class="ict-trust-text">Transparent Quote Before Work Starts</span>\
+            </div>\
+          </div>\
+        ';
+        heroSection.parentNode.insertBefore(trustRow, servicesSection);
+
+        // ── 3b. INSERT "SMALLER PROJECTS" SECTION AFTER SERVICES ──
+        var smallProjects = document.createElement('section');
+        smallProjects.className = 'ict-small-projects';
+        smallProjects.innerHTML = '\
+          <div class="ict-small-projects-inner">\
+            <p class="ict-section-label">Home Maintenance</p>\
+            <h2 class="ict-section-heading">Smaller Projects &amp; Home Maintenance</h2>\
+            <p class="ict-section-subtitle">We also take on carefully executed small residential projects across London.</p>\
+            <div class="ict-small-grid">\
+              <div class="ict-small-card">\
+                <div class="ict-small-card-icon">\
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M17 2l-5 5-5-5"/></svg>\
+                </div>\
+                <h3>TV &amp; Media Wall Mounting</h3>\
+                <p>Secure, level installations with concealed cabling for a clean, finished look.</p>\
+              </div>\
+              <div class="ict-small-card">\
+                <div class="ict-small-card-icon">\
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>\
+                </div>\
+                <h3>Door Repairs &amp; Adjustments</h3>\
+                <p>Sticking doors, hinge replacements, and frame adjustments handled with precision.</p>\
+              </div>\
+              <div class="ict-small-card">\
+                <div class="ict-small-card-icon">\
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>\
+                </div>\
+                <h3>Silicone &amp; Bathroom Sealing</h3>\
+                <p>Professional resealing of baths, showers, and sinks to prevent leaks and mould.</p>\
+              </div>\
+              <div class="ict-small-card">\
+                <div class="ict-small-card-icon">\
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>\
+                </div>\
+                <h3>Lighting &amp; Electrical Fittings</h3>\
+                <p>Pendant lights, downlights, and switch upgrades installed safely and neatly.</p>\
+              </div>\
+              <div class="ict-small-card">\
+                <div class="ict-small-card-icon">\
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>\
+                </div>\
+                <h3>Minor Plumbing Repairs</h3>\
+                <p>Tap replacements, toilet repairs, and small leak fixes resolved efficiently.</p>\
+              </div>\
+              <div class="ict-small-card">\
+                <div class="ict-small-card-icon">\
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>\
+                </div>\
+                <h3>Furniture &amp; Built-in Installation</h3>\
+                <p>Flat-pack assembly, shelving, and bespoke built-in units fitted to your specification.</p>\
+              </div>\
+            </div>\
+            <p class="ict-section-closing">Whether it\u2019s a small improvement or part of a larger renovation, every project is completed with the same attention to detail.</p>\
+          </div>\
+        ';
+        // Insert after services, before "Why Choose Us"
+        if (whyChooseSection) {
+          mainDiv.insertBefore(smallProjects, whyChooseSection);
+        } else {
+          servicesSection.parentNode.insertBefore(smallProjects, servicesSection.nextSibling);
+        }
+
+        // ── 3d. INSERT "BEFORE & AFTER" SECTION BETWEEN PORTFOLIO AND TESTIMONIALS ──
+        var baSection = document.createElement('section');
+        baSection.className = 'ict-ba-section';
+        baSection.innerHTML = '\
+          <div class="ict-ba-inner">\
+            <p class="ict-section-label">Transformations</p>\
+            <h2 class="ict-section-heading">Before &amp; After</h2>\
+            <p class="ict-section-subtitle">Real improvements. Clean execution. Attention to detail.</p>\
+            <div class="ict-ba-block">\
+              <h3 class="ict-ba-block-title">Kitchen Refresh</h3>\
+              <div class="ict-ba-images">\
+                <div class="ict-ba-img-wrap">\
+                  <span class="ict-ba-label before">Before</span>\
+                  <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?q=80&w=800&auto=format&fit=crop" alt="Kitchen before renovation" loading="lazy" />\
+                </div>\
+                <div class="ict-ba-img-wrap">\
+                  <span class="ict-ba-label after">After</span>\
+                  <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=800&auto=format&fit=crop" alt="Kitchen after renovation" loading="lazy" />\
+                </div>\
+              </div>\
+              <p class="ict-ba-caption">Full strip-out and refit with new cabinetry, worktops, and integrated lighting.</p>\
+            </div>\
+            <div class="ict-ba-block">\
+              <h3 class="ict-ba-block-title">Bathroom Re-sealing &amp; Repair</h3>\
+              <div class="ict-ba-images">\
+                <div class="ict-ba-img-wrap">\
+                  <span class="ict-ba-label before">Before</span>\
+                  <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" alt="Bathroom before repair" loading="lazy" />\
+                </div>\
+                <div class="ict-ba-img-wrap">\
+                  <span class="ict-ba-label after">After</span>\
+                  <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=80&w=800&auto=format&fit=crop" alt="Bathroom after repair" loading="lazy" />\
+                </div>\
+              </div>\
+              <p class="ict-ba-caption">Professional re-sealing, grout repair, and fixture replacement for a clean, lasting finish.</p>\
+            </div>\
+          </div>\
+        ';
+        // Insert before the testimonials section (after portfolio + divider)
+        if (testimonialsSection) {
+          mainDiv.insertBefore(baSection, testimonialsSection);
+        }
+
+        // ── 3c. INSERT "AREAS WE COVER" SECTION BEFORE FOOTER ──
+        var areasSection = document.createElement('section');
+        areasSection.className = 'ict-areas-section';
+        areasSection.innerHTML = '\
+          <div class="ict-areas-inner">\
+            <p class="ict-section-label">Coverage</p>\
+            <h2 class="ict-section-heading">Areas We Cover</h2>\
+            <p class="ict-areas-copy">Based in East London, we work across all London boroughs including:</p>\
+            <div class="ict-areas-list">\
+              <span class="ict-area-tag">Shoreditch</span>\
+              <span class="ict-area-tag">Hackney</span>\
+              <span class="ict-area-tag">Bethnal Green</span>\
+              <span class="ict-area-tag">Canary Wharf</span>\
+              <span class="ict-area-tag">Stratford</span>\
+              <span class="ict-area-tag">Islington</span>\
+              <span class="ict-area-tag">Greenwich</span>\
+              <span class="ict-area-tag">Central London</span>\
+            </div>\
+            <p class="ict-areas-cta">Not sure if we cover your area? <a href="javascript:void(0)" onclick="event.stopPropagation();document.getElementById(\'quote\').scrollIntoView({behavior:\'smooth\'});return false;">Submit your postcode</a> and we\u2019ll confirm availability.</p>\
+          </div>\
+        ';
+        // Insert before footer
+        if (footer) {
+          mainDiv.insertBefore(areasSection, footer);
+        }
+
+        // ── 4. INSERT QUOTE FORM SECTION BEFORE CTA ──
+        var quoteSection = document.createElement('section');
+        quoteSection.id = 'quote';
+        quoteSection.className = 'ict-quote-section';
+        quoteSection.innerHTML = '\
+          <div class="ict-quote-inner">\
+            <p class="ict-quote-label">Get in Touch</p>\
+            <h2 class="ict-quote-heading">Request a Quote</h2>\
+            <p class="ict-quote-subtitle">Tell us about your project and we\u2019ll reply with a written quote and estimated timeline.</p>\
+            <form id="ict-quote-form" class="ict-form-card">\
+              <div class="ict-form-grid">\
+                <div class="ict-form-group">\
+                  <label>Name <span class="req">*</span></label>\
+                  <input type="text" name="name" placeholder="Your full name" required />\
+                </div>\
+                <div class="ict-form-group">\
+                  <label>Email <span class="req">*</span></label>\
+                  <input type="email" name="email" placeholder="you@example.com" required />\
+                </div>\
+                <div class="ict-form-group">\
+                  <label>Postcode <span class="req">*</span></label>\
+                  <input type="text" name="postcode" placeholder="e.g. SW1A 1AA" required />\
+                </div>\
+                <div class="ict-form-group">\
+                  <label>Service Type <span class="req">*</span></label>\
+                  <select name="service" required>\
+                    <option value="" disabled selected>Select a service\u2026</option>\
+                    <option value="General Building">General Building</option>\
+                    <option value="Renovations">Renovations</option>\
+                    <option value="Bathroom Fitting">Bathroom Fitting</option>\
+                    <option value="Plasterboarding">Plasterboarding</option>\
+                    <option value="Painting & Decorating">Painting &amp; Decorating</option>\
+                    <option value="Flooring">Flooring</option>\
+                    <option value="TV & Media Mounting">TV &amp; Media Mounting</option>\
+                    <option value="Door Repairs">Door Repairs</option>\
+                    <option value="Sealing & Silicone">Sealing &amp; Silicone</option>\
+                    <option value="Lighting & Electrical">Lighting &amp; Electrical</option>\
+                    <option value="Minor Plumbing">Minor Plumbing</option>\
+                    <option value="Furniture Installation">Furniture Installation</option>\
+                    <option value="Other">Other</option>\
+                  </select>\
+                </div>\
+                <div class="ict-form-group full-width">\
+                  <label>Describe the Work <span class="req">*</span></label>\
+                  <textarea name="description" rows="4" placeholder="Brief description of what you need done\u2026" required></textarea>\
+                </div>\
+                <div class="ict-form-group full-width">\
+                  <label>Photo Links <span style="font-weight:400;color:#2d2d2db3">(optional)</span></label>\
+                  <input type="text" name="photoLinks" placeholder="Paste Google Drive, Dropbox, or image links\u2026" />\
+                  <span class="ict-photo-note">Share a link to photos of the area or any reference images.</span>\
+                </div>\
+                <div class="ict-form-group full-width">\
+                  <label>Preferred Date <span style="font-weight:400;color:#2d2d2db3">(optional)</span></label>\
+                  <input type="text" name="preferredDate" placeholder="e.g. Weekdays, March 2026, ASAP\u2026" />\
+                </div>\
+                <div class="ict-form-group full-width">\
+                  <button type="submit" class="ict-submit-btn">Send Enquiry</button>\
+                </div>\
+                <div id="ict-form-notice" class="ict-form-notice" role="alert" aria-live="polite"></div>\
+              </div>\
+            </form>\
+            <p class="ict-email-note">\
+              Quote requests by email will be available soon. For now, please use the contact section.\
+            </p>\
+          </div>\
+        ';
+
+        // Insert before the CTA section (index 7)
+        if (ctaSection) {
+          ctaSection.parentNode.insertBefore(quoteSection, ctaSection);
+          // Hide the old CTA section since the quote form replaces it
+          ctaSection.style.display = 'none';
+        } else if (footer) {
+          footer.parentNode.insertBefore(quoteSection, footer);
+        }
+
+        // ── 5. QUOTE FORM: VALIDATE + INLINE "COMING SOON" NOTICE ──
+        // TODO: connect to Formspree/Basin endpoint when email is ready.
+        //       Replace the notice logic below with a fetch() POST to
+        //       the form endpoint, e.g.:
+        //         fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        //           method: 'POST',
+        //           body: new FormData(form),
+        //           headers: { 'Accept': 'application/json' }
+        //         }).then(...)
+        var form = document.getElementById('ict-quote-form');
+        var notice = document.getElementById('ict-form-notice');
+        if (form && notice) {
+          form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // ── Client-side validation ──
+            var fd = new FormData(form);
+            var requiredFields = ['name', 'email', 'postcode', 'service', 'description'];
+            var missing = [];
+            requiredFields.forEach(function(field) {
+              var val = (fd.get(field) || '').toString().trim();
+              if (!val) missing.push(field);
+            });
+            // Basic email format check
+            var emailVal = (fd.get('email') || '').toString().trim();
+            if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+              missing.push('email (invalid format)');
+            }
+
+            if (missing.length > 0) {
+              notice.className = 'ict-form-notice error show';
+              notice.innerHTML = '<strong>Please complete all required fields.</strong>'
+                + 'Missing: ' + missing.join(', ') + '.';
+              notice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              return;
+            }
+
+            // ── Show "coming soon" notice (no network request) ──
+            notice.className = 'ict-form-notice info show';
+            notice.innerHTML = '<strong>Thank you for your interest!</strong>'
+              + 'Quote requests by email will be available soon. '
+              + 'For now, please use the contact section or email us directly at '
+              + '<a href="mailto:info@ictinuscontractors.co.uk" style="color:#B08D2A;font-weight:600;text-decoration:underline">'
+              + 'info@ictinuscontractors.co.uk</a>.';
+            notice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Disable the submit button to prevent repeated clicks
+            var btn = form.querySelector('.ict-submit-btn');
+            if (btn) {
+              btn.textContent = 'Received \u2013 Thank You';
+              btn.disabled = true;
+              btn.style.opacity = '0.6';
+              btn.style.cursor = 'default';
+            }
+          });
+        }
+
+        // ── 6. UPDATE NAV LINKS TO SCROLL INSTEAD OF ROUTE ──
+        function scrollTo(id) { return function(e) { e.preventDefault(); e.stopPropagation(); var el = document.getElementById(id); if (el) el.scrollIntoView({behavior:'smooth'}); }; }
+        var navLinks = mainDiv.querySelectorAll('nav a');
+        navLinks.forEach(function(a) {
+          var txt = a.textContent.trim();
+          if (txt === 'GET A QUOTE' || txt === 'Contact' || txt === 'CONTACT') {
+            a.href = 'javascript:void(0)';
+            a.addEventListener('click', scrollTo('quote'), true);
+          }
+          if (txt === 'Services' || txt === 'SERVICES') {
+            a.href = 'javascript:void(0)';
+            a.addEventListener('click', scrollTo('services'), true);
+          }
+        });
+
+        // ── 7. ADD INSURANCE LINE IN FOOTER ──
+        if (footer) {
+          // Find the "Contact Us" column – email is in a <span>, not <a>
+          var footerSpans = footer.querySelectorAll('span');
+          var contactCol = null;
+          footerSpans.forEach(function(s) {
+            if (s.textContent.indexOf('info@ictinuscontractors') !== -1) {
+              var parent = s.parentElement;
+              while (parent && parent.tagName !== 'FOOTER') {
+                if (parent.parentElement && parent.parentElement.className.indexOf('grid') !== -1) {
+                  contactCol = parent;
+                  break;
+                }
+                parent = parent.parentElement;
+              }
+            }
+          });
+          if (contactCol) {
+            var insuranceLine = document.createElement('p');
+            insuranceLine.className = 'ict-footer-insurance';
+            insuranceLine.textContent = 'Fully insured contractor working across London.';
+            contactCol.appendChild(insuranceLine);
+          }
+        }
+      });
+    })();
+    </script>
+  </body>
+</html>
