@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    .og-image {
+      width: 1200px;
+      height: 630px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+    .corner { position: absolute; width: 70px; height: 70px; border: 3px solid #daa520; }
+    .corner.tl { top: 40px; left: 40px; border-right: none; border-bottom: none; }
+    .corner.tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
+    .corner.bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
+    .corner.br { bottom: 40px; right: 40px; border-left: none; border-top: none; }
+    .column { width: 80px; height: 100px; margin-bottom: 30px; display: flex; flex-direction: column; align-items: center; }
+    .column-top, .column-bottom { width: 80px; height: 12px; background: linear-gradient(90deg, #b8860b, #daa520, #b8860b); border-radius: 2px; }
+    .column-base { width: 70px; height: 8px; background: linear-gradient(90deg, #b8860b, #daa520, #b8860b); }
+    .column-pillars { display: flex; justify-content: space-between; width: 60px; flex: 1; }
+    .pillar { width: 12px; height: 100%; background: linear-gradient(90deg, #b8860b, #daa520, #b8860b); }
+    .company-name { font-size: 72px; font-weight: 700; color: #ffffff; letter-spacing: 4px; margin-bottom: 10px; }
+    .contractors { font-size: 32px; background: linear-gradient(90deg, #b8860b, #daa520, #b8860b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 12px; margin-bottom: 40px; }
+    .tagline { font-family: Arial, sans-serif; font-size: 24px; color: #cccccc; margin-bottom: 60px; }
+    .website { font-family: Arial, sans-serif; font-size: 18px; color: #888888; }
+    .line-left, .line-right { position: absolute; width: 180px; height: 2px; background: linear-gradient(90deg, #b8860b, #daa520, #b8860b); }
+    .line-left.top { top: 200px; left: 100px; }
+    .line-right.top { top: 200px; right: 100px; }
+    .line-left.bottom { bottom: 200px; left: 100px; }
+    .line-right.bottom { bottom: 200px; right: 100px; }
+  </style>
+</head>
+<body>
+  <div class="og-image">
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+    <div class="line-left top"></div>
+    <div class="line-right top"></div>
+    <div class="line-left bottom"></div>
+    <div class="line-right bottom"></div>
+    <div class="column">
+      <div class="column-top"></div>
+      <div class="column-base"></div>
+      <div class="column-pillars">
+        <div class="pillar"></div>
+        <div class="pillar"></div>
+        <div class="pillar"></div>
+      </div>
+      <div class="column-base"></div>
+      <div class="column-top"></div>
+    </div>
+    <div class="company-name">ICTINUS</div>
+    <div class="contractors">CONTRACTORS</div>
+    <div class="tagline">Building & Renovation Excellence in London</div>
+    <div class="website">ictinuscontractors.co.uk</div>
+  </div>
+</body>
+</html>

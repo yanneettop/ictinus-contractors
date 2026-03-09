@@ -1,0 +1,49 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#b8860b"/>
+      <stop offset="50%" style="stop-color:#daa520"/>
+      <stop offset="100%" style="stop-color:#b8860b"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Decorative lines -->
+  <line x1="100" y1="200" x2="300" y2="200" stroke="url(#gold)" stroke-width="2"/>
+  <line x1="900" y1="200" x2="1100" y2="200" stroke="url(#gold)" stroke-width="2"/>
+  <line x1="100" y1="430" x2="300" y2="430" stroke="url(#gold)" stroke-width="2"/>
+  <line x1="900" y1="430" x2="1100" y2="430" stroke="url(#gold)" stroke-width="2"/>
+  
+  <!-- Corner accents -->
+  <path d="M50,50 L50,120 M50,50 L120,50" stroke="url(#gold)" stroke-width="3" fill="none"/>
+  <path d="M1150,50 L1150,120 M1150,50 L1080,50" stroke="url(#gold)" stroke-width="3" fill="none"/>
+  <path d="M50,580 L50,510 M50,580 L120,580" stroke="url(#gold)" stroke-width="3" fill="none"/>
+  <path d="M1150,580 L1150,510 M1150,580 L1080,580" stroke="url(#gold)" stroke-width="3" fill="none"/>
+  
+  <!-- Greek column icon -->
+  <g transform="translate(540, 120)">
+    <rect x="20" y="0" width="80" height="15" fill="url(#gold)" rx="2"/>
+    <rect x="25" y="15" width="70" height="10" fill="url(#gold)"/>
+    <rect x="30" y="25" width="12" height="80" fill="url(#gold)"/>
+    <rect x="54" y="25" width="12" height="80" fill="url(#gold)"/>
+    <rect x="78" y="25" width="12" height="80" fill="url(#gold)"/>
+    <rect x="25" y="105" width="70" height="10" fill="url(#gold)"/>
+    <rect x="20" y="115" width="80" height="15" fill="url(#gold)" rx="2"/>
+  </g>
+  
+  <!-- Company name -->
+  <text x="600" y="320" font-family="Georgia, serif" font-size="72" font-weight="bold" fill="#ffffff" text-anchor="middle">ICTINUS</text>
+  <text x="600" y="380" font-family="Georgia, serif" font-size="36" fill="url(#gold)" text-anchor="middle" letter-spacing="8">CONTRACTORS</text>
+  
+  <!-- Tagline -->
+  <text x="600" y="480" font-family="Arial, sans-serif" font-size="24" fill="#cccccc" text-anchor="middle">Building &amp; Renovation Excellence in London</text>
+  
+  <!-- Contact hint -->
+  <text x="600" y="560" font-family="Arial, sans-serif" font-size="18" fill="#888888" text-anchor="middle">ictinuscontractors.co.uk</text>
+</svg>
