@@ -1,27 +1,27 @@
 const pairs = [
   {
-    title: 'Kitchen Refresh',
+    title: 'Living Room Decoration',
     before: {
       src: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?q=80&w=800&auto=format&fit=crop',
-      alt: 'Kitchen before renovation',
+      alt: 'Living room before decoration',
     },
     after: {
       src: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=800&auto=format&fit=crop',
-      alt: 'Kitchen after renovation',
+      alt: 'Living room after decoration',
     },
-    caption: 'Full strip-out and refit with new cabinetry, worktops, and integrated lighting.',
+    caption: 'Full preparation, plastering repairs, and professional painting for a clean, modern finish.',
   },
   {
-    title: 'Bathroom Re-sealing & Repair',
+    title: 'Bathroom Refurbishment',
     before: {
       src: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop',
-      alt: 'Bathroom before repair',
+      alt: 'Bathroom before refurbishment',
     },
     after: {
       src: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=80&w=800&auto=format&fit=crop',
-      alt: 'Bathroom after repair',
+      alt: 'Bathroom after refurbishment',
     },
-    caption: 'Professional re-sealing, grout repair, and fixture replacement for a clean, lasting finish.',
+    caption: 'Complete strip-out and refit including new tiling, fixtures, and all finishing works.',
   },
 ]
 

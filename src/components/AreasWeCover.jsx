@@ -1,6 +1,8 @@
 const areas = [
-  'Shoreditch', 'Hackney', 'Bethnal Green', 'Canary Wharf',
-  'Stratford', 'Islington', 'Greenwich', 'Central London',
+  'Hackney', 'Shoreditch', 'Bethnal Green', 'Canary Wharf',
+  'Stratford', 'Islington', 'Greenwich', 'Tower Hamlets',
+  'Camden', 'Kensington', 'Chelsea', 'Fulham',
+  'Southwark', 'Lewisham', 'Brixton', 'Central London',
 ]
 
 export default function AreasWeCover() {
@@ -13,7 +15,7 @@ export default function AreasWeCover() {
         <p className="ict-section-label">Coverage</p>
         <h2 className="ict-section-heading">Areas We Cover</h2>
         <p className="ict-areas-copy">
-          Based in East London, we work across all London boroughs including:
+          Based in East London, Ictinus Contractors provides professional decorating, refurbishment, and finishing services across all London boroughs including:
         </p>
 
         <div className="ict-areas-list" data-reveal>

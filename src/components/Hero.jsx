@@ -70,14 +70,14 @@ export default function Hero() {
           className={`font-['Playfair_Display'] text-4xl md:text-6xl font-bold text-white mb-6 leading-tight transition-all duration-1000 delay-200 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           style={{ textShadow: '0 2px 16px rgba(0,0,0,0.45)' }}
         >
-          Handyman &amp; Renovation<br />Work in London
+          Premium Decorating &amp;<br />Refurbishment Services<br />Across London
         </h1>
 
         <p
           className={`font-['Lora'] text-lg md:text-xl text-[#CBD5E1] mb-12 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 delay-500 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           style={{ textShadow: '0 1px 8px rgba(0,0,0,0.35)' }}
         >
-          Small projects to full refurbishments. High standards, clean finish, clear communication.
+          High-quality decorating, refurbishment, and finishing services across London — combining reliable project management, skilled workmanship, and a professional client experience.
         </p>
 
         <div className={`flex flex-col sm:flex-row gap-4 justify-center transition-all duration-1000 delay-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
@@ -85,7 +85,7 @@ export default function Hero() {
             onClick={() => scrollTo('quote')}
             className="group font-['Lora'] font-semibold text-base tracking-wide px-8 py-4 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-[#D4AF37]/40 flex items-center justify-center gap-2"
           >
-            Request a Quote
+            Request a Free Quote
             <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
@@ -94,7 +94,7 @@ export default function Hero() {
             onClick={() => scrollTo('services')}
             className="font-['Lora'] font-semibold text-base tracking-wide px-8 py-4 rounded-lg text-[#D4AF37] border-2 border-[#D4AF37] transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#1C1714] flex items-center justify-center gap-2"
           >
-            View Services
+            View Our Services
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

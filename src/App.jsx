@@ -2,13 +2,15 @@ import { useEffect } from 'react'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import TrustRow from './components/TrustRow'
+import AboutSection from './components/AboutSection'
 import Services from './components/Services'
-import SmallerProjects from './components/SmallerProjects'
 import WhyChooseUs from './components/WhyChooseUs'
 import Portfolio from './components/Portfolio'
 import BeforeAfter from './components/BeforeAfter'
+import HowWeWork from './components/HowWeWork'
 import Testimonials from './components/Testimonials'
 import QuoteForm from './components/QuoteForm'
+import FinalCTA from './components/FinalCTA'
 import AreasWeCover from './components/AreasWeCover'
 import Footer from './components/Footer'
 
@@ -35,13 +37,15 @@ export default function App() {
       <Nav />
       <Hero />
       <TrustRow />
+      <AboutSection />
       <Services />
-      <SmallerProjects />
       <WhyChooseUs />
       <Portfolio />
       <BeforeAfter />
+      <HowWeWork />
       <Testimonials />
       <QuoteForm />
+      <FinalCTA />
       <AreasWeCover />
       <Footer />
     </div>

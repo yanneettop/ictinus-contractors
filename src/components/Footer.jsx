@@ -1,10 +1,11 @@
 const mainServices = [
-  'General Building',
-  'Full Renovations',
-  'Bathroom Fitting',
   'Painting & Decorating',
-  'Flooring',
-  'Plasterboarding',
+  'Wallpapering',
+  'Plastering',
+  'Hard Flooring',
+  'Bathroom Fitting',
+  'Property Refurbishment',
+  'Finishing Carpentry',
 ]
 
 export default function Footer() {
@@ -22,11 +23,11 @@ export default function Footer() {
               ICTINUS
             </p>
             <p className="font-['Lora'] text-sm text-[#94A3B8] leading-relaxed mb-4">
-              London-based handyman and renovation specialists. High standards, clean finish,
-              clear communication — on every project.
+              Professional decorating, refurbishment, and finishing services across London.
+              Premium results, reliable project management, and clear communication on every job.
             </p>
             <p className="ict-footer-insurance">
-              Fully insured contractor working across London.
+              Fully insured · 12+ years experience · London-wide coverage
             </p>
           </div>
 

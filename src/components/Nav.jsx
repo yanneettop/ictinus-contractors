@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 const links = [
   ['HOME',         'top'],
+  ['ABOUT',        'about'],
   ['SERVICES',     'services'],
   ['PORTFOLIO',    'portfolio'],
   ['TESTIMONIALS', 'testimonials'],

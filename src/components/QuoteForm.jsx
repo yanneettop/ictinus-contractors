@@ -1,18 +1,14 @@
 import { useState } from 'react'
 
 const SERVICE_OPTIONS = [
-  'General Building',
-  'Renovations',
-  'Bathroom Fitting',
-  'Plasterboarding',
   'Painting & Decorating',
-  'Flooring',
-  'TV & Media Mounting',
-  'Door Repairs',
-  'Sealing & Silicone',
-  'Lighting & Electrical',
-  'Minor Plumbing',
-  'Furniture Installation',
+  'Wallpapering',
+  'Plastering',
+  'Hard Flooring Installation',
+  'Bathroom Fitting',
+  'Property Refurbishment',
+  'Finishing Carpentry & Detail Work',
+  'Multiple Services / Full Project',
   'Other',
 ]
 
@@ -67,10 +63,10 @@ export default function QuoteForm() {
     <section id="quote" className="ict-quote-section">
       <div className="ict-quote-inner">
         <p className="ict-quote-label">Get in Touch</p>
-        <h2 className="ict-quote-heading">Request a Quote</h2>
+        <h2 className="ict-quote-heading">Request a Free Quote</h2>
         <p className="ict-quote-subtitle">
-          Tell us about your project and we&rsquo;ll reply with a written quote and estimated
-          timeline.
+          Tell us about your project and we&rsquo;ll get back to you with a detailed quote
+          and estimated timeline — no obligation.
         </p>
 
         <form className="ict-form-card" onSubmit={submit} noValidate data-reveal style={{ transitionDelay: '80ms' }}>
