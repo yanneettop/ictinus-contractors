@@ -59,8 +59,8 @@ export default function HowWeWork() {
 
               {/* Content */}
               <div className="pt-1 pb-2">
-                <h3 className="font-['Playfair_Display'] text-[1.1rem] font-semibold text-[#1C1714] mb-1.5">{title}</h3>
-                <p className="font-['Lora'] text-[0.88rem] text-[#5A5048] leading-relaxed max-w-xl">{desc}</p>
+                <h3 className="font-['Playfair_Display'] text-[1.125rem] font-semibold text-[#1C1714] mb-2.5">{title}</h3>
+                <p className="font-['Lora'] text-[0.9375rem] text-[#5A5048] leading-[1.7] max-w-xl">{desc}</p>
               </div>
             </div>
           ))}

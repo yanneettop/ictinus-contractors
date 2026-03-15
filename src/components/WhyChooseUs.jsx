@@ -53,10 +53,10 @@ export default function WhyChooseUs() {
 
         <div className="text-center mb-14" data-reveal>
           <p className="ict-section-label">Why Choose Us</p>
-          <h2 className="font-['Playfair_Display'] text-3xl md:text-[2.5rem] font-semibold text-[#1C1714] mb-5 leading-tight">
+          <h2 className="font-['Playfair_Display'] text-[2rem] md:text-[2.625rem] lg:text-[2.75rem] font-semibold text-[#1C1714] mb-6 leading-[1.2] tracking-[-0.015em] max-w-[26rem] mx-auto">
             Why Clients Trust Ictinus Contractors
           </h2>
-          <p className="text-[#5A5048] text-[0.95rem] leading-relaxed max-w-2xl mx-auto font-['Lora']">
+          <p className="text-[#5A5048] text-[1.0625rem] leading-[1.78] max-w-[42rem] mx-auto font-['Lora']">
             Rated 9.97 out of 10 on Checkatrade and 4.9 on MyBuilder — our reputation is built on
             consistent results, honest communication, and a professional approach to every project.
           </p>
@@ -68,20 +68,21 @@ export default function WhyChooseUs() {
               key={title}
               data-reveal
               style={{ transitionDelay: `${i * 80}ms` }}
-              className="group bg-white p-7 rounded-xl border border-[#D4AF37]/15 hover:border-[#D4AF37]/35 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md"
+              className="group bg-[#FDFCF9] p-7 rounded-[14px] border border-[rgba(212,175,55,0.2)] hover:border-[rgba(212,175,55,0.4)] transition-all duration-300 hover:-translate-y-[3px] shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(212,175,55,0.07)]"
             >
-              <div className="w-11 h-11 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-[#D4AF37]/20 transition-colors duration-300">
+              {/* Icon — soft square container, more architectural than full circle */}
+              <div className="w-10 h-10 bg-[rgba(212,175,55,0.1)] rounded-[10px] flex items-center justify-center mb-5 group-hover:bg-[rgba(212,175,55,0.18)] transition-colors duration-300">
                 <svg
-                  className="w-5 h-5 text-[#B08D2A]"
+                  className="w-[1.15rem] h-[1.15rem] text-[#B08D2A]"
                   fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"
                 >
                   {icon}
                 </svg>
               </div>
-              <h3 className="font-['Playfair_Display'] text-[1.1rem] font-semibold text-[#1C1714] mb-2">
+              <h3 className="font-['Playfair_Display'] text-[1.125rem] font-semibold text-[#1C1714] mb-3 leading-snug tracking-[-0.01em]">
                 {title}
               </h3>
-              <p className="text-[#5A5048] text-[0.85rem] leading-relaxed font-['Lora']">
+              <p className="text-[#5A5048] text-[0.9375rem] leading-[1.68] font-['Lora']">
                 {description}
               </p>
             </div>

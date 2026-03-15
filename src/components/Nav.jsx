@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const links = [
-  ['HOME',         'top'],
-  ['ABOUT',        'about'],
-  ['SERVICES',     'services'],
-  ['PORTFOLIO',    'portfolio'],
-  ['TESTIMONIALS', 'testimonials'],
-  ['CONTACT',      'quote'],
+  { label: 'HOME',         id: 'top',          route: '/' },
+  { label: 'ABOUT',        id: 'about',         route: null },
+  { label: 'SERVICES',     id: null,            route: '/services' },
+  { label: 'PORTFOLIO',    id: 'portfolio',     route: null },
+  { label: 'TESTIMONIALS', id: 'testimonials',  route: null },
+  { label: 'CONTACT',      id: 'quote',         route: null },
 ]
 
 function ColumnIcon({ className }) {
@@ -20,8 +21,11 @@ function ColumnIcon({ className }) {
 }
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled]   = useState(false)
+  const [menuOpen, setMenuOpen]   = useState(false)
+  const navigate                  = useNavigate()
+  const location                  = useLocation()
+  const isServicesPage            = location.pathname === '/services'
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 30)
@@ -29,19 +33,51 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  const scrollTo = (id) => {
-    if (id === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-    }
+  // Close mobile menu and reset scroll position on route change
+  useEffect(() => { setMenuOpen(false) }, [location.pathname])
+
+  const handleLink = (link) => {
     setMenuOpen(false)
+
+    // Link has its own page route (e.g. /services)
+    if (link.route && link.route !== '/') {
+      navigate(link.route)
+      return
+    }
+
+    // HOME — go to top of homepage
+    if (link.id === 'top' || link.route === '/') {
+      if (location.pathname === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } else {
+        navigate('/')
+      }
+      return
+    }
+
+    // Section anchor — scroll if on homepage, navigate with hash otherwise
+    if (location.pathname === '/') {
+      document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      navigate(`/#${link.id}`)
+    }
   }
+
+  const handleQuote = () => {
+    setMenuOpen(false)
+    if (location.pathname === '/') {
+      document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      navigate('/#quote')
+    }
+  }
+
+  const navSolid = scrolled || isServicesPage
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        navSolid
           ? 'bg-[#1C1714]/96 backdrop-blur-lg border-b border-[#D4AF37]/15 shadow-lg shadow-black/10'
           : 'bg-transparent'
       }`}
@@ -50,18 +86,16 @@ export default function Nav() {
 
         {/* Logo */}
         <button
-          onClick={() => scrollTo('top')}
+          onClick={() => handleLink({ id: 'top', route: '/' })}
           className="flex items-center gap-3 flex-shrink-0 group"
-          aria-label="Go to top"
+          aria-label="Go to homepage"
         >
           <ColumnIcon className="text-[#D4AF37] transition-colors duration-300" />
           <div className="flex flex-col leading-none text-left">
             <span className="font-['Playfair_Display'] text-[1.3rem] font-semibold tracking-[0.24em] uppercase text-[#D4AF37]">
               ICTINUS
             </span>
-            <span
-              className="font-['Playfair_Display'] text-[0.95rem] font-semibold uppercase tracking-[0.10em] mt-[2px] text-[#D4AF37]"
-            >
+            <span className="font-['Playfair_Display'] text-[0.95rem] font-semibold uppercase tracking-[0.10em] mt-[2px] text-[#D4AF37]">
               CONTRACTORS
             </span>
           </div>
@@ -69,25 +103,32 @@ export default function Nav() {
 
         {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-7 flex-1 justify-center">
-          {links.map(([label, id]) => (
-            <button
-              key={id}
-              onClick={() => scrollTo(id)}
-              className={`font-['Lora'] text-[0.7rem] tracking-[0.14em] uppercase transition-colors duration-200 ${
-                scrolled
-                  ? 'text-[#C9B09A] hover:text-[#D4AF37]'
-                  : 'text-[#E6DCC8]/80 hover:text-white'
-              }`}
-            >
-              {label}
-            </button>
-          ))}
+          {links.map((link) => {
+            const active =
+              (link.route === '/services' && isServicesPage) ||
+              (link.route === '/'         && !isServicesPage && location.pathname === '/')
+            return (
+              <button
+                key={link.label}
+                onClick={() => handleLink(link)}
+                className={`font-['Lora'] text-[0.75rem] tracking-[0.14em] uppercase transition-colors duration-200 ${
+                  active
+                    ? 'text-[#D4AF37]'
+                    : navSolid
+                    ? 'text-[#C9B09A] hover:text-[#D4AF37]'
+                    : 'text-[#E6DCC8]/80 hover:text-white'
+                }`}
+              >
+                {link.label}
+              </button>
+            )
+          })}
         </div>
 
         {/* GET A QUOTE button — desktop */}
         <button
-          onClick={() => scrollTo('quote')}
-          className="hidden lg:block flex-shrink-0 font-['Lora'] text-[0.7rem] font-semibold tracking-[0.14em] uppercase px-6 py-[0.65rem] rounded-lg bg-gradient-gold text-[#0F1923] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_16px_rgba(212,175,55,0.25)]"
+          onClick={handleQuote}
+          className="hidden lg:block flex-shrink-0 font-['Lora'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-6 py-[0.65rem] rounded-lg bg-gradient-gold text-[#0F1923] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_16px_rgba(212,175,55,0.25)]"
         >
           GET A QUOTE
         </button>
@@ -117,18 +158,18 @@ export default function Nav() {
         }`}
       >
         <div className="px-5 space-y-0.5">
-          {links.map(([label, id]) => (
+          {links.map((link) => (
             <button
-              key={id}
-              onClick={() => scrollTo(id)}
-              className="block w-full text-left font-['Lora'] text-[0.72rem] tracking-[0.14em] uppercase text-[#C9B09A] py-2.5 hover:text-[#D4AF37] transition-colors"
+              key={link.label}
+              onClick={() => handleLink(link)}
+              className="block w-full text-left font-['Lora'] text-[0.75rem] tracking-[0.14em] uppercase text-[#C9B09A] py-2.5 hover:text-[#D4AF37] transition-colors"
             >
-              {label}
+              {link.label}
             </button>
           ))}
           <button
-            onClick={() => scrollTo('quote')}
-            className="block w-full font-['Lora'] text-[0.72rem] font-semibold tracking-[0.14em] uppercase px-5 py-3 rounded-lg bg-gradient-gold text-[#1C1714] text-center mt-3"
+            onClick={handleQuote}
+            className="block w-full font-['Lora'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-5 py-3 rounded-lg bg-gradient-gold text-[#1C1714] text-center mt-3"
           >
             GET A QUOTE
           </button>

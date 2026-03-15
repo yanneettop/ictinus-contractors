@@ -30,7 +30,9 @@ export default function QuoteForm() {
   const handle = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 
-  const submit = (e) => {
+  const [sending, setSending] = useState(false)
+
+  const submit = async (e) => {
     e.preventDefault()
     setNotice(null)
 
@@ -48,15 +50,36 @@ export default function QuoteForm() {
       return
     }
 
-    // TODO: Replace with Formspree/Basin POST when ready:
-    // fetch('https://formspree.io/f/YOUR_FORM_ID', {
-    //   method: 'POST',
-    //   body: new FormData(e.target),
-    //   headers: { Accept: 'application/json' },
-    // }).then(...)
-
-    setSubmitted(true)
-    setNotice({ type: 'info', msg: null })
+    setSending(true)
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: 'aa27f271-0058-42f0-b3e2-464fbbd41c8e',
+          subject: `New Quote Request – ${form.service} (${form.postcode})`,
+          from_name: form.name,
+          replyto: form.email,
+          name: form.name,
+          email: form.email,
+          postcode: form.postcode,
+          service: form.service,
+          description: form.description,
+          photo_links: form.photoLinks || 'None provided',
+          preferred_date: form.preferredDate || 'Not specified',
+        }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setSubmitted(true)
+      } else {
+        setNotice({ type: 'error', msg: 'Something went wrong. Please email us directly.' })
+      }
+    } catch {
+      setNotice({ type: 'error', msg: 'Network error. Please email us directly.' })
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -146,9 +169,9 @@ export default function QuoteForm() {
               <button
                 type="submit"
                 className="ict-submit-btn"
-                disabled={submitted}
+                disabled={submitted || sending}
               >
-                {submitted ? 'Received – Thank You' : 'Send Enquiry'}
+                {submitted ? 'Received – Thank You' : sending ? 'Sending…' : 'Send Enquiry'}
               </button>
             </div>
 
@@ -161,29 +184,21 @@ export default function QuoteForm() {
             )}
             {submitted && (
               <div className="ict-form-notice info full-width" role="status">
-                <strong>Thank you for your interest!</strong>
-                Quote requests by email will be available soon. For now, please email us directly at{' '}
-                <a
-                  href="mailto:info@ictinuscontractors.co.uk"
-                  style={{ color: '#B08D2A', fontWeight: 600, textDecoration: 'underline' }}
-                >
-                  info@ictinuscontractors.co.uk
-                </a>.
+                <strong>Thank you, {form.name.split(' ')[0]}!</strong>{' '}
+                We've received your enquiry and will be in touch within 1–2 business days.
               </div>
             )}
           </div>
         </form>
 
         <p className="ict-email-note">
-          Quote requests by email will be available soon. For now, please use the contact section
-          or email{' '}
+          Prefer to email directly?{' '}
           <a
             href="mailto:info@ictinuscontractors.co.uk"
             style={{ color: '#B08D2A', fontWeight: 600 }}
           >
             info@ictinuscontractors.co.uk
-          </a>{' '}
-          directly.
+          </a>
         </p>
       </div>
     </section>

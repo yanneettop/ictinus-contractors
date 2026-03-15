@@ -80,26 +80,27 @@ export default function Services() {
           across residential and commercial projects in London.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-14">
           {services.map(({ title, desc, icon }, i) => (
             <div
               key={title}
               data-reveal
               style={{ transitionDelay: `${i * 70}ms` }}
-              className="group bg-white border border-[#D4AF37]/15 rounded-xl p-6 hover-lift cursor-default"
+              className="group bg-[#FDFCF9] border border-[rgba(212,175,55,0.2)] rounded-[14px] p-7 cursor-default shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:-translate-y-[3px] hover:border-[rgba(212,175,55,0.4)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(212,175,55,0.07)] transition-all duration-300"
             >
-              <div className="w-11 h-11 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mb-4 transition-colors duration-300 group-hover:bg-[#D4AF37]/20">
+              {/* Icon container — soft square, architectural */}
+              <div className="w-10 h-10 bg-[rgba(212,175,55,0.1)] rounded-[10px] flex items-center justify-center mb-5 transition-colors duration-300 group-hover:bg-[rgba(212,175,55,0.18)]">
                 <svg
-                  className="w-5 h-5 text-[#D4AF37] transition-colors duration-300"
+                  className="w-[1.15rem] h-[1.15rem] text-[#B08D2A] transition-colors duration-300"
                   fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"
                 >
                   {icon}
                 </svg>
               </div>
-              <h3 className="font-['Playfair_Display'] text-[1.05rem] font-semibold text-[#1C1714] mb-2 group-hover:text-[#B08D2A] transition-colors duration-300">
+              <h3 className="font-['Playfair_Display'] text-[1.125rem] font-semibold text-[#1C1714] mb-2.5 leading-snug tracking-[-0.01em] group-hover:text-[#B08D2A] transition-colors duration-300">
                 {title}
               </h3>
-              <p className="font-['Lora'] text-[0.85rem] text-[#5A5048] leading-relaxed">
+              <p className="font-['Lora'] text-[0.9375rem] text-[#5A5048] leading-[1.68]">
                 {desc}
               </p>
             </div>
@@ -109,7 +110,7 @@ export default function Services() {
         <div className="text-center">
           <button
             onClick={() => scrollTo('quote')}
-            className="font-['Lora'] font-semibold text-sm tracking-wider px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
+            className="font-['Lora'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
           >
             Request a Free Quote
           </button>

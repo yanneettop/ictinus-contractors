@@ -35,11 +35,11 @@ body {
     background: linear-gradient(135deg, #C5A048, #a88636);
   }
   .hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   }
   .hover-lift:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 24px rgba(212,175,55,0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(212,175,55,0.07);
   }
 }
 
@@ -114,7 +114,7 @@ body {
 .ict-trust-icon svg { width: 1.1rem; height: 1.1rem; color: #B08D2A; }
 .ict-trust-text {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.9rem;
+  font-size: 0.9375rem;
   color: #1C1714;
   font-weight: 500;
   letter-spacing: 0.01em;
@@ -147,45 +147,56 @@ body {
 }
 
 /* ─────────────────────────── Section Shared ─────────────────────── */
+
+/* Eyebrow / section label */
 .ict-section-label {
   font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;       /* 13px — slightly more readable than 12px */
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: #A88636;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.875rem;    /* more breathing room before the heading */
 }
+
+/* Main section heading */
 .ict-section-heading {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.75rem;
+  font-size: 2rem;             /* 32px mobile — up from 28px */
   font-weight: 600;
   color: var(--ict-charcoal-ground);
   text-align: center;
-  margin-bottom: 0.75rem;
-  line-height: 1.25;
+  margin-bottom: 1.125rem;    /* more space before subtitle */
+  line-height: 1.2;
+  letter-spacing: -0.015em;   /* slightly tighter for premium feel */
 }
 @media (min-width: 768px) {
-  .ict-section-heading { font-size: 2.25rem; }
+  .ict-section-heading { font-size: 2.625rem; }   /* 42px tablet/desktop */
 }
+@media (min-width: 1024px) {
+  .ict-section-heading { font-size: 2.75rem; }    /* 44px large desktop */
+}
+
+/* Supporting paragraph under heading */
 .ict-section-subtitle {
-  font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 0.95rem;
-  color: var(--ict-slate-text);
+  font-family: 'Lora', Georgia, serif;   /* serif for warmth/editorial feel */
+  font-size: 1.0625rem;         /* 17px — up from 15.2px */
+  color: #5A5048;
   text-align: center;
-  max-width: 36rem;
-  margin: 0 auto 2.5rem;
-  line-height: 1.6;
+  max-width: 42rem;             /* slightly wider for readability */
+  margin: 0 auto 3.25rem;       /* more space before cards/content */
+  line-height: 1.78;            /* spacious and easy to read */
 }
+
 .ict-section-closing {
-  font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 0.92rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.9375rem;
   color: var(--ict-slate-text);
   text-align: center;
   max-width: 40rem;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.7;
   font-style: italic;
 }
 
@@ -211,40 +222,46 @@ body {
   .ict-small-grid { grid-template-columns: repeat(3, 1fr); }
 }
 .ict-small-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(212,175,55,0.15);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  background: #FDFCF9;                          /* warm ivory — not cold white */
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 0.875rem;                       /* 14px */
+  padding: 1.75rem;                              /* generous inner breathing room */
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .ict-small-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(212,175,55,0.12);
-  border-color: rgba(212,175,55,0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(212,175,55,0.06);
+  border-color: rgba(212,175,55,0.38);
 }
 .ict-small-card-icon {
   width: 2.5rem;
   height: 2.5rem;
-  background: rgba(212,175,55,0.12);
-  border-radius: 50%;
+  background: rgba(212,175,55,0.1);
+  border-radius: 0.625rem;                       /* 10px soft square — more architectural */
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1rem;                           /* more space before title */
 }
-.ict-small-card-icon svg { width: 1.2rem; height: 1.2rem; color: #B08D2A; }
+.ict-small-card-icon svg { width: 1.15rem; height: 1.15rem; color: #B08D2A; }
+
+/* Card title */
 .ict-small-card h3 {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.05rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #1C1714;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.625rem;
+  letter-spacing: -0.01em;
 }
+
+/* Card body text */
 .ict-small-card p {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.85rem;
+  font-size: 0.9375rem;
   color: #5A5048;
-  line-height: 1.55;
+  line-height: 1.68;
 }
 
 /* ─────────────────────────── Areas We Cover ─────────────────────── */
@@ -260,10 +277,10 @@ body {
 }
 .ict-areas-copy {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.95rem;
+  font-size: 1.0625rem;        /* 17px — up from 15.2px */
   color: #5A5048;
-  line-height: 1.65;
-  margin-bottom: 1.5rem;
+  line-height: 1.75;
+  margin-bottom: 2rem;         /* more space before tags */
 }
 .ict-areas-list {
   display: flex;
@@ -274,21 +291,21 @@ body {
 }
 .ict-area-tag {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.82rem;
+  font-size: 0.875rem;         /* 14px — up from 13.1px */
   font-weight: 500;
   color: #1C1714;
   background: #FFFFFF;
   border: 1px solid rgba(212,175,55,0.3);
   border-radius: 2rem;
-  padding: 0.35rem 0.9rem;
+  padding: 0.4rem 1rem;        /* slightly more padding */
   letter-spacing: 0.01em;
   white-space: nowrap;
 }
 .ict-areas-cta {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.9rem;
+  font-size: 0.9375rem;        /* 15px — up from 14.4px */
   color: #5A5048;
-  line-height: 1.55;
+  line-height: 1.65;
 }
 .ict-areas-cta button {
   color: #B08D2A;
@@ -313,36 +330,43 @@ body {
   max-width: 40rem;
   margin: 0 auto;
 }
+
+/* Quote eyebrow label */
 .ict-quote-label {
-  font-family: 'Lora', Georgia, serif;
-  font-size: 0.75rem;
+  font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.8125rem;        /* consistent with ict-section-label */
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: #B08D2A;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.875rem;     /* more breathing room before heading */
 }
+
+/* Quote section heading */
 .ict-quote-heading {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 2rem;
+  font-size: 2.25rem;          /* 36px mobile — up from 32px */
   font-weight: 600;
   color: #1C1714;
   text-align: center;
-  margin-bottom: 0.75rem;
-  line-height: 1.25;
+  margin-bottom: 1.125rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
 }
 @media (min-width: 768px) {
-  .ict-quote-heading { font-size: 2.5rem; }
+  .ict-quote-heading { font-size: 2.75rem; }   /* 44px desktop */
 }
+
+/* Quote supporting paragraph */
 .ict-quote-subtitle {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.95rem;
+  font-size: 1.0625rem;        /* 17px */
   color: #5A5048;
   text-align: center;
-  max-width: 32rem;
-  margin: 0 auto 2.5rem;
-  line-height: 1.6;
+  max-width: 34rem;
+  margin: 0 auto 3rem;
+  line-height: 1.75;
 }
 .ict-form-card {
   background: #FFFFFF;
@@ -364,25 +388,29 @@ body {
 }
 .ict-form-group { display: flex; flex-direction: column; }
 .ict-form-group.full-width { grid-column: 1 / -1; }
+
+/* Form labels */
 .ict-form-group label {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.8rem;
+  font-size: 0.875rem;         /* 14px — up from 12.8px */
   font-weight: 600;
   color: #1C1714;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   letter-spacing: 0.02em;
 }
 .ict-form-group label .req { color: #B08D2A; margin-left: 2px; }
+
+/* Form inputs */
 .ict-form-group input,
 .ict-form-group select,
 .ict-form-group textarea {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.9rem;
+  font-size: 0.9375rem;        /* 15px — up from 14.4px */
   color: #1C1714;
   background: #FAF9F6;
   border: 1px solid rgba(212,175,55,0.25);
   border-radius: 0.5rem;
-  padding: 0.65rem 0.85rem;
+  padding: 0.7rem 0.9rem;      /* slightly more breathing room */
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -399,24 +427,26 @@ body {
 .ict-form-group textarea { resize: vertical; min-height: 5rem; }
 .ict-photo-note {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.78rem;
+  font-size: 0.8125rem;
   color: #5A5048;
-  margin-top: 0.3rem;
+  margin-top: 0.35rem;
   font-style: italic;
 }
+
+/* Submit button */
 .ict-submit-btn {
   display: block;
   width: 100%;
   font-family: 'Lora', Georgia, serif;
-  font-size: 1rem;
+  font-size: 0.9375rem;        /* 15px — more precise than 16px */
   font-weight: 600;
   color: #1C1714;
   background: linear-gradient(135deg, #D4AF37, #C9A227);
   border: none;
   border-radius: 0.5rem;
-  padding: 0.85rem 2rem;
+  padding: 0.9rem 2rem;
   cursor: pointer;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   transition: transform 0.2s, box-shadow 0.2s;
   margin-top: 0.5rem;
 }
@@ -432,11 +462,11 @@ body {
 }
 .ict-email-note {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.82rem;
+  font-size: 0.875rem;
   color: #9A9590;
   text-align: center;
   margin-top: 1.5rem;
-  line-height: 1.55;
+  line-height: 1.65;
   border-top: 1px solid rgba(212,175,55,0.15);
   padding-top: 1.25rem;
 }
@@ -445,8 +475,8 @@ body {
   padding: 1rem 1.25rem;
   border-radius: 0.5rem;
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.9rem;
-  line-height: 1.55;
+  font-size: 0.9375rem;
+  line-height: 1.65;
   text-align: center;
   animation: ict-fadeIn 0.35s ease;
 }
@@ -468,12 +498,13 @@ body {
 
 /* ─────────────────────────── Before & After ─────────────────────── */
 .ict-ba-section {
-  background: #EEE8DC;
-  padding: 5rem 1rem;
-  border-top: 1px solid rgba(212,175,55,0.12);
+  background: #E8E1D5;          /* slightly richer warm tone for distinction */
+  padding: 6rem 1rem;
+  border-top: 1px solid rgba(212,175,55,0.15);
+  border-bottom: 1px solid rgba(212,175,55,0.1);
 }
 .ict-ba-inner {
-  max-width: 60rem;
+  max-width: 54rem;             /* narrower — focuses attention on the slider */
   margin: 0 auto;
 }
 .ict-ba-block {
@@ -485,13 +516,16 @@ body {
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 .ict-ba-block:last-child { margin-bottom: 0; }
+
+/* Before & After block title */
 .ict-ba-block-title {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.15rem;
+  font-size: 1.25rem;          /* 20px — up from 18.4px */
   font-weight: 600;
   color: #1C1714;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;      /* more space before images */
   text-align: center;
+  letter-spacing: -0.01em;
 }
 .ict-ba-images {
   display: flex;
@@ -527,12 +561,14 @@ body {
 }
 .ict-ba-label.before { background: rgba(28,23,20,0.82); color: #FAF9F6; }
 .ict-ba-label.after  { background: rgba(212,175,55,0.92); color: #1C1714; }
+
+/* Before & After caption */
 .ict-ba-caption {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.85rem;
+  font-size: 0.9rem;           /* 14.4px — up from 13.6px */
   color: #5A5048;
   text-align: center;
-  line-height: 1.55;
+  line-height: 1.65;
   font-style: italic;
 }
 @media (max-width: 639px) {
@@ -543,9 +579,9 @@ body {
 /* ─────────────────────────── Footer ─────────────────────────── */
 .ict-footer-insurance {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.78rem;
+  font-size: 0.8125rem;        /* 13px — up from 12.5px */
   color: rgba(255,255,255,0.4);
-  margin-top: 0.65rem;
-  line-height: 1.5;
+  margin-top: 0.75rem;
+  line-height: 1.65;
   letter-spacing: 0.01em;
 }
