@@ -15,10 +15,10 @@ export default function AboutSection() {
           {/* Left — Copy */}
           <div data-reveal>
             <p className="ict-section-label text-left mb-2">About Ictinus Contractors</p>
-            <h2 className="font-['Playfair_Display'] text-[1.75rem] md:text-[2.625rem] font-semibold text-[#1C1714] mb-5 md:mb-7 leading-[1.2] tracking-[-0.015em] text-left">
+            <h2 className="font-['Cormorant_Garamond'] text-[1.75rem] md:text-[2.625rem] font-semibold text-[#1C1714] mb-5 md:mb-7 leading-[1.2] tracking-[-0.015em] text-left">
               A London Contractor Brand<br />Built on Quality
             </h2>
-            <div className="space-y-4 sm:space-y-5 font-['Lora'] text-[0.9375rem] sm:text-[1.0625rem] text-[#5A5048] leading-[1.7] sm:leading-[1.78]">
+            <div className="space-y-4 sm:space-y-5 font-['Source_Serif_4'] text-[0.9375rem] sm:text-[1.0625rem] text-[#5A5048] leading-[1.7] sm:leading-[1.78]">
               <p>
                 Ictinus Contractors is a London-based contractor brand specialising in decorating,
                 refurbishment, and interior finishing. With over 12 years of industry experience
@@ -39,7 +39,7 @@ export default function AboutSection() {
             </div>
             <button
               onClick={() => scrollTo('quote')}
-              className="mt-8 font-['Lora'] font-semibold text-[0.9375rem] tracking-wide px-6 py-3 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-md hover:shadow-[#D4AF37]/30"
+              className="mt-8 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-6 py-3 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-md hover:shadow-[#D4AF37]/30"
             >
               Get a Free Quote
             </button>
@@ -54,10 +54,10 @@ export default function AboutSection() {
                   key={label}
                   className="text-center p-3 sm:p-5 bg-[#FDFCF9] rounded-[10px] sm:rounded-[12px] border border-[rgba(212,175,55,0.2)] shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
                 >
-                  <span className="block font-['Playfair_Display'] text-xl sm:text-2xl md:text-3xl font-bold text-[#B08D2A]">
+                  <span className="block font-['Cormorant_Garamond'] text-xl sm:text-2xl md:text-3xl font-bold text-[#B08D2A]">
                     {stat}
                   </span>
-                  <span className="block font-['Lora'] text-[0.6875rem] sm:text-[0.8125rem] text-[#5A5048] mt-1 leading-snug">
+                  <span className="block font-['Source_Serif_4'] text-[0.6875rem] sm:text-[0.8125rem] text-[#5A5048] mt-1 leading-snug">
                     {label}
                   </span>
                 </div>
@@ -79,8 +79,8 @@ export default function AboutSection() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-['Playfair_Display'] text-[1.0625rem] font-semibold text-[#1C1714] mb-1">{title}</h3>
-                    <p className="font-['Lora'] text-[0.9375rem] text-[#5A5048] leading-[1.65]">{desc}</p>
+                    <h3 className="font-['Cormorant_Garamond'] text-[1.0625rem] font-semibold text-[#1C1714] mb-1">{title}</h3>
+                    <p className="font-['Source_Serif_4'] text-[0.9375rem] text-[#5A5048] leading-[1.65]">{desc}</p>
                   </div>
                 </div>
               ))}

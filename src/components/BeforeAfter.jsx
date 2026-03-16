@@ -92,21 +92,21 @@ function ComparisonSlider({ before, after }) {
 
       {/* ── BEFORE label ── */}
       <span className="absolute top-3.5 left-4 pointer-events-none z-10">
-        <span className="font-['Montserrat'] text-[0.6rem] font-semibold uppercase tracking-[0.13em] bg-[rgba(18,13,10,0.68)] text-white/95 px-2.5 py-[0.28rem] rounded-[4px]">
+        <span className="font-['Plus_Jakarta_Sans'] text-[0.6rem] font-semibold uppercase tracking-[0.13em] bg-[rgba(18,13,10,0.68)] text-white/95 px-2.5 py-[0.28rem] rounded-[4px]">
           Before
         </span>
       </span>
 
       {/* ── AFTER label ── */}
       <span className="absolute top-3.5 right-4 pointer-events-none z-10">
-        <span className="font-['Montserrat'] text-[0.6rem] font-semibold uppercase tracking-[0.13em] bg-[rgba(212,175,55,0.88)] text-[#1C1714] px-2.5 py-[0.28rem] rounded-[4px]">
+        <span className="font-['Plus_Jakarta_Sans'] text-[0.6rem] font-semibold uppercase tracking-[0.13em] bg-[rgba(212,175,55,0.88)] text-[#1C1714] px-2.5 py-[0.28rem] rounded-[4px]">
           After
         </span>
       </span>
 
       {/* ── Drag hint — faint, bottom-centre ── */}
       <span className="absolute bottom-3.5 left-1/2 -translate-x-1/2 pointer-events-none z-10">
-        <span className="font-['Montserrat'] text-[0.575rem] font-medium uppercase tracking-[0.1em] text-white/45">
+        <span className="font-['Plus_Jakarta_Sans'] text-[0.575rem] font-medium uppercase tracking-[0.1em] text-white/45">
           ← drag to compare →
         </span>
       </span>
@@ -182,10 +182,10 @@ export default function BeforeAfter() {
               <div className="px-7 py-7 sm:px-8 sm:py-8">
                 {/* Title + scope row */}
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-y-3 gap-x-8 mb-5">
-                  <h3 className="font-['Playfair_Display'] text-[1.25rem] font-semibold text-[#1C1714] leading-snug tracking-[-0.01em] flex-shrink-0">
+                  <h3 className="font-['Cormorant_Garamond'] text-[1.25rem] font-semibold text-[#1C1714] leading-snug tracking-[-0.01em] flex-shrink-0">
                     {title}
                   </h3>
-                  <p className="font-['Montserrat'] text-[0.7rem] font-medium uppercase tracking-[0.1em] text-[#A88636] sm:text-right leading-[1.7]">
+                  <p className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-medium uppercase tracking-[0.1em] text-[#A88636] sm:text-right leading-[1.7]">
                     {scope}
                   </p>
                 </div>
@@ -194,7 +194,7 @@ export default function BeforeAfter() {
                 <div className="w-8 h-px bg-[rgba(212,175,55,0.45)] mb-5" />
 
                 {/* Caption */}
-                <p className="font-['Lora'] text-[0.9375rem] text-[#5A5048] leading-[1.72]">
+                <p className="font-['Source_Serif_4'] text-[0.9375rem] text-[#5A5048] leading-[1.72]">
                   {caption}
                 </p>
               </div>
@@ -204,12 +204,12 @@ export default function BeforeAfter() {
 
         {/* Microcopy + CTA */}
         <div className="text-center mt-14" data-reveal>
-          <p className="font-['Lora'] text-[0.9375rem] italic text-[#7A6E65] mb-6 leading-[1.7]">
+          <p className="font-['Source_Serif_4'] text-[0.9375rem] italic text-[#7A6E65] mb-6 leading-[1.7]">
             Clear transformation, careful execution, lasting finish.
           </p>
           <button
             onClick={() => scrollTo('quote')}
-            className="inline-flex items-center gap-2.5 font-['Lora'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] hover:-translate-y-0.5 transition-all duration-300 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
+            className="inline-flex items-center gap-2.5 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] hover:-translate-y-0.5 transition-all duration-300 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
           >
             Discuss a Similar Project
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">

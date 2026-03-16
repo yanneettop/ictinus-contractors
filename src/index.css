@@ -11,7 +11,7 @@
   --ict-cream-bone: #F9F7F2;
 
   /* Typography */
-  font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Lora', Georgia, 'Times New Roman', serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Source Serif 4', Georgia, 'Times New Roman', serif;
 }
 html {
   scroll-behavior: smooth;
@@ -110,7 +110,7 @@ body {
   line-height: 1.2;
 }
 .ict-trust-stat {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 0.9rem;
   font-weight: 700;
   color: #B08D2A;
@@ -137,7 +137,7 @@ body {
   .ict-trust-icon svg { width: 1.1rem; height: 1.1rem; }
 }
 .ict-trust-text {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.8125rem;
   color: #1C1714;
   font-weight: 500;
@@ -149,15 +149,18 @@ body {
 
 /* ─────────────────────────── Hero Badge ─────────────────────────── */
 .ict-hero-badge {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   margin-bottom: 1.25rem;
   opacity: 0.85;
 }
+@media (min-width: 640px) {
+  .ict-hero-badge { display: flex; }
+}
 .ict-hero-badge span {
-  font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 0.78rem;
   color: var(--ict-gold-accent);
   letter-spacing: 0.08em;
@@ -177,7 +180,7 @@ body {
 
 /* Eyebrow / section label */
 .ict-section-label {
-  font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 0.8125rem;       /* 13px — slightly more readable than 12px */
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -189,7 +192,7 @@ body {
 
 /* Main section heading */
 .ict-section-heading {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 2rem;             /* 32px mobile — up from 28px */
   font-weight: 600;
   color: var(--ict-charcoal-ground);
@@ -207,7 +210,7 @@ body {
 
 /* Supporting paragraph under heading */
 .ict-section-subtitle {
-  font-family: 'Lora', Georgia, serif;   /* serif for warmth/editorial feel */
+  font-family: 'Source Serif 4', Georgia, serif;   /* serif for warmth/editorial feel */
   font-size: 0.9375rem;         /* 15px mobile */
   color: #5A5048;
   text-align: center;
@@ -220,7 +223,7 @@ body {
 }
 
 .ict-section-closing {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.9375rem;
   color: var(--ict-slate-text);
   text-align: center;
@@ -281,7 +284,7 @@ body {
 
 /* Card title */
 .ict-small-card h3 {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.125rem;
   font-weight: 600;
   color: #1C1714;
@@ -291,7 +294,7 @@ body {
 
 /* Card body text */
 .ict-small-card p {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.9375rem;
   color: #5A5048;
   line-height: 1.68;
@@ -312,7 +315,7 @@ body {
   text-align: center;
 }
 .ict-areas-copy {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 1.0625rem;        /* 17px — up from 15.2px */
   color: #5A5048;
   line-height: 1.75;
@@ -326,7 +329,7 @@ body {
   margin-bottom: 1.75rem;
 }
 .ict-area-tag {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.875rem;         /* 14px — up from 13.1px */
   font-weight: 500;
   color: #1C1714;
@@ -338,7 +341,7 @@ body {
   white-space: nowrap;
 }
 .ict-areas-cta {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.9375rem;        /* 15px — up from 14.4px */
   color: #5A5048;
   line-height: 1.65;
@@ -372,7 +375,7 @@ body {
 
 /* Quote eyebrow label */
 .ict-quote-label {
-  font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 0.8125rem;        /* consistent with ict-section-label */
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -384,7 +387,7 @@ body {
 
 /* Quote section heading */
 .ict-quote-heading {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.75rem;          /* 28px mobile */
   font-weight: 600;
   color: #1C1714;
@@ -402,7 +405,7 @@ body {
 
 /* Quote supporting paragraph */
 .ict-quote-subtitle {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.9375rem;        /* 15px mobile */
   color: #5A5048;
   text-align: center;
@@ -439,7 +442,7 @@ body {
 
 /* Form labels */
 .ict-form-group label {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.875rem;         /* 14px — up from 12.8px */
   font-weight: 600;
   color: #1C1714;
@@ -452,7 +455,7 @@ body {
 .ict-form-group input,
 .ict-form-group select,
 .ict-form-group textarea {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.9375rem;        /* 15px — up from 14.4px */
   color: #1C1714;
   background: #FAF9F6;
@@ -474,7 +477,7 @@ body {
 .ict-form-group select option { background: #FAF9F6; color: #1C1714; }
 .ict-form-group textarea { resize: vertical; min-height: 5rem; }
 .ict-photo-note {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.8125rem;
   color: #5A5048;
   margin-top: 0.35rem;
@@ -485,7 +488,7 @@ body {
 .ict-submit-btn {
   display: block;
   width: 100%;
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.9375rem;        /* 15px — more precise than 16px */
   font-weight: 600;
   color: #1C1714;
@@ -509,7 +512,7 @@ body {
   box-shadow: none !important;
 }
 .ict-email-note {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.875rem;
   color: #9A9590;
   text-align: center;
@@ -522,7 +525,7 @@ body {
   margin-top: 1.25rem;
   padding: 1rem 1.25rem;
   border-radius: 0.5rem;
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.9375rem;
   line-height: 1.65;
   text-align: center;
@@ -570,7 +573,7 @@ body {
 
 /* Before & After block title */
 .ict-ba-block-title {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.25rem;          /* 20px — up from 18.4px */
   font-weight: 600;
   color: #1C1714;
@@ -601,7 +604,7 @@ body {
   position: absolute;
   top: 0.6rem;
   left: 0.6rem;
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.62rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -615,7 +618,7 @@ body {
 
 /* Before & After caption */
 .ict-ba-caption {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.9rem;           /* 14.4px — up from 13.6px */
   color: #5A5048;
   text-align: center;
@@ -629,7 +632,7 @@ body {
 
 /* ─────────────────────────── Footer ─────────────────────────── */
 .ict-footer-insurance {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.8125rem;        /* 13px — up from 12.5px */
   color: rgba(255,255,255,0.4);
   margin-top: 0.75rem;

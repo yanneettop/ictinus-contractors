@@ -92,10 +92,10 @@ export default function Nav() {
         >
           <ColumnIcon className="text-[#D4AF37] transition-colors duration-300" />
           <div className="flex flex-col leading-none text-left">
-            <span className="font-['Playfair_Display'] text-[1.3rem] font-semibold tracking-[0.24em] uppercase text-[#D4AF37]">
+            <span className="font-['Cormorant_Garamond'] text-[1.3rem] font-semibold tracking-[0.24em] uppercase text-[#D4AF37]">
               ICTINUS
             </span>
-            <span className="font-['Playfair_Display'] text-[0.95rem] font-semibold uppercase tracking-[0.10em] mt-[2px] text-[#D4AF37]">
+            <span className="font-['Cormorant_Garamond'] text-[0.95rem] font-semibold uppercase tracking-[0.10em] mt-[2px] text-[#D4AF37]">
               CONTRACTORS
             </span>
           </div>
@@ -111,7 +111,7 @@ export default function Nav() {
               <button
                 key={link.label}
                 onClick={() => handleLink(link)}
-                className={`font-['Lora'] text-[0.75rem] tracking-[0.14em] uppercase transition-colors duration-200 ${
+                className={`font-['Source_Serif_4'] text-[0.75rem] tracking-[0.14em] uppercase transition-colors duration-200 ${
                   active
                     ? 'text-[#D4AF37]'
                     : navSolid
@@ -128,7 +128,7 @@ export default function Nav() {
         {/* GET A QUOTE button — desktop */}
         <button
           onClick={handleQuote}
-          className="hidden lg:block flex-shrink-0 font-['Lora'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-6 py-[0.65rem] rounded-lg bg-gradient-gold text-[#0F1923] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_16px_rgba(212,175,55,0.25)]"
+          className="hidden lg:block flex-shrink-0 font-['Source_Serif_4'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-6 py-[0.65rem] rounded-lg bg-gradient-gold text-[#0F1923] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_16px_rgba(212,175,55,0.25)]"
         >
           GET A QUOTE
         </button>
@@ -162,14 +162,14 @@ export default function Nav() {
             <button
               key={link.label}
               onClick={() => handleLink(link)}
-              className="block w-full text-left font-['Lora'] text-[0.75rem] tracking-[0.14em] uppercase text-[#C9B09A] py-2.5 hover:text-[#D4AF37] transition-colors"
+              className="block w-full text-left font-['Source_Serif_4'] text-[0.75rem] tracking-[0.14em] uppercase text-[#C9B09A] py-2.5 hover:text-[#D4AF37] transition-colors"
             >
               {link.label}
             </button>
           ))}
           <button
             onClick={handleQuote}
-            className="block w-full font-['Lora'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-5 py-3 rounded-lg bg-gradient-gold text-[#1C1714] text-center mt-3"
+            className="block w-full font-['Source_Serif_4'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-5 py-3 rounded-lg bg-gradient-gold text-[#1C1714] text-center mt-3"
           >
             GET A QUOTE
           </button>

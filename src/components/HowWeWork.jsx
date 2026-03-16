@@ -54,13 +54,13 @@ export default function HowWeWork() {
 
               {/* Number circle */}
               <div className="flex-shrink-0 w-11 h-11 sm:w-[3.25rem] sm:h-[3.25rem] rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/25 flex items-center justify-center z-10">
-                <span className="font-['Playfair_Display'] text-[0.85rem] sm:text-[0.95rem] font-bold text-[#B08D2A]">{num}</span>
+                <span className="font-['Cormorant_Garamond'] text-[0.85rem] sm:text-[0.95rem] font-bold text-[#B08D2A]">{num}</span>
               </div>
 
               {/* Content */}
               <div className="pt-1 pb-2">
-                <h3 className="font-['Playfair_Display'] text-[1.125rem] font-semibold text-[#1C1714] mb-2.5">{title}</h3>
-                <p className="font-['Lora'] text-[0.9375rem] text-[#5A5048] leading-[1.7] max-w-xl">{desc}</p>
+                <h3 className="font-['Cormorant_Garamond'] text-[1.125rem] font-semibold text-[#1C1714] mb-2.5">{title}</h3>
+                <p className="font-['Source_Serif_4'] text-[0.9375rem] text-[#5A5048] leading-[1.7] max-w-xl">{desc}</p>
               </div>
             </div>
           ))}

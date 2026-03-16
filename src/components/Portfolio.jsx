@@ -81,15 +81,15 @@ export default function Portfolio() {
 
             {/* Content — right side, vertically centred */}
             <div className="flex flex-col justify-center px-8 py-10 lg:px-12 lg:py-14">
-              <span className="font-['Montserrat'] text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-[#A88636] mb-3.5 block">
+              <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-[#A88636] mb-3.5 block">
                 {featured.category}
               </span>
-              <h3 className="font-['Playfair_Display'] text-[1.5rem] lg:text-[1.75rem] font-semibold text-[#1C1714] mb-5 leading-[1.18] tracking-[-0.02em]">
+              <h3 className="font-['Cormorant_Garamond'] text-[1.5rem] lg:text-[1.75rem] font-semibold text-[#1C1714] mb-5 leading-[1.18] tracking-[-0.02em]">
                 {featured.title}
               </h3>
               {/* Thin gold rule — editorial detail */}
               <div className="w-10 h-px bg-[rgba(212,175,55,0.55)] mb-5" />
-              <p className="font-['Lora'] text-[1rem] text-[#5A5048] leading-[1.75]">
+              <p className="font-['Source_Serif_4'] text-[1rem] text-[#5A5048] leading-[1.75]">
                 {featured.description}
               </p>
             </div>
@@ -117,13 +117,13 @@ export default function Portfolio() {
 
               {/* Text content */}
               <div className="px-6 py-6">
-                <span className="font-['Montserrat'] text-[0.7rem] font-semibold uppercase tracking-[0.13em] text-[#A88636] mb-2.5 block">
+                <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.13em] text-[#A88636] mb-2.5 block">
                   {p.category}
                 </span>
-                <h3 className="font-['Playfair_Display'] text-[1.1875rem] font-semibold text-[#1C1714] mb-2.5 leading-snug tracking-[-0.01em]">
+                <h3 className="font-['Cormorant_Garamond'] text-[1.1875rem] font-semibold text-[#1C1714] mb-2.5 leading-snug tracking-[-0.01em]">
                   {p.title}
                 </h3>
-                <p className="text-[#5A5048] text-[0.875rem] font-['Lora'] leading-[1.7]">
+                <p className="text-[#5A5048] text-[0.875rem] font-['Source_Serif_4'] leading-[1.7]">
                   {p.description}
                 </p>
               </div>
@@ -135,7 +135,7 @@ export default function Portfolio() {
         <div className="text-center mt-14">
           <button
             onClick={() => document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' })}
-            className="group inline-flex items-center gap-2.5 font-['Lora'] font-semibold text-[0.9375rem] tracking-wide px-9 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] hover:-translate-y-0.5 transition-all duration-300 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
+            className="group inline-flex items-center gap-2.5 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-9 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] hover:-translate-y-0.5 transition-all duration-300 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
           >
             Discuss Your Project
             <svg

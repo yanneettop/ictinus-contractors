@@ -266,7 +266,7 @@ function ServiceJumpNav() {
             <button
               key={id}
               onClick={() => scrollTo(id)}
-              className="font-['Lora'] text-[0.72rem] font-medium tracking-wide text-[#5A5048] px-4 py-3.5 whitespace-nowrap hover:text-[#B08D2A] hover:bg-[#D4AF37]/05 border-b-2 border-transparent hover:border-[#D4AF37]/50 transition-all duration-200"
+              className="font-['Source_Serif_4'] text-[0.72rem] font-medium tracking-wide text-[#5A5048] px-4 py-3.5 whitespace-nowrap hover:text-[#B08D2A] hover:bg-[#D4AF37]/05 border-b-2 border-transparent hover:border-[#D4AF37]/50 transition-all duration-200"
             >
               {label}
             </button>
@@ -298,27 +298,27 @@ function ServiceSection({ service, index }) {
               <div className="w-10 h-10 rounded-full bg-[#D4AF37]/12 border border-[#D4AF37]/20 flex items-center justify-center flex-shrink-0">
                 <ServiceIcon paths={service.icon} />
               </div>
-              <span className="font-['Montserrat'] text-[0.7rem] uppercase tracking-[0.1em] text-[#A88636] font-600">
+              <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] uppercase tracking-[0.1em] text-[#A88636] font-600">
                 {service.tag}
               </span>
             </div>
 
-            <h2 className="font-['Playfair_Display'] text-2xl sm:text-3xl font-semibold text-[#1C1714] mb-4 leading-snug">
+            <h2 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-semibold text-[#1C1714] mb-4 leading-snug">
               {service.headline}
             </h2>
 
-            <p className="font-['Lora'] text-[0.93rem] text-[#3D342E] leading-relaxed mb-4">
+            <p className="font-['Source_Serif_4'] text-[0.93rem] text-[#3D342E] leading-relaxed mb-4">
               {service.intro}
             </p>
             {service.body.split('\n\n').map((para, i) => (
-              <p key={i} className="font-['Lora'] text-[0.93rem] text-[#5A5048] leading-relaxed mb-4">
+              <p key={i} className="font-['Source_Serif_4'] text-[0.93rem] text-[#5A5048] leading-relaxed mb-4">
                 {para}
               </p>
             ))}
 
             <button
               onClick={() => navigate('/#quote')}
-              className="inline-flex items-center gap-2 font-['Lora'] font-semibold text-[0.85rem] tracking-wide px-6 py-3 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.2)] mt-2"
+              className="inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.85rem] tracking-wide px-6 py-3 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.2)] mt-2"
             >
               Request a Free Quote
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -330,7 +330,7 @@ function ServiceSection({ service, index }) {
           {/* Includes card */}
           <div className={isEven ? 'lg:order-2' : 'lg:order-1'}>
             <div className="bg-white rounded-2xl border border-[#D4AF37]/18 p-6 sm:p-8 shadow-[0_2px_16px_rgba(0,0,0,0.06)]">
-              <h3 className="font-['Playfair_Display'] text-[1rem] font-semibold text-[#1C1714] mb-5 flex items-center gap-2">
+              <h3 className="font-['Cormorant_Garamond'] text-[1rem] font-semibold text-[#1C1714] mb-5 flex items-center gap-2">
                 <span className="w-5 h-px bg-[#D4AF37] flex-shrink-0" />
                 What&rsquo;s Included
               </h3>
@@ -346,13 +346,13 @@ function ServiceSection({ service, index }) {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="font-['Lora'] text-[0.875rem] text-[#3D342E] leading-snug">{item}</span>
+                    <span className="font-['Source_Serif_4'] text-[0.875rem] text-[#3D342E] leading-snug">{item}</span>
                   </li>
                 ))}
               </ul>
 
               <div className="mt-6 pt-5 border-t border-[#D4AF37]/12">
-                <p className="font-['Lora'] text-[0.8rem] text-[#9A9590] leading-relaxed italic">
+                <p className="font-['Source_Serif_4'] text-[0.8rem] text-[#9A9590] leading-relaxed italic">
                   Free, no-obligation written quote provided before any work begins.
                 </p>
               </div>
@@ -378,10 +378,10 @@ function AreasSection() {
     <section className="py-14 px-4 sm:px-6 lg:px-8 bg-[#EEE8DC] border-t border-[#D4AF37]/15">
       <div className="max-w-4xl mx-auto text-center">
         <p className="ict-section-label">Coverage</p>
-        <h2 className="font-['Playfair_Display'] text-2xl sm:text-[1.75rem] font-semibold text-[#1C1714] mb-3">
+        <h2 className="font-['Cormorant_Garamond'] text-2xl sm:text-[1.75rem] font-semibold text-[#1C1714] mb-3">
           Decorating Services Across London
         </h2>
-        <p className="font-['Lora'] text-[0.93rem] text-[#5A5048] leading-relaxed mb-8 max-w-2xl mx-auto">
+        <p className="font-['Source_Serif_4'] text-[0.93rem] text-[#5A5048] leading-relaxed mb-8 max-w-2xl mx-auto">
           Based in East London, Ictinus Contractors delivers painting and decorating, plastering, flooring,
           bathroom fitting and property refurbishment services to clients across all London boroughs including:
         </p>
@@ -389,13 +389,13 @@ function AreasSection() {
           {AREAS.map((a) => (
             <span
               key={a}
-              className="font-['Lora'] text-[0.82rem] font-medium text-[#1C1714] bg-white border border-[#D4AF37]/28 rounded-full px-4 py-1.5"
+              className="font-['Source_Serif_4'] text-[0.82rem] font-medium text-[#1C1714] bg-white border border-[#D4AF37]/28 rounded-full px-4 py-1.5"
             >
               {a}
             </span>
           ))}
         </div>
-        <p className="font-['Lora'] text-[0.88rem] text-[#5A5048]">
+        <p className="font-['Source_Serif_4'] text-[0.88rem] text-[#5A5048]">
           Not sure if we cover your postcode?{' '}
           <a
             href="mailto:info@ictinuscontractors.co.uk"
@@ -416,7 +416,7 @@ function FAQSection() {
     <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6]">
       <div className="max-w-3xl mx-auto">
         <p className="ict-section-label">FAQ</p>
-        <h2 className="font-['Playfair_Display'] text-2xl sm:text-3xl font-semibold text-[#1C1714] text-center mb-12 leading-snug">
+        <h2 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-semibold text-[#1C1714] text-center mb-12 leading-snug">
           Frequently Asked Questions
         </h2>
         <div className="space-y-6">
@@ -425,10 +425,10 @@ function FAQSection() {
               key={q}
               className="bg-white rounded-xl border border-[#D4AF37]/15 p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
             >
-              <h3 className="font-['Playfair_Display'] text-[1rem] font-semibold text-[#1C1714] mb-3 leading-snug">
+              <h3 className="font-['Cormorant_Garamond'] text-[1rem] font-semibold text-[#1C1714] mb-3 leading-snug">
                 {q}
               </h3>
-              <p className="font-['Lora'] text-[0.88rem] text-[#5A5048] leading-relaxed">{a}</p>
+              <p className="font-['Source_Serif_4'] text-[0.88rem] text-[#5A5048] leading-relaxed">{a}</p>
             </div>
           ))}
         </div>
@@ -444,26 +444,26 @@ function PageCTA() {
     <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-[#1C1714] overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
       <div className="max-w-3xl mx-auto text-center">
-        <p className="font-['Montserrat'] text-[0.72rem] uppercase tracking-[0.1em] text-[#A88636] font-semibold mb-3">
+        <p className="font-['Plus_Jakarta_Sans'] text-[0.72rem] uppercase tracking-[0.1em] text-[#A88636] font-semibold mb-3">
           Get Started
         </p>
-        <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl font-semibold text-white mb-5 leading-tight">
+        <h2 className="font-['Cormorant_Garamond'] text-3xl md:text-4xl font-semibold text-white mb-5 leading-tight">
           Ready to Discuss Your London Project?
         </h2>
-        <p className="font-['Lora'] text-[0.95rem] text-[#C4BAB0] leading-relaxed mb-10 max-w-2xl mx-auto">
+        <p className="font-['Source_Serif_4'] text-[0.95rem] text-[#C4BAB0] leading-relaxed mb-10 max-w-2xl mx-auto">
           Request a free, no-obligation written quote from Ictinus Contractors.
           We cover all London boroughs and respond within one working day.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={() => navigate('/#quote')}
-            className="font-['Lora'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
+            className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
           >
             Request a Free Quote
           </button>
           <a
             href="mailto:info@ictinuscontractors.co.uk"
-            className="font-['Lora'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/40 transition-all duration-300 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/60 text-center"
+            className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/40 transition-all duration-300 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/60 text-center"
           >
             info@ictinuscontractors.co.uk
           </a>
@@ -502,24 +502,24 @@ export default function ServicesPage() {
         <div className="relative max-w-4xl mx-auto text-center">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="flex items-center justify-center gap-2 mb-6">
-            <a href="/" className="font-['Montserrat'] text-[0.7rem] text-[#C9B09A] hover:text-[#D4AF37] transition-colors uppercase tracking-wider">
+            <a href="/" className="font-['Plus_Jakarta_Sans'] text-[0.7rem] text-[#C9B09A] hover:text-[#D4AF37] transition-colors uppercase tracking-wider">
               Home
             </a>
             <svg className="w-3 h-3 text-[#D4AF37]/40" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
-            <span className="font-['Montserrat'] text-[0.7rem] text-[#D4AF37] uppercase tracking-wider">Services</span>
+            <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] text-[#D4AF37] uppercase tracking-wider">Services</span>
           </nav>
 
-          <p className="font-['Montserrat'] text-[0.72rem] uppercase tracking-[0.1em] text-[#A88636] font-semibold mb-4">
+          <p className="font-['Plus_Jakarta_Sans'] text-[0.72rem] uppercase tracking-[0.1em] text-[#A88636] font-semibold mb-4">
             FULLY INSURED · LONDON BASED · 12+ YEARS EXPERIENCE
           </p>
 
-          <h1 className="font-['Playfair_Display'] text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-5 leading-tight">
+          <h1 className="font-['Cormorant_Garamond'] text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-5 leading-tight">
             Professional Decorating &amp; Refurbishment Services in London
           </h1>
 
-          <p className="font-['Lora'] text-[1rem] sm:text-[1.05rem] text-[#C4BAB0] leading-relaxed mb-8 max-w-2xl mx-auto">
+          <p className="font-['Source_Serif_4'] text-[1rem] sm:text-[1.05rem] text-[#C4BAB0] leading-relaxed mb-8 max-w-2xl mx-auto">
             Painting &amp; decorating, plastering, bathroom fitting, hard flooring installation, and full property
             refurbishment — delivered to a premium standard across all London boroughs.
           </p>
@@ -532,7 +532,7 @@ export default function ServicesPage() {
               '30+ Verified Reviews',
               'Free Written Quotes',
             ].map((t) => (
-              <span key={t} className="font-['Lora'] text-[0.8rem] text-[#D4AF37]/80 flex items-center gap-1.5">
+              <span key={t} className="font-['Source_Serif_4'] text-[0.8rem] text-[#D4AF37]/80 flex items-center gap-1.5">
                 <svg className="w-3.5 h-3.5 text-[#D4AF37]" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                 </svg>
@@ -547,7 +547,7 @@ export default function ServicesPage() {
               e.preventDefault()
               document.getElementById('painting-decorating')?.scrollIntoView({ behavior: 'smooth' })
             }}
-            className="inline-flex items-center gap-2 font-['Lora'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
+            className="inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
           >
             View All Services
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -563,7 +563,7 @@ export default function ServicesPage() {
       {/* ── Intro context ── */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#EEE8DC] border-b border-[#D4AF37]/15">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-['Lora'] text-[0.95rem] text-[#3D342E] leading-relaxed">
+          <p className="font-['Source_Serif_4'] text-[0.95rem] text-[#3D342E] leading-relaxed">
             Ictinus Contractors is a professional London contractor specialising in decorating, refurbishment,
             and finishing. We serve homeowners, landlords, and commercial clients from our East London base —
             rated <strong className="text-[#B08D2A]">9.97/10 on Checkatrade</strong> and{' '}

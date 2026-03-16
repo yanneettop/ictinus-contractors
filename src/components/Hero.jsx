@@ -28,7 +28,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-[82vh] sm:min-h-[86vh] lg:min-h-[92vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[70vh] sm:min-h-[86vh] lg:min-h-[92vh] flex items-center justify-center overflow-hidden">
 
       {/* Slideshow backgrounds with Ken Burns */}
       {SLIDES.map((src, i) => {
@@ -60,15 +60,15 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center px-5 sm:px-8 lg:px-10 max-w-[720px] mx-auto pt-20 sm:pt-28 lg:pt-32 pb-12 sm:pb-20 lg:pb-[5.5rem] lg:-translate-y-1">
-        {/* Badge */}
-        <div className={`ict-hero-badge transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        {/* Badge — hidden on mobile for minimal look */}
+        <div className={`ict-hero-badge hidden sm:flex transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <span>Fully Insured</span>
           <span className="badge-dot" />
           <span>London Based</span>
         </div>
 
         <h1
-          className={`font-['Playfair_Display'] text-[clamp(1.45rem,7.2vw,2rem)] sm:text-[2.9rem] lg:text-[4rem] font-bold text-white max-w-none mx-auto mb-5 sm:mb-9 leading-[1.1] tracking-[0.01em] transition-all duration-1000 delay-200 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+          className={`font-['Cormorant_Garamond'] text-[clamp(1.45rem,7.2vw,2rem)] sm:text-[2.9rem] lg:text-[4rem] font-bold text-white max-w-none mx-auto mb-8 sm:mb-9 leading-[1.1] tracking-[0.01em] transition-all duration-1000 delay-200 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           style={{ textShadow: '0 2px 28px rgba(8,5,3,0.75)' }}
         >
           <span className="block whitespace-nowrap">Premium Decorating &amp;</span>
@@ -76,11 +76,11 @@ export default function Hero() {
           <span className="block whitespace-nowrap">Across London</span>
         </h1>
 
-        {/* Decorative gold rule */}
-        <div className={`w-16 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-7 sm:mb-11 transition-all duration-1000 delay-[400ms] ${loaded ? 'opacity-100' : 'opacity-0'}`} />
+        {/* Decorative gold rule — hidden on mobile */}
+        <div className={`hidden sm:block w-16 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-7 sm:mb-11 transition-all duration-1000 delay-[400ms] ${loaded ? 'opacity-100' : 'opacity-0'}`} />
 
         <p
-          className={`font-['Lora'] text-[0.95rem] sm:text-[1.06rem] lg:text-[1.11rem] text-[#F6EEDC]/95 mb-8 sm:mb-12 max-w-[580px] mx-auto leading-[1.6] sm:leading-[1.68] transition-all duration-1000 delay-[520ms] ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+          className={`hidden sm:block font-['Source_Serif_4'] text-[1.06rem] lg:text-[1.11rem] text-[#F6EEDC]/95 mb-12 max-w-[580px] mx-auto leading-[1.68] transition-all duration-1000 delay-[520ms] ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           style={{ textShadow: '0 1px 14px rgba(8,5,3,0.68)' }}
         >
           High-quality decorating, refurbishment, and finishing services across London — combining reliable project management, skilled workmanship, and a professional client experience.
@@ -89,7 +89,7 @@ export default function Hero() {
         <div className={`flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center transition-all duration-1000 delay-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <button
             onClick={() => scrollTo('quote')}
-            className="group font-['Lora'] font-semibold text-[0.875rem] sm:text-[0.9375rem] tracking-wide px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-[#D4AF37]/40 flex items-center justify-center gap-2"
+            className="group font-['Source_Serif_4'] font-semibold text-[0.875rem] sm:text-[0.9375rem] tracking-wide px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-[#D4AF37]/40 flex items-center justify-center gap-2"
           >
             Request a Free Quote
             <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -98,7 +98,7 @@ export default function Hero() {
           </button>
           <button
             onClick={() => scrollTo('services')}
-            className="font-['Lora'] font-semibold text-[0.875rem] sm:text-[0.9375rem] tracking-wide px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-[#D4AF37] border-2 border-[#D4AF37] bg-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#1C1714] flex items-center justify-center gap-2"
+            className="font-['Source_Serif_4'] font-semibold text-[0.875rem] sm:text-[0.9375rem] tracking-wide px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-[#D4AF37] border-2 border-[#D4AF37] bg-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#1C1714] flex items-center justify-center gap-2"
           >
             View Our Services
             <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -107,21 +107,21 @@ export default function Hero() {
           </button>
         </div>
 
-        {/* Trust reassurance line */}
-        <p className={`mt-7 text-[11px] text-white/35 tracking-[0.22em] uppercase font-['Lora'] transition-all duration-1000 delay-[900ms] ${loaded ? 'opacity-100' : 'opacity-0'}`}>
+        {/* Trust reassurance line — hidden on mobile */}
+        <p className={`hidden sm:block mt-7 text-[11px] text-white/35 tracking-[0.22em] uppercase font-['Source_Serif_4'] transition-all duration-1000 delay-[900ms] ${loaded ? 'opacity-100' : 'opacity-0'}`}>
           Free Consultation &nbsp;&middot;&nbsp; No Obligation &nbsp;&middot;&nbsp; Fast Response
         </p>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+      {/* Scroll indicator — hidden on mobile */}
+      <div className="hidden sm:block absolute bottom-10 left-1/2 -translate-x-1/2">
         <div className="w-6 h-10 border-2 border-[#D4AF37] rounded-full flex justify-center">
           <div className="w-1 h-3 bg-[#D4AF37] rounded-full mt-2 animate-bounce" />
         </div>
       </div>
 
-      {/* Slide dots */}
-      <div className="absolute bottom-10 right-6 flex gap-2">
+      {/* Slide dots — hidden on mobile */}
+      <div className="hidden sm:flex absolute bottom-10 right-6 gap-2">
         {SLIDES.map((_, i) => (
           <button
             key={i}

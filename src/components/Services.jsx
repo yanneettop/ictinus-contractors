@@ -97,10 +97,10 @@ export default function Services() {
                   {icon}
                 </svg>
               </div>
-              <h3 className="font-['Playfair_Display'] text-[1.125rem] font-semibold text-[#1C1714] mb-2.5 leading-snug tracking-[-0.01em] group-hover:text-[#B08D2A] transition-colors duration-300">
+              <h3 className="font-['Cormorant_Garamond'] text-[1.125rem] font-semibold text-[#1C1714] mb-2.5 leading-snug tracking-[-0.01em] group-hover:text-[#B08D2A] transition-colors duration-300">
                 {title}
               </h3>
-              <p className="font-['Lora'] text-[0.9375rem] text-[#5A5048] leading-[1.68]">
+              <p className="font-['Source_Serif_4'] text-[0.9375rem] text-[#5A5048] leading-[1.68]">
                 {desc}
               </p>
             </div>
@@ -110,7 +110,7 @@ export default function Services() {
         <div className="text-center">
           <button
             onClick={() => scrollTo('quote')}
-            className="font-['Lora'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
+            className="font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
           >
             Request a Free Quote
           </button>

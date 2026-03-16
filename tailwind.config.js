@@ -20,8 +20,8 @@ export default {
         },
       },
       fontFamily: {
-        serif: ['Lora', 'Georgia', 'Times New Roman', 'serif'],
-        display: ['Playfair Display', 'Georgia', 'serif'],
+        serif: ['Source Serif 4', 'Georgia', 'Times New Roman', 'serif'],
+        display: ['Cormorant Garamond', 'Georgia', 'serif'],
       },
     },
   },

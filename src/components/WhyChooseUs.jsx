@@ -53,10 +53,10 @@ export default function WhyChooseUs() {
 
         <div className="text-center mb-8 sm:mb-14" data-reveal>
           <p className="ict-section-label">Why Choose Us</p>
-          <h2 className="font-['Playfair_Display'] text-[2rem] md:text-[2.625rem] lg:text-[2.75rem] font-semibold text-[#1C1714] mb-6 leading-[1.2] tracking-[-0.015em] max-w-[26rem] mx-auto">
+          <h2 className="font-['Cormorant_Garamond'] text-[2rem] md:text-[2.625rem] lg:text-[2.75rem] font-semibold text-[#1C1714] mb-6 leading-[1.2] tracking-[-0.015em] max-w-[26rem] mx-auto">
             Why Clients Trust Ictinus Contractors
           </h2>
-          <p className="text-[#5A5048] text-[1.0625rem] leading-[1.78] max-w-[42rem] mx-auto font-['Lora']">
+          <p className="text-[#5A5048] text-[1.0625rem] leading-[1.78] max-w-[42rem] mx-auto font-['Source_Serif_4']">
             Rated 9.97 out of 10 on Checkatrade and 4.9 on MyBuilder — our reputation is built on
             consistent results, honest communication, and a professional approach to every project.
           </p>
@@ -79,10 +79,10 @@ export default function WhyChooseUs() {
                   {icon}
                 </svg>
               </div>
-              <h3 className="font-['Playfair_Display'] text-[1.125rem] font-semibold text-[#1C1714] mb-3 leading-snug tracking-[-0.01em]">
+              <h3 className="font-['Cormorant_Garamond'] text-[1.125rem] font-semibold text-[#1C1714] mb-3 leading-snug tracking-[-0.01em]">
                 {title}
               </h3>
-              <p className="text-[#5A5048] text-[0.9375rem] leading-[1.68] font-['Lora']">
+              <p className="text-[#5A5048] text-[0.9375rem] leading-[1.68] font-['Source_Serif_4']">
                 {description}
               </p>
             </div>
