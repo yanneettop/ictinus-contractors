@@ -68,7 +68,7 @@ export default function Services() {
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#F5F0E6]">
+    <section id="services" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#F5F0E6]">
       <div className="max-w-6xl mx-auto">
 
         <p className="ict-section-label" data-reveal>Our Services</p>
@@ -80,16 +80,16 @@ export default function Services() {
           across residential and commercial projects in London.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 mb-10 sm:mb-14">
           {services.map(({ title, desc, icon }, i) => (
             <div
               key={title}
               data-reveal
               style={{ transitionDelay: `${i * 70}ms` }}
-              className="group bg-[#FDFCF9] border border-[rgba(212,175,55,0.2)] rounded-[14px] p-7 cursor-default shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:-translate-y-[3px] hover:border-[rgba(212,175,55,0.4)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(212,175,55,0.07)] transition-all duration-300"
+              className="group bg-[#FDFCF9] border border-[rgba(212,175,55,0.2)] rounded-[14px] p-5 sm:p-7 cursor-default shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:-translate-y-[3px] hover:border-[rgba(212,175,55,0.4)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(212,175,55,0.07)] transition-all duration-300"
             >
               {/* Icon container — soft square, architectural */}
-              <div className="w-10 h-10 bg-[rgba(212,175,55,0.1)] rounded-[10px] flex items-center justify-center mb-5 transition-colors duration-300 group-hover:bg-[rgba(212,175,55,0.18)]">
+              <div className="w-10 h-10 bg-[rgba(212,175,55,0.1)] rounded-[10px] flex items-center justify-center mb-3 sm:mb-5 transition-colors duration-300 group-hover:bg-[rgba(212,175,55,0.18)]">
                 <svg
                   className="w-[1.15rem] h-[1.15rem] text-[#B08D2A] transition-colors duration-300"
                   fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"

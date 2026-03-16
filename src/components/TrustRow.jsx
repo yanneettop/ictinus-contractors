@@ -2,6 +2,7 @@ const items = [
   {
     stat: '9.97/10',
     text: 'Checkatrade',
+    hideOnMobile: false,
     icon: (
       <path
         strokeLinecap="round" strokeLinejoin="round"
@@ -12,6 +13,7 @@ const items = [
   {
     stat: '4.9/5',
     text: 'MyBuilder',
+    hideOnMobile: false,
     icon: (
       <path
         strokeLinecap="round" strokeLinejoin="round"
@@ -22,6 +24,7 @@ const items = [
   {
     stat: '30+',
     text: 'Verified Reviews',
+    hideOnMobile: true,
     icon: (
       <path
         strokeLinecap="round" strokeLinejoin="round"
@@ -32,6 +35,7 @@ const items = [
   {
     stat: '12+',
     text: 'Years Experience',
+    hideOnMobile: false,
     icon: (
       <path
         strokeLinecap="round" strokeLinejoin="round"
@@ -42,6 +46,7 @@ const items = [
   {
     stat: '',
     text: 'Free Estimates',
+    hideOnMobile: true,
     icon: (
       <path
         strokeLinecap="round" strokeLinejoin="round"
@@ -55,8 +60,8 @@ export default function TrustRow() {
   return (
     <div className="ict-trust-row">
       <div className="trust-inner trust-inner-5">
-        {items.map(({ stat, text, icon }, i) => (
-          <div key={text} className="ict-trust-item" data-reveal style={{ transitionDelay: `${i * 80}ms` }}>
+        {items.map(({ stat, text, icon, hideOnMobile }, i) => (
+          <div key={text} className={`ict-trust-item${hideOnMobile ? ' ict-hide-mobile' : ''}`} data-reveal style={{ transitionDelay: `${i * 80}ms` }}>
             <div className="ict-trust-icon">
               <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 {icon}

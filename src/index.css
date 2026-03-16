@@ -68,26 +68,41 @@ body {
   background: #EEE8DC;
   border-top: 1px solid rgba(212,175,55,0.2);
   border-bottom: 1px solid rgba(212,175,55,0.2);
-  padding: 1.5rem 1rem;
+  padding: 1rem 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
+.ict-trust-row::-webkit-scrollbar { display: none; }
+.ict-trust-row { -ms-overflow-style: none; scrollbar-width: none; }
 .ict-trust-row .trust-inner {
   max-width: 72rem;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
+  display: flex;
+  gap: 0;
+  justify-content: space-evenly;
+  padding: 0 0.25rem;
+  min-width: 0;
 }
 @media (min-width: 640px) {
-  .ict-trust-row .trust-inner { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-}
-@media (min-width: 640px) {
+  .ict-trust-row { overflow-x: visible; padding: 1.25rem 1rem; }
+  .ict-trust-row .trust-inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; min-width: 0; }
   .ict-trust-row .trust-inner-5 { grid-template-columns: repeat(5, 1fr); }
 }
 .ict-trust-item {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.35rem;
   justify-content: center;
+  flex-shrink: 1;
+  min-width: 0;
+  padding: 0.25rem 0.25rem;
+}
+.ict-trust-item.ict-hide-mobile {
+  display: none;
+}
+@media (min-width: 640px) {
+  .ict-trust-item { gap: 0.75rem; padding: 0; flex-shrink: 0; }
+  .ict-trust-item.ict-hide-mobile { display: flex; }
 }
 .ict-trust-content {
   display: flex;
@@ -96,28 +111,40 @@ body {
 }
 .ict-trust-stat {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: #B08D2A;
   letter-spacing: -0.01em;
 }
+@media (min-width: 640px) {
+  .ict-trust-stat { font-size: 1.1rem; }
+}
 .ict-trust-icon {
   flex-shrink: 0;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 1.75rem;
+  height: 1.75rem;
   background: rgba(212,175,55,0.18);
   border-radius: 50%;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
 }
-.ict-trust-icon svg { width: 1.1rem; height: 1.1rem; color: #B08D2A; }
+@media (min-width: 640px) {
+  .ict-trust-icon { display: flex; width: 2.25rem; height: 2.25rem; }
+}
+.ict-trust-icon svg { width: 0.9rem; height: 0.9rem; color: #B08D2A; }
+@media (min-width: 640px) {
+  .ict-trust-icon svg { width: 1.1rem; height: 1.1rem; }
+}
 .ict-trust-text {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.9375rem;
+  font-size: 0.8125rem;
   color: #1C1714;
   font-weight: 500;
   letter-spacing: 0.01em;
+}
+@media (min-width: 640px) {
+  .ict-trust-text { font-size: 0.9375rem; }
 }
 
 /* ─────────────────────────── Hero Badge ─────────────────────────── */
@@ -181,12 +208,15 @@ body {
 /* Supporting paragraph under heading */
 .ict-section-subtitle {
   font-family: 'Lora', Georgia, serif;   /* serif for warmth/editorial feel */
-  font-size: 1.0625rem;         /* 17px — up from 15.2px */
+  font-size: 0.9375rem;         /* 15px mobile */
   color: #5A5048;
   text-align: center;
   max-width: 42rem;             /* slightly wider for readability */
-  margin: 0 auto 3.25rem;       /* more space before cards/content */
-  line-height: 1.78;            /* spacious and easy to read */
+  margin: 0 auto 2rem;          /* tighter on mobile */
+  line-height: 1.7;
+}
+@media (min-width: 640px) {
+  .ict-section-subtitle { font-size: 1.0625rem; margin: 0 auto 3.25rem; line-height: 1.78; }
 }
 
 .ict-section-closing {
@@ -203,7 +233,10 @@ body {
 /* ─────────────────────────── Smaller Projects ───────────────────── */
 .ict-small-projects {
   background: #F5F0E6;
-  padding: 5rem 1rem;
+  padding: 3rem 1rem;
+}
+@media (min-width: 640px) {
+  .ict-small-projects { padding: 5rem 1rem; }
 }
 .ict-small-projects-inner {
   max-width: 72rem;
@@ -267,8 +300,11 @@ body {
 /* ─────────────────────────── Areas We Cover ─────────────────────── */
 .ict-areas-section {
   background: #EEE8DC;
-  padding: 4rem 1rem;
+  padding: 3rem 1rem;
   border-top: 1px solid rgba(212,175,55,0.15);
+}
+@media (min-width: 640px) {
+  .ict-areas-section { padding: 4rem 1rem; }
 }
 .ict-areas-inner {
   max-width: 48rem;
@@ -323,8 +359,11 @@ body {
 /* ─────────────────────────── Quote Form ─────────────────────────── */
 .ict-quote-section {
   background: #FAF9F6;
-  padding: 5rem 1rem;
+  padding: 3rem 1rem;
   position: relative;
+}
+@media (min-width: 640px) {
+  .ict-quote-section { padding: 5rem 1rem; }
 }
 .ict-quote-inner {
   max-width: 40rem;
@@ -346,13 +385,16 @@ body {
 /* Quote section heading */
 .ict-quote-heading {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 2.25rem;          /* 36px mobile — up from 32px */
+  font-size: 1.75rem;          /* 28px mobile */
   font-weight: 600;
   color: #1C1714;
   text-align: center;
-  margin-bottom: 1.125rem;
+  margin-bottom: 0.875rem;
   line-height: 1.2;
   letter-spacing: -0.015em;
+}
+@media (min-width: 640px) {
+  .ict-quote-heading { font-size: 2.25rem; margin-bottom: 1.125rem; }
 }
 @media (min-width: 768px) {
   .ict-quote-heading { font-size: 2.75rem; }   /* 44px desktop */
@@ -361,19 +403,25 @@ body {
 /* Quote supporting paragraph */
 .ict-quote-subtitle {
   font-family: 'Lora', Georgia, serif;
-  font-size: 1.0625rem;        /* 17px */
+  font-size: 0.9375rem;        /* 15px mobile */
   color: #5A5048;
   text-align: center;
   max-width: 34rem;
-  margin: 0 auto 3rem;
-  line-height: 1.75;
+  margin: 0 auto 1.75rem;
+  line-height: 1.7;
+}
+@media (min-width: 640px) {
+  .ict-quote-subtitle { font-size: 1.0625rem; margin: 0 auto 3rem; line-height: 1.75; }
 }
 .ict-form-card {
   background: #FFFFFF;
   border-radius: 0.75rem;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem 1.25rem;
   box-shadow: 0 4px 24px rgba(0,0,0,0.07);
   border: 1px solid rgba(212,175,55,0.15);
+}
+@media (min-width: 640px) {
+  .ict-form-card { padding: 2rem 1.5rem; }
 }
 @media (min-width: 768px) {
   .ict-form-card { padding: 2.5rem 2rem; }
@@ -499,9 +547,12 @@ body {
 /* ─────────────────────────── Before & After ─────────────────────── */
 .ict-ba-section {
   background: #E8E1D5;          /* slightly richer warm tone for distinction */
-  padding: 6rem 1rem;
+  padding: 3rem 1rem;
   border-top: 1px solid rgba(212,175,55,0.15);
   border-bottom: 1px solid rgba(212,175,55,0.1);
+}
+@media (min-width: 640px) {
+  .ict-ba-section { padding: 5rem 1rem; }
 }
 .ict-ba-inner {
   max-width: 54rem;             /* narrower — focuses attention on the slider */

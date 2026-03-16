@@ -59,7 +59,7 @@ export default function Hero() {
       })}
 
       {/* Content */}
-      <div className="relative z-10 text-center px-5 sm:px-8 lg:px-10 max-w-[720px] mx-auto pt-24 sm:pt-28 lg:pt-32 pb-16 sm:pb-20 lg:pb-[5.5rem] lg:-translate-y-1">
+      <div className="relative z-10 text-center px-5 sm:px-8 lg:px-10 max-w-[720px] mx-auto pt-20 sm:pt-28 lg:pt-32 pb-12 sm:pb-20 lg:pb-[5.5rem] lg:-translate-y-1">
         {/* Badge */}
         <div className={`ict-hero-badge transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <span>Fully Insured</span>
@@ -68,7 +68,7 @@ export default function Hero() {
         </div>
 
         <h1
-          className={`font-['Playfair_Display'] text-[clamp(1.45rem,7.2vw,2rem)] sm:text-[2.9rem] lg:text-[4rem] font-bold text-white max-w-none mx-auto mb-9 leading-[1.1] tracking-[0.01em] transition-all duration-1000 delay-200 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+          className={`font-['Playfair_Display'] text-[clamp(1.45rem,7.2vw,2rem)] sm:text-[2.9rem] lg:text-[4rem] font-bold text-white max-w-none mx-auto mb-5 sm:mb-9 leading-[1.1] tracking-[0.01em] transition-all duration-1000 delay-200 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           style={{ textShadow: '0 2px 28px rgba(8,5,3,0.75)' }}
         >
           <span className="block whitespace-nowrap">Premium Decorating &amp;</span>
@@ -77,31 +77,31 @@ export default function Hero() {
         </h1>
 
         {/* Decorative gold rule */}
-        <div className={`w-16 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-11 transition-all duration-1000 delay-[400ms] ${loaded ? 'opacity-100' : 'opacity-0'}`} />
+        <div className={`w-16 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-7 sm:mb-11 transition-all duration-1000 delay-[400ms] ${loaded ? 'opacity-100' : 'opacity-0'}`} />
 
         <p
-          className={`font-['Lora'] text-[1.02rem] sm:text-[1.06rem] lg:text-[1.11rem] text-[#F6EEDC]/95 mb-12 max-w-[580px] mx-auto leading-[1.68] transition-all duration-1000 delay-[520ms] ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+          className={`font-['Lora'] text-[0.95rem] sm:text-[1.06rem] lg:text-[1.11rem] text-[#F6EEDC]/95 mb-8 sm:mb-12 max-w-[580px] mx-auto leading-[1.6] sm:leading-[1.68] transition-all duration-1000 delay-[520ms] ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           style={{ textShadow: '0 1px 14px rgba(8,5,3,0.68)' }}
         >
           High-quality decorating, refurbishment, and finishing services across London — combining reliable project management, skilled workmanship, and a professional client experience.
         </p>
 
-        <div className={`flex flex-col sm:flex-row gap-5 justify-center transition-all duration-1000 delay-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div className={`flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center transition-all duration-1000 delay-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <button
             onClick={() => scrollTo('quote')}
-            className="group font-['Lora'] font-semibold text-[0.9375rem] tracking-wide px-8 py-4 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-[#D4AF37]/40 flex items-center justify-center gap-2"
+            className="group font-['Lora'] font-semibold text-[0.875rem] sm:text-[0.9375rem] tracking-wide px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-[#D4AF37]/40 flex items-center justify-center gap-2"
           >
             Request a Free Quote
-            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </button>
           <button
             onClick={() => scrollTo('services')}
-            className="font-['Lora'] font-semibold text-[0.9375rem] tracking-wide px-8 py-4 rounded-lg text-[#D4AF37] border-2 border-[#D4AF37] transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#1C1714] flex items-center justify-center gap-2"
+            className="font-['Lora'] font-semibold text-[0.875rem] sm:text-[0.9375rem] tracking-wide px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-[#D4AF37] border-2 border-[#D4AF37] bg-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#1C1714] flex items-center justify-center gap-2"
           >
             View Our Services
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </button>

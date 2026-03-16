@@ -48,10 +48,10 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-choose-us" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6]">
+    <section id="why-choose-us" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6]">
       <div className="max-w-6xl mx-auto">
 
-        <div className="text-center mb-14" data-reveal>
+        <div className="text-center mb-8 sm:mb-14" data-reveal>
           <p className="ict-section-label">Why Choose Us</p>
           <h2 className="font-['Playfair_Display'] text-[2rem] md:text-[2.625rem] lg:text-[2.75rem] font-semibold text-[#1C1714] mb-6 leading-[1.2] tracking-[-0.015em] max-w-[26rem] mx-auto">
             Why Clients Trust Ictinus Contractors
@@ -62,16 +62,16 @@ export default function WhyChooseUs() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
           {reasons.map(({ title, description, icon }, i) => (
             <div
               key={title}
               data-reveal
               style={{ transitionDelay: `${i * 80}ms` }}
-              className="group bg-[#FDFCF9] p-7 rounded-[14px] border border-[rgba(212,175,55,0.2)] hover:border-[rgba(212,175,55,0.4)] transition-all duration-300 hover:-translate-y-[3px] shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(212,175,55,0.07)]"
+              className="group bg-[#FDFCF9] p-5 sm:p-7 rounded-[14px] border border-[rgba(212,175,55,0.2)] hover:border-[rgba(212,175,55,0.4)] transition-all duration-300 hover:-translate-y-[3px] shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(212,175,55,0.07)]"
             >
               {/* Icon — soft square container, more architectural than full circle */}
-              <div className="w-10 h-10 bg-[rgba(212,175,55,0.1)] rounded-[10px] flex items-center justify-center mb-5 group-hover:bg-[rgba(212,175,55,0.18)] transition-colors duration-300">
+              <div className="w-10 h-10 bg-[rgba(212,175,55,0.1)] rounded-[10px] flex items-center justify-center mb-3 sm:mb-5 group-hover:bg-[rgba(212,175,55,0.18)] transition-colors duration-300">
                 <svg
                   className="w-[1.15rem] h-[1.15rem] text-[#B08D2A]"
                   fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"

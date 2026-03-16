@@ -8,17 +8,17 @@ export default function AboutSection() {
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <section className="bg-[#FAF9F6] py-20 px-4 sm:px-6 lg:px-8" id="about">
+    <section className="bg-[#FAF9F6] py-12 sm:py-20 px-4 sm:px-6 lg:px-8" id="about">
       <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
 
           {/* Left — Copy */}
           <div data-reveal>
             <p className="ict-section-label text-left mb-2">About Ictinus Contractors</p>
-            <h2 className="font-['Playfair_Display'] text-[2rem] md:text-[2.625rem] font-semibold text-[#1C1714] mb-7 leading-[1.2] tracking-[-0.015em] text-left">
+            <h2 className="font-['Playfair_Display'] text-[1.75rem] md:text-[2.625rem] font-semibold text-[#1C1714] mb-5 md:mb-7 leading-[1.2] tracking-[-0.015em] text-left">
               A London Contractor Brand<br />Built on Quality
             </h2>
-            <div className="space-y-5 font-['Lora'] text-[1.0625rem] text-[#5A5048] leading-[1.78]">
+            <div className="space-y-4 sm:space-y-5 font-['Lora'] text-[0.9375rem] sm:text-[1.0625rem] text-[#5A5048] leading-[1.7] sm:leading-[1.78]">
               <p>
                 Ictinus Contractors is a London-based contractor brand specialising in decorating,
                 refurbishment, and interior finishing. With over 12 years of industry experience
@@ -48,16 +48,16 @@ export default function AboutSection() {
           {/* Right — Stats + Values */}
           <div data-reveal style={{ transitionDelay: '200ms' }}>
             {/* Stats row */}
-            <div className="grid grid-cols-3 gap-4 mb-10">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-10">
               {highlights.map(({ stat, label }, i) => (
                 <div
                   key={label}
-                  className="text-center p-5 bg-[#FDFCF9] rounded-[12px] border border-[rgba(212,175,55,0.2)] shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
+                  className="text-center p-3 sm:p-5 bg-[#FDFCF9] rounded-[10px] sm:rounded-[12px] border border-[rgba(212,175,55,0.2)] shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
                 >
-                  <span className="block font-['Playfair_Display'] text-2xl md:text-3xl font-bold text-[#B08D2A]">
+                  <span className="block font-['Playfair_Display'] text-xl sm:text-2xl md:text-3xl font-bold text-[#B08D2A]">
                     {stat}
                   </span>
-                  <span className="block font-['Lora'] text-[0.8125rem] text-[#5A5048] mt-1 leading-snug">
+                  <span className="block font-['Lora'] text-[0.6875rem] sm:text-[0.8125rem] text-[#5A5048] mt-1 leading-snug">
                     {label}
                   </span>
                 </div>
@@ -65,7 +65,7 @@ export default function AboutSection() {
             </div>
 
             {/* Values list */}
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {[
                 { title: 'Professional Team', desc: 'Skilled tradespeople delivering premium results on every project.' },
                 { title: 'Trusted Network', desc: 'Specialist subcontractors for plastering, flooring, plumbing, and more.' },
