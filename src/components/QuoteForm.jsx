@@ -226,8 +226,8 @@ export default function QuoteForm() {
         <p className="ict-quote-label">Get in Touch</p>
         <h2 className="ict-quote-heading">Request a Free Quote</h2>
         <p className="ict-quote-subtitle">
-          Tell us about your project and we&rsquo;ll get back to you with a detailed quote
-          and estimated timeline — no obligation.
+          Send us a few details and some photos of your project — we&rsquo;ll get back to you
+          with a clear, no-obligation quote. Most enquiries are answered within one business day.
         </p>
 
         <form className="ict-form-card" onSubmit={submit} noValidate data-reveal style={{ transitionDelay: '80ms' }}>
@@ -299,7 +299,7 @@ export default function QuoteForm() {
                 whileTap={submitted || sending ? {} : { scale: 0.97, y: 0 }}
                 transition={{ type: 'spring', stiffness: 340, damping: 22 }}
               >
-                {submitted ? '✓ Received – Thank You' : sending ? 'Sending…' : 'Send Enquiry →'}
+                {submitted ? '✓ Received – Thank You' : sending ? 'Sending…' : 'Get Your Free Quote →'}
               </motion.button>
             </div>
 

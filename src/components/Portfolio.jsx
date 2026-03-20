@@ -23,47 +23,53 @@ const projects = [
     id: 1,
     title: 'Full Room Decoration',
     category: 'Interior Decoration',
+    location: 'Hackney, East London',
     image: '/Portfolio/Room_dec_after.png',
     hoverImage: '/Portfolio/Room_dec_Before.png',
     hasGallery: true,
-    description: 'Full interior decoration project including surface preparation, specialist painting, and bespoke wallpapering — delivered to a premium standard for a residential property in Hackney, East London.',
+    description: 'Full interior decoration including surface preparation, specialist painting, and bespoke wallpapering — delivered to a premium standard for a residential property in Hackney.',
   },
   {
     id: 2,
     title: 'Bathroom Renovation',
     category: 'Bathroom Fitting',
+    location: 'Stratford, East London',
     image: '/Portfolio/bath_after.png',
     hoverImage: '/Portfolio/bath_before.png',
     hasGallery: true,
-    description: 'Complete strip-out and refit including new tiling, fixtures, vanity unit, and all finishing works to a high standard.',
+    description: 'Complete strip-out and refit including new tiling, fixtures, vanity unit, and all finishing works — delivered on time and within budget.',
   },
   {
     id: 3,
     title: 'Engineered Flooring',
     category: 'Hard Flooring',
+    location: 'Bethnal Green, East London',
     image: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?q=80&w=2070&auto=format&fit=crop',
-    description: 'Supply and installation of engineered oak flooring across an open-plan living area, with precision cutting and integrated skirting.',
+    description: 'Supply and installation of engineered oak flooring across an open-plan living area, with precision cutting, integrated skirting, and a clean, seamless finish.',
   },
   {
     id: 4,
     title: 'Full Property Refurbishment',
     category: 'Property Refurbishment',
+    location: 'Canary Wharf',
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop',
-    description: 'Multi-room project covering plastering, decorating, flooring, and all finishing carpentry — managed and delivered on schedule.',
+    description: 'Multi-room project covering plastering, decorating, flooring, and all finishing carpentry — coordinated and delivered on schedule with minimal disruption.',
   },
   {
     id: 5,
     title: 'Finishing & Detail Work',
     category: 'Finishing Carpentry',
+    location: 'Islington, North London',
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop',
-    description: 'Skirting boards, architraves, door hanging, and bespoke shelving installed to complete a high-end interior renovation.',
+    description: 'Skirting boards, architraves, door hanging, and bespoke shelving installed to complete a high-end interior renovation to a precise standard.',
   },
   {
     id: 6,
     title: 'Commercial Office Refresh',
     category: 'Commercial',
+    location: 'Canary Wharf',
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop',
-    description: 'Decorating and finishing works for a Canary Wharf office, delivered to a tight deadline with minimal disruption.',
+    description: 'Full decoration and finishing works for a commercial office space, delivered to a tight deadline with minimal disruption to the working environment.',
   },
 ]
 
@@ -203,11 +209,11 @@ export default function Portfolio() {
         {/* ── Section intro ── */}
         <Reveal>
           <div className="text-center mb-16">
-            <p className="ict-section-label">Selected Work</p>
-            <h2 className="ict-section-heading">Featured Projects</h2>
+            <p className="ict-section-label">Our Work</p>
+            <h2 className="ict-section-heading">Recent Projects</h2>
             <p className="ict-section-subtitle" style={{ maxWidth: '36rem' }}>
-              A curated selection of completed projects — from single-room transformations
-              to full property refurbishments across London.
+              A selection of completed projects across London — from single-room transformations
+              to full property refurbishments.
             </p>
           </div>
         </Reveal>
@@ -281,9 +287,18 @@ export default function Portfolio() {
 
               {/* Content — right side */}
               <div className="flex flex-col justify-center px-8 py-10 lg:px-12 lg:py-14">
-                <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-[#A88636] mb-3.5 block">
-                  {featured.category}
-                </span>
+                <div className="flex items-center gap-2 mb-3.5 flex-wrap">
+                  <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-[#A88636]">
+                    {featured.category}
+                  </span>
+                  <span className="text-[#D4AF37]/40 text-[0.6rem]">&#9679;</span>
+                  <span className="inline-flex items-center gap-1 font-['Source_Serif_4'] text-[0.75rem] text-[#9A9590]">
+                    <svg className="w-3 h-3 text-[#B08D2A]/60 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                    </svg>
+                    {featured.location}
+                  </span>
+                </div>
                 <h3 className="font-['Cormorant_Garamond'] text-[1.5rem] lg:text-[1.75rem] font-semibold text-[#1C1714] mb-5 leading-[1.18] tracking-[-0.02em]">
                   {featured.title}
                 </h3>
@@ -367,9 +382,22 @@ export default function Portfolio() {
                 </div>
 
                 <div className="px-6 py-6">
-                  <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.13em] text-[#A88636] mb-2.5 block">
-                    {p.category}
-                  </span>
+                  <div className="flex items-center gap-1.5 mb-2.5 flex-wrap">
+                    <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.13em] text-[#A88636]">
+                      {p.category}
+                    </span>
+                    {p.location && (
+                      <>
+                        <span className="text-[#D4AF37]/40 text-[0.55rem]">&#9679;</span>
+                        <span className="inline-flex items-center gap-1 font-['Source_Serif_4'] text-[0.72rem] text-[#9A9590]">
+                          <svg className="w-2.5 h-2.5 text-[#B08D2A]/60 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                          </svg>
+                          {p.location}
+                        </span>
+                      </>
+                    )}
+                  </div>
                   <h3 className="font-['Cormorant_Garamond'] text-[1.1875rem] font-semibold text-[#1C1714] mb-2.5 leading-snug tracking-[-0.01em]">
                     {p.title}
                   </h3>

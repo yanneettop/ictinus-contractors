@@ -5,7 +5,9 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import TrustRow from './components/TrustRow'
 import Services from './components/Services'
+import WhoWeWorkWith from './components/WhoWeWorkWith'
 import Portfolio from './components/Portfolio'
+import WhyChooseUs from './components/WhyChooseUs'
 import Testimonials from './components/Testimonials'
 import Footer from './components/Footer'
 import Reveal from './components/Reveal'
@@ -57,8 +59,14 @@ function HomePage() {
       {/* Services preview */}
       <Services />
 
-      {/* Portfolio preview — slim */}
+      {/* Who We Work With */}
+      <WhoWeWorkWith />
+
+      {/* Portfolio preview */}
       <Portfolio />
+
+      {/* Why Choose Us */}
+      <WhyChooseUs />
 
       {/* Photo divider */}
       <div className="relative h-[240px] sm:h-[320px] lg:h-[380px] overflow-hidden">
@@ -84,11 +92,11 @@ function HomePage() {
         <Reveal>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-5 leading-tight">
-              Planning Your Next Property Project?
+              Ready to Get Started?
             </h2>
             <p className="font-['Source_Serif_4'] text-[0.95rem] text-[#C4BAB0] leading-relaxed mb-10 max-w-2xl mx-auto">
-              Speak to Ictinus Contractors for a free quote and professional advice on decorating,
-              refurbishment, and finishing works across London.
+              Tell us about your project and we'll come back to you with a clear, no-obligation quote.
+              Most enquiries are answered within one business day.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
@@ -96,7 +104,7 @@ function HomePage() {
                   to="/contact"
                   className="block font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold shadow-lg"
                 >
-                  Request a Quote
+                  Get Your Free Quote
                 </Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
@@ -104,10 +112,13 @@ function HomePage() {
                   href="mailto:info@ictinuscontractors.co.uk"
                   className="block font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/40 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/60 text-center"
                 >
-                  Contact Us
+                  Email Us Directly
                 </a>
               </motion.div>
             </div>
+            <p className="mt-6 font-['Source_Serif_4'] text-[0.8125rem] text-white/30 tracking-[0.15em] uppercase">
+              Free Consultation &nbsp;&middot;&nbsp; No Obligation &nbsp;&middot;&nbsp; Fast Response
+            </p>
           </div>
         </Reveal>
       </section>
