@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useRef, useCallback } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
 
 const SERVICE_OPTIONS = [
   'Painting & Decorating',
@@ -18,19 +19,161 @@ const EMPTY = {
   postcode: '',
   service: '',
   description: '',
-  photoLinks: '',
   preferredDate: '',
 }
 
+const MAX_FILES = 8
+const MAX_MB    = 5
+
+/* ── Photo Upload Zone ── */
+function PhotoUpload({ files, setFiles }) {
+  const inputRef  = useRef(null)
+  const [dragging, setDragging] = useState(false)
+
+  const addFiles = useCallback((incoming) => {
+    const images = Array.from(incoming).filter((f) => f.type.startsWith('image/'))
+    setFiles((prev) => {
+      const combined = [...prev]
+      for (const f of images) {
+        if (combined.length >= MAX_FILES) break
+        if (f.size > MAX_MB * 1024 * 1024) continue
+        if (combined.some((p) => p.name === f.name && p.size === f.size)) continue
+        combined.push(Object.assign(f, { preview: URL.createObjectURL(f) }))
+      }
+      return combined
+    })
+  }, [setFiles])
+
+  const remove = (idx) => {
+    setFiles((prev) => {
+      URL.revokeObjectURL(prev[idx].preview)
+      return prev.filter((_, i) => i !== idx)
+    })
+  }
+
+  const onDrop = (e) => {
+    e.preventDefault()
+    setDragging(false)
+    addFiles(e.dataTransfer.files)
+  }
+
+  return (
+    <div className="ict-form-group full-width">
+      <label>
+        Photos{' '}
+        <span style={{ fontWeight: 400, color: '#2d2d2db3' }}>(optional — up to {MAX_FILES} images, {MAX_MB}MB each)</span>
+      </label>
+
+      {/* Drop zone */}
+      <motion.div
+        onClick={() => inputRef.current?.click()}
+        onDragEnter={(e) => { e.preventDefault(); setDragging(true) }}
+        onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
+        onDragLeave={(e) => { e.preventDefault(); setDragging(false) }}
+        onDrop={onDrop}
+        animate={{
+          borderColor: dragging ? 'rgba(212,175,55,0.7)' : 'rgba(212,175,55,0.25)',
+          backgroundColor: dragging ? 'rgba(212,175,55,0.06)' : 'rgba(212,175,55,0.02)',
+        }}
+        transition={{ duration: 0.2 }}
+        className="relative flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl px-5 py-7 cursor-pointer select-none"
+        style={{ minHeight: '100px' }}
+      >
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          className="hidden"
+          onChange={(e) => addFiles(e.target.files)}
+        />
+
+        <svg className="w-7 h-7 text-[#B08D2A]/60" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+        </svg>
+        <p className="font-['Source_Serif_4'] text-[0.875rem] text-[#5A5048] text-center">
+          <span className="font-semibold text-[#B08D2A]">Click to upload</span> or drag &amp; drop photos here
+        </p>
+        <p className="font-['Source_Serif_4'] text-[0.75rem] text-[#9A9590]">
+          JPEG, PNG, WebP, HEIC — max {MAX_FILES} files
+        </p>
+      </motion.div>
+
+      {/* Thumbnails */}
+      <AnimatePresence>
+        {files.length > 0 && (
+          <motion.div
+            className="grid grid-cols-4 sm:grid-cols-6 gap-2 mt-3"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 6 }}
+            transition={{ duration: 0.25 }}
+          >
+            {files.map((f, i) => (
+              <motion.div
+                key={f.name + f.size}
+                className="relative group aspect-square rounded-lg overflow-hidden border border-[rgba(212,175,55,0.2)] bg-[#F5F0E6]"
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.85 }}
+                transition={{ duration: 0.2 }}
+              >
+                <img
+                  src={f.preview}
+                  alt={f.name}
+                  className="w-full h-full object-cover"
+                />
+                {/* Remove button */}
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); remove(i) }}
+                  className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[#1C1714]/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  aria-label={`Remove ${f.name}`}
+                >
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </motion.div>
+            ))}
+
+            {/* Add more slot */}
+            {files.length < MAX_FILES && (
+              <motion.button
+                type="button"
+                onClick={() => inputRef.current?.click()}
+                className="aspect-square rounded-lg border-2 border-dashed border-[rgba(212,175,55,0.25)] flex items-center justify-center text-[#B08D2A]/50 hover:border-[rgba(212,175,55,0.5)] hover:text-[#B08D2A] transition-colors"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </motion.button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {files.length > 0 && (
+        <p className="font-['Source_Serif_4'] text-[0.75rem] text-[#9A9590] mt-1.5">
+          {files.length} / {MAX_FILES} photo{files.length !== 1 ? 's' : ''} selected
+        </p>
+      )}
+    </div>
+  )
+}
+
+/* ── Quote Form ── */
 export default function QuoteForm() {
-  const [form, setForm] = useState(EMPTY)
-  const [notice, setNotice] = useState(null) // { type: 'info' | 'error', msg: string }
+  const [form, setForm]       = useState(EMPTY)
+  const [files, setFiles]     = useState([])
+  const [notice, setNotice]   = useState(null)
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
 
   const handle = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-
-  const [sending, setSending] = useState(false)
 
   const submit = async (e) => {
     e.preventDefault()
@@ -41,37 +184,32 @@ export default function QuoteForm() {
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       missing.push('email (invalid format)')
     }
-
     if (missing.length > 0) {
-      setNotice({
-        type: 'error',
-        msg: `Please complete all required fields. Missing: ${missing.join(', ')}.`,
-      })
+      setNotice({ type: 'error', msg: `Missing: ${missing.join(', ')}.` })
       return
     }
 
     setSending(true)
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: 'aa27f271-0058-42f0-b3e2-464fbbd41c8e',
-          subject: `New Quote Request – ${form.service} (${form.postcode})`,
-          from_name: form.name,
-          replyto: form.email,
-          name: form.name,
-          email: form.email,
-          postcode: form.postcode,
-          service: form.service,
-          description: form.description,
-          photo_links: form.photoLinks || 'None provided',
-          preferred_date: form.preferredDate || 'Not specified',
-        }),
-      })
+      const fd = new FormData()
+      fd.append('access_key',      'aa27f271-0058-42f0-b3e2-464fbbd41c8e')
+      fd.append('subject',         `New Quote Request – ${form.service} (${form.postcode})`)
+      fd.append('from_name',       form.name)
+      fd.append('replyto',         form.email)
+      fd.append('name',            form.name)
+      fd.append('email',           form.email)
+      fd.append('postcode',        form.postcode)
+      fd.append('service',         form.service)
+      fd.append('description',     form.description)
+      fd.append('preferred_date',  form.preferredDate || 'Not specified')
+      files.forEach((f) => fd.append('attachment[]', f, f.name))
+
+      const res  = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd })
       const data = await res.json()
+
       if (data.success) {
         setSubmitted(true)
+        files.forEach((f) => URL.revokeObjectURL(f.preview))
       } else {
         setNotice({ type: 'error', msg: 'Something went wrong. Please email us directly.' })
       }
@@ -138,20 +276,7 @@ export default function QuoteForm() {
               />
             </div>
 
-            <div className="ict-form-group full-width">
-              <label>
-                Photo Links{' '}
-                <span style={{ fontWeight: 400, color: '#2d2d2db3' }}>(optional)</span>
-              </label>
-              <input
-                type="text" name="photoLinks"
-                placeholder="Paste Google Drive, Dropbox, or image links…"
-                value={form.photoLinks} onChange={handle}
-              />
-              <span className="ict-photo-note">
-                Share a link to photos of the area or any reference images.
-              </span>
-            </div>
+            <PhotoUpload files={files} setFiles={setFiles} />
 
             <div className="ict-form-group full-width">
               <label>
@@ -175,11 +300,10 @@ export default function QuoteForm() {
               </button>
             </div>
 
-            {/* Notice banner */}
             {notice?.type === 'error' && (
               <div className="ict-form-notice error full-width" role="alert">
-                <strong>Please complete all required fields.</strong>
-                {notice.msg.replace('Please complete all required fields.', '')}
+                <strong>Please complete all required fields.</strong>{' '}
+                {notice.msg}
               </div>
             )}
             {submitted && (
@@ -193,10 +317,7 @@ export default function QuoteForm() {
 
         <p className="ict-email-note">
           Prefer to email directly?{' '}
-          <a
-            href="mailto:info@ictinuscontractors.co.uk"
-            style={{ color: '#B08D2A', fontWeight: 600 }}
-          >
+          <a href="mailto:info@ictinuscontractors.co.uk" style={{ color: '#B08D2A', fontWeight: 600 }}>
             info@ictinuscontractors.co.uk
           </a>
         </p>
