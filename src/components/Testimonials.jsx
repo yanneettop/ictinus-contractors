@@ -6,42 +6,42 @@ const reviews = [
   {
     id: 1,
     name: 'James W.',
-    location: 'Hackney, London',
+    location: 'Hackney',
     project: 'Full Interior Decoration',
     rating: 5,
-    text: 'Professional, reliable, and easy to communicate with throughout the project. The finish quality was excellent and everything was completed on schedule.',
+    text: 'Really impressed with the standard of work. The preparation was thorough, the finish was flawless, and they left the place spotless. Delivered on time — couldn\'t ask for more.',
   },
   {
     id: 2,
     name: 'Sophie M.',
-    location: 'Islington, London',
-    project: 'Bathroom Refurbishment',
+    location: 'Islington',
+    project: 'Bathroom Renovation',
     rating: 5,
-    text: 'Completed to a high standard and delivered within the agreed timeframe. Konstantinos kept us informed at every stage and the attention to detail was impressive.',
+    text: 'The bathroom looks completely different. Kept us informed at every stage, stuck to the agreed price, and finished on time. Tidy, professional, easy to deal with.',
   },
   {
     id: 3,
     name: 'Daniel & Claire R.',
-    location: 'Stratford, London',
+    location: 'Stratford',
     project: 'Property Refurbishment',
     rating: 5,
-    text: 'Excellent attention to detail and a very smooth overall experience. The team was well-organised and respectful of our home throughout the entire refurbishment.',
+    text: 'Smooth from start to finish. The team were respectful of our home, the quality was excellent, and it felt like a proper professional outfit — not a one-man band.',
   },
   {
     id: 4,
     name: 'Rebecca T.',
-    location: 'Canary Wharf, London',
-    project: 'Painting & Wallpapering',
+    location: 'Canary Wharf',
+    project: 'Painting & Decorating',
     rating: 5,
-    text: 'Friendly, organised, and highly dependable from start to finish. The decorating work transformed our flat and we have already recommended Ictinus to friends.',
+    text: 'The decorating completely transformed our flat. Friendly, tidy, and professional throughout. We\'ve already passed their number on to two friends.',
   },
   {
     id: 5,
     name: 'Mark P.',
-    location: 'Greenwich, London',
-    project: 'Flooring & Finishing',
+    location: 'Greenwich',
+    project: 'Flooring & Carpentry',
     rating: 5,
-    text: 'Top-quality workmanship and a genuinely professional service. The flooring installation was flawless and the finishing carpentry was done to a very high standard.',
+    text: 'Excellent flooring installation — precise, clean, finished to a very high standard. Arrived on time every day and left the site spotless. Highly recommend.',
   },
 ]
 
@@ -90,7 +90,7 @@ function ReviewCard({ review, featured = false }) {
             {review.name}
           </h4>
           <p className="text-[#9A9590] text-[0.8rem] font-['Source_Serif_4'] leading-snug">
-            {review.project}
+            {review.location} &middot; {review.project}
           </p>
         </div>
         <Stars count={review.rating} />
