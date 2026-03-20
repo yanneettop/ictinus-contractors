@@ -596,31 +596,50 @@ body {
 
 /* Submit button */
 .ict-submit-btn {
+  position: relative;
   display: block;
   width: 100%;
   font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 0.9375rem;        /* 15px — more precise than 16px */
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   color: #1C1714;
-  background: linear-gradient(135deg, #D4AF37, #C9A227);
+  background: linear-gradient(135deg, #EAC84A 0%, #D4AF37 45%, #B08D2A 100%);
   border: none;
-  border-radius: 0.5rem;
-  padding: 0.9rem 2rem;
+  border-radius: 12px;
+  padding: 1.05rem 2rem;
   cursor: pointer;
-  letter-spacing: 0.04em;
-  transition: transform 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  box-shadow:
+    0 4px 18px rgba(212,175,55,0.38),
+    0 1px 4px rgba(0,0,0,0.14),
+    inset 0 1px 0 rgba(255,255,255,0.28);
+  overflow: hidden;
   margin-top: 0.5rem;
 }
-.ict-submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(212,175,55,0.3);
+/* Shimmer sweep on hover */
+.ict-submit-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255,255,255,0.32) 50%,
+    transparent 65%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.55s ease;
+}
+.ict-submit-btn:hover::before {
+  transform: translateX(120%);
 }
 .ict-submit-btn:disabled {
-  opacity: 0.6;
+  opacity: 0.55;
   cursor: default;
-  transform: none !important;
-  box-shadow: none !important;
+  box-shadow: none;
 }
+.ict-submit-btn:disabled::before { display: none; }
 .ict-email-note {
   font-family: 'Source Serif 4', Georgia, serif;
   font-size: 0.875rem;

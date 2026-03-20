@@ -291,13 +291,16 @@ export default function QuoteForm() {
             </div>
 
             <div className="ict-form-group full-width">
-              <button
+              <motion.button
                 type="submit"
                 className="ict-submit-btn"
                 disabled={submitted || sending}
+                whileHover={submitted || sending ? {} : { scale: 1.025, y: -2, boxShadow: '0 10px 28px rgba(212,175,55,0.48), 0 2px 6px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.28)' }}
+                whileTap={submitted || sending ? {} : { scale: 0.97, y: 0 }}
+                transition={{ type: 'spring', stiffness: 340, damping: 22 }}
               >
-                {submitted ? 'Received – Thank You' : sending ? 'Sending…' : 'Send Enquiry'}
-              </button>
+                {submitted ? '✓ Received – Thank You' : sending ? 'Sending…' : 'Send Enquiry →'}
+              </motion.button>
             </div>
 
             {notice?.type === 'error' && (
