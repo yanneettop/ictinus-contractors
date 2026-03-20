@@ -1,3 +1,7 @@
+import { Link } from 'react-router-dom'
+import { motion } from 'motion/react'
+import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
+
 const projects = [
   {
     id: 1,
@@ -47,23 +51,27 @@ export default function Portfolio() {
   const [featured, ...rest] = projects
 
   return (
-    <section id="portfolio" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#F5F0E6]">
+    <section id="portfolio" className="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6]">
       <div className="max-w-6xl mx-auto">
 
         {/* ── Section intro ── */}
-        <div className="text-center mb-16" data-reveal>
-          <p className="ict-section-label">Selected Work</p>
-          <h2 className="ict-section-heading">Featured Projects</h2>
-          <p className="ict-section-subtitle" style={{ maxWidth: '36rem' }}>
-            A curated selection of completed projects — from single-room transformations
-            to full property refurbishments across London.
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-16">
+            <p className="ict-section-label">Selected Work</p>
+            <h2 className="ict-section-heading">Featured Projects</h2>
+            <p className="ict-section-subtitle" style={{ maxWidth: '36rem' }}>
+              A curated selection of completed projects — from single-room transformations
+              to full property refurbishments across London.
+            </p>
+          </div>
+        </Reveal>
 
         {/* ── Featured project — full-width horizontal card ── */}
-        <div
-          data-reveal
-          className="group rounded-[14px] border border-[rgba(212,175,55,0.2)] hover:border-[rgba(212,175,55,0.38)] bg-[#FDFCF9] shadow-[0_1px_4px_rgba(0,0,0,0.06)] hover:-translate-y-[2px] hover:shadow-[0_14px_36px_rgba(0,0,0,0.09),0_3px_10px_rgba(212,175,55,0.07)] overflow-hidden transition-all duration-300 mb-8"
+        <Reveal direction="scale" delay={0.1}>
+        <motion.div
+          whileHover={{ y: -2, boxShadow: '0 14px 36px rgba(0,0,0,0.09), 0 3px 10px rgba(212,175,55,0.07)', borderColor: 'rgba(212,175,55,0.38)' }}
+          transition={{ duration: 0.3 }}
+          className="group rounded-[14px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-[0_1px_4px_rgba(0,0,0,0.06)] overflow-hidden mb-8"
         >
           <div className="flex flex-col lg:flex-row">
 
@@ -94,19 +102,20 @@ export default function Portfolio() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
+        </Reveal>
 
         {/* ── Supporting project grid — 5 cards ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7" stagger={0.08}>
           {rest.map((p, i) => (
-            <div
-              key={p.id}
-              data-reveal
-              style={{ transitionDelay: `${(i + 1) * 80}ms` }}
-              className="group overflow-hidden rounded-[14px] border border-[rgba(212,175,55,0.2)] hover:border-[rgba(212,175,55,0.4)] bg-[#FDFCF9] shadow-[0_1px_4px_rgba(0,0,0,0.06)] hover:-translate-y-[3px] hover:shadow-[0_10px_28px_rgba(0,0,0,0.09),0_2px_8px_rgba(212,175,55,0.07)] transition-all duration-300"
+            <StaggerItem key={p.id}>
+            <motion.div
+              whileHover={{ y: -3, boxShadow: '0 10px 28px rgba(0,0,0,0.09), 0 2px 8px rgba(212,175,55,0.07)', borderColor: 'rgba(212,175,55,0.4)' }}
+              transition={{ duration: 0.25 }}
+              className="group overflow-hidden rounded-[14px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-[0_1px_4px_rgba(0,0,0,0.06)]"
             >
               {/* Image */}
-              <div className="aspect-[16/11] overflow-hidden">
+              <div className="aspect-[16/12] overflow-hidden">
                 <img
                   src={p.image}
                   alt={p.title}
@@ -127,25 +136,38 @@ export default function Portfolio() {
                   {p.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* ── Section CTA ── */}
-        <div className="text-center mt-14">
-          <button
-            onClick={() => document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' })}
-            className="group inline-flex items-center gap-2.5 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-9 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] hover:-translate-y-0.5 transition-all duration-300 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
-          >
-            Discuss Your Project
-            <svg
-              className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200"
-              fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </button>
-        </div>
+        <Reveal delay={0.15}>
+          <div className="text-center mt-14 flex flex-col sm:flex-row gap-3 justify-center">
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                to="/portfolio"
+                className="group inline-flex items-center gap-2.5 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-9 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
+              >
+                View All Projects
+                <svg
+                  className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200"
+                  fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                to="/contact"
+                className="inline-block font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg text-[#B08D2A] border border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/50"
+              >
+                Discuss Your Project
+              </Link>
+            </motion.div>
+          </div>
+        </Reveal>
 
       </div>
     </section>

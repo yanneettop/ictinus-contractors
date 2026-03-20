@@ -1,3 +1,5 @@
+import { motion } from 'motion/react'
+
 const items = [
   {
     stat: '9.97/10',
@@ -58,20 +60,27 @@ const items = [
 
 export default function TrustRow() {
   return (
-    <div className="ict-trust-row">
+    <div className="ict-trust-row-dark">
       <div className="trust-inner trust-inner-5">
         {items.map(({ stat, text, icon, hideOnMobile }, i) => (
-          <div key={text} className={`ict-trust-item${hideOnMobile ? ' ict-hide-mobile' : ''}`} data-reveal style={{ transitionDelay: `${i * 80}ms` }}>
-            <div className="ict-trust-icon">
+          <motion.div
+            key={text}
+            className={`ict-trust-item-dark${hideOnMobile ? ' ict-hide-mobile' : ''}`}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="ict-trust-icon-dark">
               <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 {icon}
               </svg>
             </div>
             <div className="ict-trust-content">
-              {stat && <span className="ict-trust-stat">{stat}</span>}
-              <span className="ict-trust-text">{text}</span>
+              {stat && <span className="ict-trust-stat-dark">{stat}</span>}
+              <span className="ict-trust-text-dark">{text}</span>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

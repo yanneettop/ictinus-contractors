@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { motion, AnimatePresence } from 'motion/react'
 
 const links = [
-  { label: 'HOME',         id: 'top',          route: '/' },
-  { label: 'ABOUT',        id: 'about',         route: null },
-  { label: 'SERVICES',     id: null,            route: '/services' },
-  { label: 'PORTFOLIO',    id: 'portfolio',     route: null },
-  { label: 'TESTIMONIALS', id: 'testimonials',  route: null },
-  { label: 'CONTACT',      id: 'quote',         route: null },
+  { label: 'HOME',         route: '/' },
+  { label: 'ABOUT',        route: '/about' },
+  { label: 'SERVICES',     route: '/services' },
+  { label: 'PORTFOLIO',    route: '/portfolio' },
+  { label: 'TESTIMONIALS', id: 'testimonials', route: null },
+  { label: 'CONTACT',      route: '/contact' },
 ]
 
 function ColumnIcon({ className }) {
@@ -25,7 +26,7 @@ export default function Nav() {
   const [menuOpen, setMenuOpen]   = useState(false)
   const navigate                  = useNavigate()
   const location                  = useLocation()
-  const isServicesPage            = location.pathname === '/services'
+  const isHome                    = location.pathname === '/'
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 30)
@@ -33,21 +34,24 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  // Close mobile menu and reset scroll position on route change
   useEffect(() => { setMenuOpen(false) }, [location.pathname])
 
   const handleLink = (link) => {
     setMenuOpen(false)
 
-    // Link has its own page route (e.g. /services)
-    if (link.route && link.route !== '/') {
-      navigate(link.route)
+    // Section anchor on homepage (e.g. testimonials)
+    if (link.id && !link.route) {
+      if (isHome) {
+        document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' })
+      } else {
+        navigate(`/#${link.id}`)
+      }
       return
     }
 
     // HOME — go to top of homepage
-    if (link.id === 'top' || link.route === '/') {
-      if (location.pathname === '/') {
+    if (link.route === '/') {
+      if (isHome) {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       } else {
         navigate('/')
@@ -55,24 +59,14 @@ export default function Nav() {
       return
     }
 
-    // Section anchor — scroll if on homepage, navigate with hash otherwise
-    if (location.pathname === '/') {
-      document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' })
-    } else {
-      navigate(`/#${link.id}`)
+    // Page route
+    if (link.route) {
+      navigate(link.route)
+      return
     }
   }
 
-  const handleQuote = () => {
-    setMenuOpen(false)
-    if (location.pathname === '/') {
-      document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' })
-    } else {
-      navigate('/#quote')
-    }
-  }
-
-  const navSolid = scrolled || isServicesPage
+  const navSolid = scrolled || !isHome
 
   return (
     <nav
@@ -86,7 +80,7 @@ export default function Nav() {
 
         {/* Logo */}
         <button
-          onClick={() => handleLink({ id: 'top', route: '/' })}
+          onClick={() => handleLink({ route: '/' })}
           className="flex items-center gap-3 flex-shrink-0 group"
           aria-label="Go to homepage"
         >
@@ -105,8 +99,8 @@ export default function Nav() {
         <div className="hidden lg:flex items-center gap-7 flex-1 justify-center">
           {links.map((link) => {
             const active =
-              (link.route === '/services' && isServicesPage) ||
-              (link.route === '/'         && !isServicesPage && location.pathname === '/')
+              (link.route && link.route !== '/' && location.pathname === link.route) ||
+              (link.route === '/' && isHome)
             return (
               <button
                 key={link.label}
@@ -126,12 +120,18 @@ export default function Nav() {
         </div>
 
         {/* GET A QUOTE button — desktop */}
-        <button
-          onClick={handleQuote}
-          className="hidden lg:block flex-shrink-0 font-['Source_Serif_4'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-6 py-[0.65rem] rounded-lg bg-gradient-gold text-[#0F1923] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_16px_rgba(212,175,55,0.25)]"
+        <motion.div
+          className="hidden lg:block flex-shrink-0"
+          whileHover={{ scale: 1.05, y: -1 }}
+          whileTap={{ scale: 0.97 }}
         >
-          GET A QUOTE
-        </button>
+          <Link
+            to="/contact"
+            className="block font-['Source_Serif_4'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-6 py-[0.65rem] rounded-lg bg-gradient-gold text-[#0F1923] shadow-[0_4px_16px_rgba(212,175,55,0.25)]"
+          >
+            GET A QUOTE
+          </Link>
+        </motion.div>
 
         {/* Mobile hamburger */}
         <button
@@ -152,29 +152,39 @@ export default function Nav() {
       </div>
 
       {/* Mobile menu */}
-      <div
-        className={`lg:hidden bg-[#1C1714] border-t border-[#D4AF37]/15 overflow-hidden transition-all duration-300 ${
-          menuOpen ? 'max-h-96 py-4' : 'max-h-0'
-        }`}
-      >
-        <div className="px-5 space-y-0.5">
-          {links.map((link) => (
-            <button
-              key={link.label}
-              onClick={() => handleLink(link)}
-              className="block w-full text-left font-['Source_Serif_4'] text-[0.75rem] tracking-[0.14em] uppercase text-[#C9B09A] py-2.5 hover:text-[#D4AF37] transition-colors"
-            >
-              {link.label}
-            </button>
-          ))}
-          <button
-            onClick={handleQuote}
-            className="block w-full font-['Source_Serif_4'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-5 py-3 rounded-lg bg-gradient-gold text-[#1C1714] text-center mt-3"
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="lg:hidden bg-[#1C1714] border-t border-[#D4AF37]/15 overflow-hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            GET A QUOTE
-          </button>
-        </div>
-      </div>
+            <div className="px-5 py-4 space-y-0.5">
+              {links.map((link, i) => (
+                <motion.button
+                  key={link.label}
+                  onClick={() => handleLink(link)}
+                  className="block w-full text-left font-['Source_Serif_4'] text-[0.75rem] tracking-[0.14em] uppercase text-[#C9B09A] py-2.5 hover:text-[#D4AF37] transition-colors"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.04, duration: 0.3 }}
+                >
+                  {link.label}
+                </motion.button>
+              ))}
+              <Link
+                to="/contact"
+                onClick={() => setMenuOpen(false)}
+                className="block w-full font-['Source_Serif_4'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-5 py-3 rounded-lg bg-gradient-gold text-[#1C1714] text-center mt-3"
+              >
+                GET A QUOTE
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }

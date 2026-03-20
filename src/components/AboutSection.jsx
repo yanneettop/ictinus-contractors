@@ -1,3 +1,6 @@
+import { motion } from 'motion/react'
+import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
+
 const highlights = [
   { stat: '12+', label: 'Years in the Industry' },
   { stat: '30+', label: 'Verified Client Reviews' },
@@ -8,12 +11,12 @@ export default function AboutSection() {
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <section className="bg-[#FAF9F6] py-12 sm:py-20 px-4 sm:px-6 lg:px-8" id="about">
+    <section className="bg-[#FAF9F6] py-16 sm:py-28 px-4 sm:px-6 lg:px-8" id="about">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
 
           {/* Left — Copy */}
-          <div data-reveal>
+          <Reveal direction="left">
             <p className="ict-section-label text-left mb-2">About Ictinus Contractors</p>
             <h2 className="font-['Cormorant_Garamond'] text-[1.75rem] md:text-[2.625rem] font-semibold text-[#1C1714] mb-5 md:mb-7 leading-[1.2] tracking-[-0.015em] text-left">
               A London Contractor Brand<br />Built on Quality
@@ -37,16 +40,18 @@ export default function AboutSection() {
                 the same level of care, precision, and professionalism to every job.
               </p>
             </div>
-            <button
+            <motion.button
               onClick={() => scrollTo('quote')}
-              className="mt-8 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-6 py-3 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-md hover:shadow-[#D4AF37]/30"
+              className="mt-8 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-6 py-3 rounded-lg text-[#1C1714] bg-gradient-gold shadow-md"
+              whileHover={{ scale: 1.05, boxShadow: '0 6px 20px rgba(212,175,55,0.3)' }}
+              whileTap={{ scale: 0.97 }}
             >
               Get a Free Quote
-            </button>
-          </div>
+            </motion.button>
+          </Reveal>
 
           {/* Right — Stats + Values */}
-          <div data-reveal style={{ transitionDelay: '200ms' }}>
+          <Reveal direction="right" delay={0.2}>
             {/* Stats row */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-10">
               {highlights.map(({ stat, label }, i) => (
@@ -85,7 +90,7 @@ export default function AboutSection() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
 
         </div>
       </div>

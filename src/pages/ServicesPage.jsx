@@ -317,7 +317,7 @@ function ServiceSection({ service, index }) {
             ))}
 
             <button
-              onClick={() => navigate('/#quote')}
+              onClick={() => navigate('/contact')}
               className="inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.85rem] tracking-wide px-6 py-3 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.2)] mt-2"
             >
               Request a Free Quote
@@ -456,7 +456,7 @@ function PageCTA() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
-            onClick={() => navigate('/#quote')}
+            onClick={() => navigate('/contact')}
             className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
           >
             Request a Free Quote

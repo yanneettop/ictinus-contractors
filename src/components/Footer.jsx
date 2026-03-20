@@ -1,3 +1,7 @@
+import { Link } from 'react-router-dom'
+import { motion } from 'motion/react'
+import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
+
 const mainServices = [
   'Painting & Decorating',
   'Wallpapering',
@@ -8,20 +12,25 @@ const mainServices = [
   'Finishing Carpentry',
 ]
 
-export default function Footer() {
-  const scrollTo = (id) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+const quickLinks = [
+  { label: 'About', to: '/about' },
+  { label: 'Services', to: '/services' },
+  { label: 'Portfolio', to: '/portfolio' },
+  { label: 'Contact', to: '/contact' },
+]
 
+export default function Footer() {
   return (
-    <footer className="bg-[#1C1714] text-white px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-[#1C1714] text-white px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-14" stagger={0.1}>
 
           {/* Brand column */}
-          <div>
-            <p className="font-['Cormorant_Garamond'] text-xl font-bold tracking-widest text-gradient-gold mb-4">
+          <StaggerItem><div className="sm:col-span-2 lg:col-span-1">
+            <p className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold tracking-[0.15em] text-gradient-gold mb-2">
               ICTINUS
             </p>
+            <p className="font-['Plus_Jakarta_Sans'] text-[0.7rem] uppercase tracking-[0.2em] text-white/30 mb-5">Contractors</p>
             <p className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8] leading-[1.72] mb-4">
               Professional decorating, refurbishment, and finishing services across London.
               Premium results, reliable project management, and clear communication on every job.
@@ -29,29 +38,48 @@ export default function Footer() {
             <p className="ict-footer-insurance">
               Fully insured · 12+ years experience · London-wide coverage
             </p>
-          </div>
+          </div></StaggerItem>
+
+          {/* Quick Links */}
+          <StaggerItem><div>
+            <h4 className="font-['Cormorant_Garamond'] text-[0.875rem] font-semibold text-[#F1F5F9]/90 tracking-widest uppercase mb-5">
+              Quick Links
+            </h4>
+            <ul className="space-y-2">
+              {quickLinks.map(({ label, to }) => (
+                <li key={label}>
+                  <Link
+                    to={to}
+                    className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8] hover:text-[#D4AF37] transition-colors duration-200"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div></StaggerItem>
 
           {/* Services column */}
-          <div>
+          <StaggerItem><div>
             <h4 className="font-['Cormorant_Garamond'] text-[0.875rem] font-semibold text-[#F1F5F9]/90 tracking-widest uppercase mb-5">
               Services
             </h4>
             <ul className="space-y-2">
               {mainServices.map((s) => (
                 <li key={s}>
-                  <button
-                    onClick={() => scrollTo('services')}
+                  <Link
+                    to="/services"
                     className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8] hover:text-[#D4AF37] transition-colors duration-200"
                   >
                     {s}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </div></StaggerItem>
 
           {/* Contact column */}
-          <div>
+          <StaggerItem><div>
             <h4 className="font-['Cormorant_Garamond'] text-[0.875rem] font-semibold text-[#F1F5F9]/90 tracking-widest uppercase mb-5">
               Contact Us
             </h4>
@@ -60,9 +88,9 @@ export default function Footer() {
                 <svg className="w-4 h-4 text-[#D4AF37] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <span className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8]">
+                <a href="mailto:info@ictinuscontractors.co.uk" className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8] hover:text-[#D4AF37] transition-colors">
                   info@ictinuscontractors.co.uk
-                </span>
+                </a>
               </div>
               <div className="flex items-start gap-3">
                 <svg className="w-4 h-4 text-[#D4AF37] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -73,16 +101,16 @@ export default function Footer() {
                 </span>
               </div>
               <div className="pt-2">
-                <button
-                  onClick={() => scrollTo('quote')}
-                  className="font-['Source_Serif_4'] text-[0.9375rem] font-semibold tracking-wide px-5 py-2.5 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5"
+                <Link
+                  to="/contact"
+                  className="inline-block font-['Source_Serif_4'] text-[0.9375rem] font-semibold tracking-wide px-5 py-2.5 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5"
                 >
                   Get a Quote
-                </button>
+                </Link>
               </div>
             </div>
-          </div>
-        </div>
+          </div></StaggerItem>
+        </StaggerContainer>
 
         {/* Divider + copyright */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">

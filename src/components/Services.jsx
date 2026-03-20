@@ -1,3 +1,7 @@
+import { Link } from 'react-router-dom'
+import { motion } from 'motion/react'
+import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
+
 const services = [
   {
     title: 'Painting & Decorating',
@@ -50,9 +54,7 @@ const services = [
     title: 'Property Refurbishment',
     desc: 'Complete property makeovers from strip-out to final finish, managed with precision and delivered on time.',
     icon: (
-      <>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5m4 0H9" />
-      </>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5m4 0H9" />
     ),
   },
   {
@@ -65,56 +67,93 @@ const services = [
 ]
 
 export default function Services() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-
   return (
-    <section id="services" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#F5F0E6]">
+    <section id="services" className="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#F5F0E6]">
       <div className="max-w-6xl mx-auto">
 
-        <p className="ict-section-label" data-reveal>Our Services</p>
-        <h2 className="ict-section-heading" data-reveal style={{ transitionDelay: '80ms' }}>
-          Specialist Decorating, Finishing &amp; Refurbishment
-        </h2>
-        <p className="ict-section-subtitle" data-reveal style={{ transitionDelay: '160ms' }}>
-          From single-room decorating to full property refurbishments — professional results
-          across residential and commercial projects in London.
-        </p>
+        <Reveal>
+          <p className="ict-section-label">Our Services</p>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <h2 className="ict-section-heading">
+            Specialist Decorating, Finishing &amp; Refurbishment
+          </h2>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <p className="ict-section-subtitle">
+            From single-room decorating to full property refurbishments — professional results
+            across residential and commercial projects in London.
+          </p>
+        </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 mb-10 sm:mb-14">
-          {services.map(({ title, desc, icon }, i) => (
-            <div
-              key={title}
-              data-reveal
-              style={{ transitionDelay: `${i * 70}ms` }}
-              className="group bg-[#FDFCF9] border border-[rgba(212,175,55,0.2)] rounded-[14px] p-5 sm:p-7 cursor-default shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:-translate-y-[3px] hover:border-[rgba(212,175,55,0.4)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(212,175,55,0.07)] transition-all duration-300"
-            >
-              {/* Icon container — soft square, architectural */}
-              <div className="w-10 h-10 bg-[rgba(212,175,55,0.1)] rounded-[10px] flex items-center justify-center mb-3 sm:mb-5 transition-colors duration-300 group-hover:bg-[rgba(212,175,55,0.18)]">
-                <svg
-                  className="w-[1.15rem] h-[1.15rem] text-[#B08D2A] transition-colors duration-300"
-                  fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 mb-10 sm:mb-14" stagger={0.07}>
+          {services.map(({ title, desc, icon }, i) => {
+            const isFeature = i < 2
+            return (
+              <StaggerItem key={title}>
+                <motion.div
+                  whileHover={{ y: -5, transition: { duration: 0.25 } }}
+                  className={`group border rounded-[14px] cursor-default transition-colors duration-300 hover:border-[rgba(212,175,55,0.4)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(212,175,55,0.07)] ${
+                    isFeature
+                      ? 'bg-[#1C1714] border-[rgba(212,175,55,0.15)] p-6 sm:p-8 shadow-[0_2px_8px_rgba(0,0,0,0.12)]'
+                      : 'bg-[#FDFCF9] border-[rgba(212,175,55,0.2)] p-5 sm:p-7 shadow-[0_1px_4px_rgba(0,0,0,0.05)]'
+                  }`}
                 >
-                  {icon}
-                </svg>
-              </div>
-              <h3 className="font-['Cormorant_Garamond'] text-[1.125rem] font-semibold text-[#1C1714] mb-2.5 leading-snug tracking-[-0.01em] group-hover:text-[#B08D2A] transition-colors duration-300">
-                {title}
-              </h3>
-              <p className="font-['Source_Serif_4'] text-[0.9375rem] text-[#5A5048] leading-[1.68]">
-                {desc}
-              </p>
-            </div>
-          ))}
-        </div>
+                  <div className={`w-11 h-11 rounded-[10px] flex items-center justify-center mb-4 sm:mb-5 transition-colors duration-300 ${
+                    isFeature
+                      ? 'bg-[rgba(212,175,55,0.15)] group-hover:bg-[rgba(212,175,55,0.25)]'
+                      : 'bg-[rgba(212,175,55,0.1)] group-hover:bg-[rgba(212,175,55,0.18)]'
+                  }`}>
+                    <svg
+                      className={`w-[1.25rem] h-[1.25rem] transition-colors duration-300 ${
+                        isFeature ? 'text-[#D4AF37]' : 'text-[#B08D2A]'
+                      }`}
+                      fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"
+                    >
+                      {icon}
+                    </svg>
+                  </div>
+                  <h3 className={`font-['Cormorant_Garamond'] font-semibold mb-2.5 leading-snug tracking-[-0.01em] transition-colors duration-300 ${
+                    isFeature
+                      ? 'text-[1.25rem] text-[#F5F0E6] group-hover:text-[#D4AF37]'
+                      : 'text-[1.125rem] text-[#1C1714] group-hover:text-[#B08D2A]'
+                  }`}>
+                    {title}
+                  </h3>
+                  <p className={`font-['Source_Serif_4'] text-[0.9375rem] leading-[1.68] ${
+                    isFeature ? 'text-[#9A9590]' : 'text-[#5A5048]'
+                  }`}>
+                    {desc}
+                  </p>
+                </motion.div>
+              </StaggerItem>
+            )
+          })}
+        </StaggerContainer>
 
-        <div className="text-center">
-          <button
-            onClick={() => scrollTo('quote')}
-            className="font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
-          >
-            Request a Free Quote
-          </button>
-        </div>
+        <Reveal>
+          <div className="text-center flex flex-col sm:flex-row gap-3 justify-center">
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                to="/services"
+                className="group inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
+              >
+                View All Services
+                <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                to="/contact"
+                className="inline-block font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg text-[#B08D2A] border border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/50"
+              >
+                Request a Free Quote
+              </Link>
+            </motion.div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

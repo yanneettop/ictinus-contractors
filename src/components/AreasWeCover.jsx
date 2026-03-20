@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const areas = [
   'Hackney', 'Shoreditch', 'Bethnal Green', 'Canary Wharf',
   'Stratford', 'Islington', 'Greenwich', 'Tower Hamlets',
@@ -6,9 +8,6 @@ const areas = [
 ]
 
 export default function AreasWeCover() {
-  const scrollTo = (id) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-
   return (
     <section className="ict-areas-section">
       <div className="ict-areas-inner">
@@ -26,9 +25,9 @@ export default function AreasWeCover() {
 
         <p className="ict-areas-cta" data-reveal style={{ transitionDelay: '120ms' }}>
           Not sure if we cover your area?{' '}
-          <button onClick={() => scrollTo('quote')}>
+          <Link to="/contact" style={{ color: '#B08D2A', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: '2px' }}>
             Submit your postcode
-          </button>{' '}
+          </Link>{' '}
           and we&rsquo;ll confirm availability.
         </p>
       </div>

@@ -1,3 +1,6 @@
+import { motion } from 'motion/react'
+import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
+
 const reasons = [
   {
     title: 'Professional & Reliable',
@@ -48,46 +51,52 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-choose-us" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6]">
-      <div className="max-w-6xl mx-auto">
+    <section id="why-choose-us" className="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#1C1714] relative overflow-hidden">
+      {/* Subtle texture overlay */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
 
-        <div className="text-center mb-8 sm:mb-14" data-reveal>
-          <p className="ict-section-label">Why Choose Us</p>
-          <h2 className="font-['Cormorant_Garamond'] text-[2rem] md:text-[2.625rem] lg:text-[2.75rem] font-semibold text-[#1C1714] mb-6 leading-[1.2] tracking-[-0.015em] max-w-[26rem] mx-auto">
-            Why Clients Trust Ictinus Contractors
-          </h2>
-          <p className="text-[#5A5048] text-[1.0625rem] leading-[1.78] max-w-[42rem] mx-auto font-['Source_Serif_4']">
-            Rated 9.97 out of 10 on Checkatrade and 4.9 on MyBuilder — our reputation is built on
-            consistent results, honest communication, and a professional approach to every project.
-          </p>
-        </div>
+      <div className="max-w-6xl mx-auto relative z-10">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
-          {reasons.map(({ title, description, icon }, i) => (
-            <div
-              key={title}
-              data-reveal
-              style={{ transitionDelay: `${i * 80}ms` }}
-              className="group bg-[#FDFCF9] p-5 sm:p-7 rounded-[14px] border border-[rgba(212,175,55,0.2)] hover:border-[rgba(212,175,55,0.4)] transition-all duration-300 hover:-translate-y-[3px] shadow-[0_1px_4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(212,175,55,0.07)]"
-            >
-              {/* Icon — soft square container, more architectural than full circle */}
-              <div className="w-10 h-10 bg-[rgba(212,175,55,0.1)] rounded-[10px] flex items-center justify-center mb-3 sm:mb-5 group-hover:bg-[rgba(212,175,55,0.18)] transition-colors duration-300">
-                <svg
-                  className="w-[1.15rem] h-[1.15rem] text-[#B08D2A]"
-                  fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"
-                >
-                  {icon}
-                </svg>
-              </div>
-              <h3 className="font-['Cormorant_Garamond'] text-[1.125rem] font-semibold text-[#1C1714] mb-3 leading-snug tracking-[-0.01em]">
-                {title}
-              </h3>
-              <p className="text-[#5A5048] text-[0.9375rem] leading-[1.68] font-['Source_Serif_4']">
-                {description}
-              </p>
-            </div>
+        <Reveal>
+          <div className="text-center mb-10 sm:mb-16">
+            <p className="font-['Plus_Jakarta_Sans'] text-[0.8125rem] uppercase tracking-[0.12em] text-[#D4AF37] font-semibold mb-3.5">Why Choose Us</p>
+            <h2 className="font-['Cormorant_Garamond'] text-[2.25rem] md:text-[3rem] lg:text-[3.25rem] font-semibold text-white mb-6 leading-[1.15] tracking-[-0.015em] max-w-[28rem] mx-auto">
+              Why Clients Trust Ictinus Contractors
+            </h2>
+            <div className="w-12 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-6" />
+            <p className="text-[#B8AFA6] text-[1.0625rem] leading-[1.78] max-w-[42rem] mx-auto font-['Source_Serif_4']">
+              Rated 9.97 out of 10 on Checkatrade and 4.9 on MyBuilder — our reputation is built on
+              consistent results, honest communication, and a professional approach to every project.
+            </p>
+          </div>
+        </Reveal>
+
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5" stagger={0.08}>
+          {reasons.map(({ title, description, icon }) => (
+            <StaggerItem key={title}>
+              <motion.div
+                whileHover={{ y: -3, boxShadow: '0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(212,175,55,0.08)', borderColor: 'rgba(212,175,55,0.35)' }}
+                transition={{ duration: 0.25 }}
+                className="group bg-[#252019] p-5 sm:p-7 rounded-[14px] border border-[rgba(212,175,55,0.12)] h-full"
+              >
+                <div className="w-10 h-10 bg-[rgba(212,175,55,0.12)] rounded-[10px] flex items-center justify-center mb-3 sm:mb-5 group-hover:bg-[rgba(212,175,55,0.22)] transition-colors duration-300">
+                  <svg
+                    className="w-[1.15rem] h-[1.15rem] text-[#D4AF37]"
+                    fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"
+                  >
+                    {icon}
+                  </svg>
+                </div>
+                <h3 className="font-['Cormorant_Garamond'] text-[1.125rem] font-semibold text-[#F5F0E6] mb-3 leading-snug tracking-[-0.01em]">
+                  {title}
+                </h3>
+                <p className="text-[#9A9590] text-[0.9375rem] leading-[1.68] font-['Source_Serif_4']">
+                  {description}
+                </p>
+              </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   )
