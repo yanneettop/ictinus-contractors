@@ -7,7 +7,7 @@ const audiences = [
     title: 'Your Home, Done Properly',
     audience: 'Homeowners',
     description:
-      'Whether you're refreshing a single room or undertaking a full renovation, we deliver the quality and care your home deserves — with clear communication and no unnecessary disruption.',
+      "Whether you're refreshing a single room or undertaking a full renovation, we deliver the quality and care your home deserves — with clear communication and no unnecessary disruption.",
     icon: (
       <path
         strokeLinecap="round"
@@ -20,7 +20,7 @@ const audiences = [
     title: 'Fast Turnarounds. Lettable Standards.',
     audience: 'Landlords',
     description:
-      'We understand the importance of turning a property around quickly and to a standard that attracts quality tenants. Our team works efficiently and leaves every job clean and ready to let.',
+      "We understand the importance of turning a property around quickly and to a standard that attracts quality tenants. Our team works efficiently and leaves every job clean and ready to let.",
     icon: (
       <path
         strokeLinecap="round"
@@ -33,7 +33,7 @@ const audiences = [
     title: 'Reliable. Responsive. Easy to Work With.',
     audience: 'Letting Agents & Property Managers',
     description:
-      'Whether it's a void refurbishment or routine maintenance works, we communicate clearly, keep disruption to a minimum, and deliver a consistent standard every time.',
+      "Whether it's a void refurbishment or routine maintenance works, we communicate clearly, keep disruption to a minimum, and deliver a consistent standard every time.",
     icon: (
       <path
         strokeLinecap="round"
@@ -46,7 +46,7 @@ const audiences = [
     title: 'Professional Results for Commercial Spaces',
     audience: 'Shops & Small Businesses',
     description:
-      'From office refreshes to shopfit decoration, we bring the same premium finish to your workspace — and work around your hours to keep downtime to a minimum.',
+      "From office refreshes to shopfit decoration, we bring the same premium finish to your workspace — and work around your hours to keep downtime to a minimum.",
     icon: (
       <path
         strokeLinecap="round"
@@ -127,7 +127,7 @@ export default function WhoWeWorkWith() {
         <Reveal delay={0.15}>
           <div className="text-center mt-12 sm:mt-14">
             <p className="font-['Source_Serif_4'] text-[0.9375rem] text-[#5A5048] mb-5">
-              Not sure which category fits? We're happy to advise — just get in touch.
+              Not sure which category fits? We&rsquo;re happy to advise — just get in touch.
             </p>
             <motion.div
               whileHover={{ scale: 1.04 }}
