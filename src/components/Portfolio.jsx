@@ -7,7 +7,7 @@ const projects = [
     id: 1,
     title: 'Full Room Decoration',
     category: 'Interior Decoration',
-    image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=2032&auto=format&fit=crop',
+    image: '/Portfolio/Room_dec_after.png',
     description: 'Full interior decoration project including surface preparation, specialist painting, and bespoke wallpapering — delivered to a premium standard for a residential property in Hackney, East London.',
   },
   {

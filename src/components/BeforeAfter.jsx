@@ -118,14 +118,14 @@ function ComparisonSlider({ before, after }) {
 const pairs = [
   {
     id: 1,
-    title: 'Living Room Decoration',
+    title: 'Full Room Decoration',
     scope: 'Plastering repairs · Specialist painting · Full decorating',
     before: {
-      src: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?q=80&w=1200&auto=format&fit=crop',
+      src: '/Portfolio/Room_dec_Before.png',
       alt: 'Living room before decoration',
     },
     after: {
-      src: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200&auto=format&fit=crop',
+      src: '/Portfolio/Room_dec_after.png',
       alt: 'Living room after decoration',
     },
     caption: 'From dated and worn to a clean, polished finish — careful surface preparation and skilled decorating, delivered to a premium standard.',
