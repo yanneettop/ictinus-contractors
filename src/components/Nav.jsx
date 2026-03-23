@@ -14,7 +14,7 @@ const links = [
 function ColumnIcon({ className }) {
   return (
     <img
-      src="/logo2.png"
+      src="/logo2.webp"
       alt="Ictinus Contractors logo"
       className={`h-14 md:h-16 w-auto ${className}`}
     />

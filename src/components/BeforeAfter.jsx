@@ -121,11 +121,11 @@ const pairs = [
     title: 'Full Room Decoration',
     scope: 'Plastering repairs · Specialist painting · Full decorating',
     before: {
-      src: '/Portfolio/Room_dec_Before.png',
+      src: '/Portfolio/Room_dec_Before.webp',
       alt: 'Living room before decoration',
     },
     after: {
-      src: '/Portfolio/Room_dec_after.png',
+      src: '/Portfolio/Room_dec_after.webp',
       alt: 'Living room after decoration',
     },
     caption: 'From dated and worn to a clean, polished finish — careful surface preparation and skilled decorating, delivered to a premium standard.',

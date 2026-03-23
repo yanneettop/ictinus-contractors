@@ -5,16 +5,16 @@ import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 
 const GALLERIES = {
   1: [
-    { src: '/Portfolio/Room_dec_after.png',  alt: 'Full Room Decoration — after (1)', label: 'After' },
-    { src: '/Portfolio/Room_dec_after2.png', alt: 'Full Room Decoration — after (2)', label: 'After' },
-    { src: '/Portfolio/Room_dec_after3.png', alt: 'Full Room Decoration — after (3)', label: 'After' },
-    { src: '/Portfolio/Room_dec_after4.png', alt: 'Full Room Decoration — after (4)', label: 'After' },
-    { src: '/Portfolio/Room_dec_Before.png', alt: 'Full Room Decoration — before',    label: 'Before' },
+    { src: '/Portfolio/Room_dec_after.webp',  alt: 'Full Room Decoration — after (1)', label: 'After' },
+    { src: '/Portfolio/Room_dec_after2.webp', alt: 'Full Room Decoration — after (2)', label: 'After' },
+    { src: '/Portfolio/Room_dec_after3.webp', alt: 'Full Room Decoration — after (3)', label: 'After' },
+    { src: '/Portfolio/Room_dec_after4.webp', alt: 'Full Room Decoration — after (4)', label: 'After' },
+    { src: '/Portfolio/Room_dec_Before.webp', alt: 'Full Room Decoration — before',    label: 'Before' },
   ],
   2: [
-    { src: '/Portfolio/bath_after.png',  alt: 'Bathroom Renovation — after (1)', label: 'After' },
-    { src: '/Portfolio/bath_after2.png', alt: 'Bathroom Renovation — after (2)', label: 'After' },
-    { src: '/Portfolio/bath_before.png', alt: 'Bathroom Renovation — before',    label: 'Before' },
+    { src: '/Portfolio/bath_after.webp',  alt: 'Bathroom Renovation — after (1)', label: 'After' },
+    { src: '/Portfolio/bath_after2.webp', alt: 'Bathroom Renovation — after (2)', label: 'After' },
+    { src: '/Portfolio/bath_before.webp', alt: 'Bathroom Renovation — before',    label: 'Before' },
   ],
 }
 
@@ -24,8 +24,8 @@ const projects = [
     title: 'Full Room Decoration',
     category: 'Interior Decoration',
     location: 'Hackney, East London',
-    image: '/Portfolio/Room_dec_after.png',
-    hoverImage: '/Portfolio/Room_dec_Before.png',
+    image: '/Portfolio/Room_dec_after.webp',
+    hoverImage: '/Portfolio/Room_dec_Before.webp',
     hasGallery: true,
     description: 'Full interior decoration including surface preparation, specialist painting, and bespoke wallpapering — delivered to a premium standard for a residential property in Hackney.',
   },
@@ -34,8 +34,8 @@ const projects = [
     title: 'Bathroom Renovation',
     category: 'Bathroom Fitting',
     location: 'Stratford, East London',
-    image: '/Portfolio/bath_after.png',
-    hoverImage: '/Portfolio/bath_before.png',
+    image: '/Portfolio/bath_after.webp',
+    hoverImage: '/Portfolio/bath_before.webp',
     hasGallery: true,
     description: 'Complete strip-out and refit including new tiling, fixtures, vanity unit, and all finishing works — delivered on time and within budget.',
   },

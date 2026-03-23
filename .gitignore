@@ -1,6 +1,8 @@
 node_modules/
 dist/
+dist-optimized/
 .claude/
 .vscode/
 *.rar
 *.zip
+*.timestamp-*.mjs
