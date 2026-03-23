@@ -90,7 +90,10 @@ export default function WhoWeWorkWith() {
               >
                 {/* Icon + audience tag */}
                 <div className="flex items-center gap-3.5 mb-5">
-                  <div className="w-11 h-11 rounded-[10px] bg-[rgba(212,175,55,0.1)] group-hover:bg-[rgba(212,175,55,0.18)] transition-colors duration-300 flex items-center justify-center flex-shrink-0">
+                  <motion.div
+                    className="w-11 h-11 rounded-[10px] bg-[rgba(212,175,55,0.1)] group-hover:bg-[rgba(212,175,55,0.18)] transition-colors duration-300 flex items-center justify-center flex-shrink-0"
+                    whileHover={{ rotate: [0, -8, 8, -4, 0], transition: { duration: 0.5 } }}
+                  >
                     <svg
                       className="w-5 h-5 text-[#B08D2A]"
                       fill="none"
@@ -100,7 +103,7 @@ export default function WhoWeWorkWith() {
                     >
                       {icon}
                     </svg>
-                  </div>
+                  </motion.div>
                   <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.13em] text-[#A88636]">
                     {audience}
                   </span>

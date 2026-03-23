@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Routes, Route, useLocation, Link } from 'react-router-dom'
-import { motion, MotionConfig } from 'motion/react'
+import { motion, MotionConfig, useScroll, useTransform } from 'motion/react'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import TrustRow from './components/TrustRow'
@@ -10,6 +10,7 @@ import Portfolio from './components/Portfolio'
 import WhyChooseUs from './components/WhyChooseUs'
 import Testimonials from './components/Testimonials'
 import Footer from './components/Footer'
+import SectionDivider from './components/SectionDivider'
 import Reveal from './components/Reveal'
 import useScrollReveal from './hooks/useScrollReveal'
 
@@ -17,6 +18,52 @@ import AboutPage from './pages/AboutPage'
 import ServicesPage from './pages/ServicesPage'
 import PortfolioPage from './pages/PortfolioPage'
 import ContactPage from './pages/ContactPage'
+
+/* ── Parallax Quote Divider ── */
+function ParallaxQuote() {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  })
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const textY = useTransform(scrollYProgress, [0, 1], ['20px', '-20px'])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
+
+  return (
+    <div ref={ref} className="relative h-[260px] sm:h-[340px] lg:h-[400px] overflow-hidden">
+      <motion.div
+        className="absolute inset-[-20%] bg-cover bg-center"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2100&auto=format&fit=crop)',
+          y: bgY,
+        }}
+      />
+      <div className="absolute inset-0 bg-[#1C1714]/65" />
+      <div className="relative z-10 flex items-center justify-center h-full text-center px-4">
+        <motion.div style={{ y: textY, opacity: textOpacity }}>
+          <motion.div
+            className="w-10 h-px bg-[#D4AF37]/50 mx-auto mb-6"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          />
+          <p className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl lg:text-[2.75rem] font-semibold text-white/90 italic max-w-2xl leading-relaxed" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>
+            &ldquo;Quality is never an accident; it is always the result of intelligent effort.&rdquo;
+          </p>
+          <motion.div
+            className="w-10 h-px bg-[#D4AF37]/50 mx-auto mt-6"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          />
+        </motion.div>
+      </div>
+    </div>
+  )
+}
 
 /* ── Slim Homepage ── */
 function HomePage() {
@@ -34,9 +81,16 @@ function HomePage() {
         <Reveal>
           <div className="max-w-3xl mx-auto text-center">
             <p className="ict-section-label mb-2">About Ictinus Contractors</p>
-            <h2 className="font-['Cormorant_Garamond'] text-[1.75rem] md:text-[2.5rem] font-semibold text-[#1C1714] mb-5 leading-[1.15]">
+            <h2 className="font-['Cormorant_Garamond'] text-[1.75rem] md:text-[2.5rem] font-semibold text-[#1C1714] mb-4 leading-[1.15]">
               A London Contractor Brand Built on Quality
             </h2>
+            <motion.div
+              className="w-16 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-5"
+              initial={{ scaleX: 0, opacity: 0 }}
+              whileInView={{ scaleX: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            />
             <p className="font-['Source_Serif_4'] text-[0.9375rem] sm:text-[1.0625rem] text-[#5A5048] leading-[1.78] mb-8">
               With over 12 years of industry experience and a reputation built on quality workmanship,
               reliability, and strong communication, Ictinus Contractors delivers a professional service
@@ -57,39 +111,43 @@ function HomePage() {
         </Reveal>
       </section>
 
+        {/* Cream → Dark: into Services */}
+        <SectionDivider variant="curve-down" fromColor="#FAF9F6" toColor="#1C1714" />
+
         {/* Services preview */}
         <Services />
+
+        {/* Dark → Cream: out of Services */}
+        <SectionDivider variant="curve-up" fromColor="#1C1714" toColor="#F5F0E6" />
 
         {/* Who We Work With */}
         <WhoWeWorkWith />
 
+        {/* Ornament between two cream sections */}
+        <SectionDivider variant="ornament" fromColor="#F5F0E6" />
+
         {/* Portfolio preview */}
         <Portfolio />
+
+        {/* Cream → Dark: into Why Choose Us */}
+        <SectionDivider variant="angle-down" fromColor="#FAF9F6" toColor="#1C1714" />
 
         {/* Why Choose Us */}
         <WhyChooseUs />
 
-        {/* Photo divider */}
-        <div className="relative h-[240px] sm:h-[320px] lg:h-[380px] overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2100&auto=format&fit=crop)' }}
-        />
-        <div className="absolute inset-0 bg-[#1C1714]/60" />
-        <div className="relative z-10 flex items-center justify-center h-full text-center px-4">
-          <Reveal direction="scale">
-            <p className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl lg:text-4xl font-semibold text-white/90 italic max-w-2xl leading-relaxed" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>
-              &ldquo;Quality is never an accident; it is always the result of intelligent effort.&rdquo;
-            </p>
-          </Reveal>
-        </div>
-        </div>
+        {/* Photo divider with parallax */}
+        <ParallaxQuote />
+
+        {/* Dark photo divider → Cream: into Testimonials */}
+        <SectionDivider variant="curve-up" fromColor="#1C1714" toColor="#F5F0E6" />
 
         <Testimonials />
 
+        {/* Cream → Dark: into Final CTA */}
+        <SectionDivider variant="curve-down" fromColor="#F5F0E6" toColor="#1C1714" />
+
         {/* Final CTA */}
         <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#1C1714]">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
         <Reveal>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-5 leading-tight">

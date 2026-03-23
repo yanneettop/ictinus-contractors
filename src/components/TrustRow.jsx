@@ -1,10 +1,19 @@
+import { useRef } from 'react'
 import { motion } from 'motion/react'
+import useAnimatedCounter from '../hooks/useAnimatedCounter'
+
+function AnimatedStat({ end, decimals = 0, suffix = '', prefix = '' }) {
+  const ref = useRef(null)
+  const value = useAnimatedCounter(ref, end, { decimals, duration: 2 })
+  return <span ref={ref}>{prefix}{value}{suffix}</span>
+}
 
 const items = [
   {
     stat: '9.97/10',
     text: 'Checkatrade',
     hideOnMobile: false,
+    href: 'https://www.checkatrade.com/trades/ictinuscontractors',
     icon: (
       <path
         strokeLinecap="round" strokeLinejoin="round"
@@ -16,6 +25,7 @@ const items = [
     stat: '4.9/5',
     text: 'MyBuilder',
     hideOnMobile: false,
+    href: 'https://www.mybuilder.com/profile/ictinus-contractors',
     icon: (
       <path
         strokeLinecap="round" strokeLinejoin="round"
@@ -24,9 +34,10 @@ const items = [
     ),
   },
   {
-    stat: '30+',
+    stat: '60+',
     text: 'Verified Reviews',
     hideOnMobile: true,
+    href: null,
     icon: (
       <path
         strokeLinecap="round" strokeLinejoin="round"
@@ -38,6 +49,7 @@ const items = [
     stat: '12+',
     text: 'Years Experience',
     hideOnMobile: false,
+    href: null,
     icon: (
       <path
         strokeLinecap="round" strokeLinejoin="round"
@@ -49,6 +61,7 @@ const items = [
     stat: '',
     text: 'Free Estimates',
     hideOnMobile: true,
+    href: null,
     icon: (
       <path
         strokeLinecap="round" strokeLinejoin="round"
@@ -62,26 +75,54 @@ export default function TrustRow() {
   return (
     <div className="ict-trust-row-dark">
       <div className="trust-inner trust-inner-5">
-        {items.map(({ stat, text, icon, hideOnMobile }, i) => (
-          <motion.div
-            key={text}
-            className={`ict-trust-item-dark${hideOnMobile ? ' ict-hide-mobile' : ''}`}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="ict-trust-icon-dark">
-              <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                {icon}
-              </svg>
-            </div>
-            <div className="ict-trust-content">
-              {stat && <span className="ict-trust-stat-dark">{stat}</span>}
-              <span className="ict-trust-text-dark">{text}</span>
-            </div>
-          </motion.div>
-        ))}
+        {items.map(({ stat, text, icon, hideOnMobile, href }, i) => {
+          const content = (
+            <>
+              <div className="ict-trust-icon-dark">
+                <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                  {icon}
+                </svg>
+              </div>
+              <div className="ict-trust-content">
+                {stat && (
+                  <span className="ict-trust-stat-dark">
+                    {stat === '9.97/10' ? <><AnimatedStat end={9.97} decimals={2} />/10</> :
+                     stat === '4.9/5' ? <><AnimatedStat end={4.9} decimals={1} />/5</> :
+                     stat === '60+' ? <><AnimatedStat end={60} />+</> :
+                     stat === '12+' ? <><AnimatedStat end={12} />+</> :
+                     stat}
+                  </span>
+                )}
+                <span className="ict-trust-text-dark">{text}</span>
+              </div>
+            </>
+          )
+
+          return (
+            <motion.div
+              key={text}
+              className={`ict-trust-item-dark${hideOnMobile ? ' ict-hide-mobile' : ''}`}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {href ? (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ict-trust-link"
+                  style={{ display: 'contents', textDecoration: 'none', color: 'inherit' }}
+                >
+                  {content}
+                </a>
+              ) : (
+                content
+              )}
+            </motion.div>
+          )
+        })}
       </div>
     </div>
   )

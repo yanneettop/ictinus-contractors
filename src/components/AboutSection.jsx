@@ -3,7 +3,7 @@ import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 
 const highlights = [
   { stat: '12+', label: 'Years in the Industry' },
-  { stat: '30+', label: 'Verified Client Reviews' },
+  { stat: '60+', label: 'Verified Client Reviews' },
   { stat: '9.97', label: 'Out of 10 on Checkatrade' },
 ]
 

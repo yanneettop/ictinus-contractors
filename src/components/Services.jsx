@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
+import FloatingElements from './FloatingElements'
 
 const services = [
   {
@@ -68,67 +69,85 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#F5F0E6]">
-      <div className="max-w-6xl mx-auto">
+    <section id="services" className="relative py-20 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#1C1714] overflow-hidden">
+      {/* Subtle background texture */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: 'radial-gradient(circle at 1px 1px, #D4AF37 1px, transparent 0)',
+        backgroundSize: '40px 40px'
+      }} />
+      <FloatingElements />
+
+      <div className="relative max-w-6xl mx-auto">
 
         <Reveal>
-          <p className="ict-section-label">Our Services</p>
+          <p className="ict-section-label !text-[#D4AF37]/70">Our Services</p>
         </Reveal>
         <Reveal delay={0.08}>
-          <h2 className="ict-section-heading">
+          <h2 className="ict-section-heading !text-[#FAF9F6]">
             Specialist Decorating, Finishing &amp; Refurbishment
           </h2>
         </Reveal>
         <Reveal delay={0.16}>
-          <p className="ict-section-subtitle">
+          <p className="ict-section-subtitle !text-[#9A9590]">
             From single-room decorating to full property refurbishments — professional results
             across residential and commercial projects in London.
           </p>
         </Reveal>
 
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 mb-10 sm:mb-14" stagger={0.07}>
-          {services.map(({ title, desc, icon }, i) => {
-            const isFeature = i < 2
-            return (
-              <StaggerItem key={title}>
-                <motion.div
-                  whileHover={{ y: -5, transition: { duration: 0.25 } }}
-                  className={`group border rounded-[14px] cursor-default transition-colors duration-300 hover:border-[rgba(212,175,55,0.4)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(212,175,55,0.07)] ${
-                    isFeature
-                      ? 'bg-[#1C1714] border-[rgba(212,175,55,0.15)] p-6 sm:p-8 shadow-[0_2px_8px_rgba(0,0,0,0.12)]'
-                      : 'bg-[#FDFCF9] border-[rgba(212,175,55,0.2)] p-5 sm:p-7 shadow-[0_1px_4px_rgba(0,0,0,0.05)]'
-                  }`}
-                >
-                  <div className={`w-11 h-11 rounded-[10px] flex items-center justify-center mb-4 sm:mb-5 transition-colors duration-300 ${
-                    isFeature
-                      ? 'bg-[rgba(212,175,55,0.15)] group-hover:bg-[rgba(212,175,55,0.25)]'
-                      : 'bg-[rgba(212,175,55,0.1)] group-hover:bg-[rgba(212,175,55,0.18)]'
-                  }`}>
-                    <svg
-                      className={`w-[1.25rem] h-[1.25rem] transition-colors duration-300 ${
-                        isFeature ? 'text-[#D4AF37]' : 'text-[#B08D2A]'
-                      }`}
-                      fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"
-                    >
-                      {icon}
-                    </svg>
+        {/* Decorative divider */}
+        <Reveal delay={0.2}>
+          <div className="flex items-center justify-center gap-3 mb-12 sm:mb-16">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#D4AF37]/40" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]/50" />
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#D4AF37]/40" />
+          </div>
+        </Reveal>
+
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-12 sm:mb-16" stagger={0.07}>
+          {services.map(({ title, desc, icon }, i) => (
+            <StaggerItem key={title}>
+              <motion.div
+                whileHover={{ y: -6, transition: { duration: 0.3, ease: 'easeOut' } }}
+                className="group relative h-full rounded-2xl cursor-default overflow-hidden"
+              >
+                {/* Card background with border effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[#D4AF37]/[0.12] to-[#D4AF37]/[0.04] p-px">
+                  <div className="h-full w-full rounded-2xl bg-[#252019]" />
+                </div>
+
+                {/* Hover glow */}
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-b from-[#D4AF37]/[0.08] to-transparent" />
+
+                <div className="relative p-6 sm:p-8">
+                  {/* Number + Icon row */}
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#D4AF37]/[0.1] group-hover:bg-[#D4AF37]/[0.2] transition-colors duration-300 ring-1 ring-[#D4AF37]/[0.15]">
+                      <svg
+                        className="w-5 h-5 text-[#D4AF37] transition-colors duration-300"
+                        fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"
+                      >
+                        {icon}
+                      </svg>
+                    </div>
+                    <span className="font-['Cormorant_Garamond'] text-[2rem] font-light leading-none text-[#D4AF37]/[0.15] group-hover:text-[#D4AF37]/[0.3] transition-colors duration-300 select-none">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
                   </div>
-                  <h3 className={`font-['Cormorant_Garamond'] font-semibold mb-2.5 leading-snug tracking-[-0.01em] transition-colors duration-300 ${
-                    isFeature
-                      ? 'text-[1.25rem] text-[#F5F0E6] group-hover:text-[#D4AF37]'
-                      : 'text-[1.125rem] text-[#1C1714] group-hover:text-[#B08D2A]'
-                  }`}>
+
+                  <h3 className="font-['Cormorant_Garamond'] font-semibold text-[1.3rem] mb-3 leading-snug tracking-[-0.01em] text-[#FAF9F6] group-hover:text-[#D4AF37] transition-colors duration-300">
                     {title}
                   </h3>
-                  <p className={`font-['Source_Serif_4'] text-[0.9375rem] leading-[1.68] ${
-                    isFeature ? 'text-[#9A9590]' : 'text-[#5A5048]'
-                  }`}>
+
+                  {/* Gold accent line */}
+                  <div className="w-8 h-px bg-[#D4AF37]/30 group-hover:w-12 group-hover:bg-[#D4AF37]/60 transition-all duration-400 mb-3" />
+
+                  <p className="font-['Source_Serif_4'] text-[0.9375rem] leading-[1.75] text-[#9A9590] group-hover:text-[#B5AFA8] transition-colors duration-300">
                     {desc}
                   </p>
-                </motion.div>
-              </StaggerItem>
-            )
-          })}
+                </div>
+              </motion.div>
+            </StaggerItem>
+          ))}
         </StaggerContainer>
 
         <Reveal>
@@ -147,7 +166,7 @@ export default function Services() {
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/contact"
-                className="inline-block font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg text-[#B08D2A] border border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/50"
+                className="inline-block font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/50 transition-colors duration-300"
               >
                 Request a Free Quote
               </Link>

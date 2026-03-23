@@ -1,5 +1,17 @@
+import { useRef } from 'react'
 import { motion } from 'motion/react'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
+import FloatingElements from './FloatingElements'
+import useAnimatedCounter from '../hooks/useAnimatedCounter'
+
+function AnimatedScore({ end, decimals = 0 }) {
+  const ref = useRef(null)
+  const value = useAnimatedCounter(ref, end, { decimals, duration: 2.2 })
+  return <span ref={ref}>{value}</span>
+}
+
+const CHECKATRADE_URL = 'https://www.checkatrade.com/trades/ictinuscontractors'
+const MYBUILDER_URL = 'https://www.mybuilder.com/profile/ictinus-contractors'
 
 const reasons = [
   {
@@ -11,14 +23,14 @@ const reasons = [
   },
   {
     title: 'Clear Communication',
-    description: 'One point of contact from first enquiry to handover. You\'ll always know where your project stands, what comes next, and how much it costs.',
+    description: 'One point of contact from first enquiry to handover. You\'ll always know where your project stands, what comes next, and how much it costs. Rated 10/10 for communication on Checkatrade.',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
     ),
   },
   {
     title: 'Premium Finish Standards',
-    description: 'We use quality materials and refined techniques to achieve a consistently high standard. The result is a space that looks and feels noticeably better — and stays that way.',
+    description: 'We use quality materials and refined techniques to achieve a consistently high standard. Rated 9.91/10 for quality of work on Checkatrade — the result speaks for itself.',
     icon: (
       <>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
@@ -30,28 +42,38 @@ const reasons = [
     title: 'Clean & Tidy Throughout',
     description: 'We treat every property with care. Work areas are protected before we start, and every site is left clean and tidy at the end of each day — no exceptions.',
     icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+      </>
+    ),
+  },
+  {
+    title: 'Work Guaranteed',
+    description: 'All work comes with a warranty. We stand behind the quality of every project — if something isn\'t right, we\'ll come back and make it right. Your satisfaction is guaranteed.',
+    icon: (
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
     ),
   },
   {
     title: 'London-Wide Coverage',
-    description: 'Based in East London and serving residential and commercial clients across all London boroughs — from Hackney and Stratford to Canary Wharf, Islington, and beyond.',
+    description: 'Based in Bethnal Green, East London and serving residential and commercial clients across all London boroughs — from Hackney and Stratford to Canary Wharf, Islington, and beyond.',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
     ),
   },
-  {
-    title: 'Fast Response & Free Quotes',
-    description: 'We respond quickly to all enquiries and provide clear, itemised quotes with no pressure. Send us photos of your project for a faster, more accurate estimate.',
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
-    ),
-  },
+]
+
+const subScores = [
+  { label: 'Quality of Work', score: '9.91' },
+  { label: 'Reliability', score: '10' },
+  { label: 'Communication', score: '10' },
 ]
 
 export default function WhyChooseUs() {
   return (
     <section id="why-choose-us" className="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#1C1714] relative overflow-hidden">
+      <FloatingElements count={5} opacity={0.05} />
+
       {/* Subtle texture overlay */}
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
 
@@ -68,6 +90,25 @@ export default function WhyChooseUs() {
               Rated 9.97 out of 10 on Checkatrade and 4.9 on MyBuilder — our reputation is built on
               consistent results, honest communication, and a professional approach to every project.
             </p>
+
+            {/* Checkatrade sub-scores */}
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-5 mt-7">
+              {subScores.map(({ label, score }) => (
+                <a
+                  key={label}
+                  href={CHECKATRADE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-[#252019] px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-[rgba(212,175,55,0.15)] hover:border-[rgba(212,175,55,0.35)] transition-colors group"
+                >
+                  <span className="font-['Cormorant_Garamond'] text-[1.1rem] sm:text-[1.25rem] font-bold text-[#D4AF37] group-hover:text-[#E8C94A] transition-colors">
+                    <AnimatedScore end={parseFloat(score)} decimals={score.includes('.') ? score.split('.')[1].length : 0} />
+                    <span className="text-[0.8rem] font-normal text-[#D4AF37]/60">/10</span>
+                  </span>
+                  <span className="font-['Source_Serif_4'] text-[0.75rem] sm:text-[0.8125rem] text-[#9A9590]">{label}</span>
+                </a>
+              ))}
+            </div>
           </div>
         </Reveal>
 
@@ -79,14 +120,17 @@ export default function WhyChooseUs() {
                 transition={{ duration: 0.25 }}
                 className="group bg-[#252019] p-5 sm:p-7 rounded-[14px] border border-[rgba(212,175,55,0.12)] h-full"
               >
-                <div className="w-10 h-10 bg-[rgba(212,175,55,0.12)] rounded-[10px] flex items-center justify-center mb-3 sm:mb-5 group-hover:bg-[rgba(212,175,55,0.22)] transition-colors duration-300">
+                <motion.div
+                  className="w-10 h-10 bg-[rgba(212,175,55,0.12)] rounded-[10px] flex items-center justify-center mb-3 sm:mb-5 group-hover:bg-[rgba(212,175,55,0.22)] transition-colors duration-300"
+                  whileHover={{ scale: 1.15, rotate: 5, transition: { type: 'spring', stiffness: 300 } }}
+                >
                   <svg
                     className="w-[1.15rem] h-[1.15rem] text-[#D4AF37]"
                     fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"
                   >
                     {icon}
                   </svg>
-                </div>
+                </motion.div>
                 <h3 className="font-['Cormorant_Garamond'] text-[1.125rem] font-semibold text-[#F5F0E6] mb-3 leading-snug tracking-[-0.01em]">
                   {title}
                 </h3>
