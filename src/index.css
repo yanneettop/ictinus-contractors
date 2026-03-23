@@ -23,6 +23,37 @@ body {
   color: var(--ict-slate-text);
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.focus\:not-sr-only:focus {
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-bounce {
+    animation: none !important;
+  }
+}
+
 /* ── Custom Utilities ── */
 @layer utilities {
   .text-gradient-gold {

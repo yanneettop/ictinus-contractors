@@ -29,6 +29,7 @@ const MAX_MB    = 5
 function PhotoUpload({ files, setFiles }) {
   const inputRef  = useRef(null)
   const [dragging, setDragging] = useState(false)
+  const inputId = 'quote-photos'
 
   const addFiles = useCallback((incoming) => {
     const images = Array.from(incoming).filter((f) => f.type.startsWith('image/'))
@@ -59,13 +60,14 @@ function PhotoUpload({ files, setFiles }) {
 
   return (
     <div className="ict-form-group full-width">
-      <label>
+      <label htmlFor={inputId}>
         Photos{' '}
         <span style={{ fontWeight: 400, color: '#2d2d2db3' }}>(optional — up to {MAX_FILES} images, {MAX_MB}MB each)</span>
       </label>
 
       {/* Drop zone */}
-      <motion.div
+      <motion.button
+        type="button"
         onClick={() => inputRef.current?.click()}
         onDragEnter={(e) => { e.preventDefault(); setDragging(true) }}
         onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
@@ -78,8 +80,10 @@ function PhotoUpload({ files, setFiles }) {
         transition={{ duration: 0.2 }}
         className="relative flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl px-5 py-7 cursor-pointer select-none"
         style={{ minHeight: '100px' }}
+        aria-describedby={`${inputId}-help`}
       >
         <input
+          id={inputId}
           ref={inputRef}
           type="file"
           accept="image/*"
@@ -91,13 +95,13 @@ function PhotoUpload({ files, setFiles }) {
         <svg className="w-7 h-7 text-[#B08D2A]/60" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
         </svg>
-        <p className="font-['Source_Serif_4'] text-[0.875rem] text-[#5A5048] text-center">
+        <span className="block font-['Source_Serif_4'] text-[0.875rem] text-[#5A5048] text-center">
           <span className="font-semibold text-[#B08D2A]">Click to upload</span> or drag &amp; drop photos here
-        </p>
-        <p className="font-['Source_Serif_4'] text-[0.75rem] text-[#9A9590]">
+        </span>
+        <span id={`${inputId}-help`} className="block font-['Source_Serif_4'] text-[0.75rem] text-[#9A9590]">
           JPEG, PNG, WebP, HEIC — max {MAX_FILES} files
-        </p>
-      </motion.div>
+        </span>
+      </motion.button>
 
       {/* Thumbnails */}
       <AnimatePresence>
@@ -127,7 +131,7 @@ function PhotoUpload({ files, setFiles }) {
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); remove(i) }}
-                  className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[#1C1714]/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[#1C1714]/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 transition-opacity"
                   aria-label={`Remove ${f.name}`}
                 >
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -234,32 +238,38 @@ export default function QuoteForm() {
           <div className="ict-form-grid">
 
             <div className="ict-form-group">
-              <label>Name <span className="req">*</span></label>
+              <label htmlFor="quote-name">Name <span className="req">*</span></label>
               <input
+                id="quote-name"
                 type="text" name="name" placeholder="Your full name"
                 value={form.name} onChange={handle} required
+                autoComplete="name"
               />
             </div>
 
             <div className="ict-form-group">
-              <label>Email <span className="req">*</span></label>
+              <label htmlFor="quote-email">Email <span className="req">*</span></label>
               <input
+                id="quote-email"
                 type="email" name="email" placeholder="you@example.com"
                 value={form.email} onChange={handle} required
+                autoComplete="email"
               />
             </div>
 
             <div className="ict-form-group">
-              <label>Postcode <span className="req">*</span></label>
+              <label htmlFor="quote-postcode">Postcode <span className="req">*</span></label>
               <input
+                id="quote-postcode"
                 type="text" name="postcode" placeholder="e.g. SW1A 1AA"
                 value={form.postcode} onChange={handle} required
+                autoComplete="postal-code"
               />
             </div>
 
             <div className="ict-form-group">
-              <label>Service Type <span className="req">*</span></label>
-              <select name="service" value={form.service} onChange={handle} required>
+              <label htmlFor="quote-service">Service Type <span className="req">*</span></label>
+              <select id="quote-service" name="service" value={form.service} onChange={handle} required>
                 <option value="" disabled>Select a service…</option>
                 {SERVICE_OPTIONS.map((s) => (
                   <option key={s} value={s}>{s}</option>
@@ -268,25 +278,27 @@ export default function QuoteForm() {
             </div>
 
             <div className="ict-form-group full-width">
-              <label>Describe the Work <span className="req">*</span></label>
+              <label htmlFor="quote-description">Describe the Work <span className="req">*</span></label>
               <textarea
+                id="quote-description"
                 name="description" rows={4}
                 placeholder="Brief description of what you need done…"
-                value={form.description} onChange={handle} required
+                value={form.description} onChange={handle} required autoComplete="off"
               />
             </div>
 
             <PhotoUpload files={files} setFiles={setFiles} />
 
             <div className="ict-form-group full-width">
-              <label>
+              <label htmlFor="quote-preferred-date">
                 Preferred Date{' '}
                 <span style={{ fontWeight: 400, color: '#2d2d2db3' }}>(optional)</span>
               </label>
               <input
+                id="quote-preferred-date"
                 type="text" name="preferredDate"
                 placeholder="e.g. Weekdays, March 2026, ASAP…"
-                value={form.preferredDate} onChange={handle}
+                value={form.preferredDate} onChange={handle} autoComplete="off"
               />
             </div>
 

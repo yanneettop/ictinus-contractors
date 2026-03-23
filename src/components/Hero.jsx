@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { Link } from 'react-router-dom'
 
 const SLIDES = [
@@ -14,12 +14,14 @@ const KB_TRANSFORMS = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(0)
+  const prefersReducedMotion = useReducedMotion()
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   useEffect(() => {
+    if (prefersReducedMotion) return
     const id = setInterval(() => setCurrent((c) => (c + 1) % SLIDES.length), 7000)
     return () => clearInterval(id)
-  }, [])
+  }, [prefersReducedMotion])
 
   return (
     <section className="relative min-h-[70vh] sm:min-h-[86vh] lg:min-h-[92vh] flex items-center justify-center overflow-hidden">
@@ -39,7 +41,7 @@ export default function Hero() {
               style={{
                 backgroundImage: `url(${src})`,
                 transform: isActive ? kb.to : kb.from,
-                transition: isActive ? 'transform 7s ease-in-out' : 'transform 0s',
+                transition: prefersReducedMotion ? 'none' : isActive ? 'transform 7s ease-in-out' : 'transform 0s',
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-[#0D0A08]/84 via-[#1A1511]/66 to-[#0C0906]/86" />
@@ -60,6 +62,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
           <span>Fully Insured</span>
+          <span className="badge-dot" />
+          <span>9.97/10 Checkatrade</span>
           <span className="badge-dot" />
           <span>London Based</span>
         </motion.div>
@@ -153,6 +157,7 @@ export default function Hero() {
           <button
             key={i}
             onClick={() => setCurrent(i)}
+            aria-label={`Show hero slide ${i + 1}`}
             className={`rounded-full transition-all duration-300 ${
               current === i ? 'w-6 h-2 bg-[#D4AF37]' : 'w-2 h-2 bg-white/40 hover:bg-white/70'
             }`}

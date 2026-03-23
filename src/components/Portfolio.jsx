@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
@@ -77,6 +77,7 @@ const projects = [
 function GalleryModal({ images, title, onClose }) {
   const [index, setIndex] = useState(0)
   const [direction, setDirection] = useState(1)
+  const closeButtonRef = useRef(null)
 
   const go = useCallback((dir) => {
     setDirection(dir)
@@ -93,6 +94,18 @@ function GalleryModal({ images, title, onClose }) {
     return () => window.removeEventListener('keydown', handler)
   }, [onClose, go])
 
+  useEffect(() => {
+    const previousActive = document.activeElement
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    closeButtonRef.current?.focus()
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      previousActive?.focus?.()
+    }
+  }, [])
+
   const variants = {
     enter: (d) => ({ opacity: 0, x: d > 0 ? 60 : -60 }),
     center: { opacity: 1, x: 0 },
@@ -106,6 +119,9 @@ function GalleryModal({ images, title, onClose }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="portfolio-gallery-title"
     >
       {/* Backdrop */}
       <div
@@ -115,9 +131,11 @@ function GalleryModal({ images, title, onClose }) {
 
       {/* Modal */}
       <div className="relative z-10 w-full max-w-4xl mx-4 flex flex-col items-center">
+        <h3 id="portfolio-gallery-title" className="sr-only">{title} gallery</h3>
 
         {/* Close */}
         <motion.button
+          ref={closeButtonRef}
           onClick={onClose}
           className="absolute -top-12 right-0 text-white/60 hover:text-white transition-colors"
           whileHover={{ scale: 1.1 }}
@@ -224,9 +242,18 @@ export default function Portfolio() {
             onHoverStart={() => setHoveredId(featured.id)}
             onHoverEnd={() => setHoveredId(null)}
             onClick={() => openGallery(featured)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                openGallery(featured)
+              }
+            }}
             whileHover={{ y: -2, boxShadow: '0 14px 36px rgba(0,0,0,0.09), 0 3px 10px rgba(212,175,55,0.07)', borderColor: 'rgba(212,175,55,0.38)' }}
             transition={{ duration: 0.3 }}
             className="group rounded-[14px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-[0_1px_4px_rgba(0,0,0,0.06)] overflow-hidden mb-8 cursor-pointer"
+            role="button"
+            tabIndex={0}
+            aria-label={`Open gallery for ${featured.title}`}
           >
             <div className="flex flex-col lg:flex-row">
 
@@ -325,9 +352,18 @@ export default function Portfolio() {
                 onHoverStart={() => setHoveredId(p.id)}
                 onHoverEnd={() => setHoveredId(null)}
                 onClick={() => openGallery(p)}
+                onKeyDown={(e) => {
+                  if ((e.key === 'Enter' || e.key === ' ') && p.hasGallery) {
+                    e.preventDefault()
+                    openGallery(p)
+                  }
+                }}
                 whileHover={{ y: -3, boxShadow: '0 10px 28px rgba(0,0,0,0.09), 0 2px 8px rgba(212,175,55,0.07)', borderColor: 'rgba(212,175,55,0.4)' }}
                 transition={{ duration: 0.25 }}
                 className={`group overflow-hidden rounded-[14px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-[0_1px_4px_rgba(0,0,0,0.06)] ${p.hasGallery ? 'cursor-pointer' : ''}`}
+                role={p.hasGallery ? 'button' : undefined}
+                tabIndex={p.hasGallery ? 0 : undefined}
+                aria-label={p.hasGallery ? `Open gallery for ${p.title}` : undefined}
               >
                 <div className="relative aspect-[16/12] overflow-hidden">
                   <AnimatePresence mode="wait">

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import { useSEO } from '../hooks/useSEO'
@@ -316,15 +316,15 @@ function ServiceSection({ service, index }) {
               </p>
             ))}
 
-            <button
-              onClick={() => navigate('/contact')}
+            <Link
+              to="/contact"
               className="inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.85rem] tracking-wide px-6 py-3 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.2)] mt-2"
             >
               Request a Free Quote
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </button>
+            </Link>
           </div>
 
           {/* Includes card */}
@@ -439,7 +439,6 @@ function FAQSection() {
 
 /* ─── Final CTA ────────────────────────────────────────────────────── */
 function PageCTA() {
-  const navigate = useNavigate()
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-[#1C1714] overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
@@ -455,12 +454,12 @@ function PageCTA() {
           We cover all London boroughs and respond within one working day.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            onClick={() => navigate('/contact')}
+          <Link
+            to="/contact"
             className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
           >
             Request a Free Quote
-          </button>
+          </Link>
           <a
             href="mailto:info@ictinuscontractors.co.uk"
             className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/40 transition-all duration-300 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/60 text-center"
@@ -529,7 +528,7 @@ export default function ServicesPage() {
             {[
               '9.97/10 Checkatrade',
               '4.9/5 MyBuilder',
-              '30+ Verified Reviews',
+              '60+ Verified Reviews',
               'Free Written Quotes',
             ].map((t) => (
               <span key={t} className="font-['Source_Serif_4'] text-[0.8rem] text-[#D4AF37]/80 flex items-center gap-1.5">
@@ -567,14 +566,14 @@ export default function ServicesPage() {
             Ictinus Contractors is a professional London contractor specialising in decorating, refurbishment,
             and finishing. We serve homeowners, landlords, and commercial clients from our East London base —
             rated <strong className="text-[#B08D2A]">9.97/10 on Checkatrade</strong> and{' '}
-            <strong className="text-[#B08D2A]">4.9/5 on MyBuilder</strong> across 30+ verified reviews.
+            <strong className="text-[#B08D2A]">4.9/5 on MyBuilder</strong> across 60+ verified reviews.
             Every project is fully insured and backed by 12+ years of experience across London.
           </p>
         </div>
       </section>
 
       {/* ── Seven service sections ── */}
-      <main>
+      <main id="main-content">
         {SERVICES.map((service, i) => (
           <ServiceSection key={service.id} service={service} index={i} />
         ))}

@@ -10,7 +10,7 @@ import useScrollReveal from '../hooks/useScrollReveal'
 
 const highlights = [
   { stat: '12+', label: 'Years in the Industry' },
-  { stat: '30+', label: 'Verified Client Reviews' },
+  { stat: '60+', label: 'Verified Client Reviews' },
   { stat: '9.97', label: 'Out of 10 on Checkatrade' },
   { stat: '4.9/5', label: 'MyBuilder Rating' },
 ]
@@ -44,11 +44,12 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
       <Nav />
-      <PageHero
-        breadcrumb="About Us"
-        title="A London Contractor Brand Built on Quality"
-        subtitle="Over 12 years of industry experience delivering premium decorating, refurbishment, and finishing services across London."
-      />
+      <main id="main-content">
+        <PageHero
+          breadcrumb="About Us"
+          title="A London Contractor Brand Built on Quality"
+          subtitle="Over 12 years of industry experience delivering premium decorating, refurbishment, and finishing services across London."
+        />
 
       {/* Main about section */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6]">
@@ -126,13 +127,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <WhyChooseUs />
-      <HowWeWork />
-      <Testimonials />
-      <AreasWeCover />
+        <WhyChooseUs />
+        <HowWeWork />
+        <Testimonials />
+        <AreasWeCover />
 
       {/* CTA */}
-      <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#1C1714]">
+        <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#1C1714]">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
         <div className="max-w-3xl mx-auto text-center" data-reveal>
           <h2 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-semibold text-white mb-5">
@@ -148,7 +149,8 @@ export default function AboutPage() {
             Request a Quote
           </Link>
         </div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
     </div>

@@ -25,8 +25,9 @@ function HomePage() {
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
       <Nav />
-      <Hero />
-      <TrustRow />
+      <main id="main-content">
+        <Hero />
+        <TrustRow />
 
       {/* Short intro */}
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6]">
@@ -56,20 +57,20 @@ function HomePage() {
         </Reveal>
       </section>
 
-      {/* Services preview */}
-      <Services />
+        {/* Services preview */}
+        <Services />
 
-      {/* Who We Work With */}
-      <WhoWeWorkWith />
+        {/* Who We Work With */}
+        <WhoWeWorkWith />
 
-      {/* Portfolio preview */}
-      <Portfolio />
+        {/* Portfolio preview */}
+        <Portfolio />
 
-      {/* Why Choose Us */}
-      <WhyChooseUs />
+        {/* Why Choose Us */}
+        <WhyChooseUs />
 
-      {/* Photo divider */}
-      <div className="relative h-[240px] sm:h-[320px] lg:h-[380px] overflow-hidden">
+        {/* Photo divider */}
+        <div className="relative h-[240px] sm:h-[320px] lg:h-[380px] overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2100&auto=format&fit=crop)' }}
@@ -82,12 +83,12 @@ function HomePage() {
             </p>
           </Reveal>
         </div>
-      </div>
+        </div>
 
-      <Testimonials />
+        <Testimonials />
 
-      {/* Final CTA */}
-      <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#1C1714]">
+        {/* Final CTA */}
+        <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#1C1714]">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
         <Reveal>
           <div className="max-w-3xl mx-auto text-center">
@@ -121,7 +122,8 @@ function HomePage() {
             </p>
           </div>
         </Reveal>
-      </section>
+        </section>
+      </main>
 
       <Footer />
     </div>

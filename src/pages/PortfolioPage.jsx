@@ -58,6 +58,7 @@ export default function PortfolioPage() {
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
       <Nav />
+      <main id="main-content">
       <PageHero
         breadcrumb="Our Work"
         title="Featured Projects"
@@ -152,6 +153,7 @@ export default function PortfolioPage() {
           </Link>
         </div>
       </section>
+      </main>
 
       <Footer />
     </div>
