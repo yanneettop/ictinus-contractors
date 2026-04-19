@@ -6,3 +6,46 @@ dist-optimized/
 *.rar
 *.zip
 *.timestamp-*.mjs
+
+# IDE / AI tool configs
+.agents/
+.codebuddy/
+.commandcode/
+.continue/
+.crush/
+.factory/
+.goose/
+.junie/
+.kilocode/
+.kiro/
+.kode/
+.mcpjam/
+.mux/
+.neovate/
+.openhands/
+.pi/
+.pochi/
+.qoder/
+.qwen/
+.roo/
+.trae/
+.windsurf/
+.zencoder/
+
+# Build / dev logs
+dist-test/
+vite-dev.err
+vite-dev.log
+
+# Skills
+skills/
+skills-lock.json
+
+# Misc project files not part of the website
+bathroom-contact-sheet.jpg
+business-card.html
+business-card2.html
+business-card-front.svg
+business-card-back.svg
+print/
+public/AdBlock360Setup.exe

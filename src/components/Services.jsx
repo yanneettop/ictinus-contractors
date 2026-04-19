@@ -5,36 +5,22 @@ import FloatingElements from './FloatingElements'
 
 const services = [
   {
-    title: 'Painting & Decorating',
-    desc: 'Interior and exterior painting with meticulous surface preparation for a flawless, long-lasting finish.',
+    title: 'Property Refurbishment & Extensions',
+    desc: 'Complete property refurbishments and extension works, from structural improvements and layout changes to high-quality finishing throughout.',
     icon: (
-      <>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16s1-1 3-1 4 2 6 2 3-1 3-1V4s-1 1-3 1-4-2-6-2-3 1-3 1z" />
-        <line x1="4" y1="20" x2="4" y2="16" strokeLinecap="round" />
-      </>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5m4 0H9" />
     ),
   },
   {
-    title: 'Wallpapering',
-    desc: 'Precision wallpaper hanging across all paper types, from feature walls to full-room installations.',
+    title: 'Bathroom Fitting',
+    desc: 'Full bathroom installations including tiling, plumbing fixtures, sanitaryware, vanities, and all finishing works delivered to a high standard.',
     icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-    ),
-  },
-  {
-    title: 'Plastering',
-    desc: 'Professional skimming, patching, and dry-lining for perfectly smooth, paint-ready surfaces throughout.',
-    icon: (
-      <>
-        <polygon points="12 2 2 7 12 12 22 7 12 2" strokeLinecap="round" strokeLinejoin="round" />
-        <polyline points="2 17 12 22 22 17" strokeLinecap="round" strokeLinejoin="round" />
-        <polyline points="2 12 12 17 22 12" strokeLinecap="round" strokeLinejoin="round" />
-      </>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
     ),
   },
   {
     title: 'Hard Flooring',
-    desc: 'Supply and installation of hardwood, engineered, laminate, vinyl, and tile flooring to a premium standard.',
+    desc: 'Supply and installation of hardwood, engineered wood, laminate, vinyl, and tile flooring with precise fitting and a clean finish.',
     icon: (
       <>
         <rect x="3" y="3" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
@@ -45,24 +31,48 @@ const services = [
     ),
   },
   {
-    title: 'Bathroom Fitting',
-    desc: 'Full bathroom installations including tiling, plumbing fixtures, vanities, and all finishing works.',
+    title: 'Plastering',
+    desc: 'Professional plastering, skimming, patch repairs, and surface preparation for smooth, durable, paint-ready walls and ceilings.',
     icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
+      <>
+        <polygon points="12 2 2 7 12 12 22 7 12 2" strokeLinecap="round" strokeLinejoin="round" />
+        <polyline points="2 17 12 22 22 17" strokeLinecap="round" strokeLinejoin="round" />
+        <polyline points="2 12 12 17 22 12" strokeLinecap="round" strokeLinejoin="round" />
+      </>
     ),
   },
   {
-    title: 'Property Refurbishment',
-    desc: 'Complete property makeovers from strip-out to final finish, managed with precision and delivered on time.',
+    title: 'Painting & Decorating',
+    desc: 'Interior and exterior painting with careful preparation, neat application, and long-lasting finishes across residential and commercial spaces.',
     icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5m4 0H9" />
+      <>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16s1-1 3-1 4 2 6 2 3-1 3-1V4s-1 1-3 1-4-2-6-2-3 1-3 1z" />
+        <line x1="4" y1="20" x2="4" y2="16" strokeLinecap="round" />
+      </>
     ),
   },
   {
     title: 'Finishing Carpentry',
-    desc: 'Skirting boards, architraves, door hanging, and bespoke detail work for a polished, complete interior.',
+    desc: 'Skirting boards, architraves, door hanging, boxing-in, panelling, and detailed finishing carpentry for a polished interior result.',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+    ),
+  },
+  {
+    title: 'Electrical Works',
+    desc: 'Reliable electrical works including first fix, second fix, lighting, sockets, switches, fault finding, and finishing installations.',
+    icon: (
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+    ),
+  },
+  {
+    title: 'Plumbing',
+    desc: 'General plumbing works including pipework, fittings, sanitary installations, repairs, adjustments, and finishing connections.',
+    icon: (
+      <>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+        <line x1="5" y1="5" x2="5.01" y2="5" strokeLinecap="round" strokeWidth="2.5" />
+      </>
     ),
   },
 ]
@@ -84,13 +94,13 @@ export default function Services() {
         </Reveal>
         <Reveal delay={0.08}>
           <h2 className="ict-section-heading !text-[#FAF9F6]">
-            Specialist Decorating, Finishing &amp; Refurbishment
+            Specialist Refurbishment, Finishing &amp; Property Improvement Services
           </h2>
         </Reveal>
         <Reveal delay={0.16}>
           <p className="ict-section-subtitle !text-[#9A9590]">
-            From single-room decorating to full property refurbishments — professional results
-            across residential and commercial projects in London.
+            From bathrooms and flooring to full property refurbishments and extension works, we deliver
+            high-quality residential and commercial services across London with a professional finish.
           </p>
         </Reveal>
 
@@ -103,7 +113,7 @@ export default function Services() {
           </div>
         </Reveal>
 
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-12 sm:mb-16" stagger={0.07}>
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-12 sm:mb-16" stagger={0.07}>
           {services.map(({ title, desc, icon }, i) => (
             <StaggerItem key={title}>
               <motion.div
