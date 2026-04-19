@@ -36,15 +36,26 @@ function MetaLine({ location, tags }) {
   )
 }
 
-function GalleryCard({ project, hoveredKey, setHoveredKey, openGallery }) {
+function GalleryCard({ project, hoveredKey, setHoveredKey, tappedKey, setTappedKey, openGallery }) {
   const isHovered = hoveredKey === project.key
-  const activeImage = isHovered && project.hoverImage ? project.hoverImage : project.image
+  const isTapped = tappedKey === project.key
+  const showBefore = (isHovered || isTapped) && project.hoverImage
+  const activeImage = showBefore ? project.hoverImage : project.image
+
+  const handleClick = () => {
+    if (project.hoverImage && !isTapped) {
+      setTappedKey(project.key)
+    } else {
+      openGallery(project.key)
+      setTappedKey(null)
+    }
+  }
 
   return (
     <motion.div
       onHoverStart={() => setHoveredKey(project.key)}
       onHoverEnd={() => setHoveredKey(null)}
-      onClick={() => openGallery(project.key)}
+      onClick={handleClick}
       onKeyDown={(event) => {
         if ((event.key === 'Enter' || event.key === ' ') && project.hasGallery) {
           event.preventDefault()
@@ -81,7 +92,7 @@ function GalleryCard({ project, hoveredKey, setHoveredKey, openGallery }) {
         </AnimatePresence>
 
         <AnimatePresence>
-          {isHovered && project.hoverImage && (
+          {showBefore && (
             <motion.span
               className="absolute left-3 top-3 z-10 rounded-[4px] bg-[rgba(18,13,10,0.72)] px-2.5 py-[0.28rem] font-['Plus_Jakarta_Sans'] text-[0.6rem] font-semibold uppercase tracking-[0.13em] text-white/90"
               initial={{ opacity: 0, y: -5 }}
@@ -94,36 +105,32 @@ function GalleryCard({ project, hoveredKey, setHoveredKey, openGallery }) {
           )}
         </AnimatePresence>
 
-        <AnimatePresence>
-          {isHovered && project.hasGallery && (
-            <motion.div
-              className="absolute inset-0 z-10 flex items-end justify-end bg-[#1C1714]/18 p-3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="flex items-center gap-1.5 rounded-full bg-white/88 px-3 py-1.5 shadow-md backdrop-blur-sm">
-                <svg
-                  className="h-3 w-3 text-[#1C1714]"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  viewBox="0 0 24 24"
+        {project.hasGallery && (
+          <div className="absolute inset-0 z-10 flex items-end justify-end p-3 pointer-events-none">
+            <AnimatePresence>
+              {isHovered && (
+                <motion.div
+                  className="hidden sm:flex items-center gap-1.5 rounded-full bg-white/88 px-3 py-1.5 shadow-md backdrop-blur-sm"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                  />
-                </svg>
-                <span className="font-['Source_Serif_4'] text-[0.72rem] font-semibold text-[#1C1714]">
-                  View Gallery
-                </span>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  <svg className="h-3 w-3 text-[#1C1714]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                  </svg>
+                  <span className="font-['Source_Serif_4'] text-[0.72rem] font-semibold text-[#1C1714]">View Gallery</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <div className="sm:hidden flex items-center gap-1.5 rounded-full bg-white/88 px-3 py-1.5 shadow-md backdrop-blur-sm pointer-events-auto">
+              <svg className="h-3 w-3 text-[#1C1714]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+              </svg>
+              <span className="font-['Source_Serif_4'] text-[0.72rem] font-semibold text-[#1C1714]">View Gallery</span>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="px-6 py-5">
@@ -141,16 +148,29 @@ function GalleryCard({ project, hoveredKey, setHoveredKey, openGallery }) {
 
 export default function Portfolio() {
   const [hoveredKey, setHoveredKey] = useState(null)
+  const [tappedKey, setTappedKey] = useState(null)
   const [galleryKey, setGalleryKey] = useState(null)
 
   const openGallery = (key) => {
     if (PORTFOLIO_GALLERIES[key]) setGalleryKey(key)
   }
 
-  const featuredImage =
-    hoveredKey === PORTFOLIO_FEATURED_PROJECT.key && PORTFOLIO_FEATURED_PROJECT.hoverImage
-      ? PORTFOLIO_FEATURED_PROJECT.hoverImage
-      : PORTFOLIO_FEATURED_PROJECT.image
+  const featuredTapped = tappedKey === PORTFOLIO_FEATURED_PROJECT.key
+  const featuredShowBefore =
+    (hoveredKey === PORTFOLIO_FEATURED_PROJECT.key || featuredTapped) &&
+    PORTFOLIO_FEATURED_PROJECT.hoverImage
+  const featuredImage = featuredShowBefore
+    ? PORTFOLIO_FEATURED_PROJECT.hoverImage
+    : PORTFOLIO_FEATURED_PROJECT.image
+
+  const handleFeaturedClick = () => {
+    if (PORTFOLIO_FEATURED_PROJECT.hoverImage && !featuredTapped) {
+      setTappedKey(PORTFOLIO_FEATURED_PROJECT.key)
+    } else {
+      openGallery(PORTFOLIO_FEATURED_PROJECT.key)
+      setTappedKey(null)
+    }
+  }
 
   return (
     <section id="portfolio" className="bg-[#FAF9F6] px-4 py-16 sm:px-6 sm:py-28 lg:px-8">
@@ -170,7 +190,7 @@ export default function Portfolio() {
           <motion.div
             onHoverStart={() => setHoveredKey(PORTFOLIO_FEATURED_PROJECT.key)}
             onHoverEnd={() => setHoveredKey(null)}
-            onClick={() => openGallery(PORTFOLIO_FEATURED_PROJECT.key)}
+            onClick={handleFeaturedClick}
             onKeyDown={(event) => {
               if (
                 (event.key === 'Enter' || event.key === ' ') &&
@@ -215,51 +235,45 @@ export default function Portfolio() {
                 </AnimatePresence>
 
                 <AnimatePresence>
-                  {hoveredKey === PORTFOLIO_FEATURED_PROJECT.key &&
-                    PORTFOLIO_FEATURED_PROJECT.hoverImage && (
-                      <motion.span
-                        className="absolute top-4 left-4 z-10 rounded-[4px] bg-[rgba(18,13,10,0.72)] px-2.5 py-[0.28rem] font-['Plus_Jakarta_Sans'] text-[0.65rem] font-semibold uppercase tracking-[0.13em] text-white/90"
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -5 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        Before
-                      </motion.span>
-                    )}
+                  {featuredShowBefore && (
+                    <motion.span
+                      className="absolute top-4 left-4 z-10 rounded-[4px] bg-[rgba(18,13,10,0.72)] px-2.5 py-[0.28rem] font-['Plus_Jakarta_Sans'] text-[0.65rem] font-semibold uppercase tracking-[0.13em] text-white/90"
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      Before
+                    </motion.span>
+                  )}
                 </AnimatePresence>
 
-                <AnimatePresence>
-                  {hoveredKey === PORTFOLIO_FEATURED_PROJECT.key &&
-                    PORTFOLIO_FEATURED_PROJECT.hasGallery && (
-                      <motion.div
-                        className="absolute inset-0 z-10 flex items-end justify-end bg-[#1C1714]/18 p-4"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="flex items-center gap-1.5 rounded-full bg-white/90 px-3.5 py-2 shadow-md backdrop-blur-sm">
-                          <svg
-                            className="h-3.5 w-3.5 text-[#1C1714]"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.75"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                            />
+                {PORTFOLIO_FEATURED_PROJECT.hasGallery && (
+                  <div className="absolute inset-0 z-10 flex items-end justify-end p-4 pointer-events-none">
+                    <AnimatePresence>
+                      {hoveredKey === PORTFOLIO_FEATURED_PROJECT.key && (
+                        <motion.div
+                          className="hidden sm:flex items-center gap-1.5 rounded-full bg-white/90 px-3.5 py-2 shadow-md backdrop-blur-sm"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <svg className="h-3.5 w-3.5 text-[#1C1714]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                           </svg>
-                          <span className="font-['Source_Serif_4'] text-[0.78rem] font-semibold text-[#1C1714]">
-                            View Gallery
-                          </span>
-                        </div>
-                      </motion.div>
-                    )}
-                </AnimatePresence>
+                          <span className="font-['Source_Serif_4'] text-[0.78rem] font-semibold text-[#1C1714]">View Gallery</span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                    <div className="sm:hidden flex items-center gap-1.5 rounded-full bg-white/90 px-3.5 py-2 shadow-md backdrop-blur-sm pointer-events-auto">
+                      <svg className="h-3.5 w-3.5 text-[#1C1714]" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                      </svg>
+                      <span className="font-['Source_Serif_4'] text-[0.78rem] font-semibold text-[#1C1714]">View Gallery</span>
+                    </div>
+                  </div>
+                )}
 
                 <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#FDFCF9]/50 to-transparent lg:hidden" />
               </div>
@@ -291,6 +305,8 @@ export default function Portfolio() {
                 project={project}
                 hoveredKey={hoveredKey}
                 setHoveredKey={setHoveredKey}
+                tappedKey={tappedKey}
+                setTappedKey={setTappedKey}
                 openGallery={openGallery}
               />
             </StaggerItem>

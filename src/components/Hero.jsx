@@ -24,7 +24,7 @@ export default function Hero() {
   }, [prefersReducedMotion])
 
   return (
-    <section className="relative min-h-[70vh] sm:min-h-[86vh] lg:min-h-[92vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[calc(100svh-82px)] sm:min-h-[86vh] lg:min-h-[92vh] flex items-center justify-center overflow-hidden">
 
       {/* Slideshow backgrounds with Ken Burns */}
       {SLIDES.map((src, i) => {
@@ -75,9 +75,9 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="block whitespace-nowrap">Premium Decorating &amp;</span>
-          <span className="block whitespace-nowrap">Refurbishment Services</span>
-          <span className="block whitespace-nowrap">Across London</span>
+          <span className="block whitespace-normal sm:whitespace-nowrap">Premium Decorating &amp;</span>
+          <span className="block whitespace-normal sm:whitespace-nowrap">Refurbishment Services</span>
+          <span className="block whitespace-normal sm:whitespace-nowrap">Across London</span>
         </motion.h1>
 
         {/* Gold rule */}
