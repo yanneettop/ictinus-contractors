@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import { Link } from 'react-router-dom'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 
 const highlights = [
@@ -8,8 +9,6 @@ const highlights = [
 ]
 
 export default function AboutSection() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-
   return (
     <section className="bg-[#FAF9F6] py-16 sm:py-28 px-4 sm:px-6 lg:px-8" id="about">
       <div className="max-w-6xl mx-auto">
@@ -40,14 +39,18 @@ export default function AboutSection() {
                 the same level of care, precision, and professionalism to every job.
               </p>
             </div>
-            <motion.button
-              onClick={() => scrollTo('quote')}
-              className="mt-8 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-6 py-3 rounded-lg text-[#1C1714] bg-gradient-gold shadow-md"
+            <motion.div
+              className="mt-8 inline-block"
               whileHover={{ scale: 1.05, boxShadow: '0 6px 20px rgba(212,175,55,0.3)' }}
               whileTap={{ scale: 0.97 }}
             >
-              Get a Free Quote
-            </motion.button>
+              <Link
+                to="/contact#quote"
+                className="block rounded-lg bg-gradient-gold px-6 py-3 font-['Source_Serif_4'] text-[0.9375rem] font-semibold tracking-wide text-[#1C1714] shadow-md"
+              >
+                Get a Free Quote
+              </Link>
+            </motion.div>
           </Reveal>
 
           {/* Right — Stats + Values */}

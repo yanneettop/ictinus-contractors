@@ -3,6 +3,7 @@ dist/
 dist-optimized/
 .claude/
 .vscode/
+.DS_Store
 *.rar
 *.zip
 *.timestamp-*.mjs

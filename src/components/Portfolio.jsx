@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 import PortfolioGalleryModal from './PortfolioGalleryModal'
@@ -9,9 +8,13 @@ import {
   PORTFOLIO_GALLERIES,
 } from './portfolioData'
 
-function MetaLine({ location, tags }) {
+function MetaLine({ location, serviceType }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
+      <span className="font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#A88636]">
+        {serviceType}
+      </span>
+      <span className="text-[0.55rem] text-[#D4AF37]/35">&#9679;</span>
       <span className="inline-flex items-center gap-1 font-['Source_Serif_4'] text-[0.72rem] text-[#9A9590]">
         <svg
           className="h-2.5 w-2.5 flex-shrink-0 text-[#B08D2A]/60"
@@ -27,10 +30,6 @@ function MetaLine({ location, tags }) {
           />
         </svg>
         {location}
-      </span>
-      <span className="text-[0.55rem] text-[#D4AF37]/35">&#9679;</span>
-      <span className="font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[#A88636]">
-        {tags}
       </span>
     </div>
   )
@@ -145,13 +144,23 @@ function GalleryCard({ project, hoveredKey, setHoveredKey, toggledKey, setToggle
       </div>
 
       <div className="px-6 py-5">
-        <MetaLine location={project.location} tags={project.tags} />
+        <MetaLine location={project.location} serviceType={project.category} />
         <h3 className="mt-2 mb-2 font-['Cormorant_Garamond'] text-[1.15rem] font-semibold leading-snug tracking-[-0.01em] text-[#1C1714] transition-colors duration-300 group-hover:text-[#B08D2A]">
           {project.title}
         </h3>
         <p className="font-['Source_Serif_4'] text-[0.875rem] leading-[1.7] text-[#7A7068]">
           {project.description}
         </p>
+        <button
+          type="button"
+          onClick={() => project.hasGallery ? openGallery(project.key) : undefined}
+          className="group/project mt-4 inline-flex items-center gap-1.5 font-['Source_Serif_4'] text-[0.85rem] font-semibold text-[#B08D2A] transition-colors hover:text-[#8B6C2C]"
+        >
+          View Project
+          <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover/project:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </button>
       </div>
     </motion.div>
   )
@@ -187,15 +196,15 @@ export default function Portfolio() {
   }
 
   return (
-    <section id="portfolio" className="bg-[#FAF9F6] px-4 py-16 sm:px-6 sm:py-28 lg:px-8">
+    <section id="portfolio" className="bg-[#FAF9F6] px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <Reveal>
-          <div className="mb-14 sm:mb-16">
+          <div className="mb-10 sm:mb-12">
             <p className="ict-section-label">Selected Projects</p>
             <h2 className="ict-section-heading">Recent Refurbishment and Finishing Work Across London</h2>
             <p className="ict-section-subtitle" style={{ maxWidth: '38rem' }}>
-              A selection of bathroom fitting, flooring, plastering, decorating, and refurbishment
-              projects completed with care, precision, and a high standard of finish.
+              A selection of recent decorating, flooring, plastering, bathroom and refurbishment
+              work completed with clean preparation and attention to detail.
             </p>
           </div>
         </Reveal>
@@ -299,7 +308,7 @@ export default function Portfolio() {
               <div className="flex flex-col justify-center px-8 py-10 lg:px-12 lg:py-14">
                 <MetaLine
                   location={PORTFOLIO_FEATURED_PROJECT.location}
-                  tags={PORTFOLIO_FEATURED_PROJECT.tags}
+                  serviceType={PORTFOLIO_FEATURED_PROJECT.category}
                 />
 
                 <h3 className="mt-3 mb-4 font-['Cormorant_Garamond'] text-[1.6rem] font-semibold leading-[1.15] tracking-[-0.02em] text-[#1C1714] lg:text-[1.875rem]">
@@ -311,12 +320,22 @@ export default function Portfolio() {
                 <p className="font-['Source_Serif_4'] text-[0.9375rem] leading-[1.8] text-[#5A5048]">
                   {PORTFOLIO_FEATURED_PROJECT.description}
                 </p>
+                <button
+                  type="button"
+                  onClick={() => openGallery(PORTFOLIO_FEATURED_PROJECT.key)}
+                  className="group/project mt-6 inline-flex items-center gap-2 self-start rounded-lg border border-[#D4AF37]/25 px-5 py-2.5 font-['Source_Serif_4'] text-[0.9rem] font-semibold text-[#B08D2A] transition-colors hover:border-[#D4AF37]/45 hover:bg-[#D4AF37]/8"
+                >
+                  View Project
+                  <svg className="h-4 w-4 transition-transform duration-200 group-hover/project:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </button>
               </div>
             </div>
           </motion.div>
         </Reveal>
 
-        <StaggerContainer className="mb-14 grid grid-cols-1 gap-5 sm:mb-16 sm:grid-cols-2" stagger={0.08}>
+        <StaggerContainer className="grid grid-cols-1 gap-5 sm:grid-cols-2" stagger={0.08}>
           {PORTFOLIO_CARD_PROJECTS.map((project) => (
             <StaggerItem key={project.key}>
               <GalleryCard
@@ -331,35 +350,6 @@ export default function Portfolio() {
           ))}
         </StaggerContainer>
 
-        <Reveal delay={0.12}>
-          <div className="rounded-2xl border border-[#D4AF37]/22 bg-[#FDFCF9] px-8 py-10 text-center shadow-[0_1px_4px_rgba(0,0,0,0.05)] sm:px-14 sm:py-12">
-            <h3 className="mb-3 font-['Cormorant_Garamond'] text-[1.5rem] font-semibold leading-snug tracking-[-0.01em] text-[#1C1714] sm:text-[1.75rem]">
-              Planning a refurbishment or finishing project in London?
-            </h3>
-            <div className="mx-auto mb-4 h-px w-10 bg-[#D4AF37]/45" />
-            <p className="mx-auto mb-8 max-w-[34rem] font-['Source_Serif_4'] text-[0.9375rem] leading-[1.75] text-[#5A5048]">
-              Tell us what you need and we will be happy to discuss the scope, timeline, and next
-              steps.
-            </p>
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} className="inline-block">
-              <Link
-                to="/contact"
-                className="group inline-flex items-center gap-2 rounded-lg bg-gradient-gold px-9 py-3.5 font-['Source_Serif_4'] text-[0.9375rem] font-semibold tracking-wide text-[#1C1714] shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
-              >
-                Get a Quote
-                <svg
-                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </motion.div>
-          </div>
-        </Reveal>
       </div>
 
       <AnimatePresence>

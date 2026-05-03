@@ -44,7 +44,7 @@ export const PORTFOLIO_FEATURED_PROJECT = {
   location: 'East London',
   tags: 'Refurbishment, Decorating, Flooring',
   description:
-    'Complete interior upgrade with modern finishes, careful preparation, and a clean, consistent standard throughout the property.',
+    'A full interior refresh creating brighter, cleaner rooms with consistent decoration, flooring and finishing details.',
   longDescription:
     'A full-house refurbishment delivered across key living spaces, circulation areas, and bedrooms. The scope included preparation, decoration, flooring, and finishing work designed to create a brighter, more cohesive home from top to bottom.',
   image: '/Portfolio/refurb_after_reception.webp',
@@ -61,7 +61,7 @@ export const PORTFOLIO_CARD_PROJECTS = [
     location: 'London',
     tags: 'Bathroom Fitting, Plumbing',
     description:
-      'Full bathroom installation with tiling, sanitaryware, and high-quality finishing details.',
+      'A dated bathroom transformed into a clean, practical space with neat tiling, plumbing and finishing details.',
     image: '/Portfolio/bathroom_renovation_hero.png',
     hoverImage: '/Portfolio/bathroom_renovation_hero_before.png',
     hasGallery: true,
@@ -73,7 +73,7 @@ export const PORTFOLIO_CARD_PROJECTS = [
     location: 'London',
     tags: 'Painting, Finishing Carpentry',
     description:
-      'Careful decorating and finishing details delivered for a polished final result.',
+      'Careful preparation, decorating and finishing details produced a cleaner, more polished interior.',
     image: '/Portfolio/painting_finishing_hero.png',
     hoverImage: '/Portfolio/painting_finishing_hero_before.png',
     hasGallery: true,
@@ -85,7 +85,7 @@ export const PORTFOLIO_CARD_PROJECTS = [
     location: 'London',
     tags: 'Flooring, Finishing',
     description:
-      'Precise installation of hard flooring with a clean fit and durable final finish.',
+      'Hard flooring installed with tidy edges, a clean fit and a durable finish for everyday use.',
     image: '/Portfolio/flooring_hero.png',
     hoverImage: '/Portfolio/flooring_hero_before.png',
     hasGallery: true,
@@ -97,7 +97,7 @@ export const PORTFOLIO_CARD_PROJECTS = [
     location: 'London',
     tags: 'Plastering, Decorating Prep',
     description:
-      'Smooth wall preparation and plastering works completed to a paint-ready standard.',
+      'Walls prepared and plastered to a smooth, paint-ready finish before decoration.',
     image: '/Portfolio/plastering_hero.png',
     hoverImage: '/Portfolio/plastering_hero_before.png',
     hasGallery: true,

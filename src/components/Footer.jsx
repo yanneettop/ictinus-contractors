@@ -3,13 +3,14 @@ import { motion } from 'motion/react'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 
 const mainServices = [
-  'Painting & Decorating',
-  'Wallpapering',
-  'Plastering',
-  'Hard Flooring',
-  'Bathroom Fitting',
-  'Property Refurbishment',
-  'Finishing Carpentry',
+  { label: 'Property Refurbishment & Extensions', to: '/services/property-refurbishment-extensions' },
+  { label: 'Bathroom Fitting', to: '/services/bathroom-fitting' },
+  { label: 'Hard Flooring', to: '/services/hard-flooring' },
+  { label: 'Plastering', to: '/services/plastering' },
+  { label: 'Painting & Decorating', to: '/services/painting-and-decorating' },
+  { label: 'Finishing Carpentry', to: '/services/finishing-carpentry' },
+  { label: 'Electrical Works', to: '/services/electrical-works' },
+  { label: 'Plumbing', to: '/services/plumbing' },
 ]
 
 const quickLinks = [
@@ -65,13 +66,13 @@ export default function Footer() {
               Services
             </h4>
             <ul className="space-y-2">
-              {mainServices.map((s) => (
-                <li key={s}>
+              {mainServices.map(({ label, to }) => (
+                <li key={to}>
                   <Link
-                    to="/services"
+                    to={to}
                     className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8] hover:text-[#D4AF37] transition-colors duration-200"
                   >
-                    {s}
+                    {label}
                   </Link>
                 </li>
               ))}
@@ -110,7 +111,7 @@ export default function Footer() {
               </div>
               <div className="pt-2">
                 <Link
-                  to="/contact"
+                  to="/contact#quote"
                   className="inline-block font-['Source_Serif_4'] text-[0.9375rem] font-semibold tracking-wide px-5 py-2.5 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5"
                 >
                   Get a Quote
@@ -125,9 +126,22 @@ export default function Footer() {
           <p className="font-['Source_Serif_4'] text-[0.8125rem] text-[#94A3B8]/60 text-center">
             &copy; {new Date().getFullYear()} Ictinus Contractors. All rights reserved.
           </p>
-          <p className="font-['Source_Serif_4'] text-[0.8125rem] text-[#94A3B8]/60 text-center">
-            London, United Kingdom
-          </p>
+          <div className="flex flex-col items-center gap-1 sm:items-end">
+            <p className="font-['Source_Serif_4'] text-[0.8125rem] text-[#94A3B8]/60 text-center">
+              London, United Kingdom
+            </p>
+            <p className="font-['Source_Serif_4'] text-[0.75rem] text-[#94A3B8]/45 text-center">
+              Website crafted by{' '}
+              <a
+                href="https://pixelrebels.space"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#94A3B8]/65 transition-colors duration-200 hover:text-[#D4AF37]/85"
+              >
+                Pixel Rebels
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

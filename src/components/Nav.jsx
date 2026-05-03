@@ -11,6 +11,17 @@ const links = [
   { label: 'CONTACT',      route: '/contact' },
 ]
 
+const serviceLinks = [
+  { label: 'Property Refurbishment & Extensions', route: '/services/property-refurbishment-extensions' },
+  { label: 'Bathroom Fitting', route: '/services/bathroom-fitting' },
+  { label: 'Hard Flooring', route: '/services/hard-flooring' },
+  { label: 'Plastering', route: '/services/plastering' },
+  { label: 'Painting & Decorating', route: '/services/painting-and-decorating' },
+  { label: 'Finishing Carpentry', route: '/services/finishing-carpentry' },
+  { label: 'Electrical Works', route: '/services/electrical-works' },
+  { label: 'Plumbing', route: '/services/plumbing' },
+]
+
 function ColumnIcon({ className }) {
   return (
     <img
@@ -24,6 +35,7 @@ function ColumnIcon({ className }) {
 export default function Nav() {
   const [scrolled, setScrolled]   = useState(false)
   const [menuOpen, setMenuOpen]   = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
   const navigate                  = useNavigate()
   const location                  = useLocation()
   const isHome                    = location.pathname === '/'
@@ -34,7 +46,10 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  useEffect(() => { setMenuOpen(false) }, [location.pathname])
+  useEffect(() => {
+    setMenuOpen(false)
+    setServicesOpen(false)
+  }, [location.pathname])
 
   const handleLink = (link) => {
     setMenuOpen(false)
@@ -111,8 +126,46 @@ export default function Nav() {
         <div className="hidden lg:flex items-center gap-7 flex-1 justify-center">
           {links.map((link) => {
             const active =
+              (link.route === '/services' && location.pathname.startsWith('/services')) ||
               (link.route && link.route !== '/' && location.pathname === link.route) ||
               (link.route === '/' && isHome)
+
+            if (link.label === 'SERVICES') {
+              return (
+                <div key={link.label} className="group relative">
+                  <Link
+                    to="/services"
+                    aria-haspopup="true"
+                    className={`flex items-center gap-1.5 font-['Source_Serif_4'] text-[0.75rem] tracking-[0.14em] uppercase transition-colors duration-200 ${
+                      active
+                        ? 'text-[#D4AF37]'
+                        : navSolid
+                        ? 'text-[#C9B09A] hover:text-[#D4AF37]'
+                        : 'text-[#E6DCC8]/80 hover:text-white'
+                    }`}
+                  >
+                    Services
+                    <svg className="h-3 w-3 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </Link>
+                  <div className="invisible absolute left-1/2 top-full z-[70] w-[20rem] -translate-x-1/2 pt-5 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                    <div className="rounded-lg border border-[#D4AF37]/18 bg-[#1C1714]/98 p-2 shadow-[0_18px_45px_rgba(0,0,0,0.28)] backdrop-blur-lg">
+                      {serviceLinks.map((service) => (
+                        <Link
+                          key={service.route}
+                          to={service.route}
+                          className="block rounded-md px-3.5 py-2.5 font-['Source_Serif_4'] text-[0.9rem] leading-snug text-[#C9B09A] transition-colors duration-200 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] focus:bg-[#D4AF37]/10 focus:text-[#D4AF37] focus:outline-none"
+                        >
+                          {service.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )
+            }
+
             return (
               link.route ? (
                 <Link
@@ -169,7 +222,7 @@ export default function Nav() {
             whileTap={{ scale: 0.97 }}
           >
             <Link
-              to="/contact"
+              to="/contact#quote"
               className="block font-['Source_Serif_4'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-6 py-[0.65rem] rounded-lg bg-gradient-gold text-[#0F1923] shadow-[0_4px_16px_rgba(212,175,55,0.25)]"
             >
               GET A QUOTE
@@ -207,7 +260,50 @@ export default function Nav() {
           >
             <div className="px-5 py-4 space-y-0.5">
               {links.map((link, i) => (
-                link.route ? (
+                link.label === 'SERVICES' ? (
+                  <motion.div
+                    key={link.label}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04, duration: 0.3 }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setServicesOpen((open) => !open)}
+                      aria-expanded={servicesOpen}
+                      aria-controls="mobile-services-menu"
+                      className="flex w-full items-center justify-between font-['Source_Serif_4'] text-[0.75rem] tracking-[0.14em] uppercase text-[#C9B09A] py-2.5 hover:text-[#D4AF37] transition-colors"
+                    >
+                      Services
+                      <svg className={`h-4 w-4 transition-transform duration-200 ${servicesOpen ? 'rotate-180 text-[#D4AF37]' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {servicesOpen && (
+                        <motion.div
+                          id="mobile-services-menu"
+                          className="mb-2 mt-1 space-y-1 rounded-lg border border-[#D4AF37]/15 bg-[#252019] p-2"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                          {serviceLinks.map((service) => (
+                            <Link
+                              key={service.route}
+                              to={service.route}
+                              onClick={() => setMenuOpen(false)}
+                              className="block rounded-md px-3 py-2.5 font-['Source_Serif_4'] text-[0.9rem] leading-snug text-[#B8AFA6] transition-colors hover:bg-[#D4AF37]/10 hover:text-[#D4AF37]"
+                            >
+                              {service.label}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                ) : link.route ? (
                   <motion.div
                     key={link.label}
                     initial={{ opacity: 0, x: -10 }}
@@ -251,7 +347,7 @@ export default function Nav() {
                 07586 480417
               </a>
               <Link
-                to="/contact"
+                to="/contact#quote"
                 onClick={() => setMenuOpen(false)}
                 className="block w-full font-['Source_Serif_4'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-5 py-3 rounded-lg bg-gradient-gold text-[#1C1714] text-center mt-1"
               >

@@ -7,6 +7,7 @@ const services = [
   {
     title: 'Property Refurbishment & Extensions',
     desc: 'Complete property refurbishments and extension works, from structural improvements and layout changes to high-quality finishing throughout.',
+    href: '/services/property-refurbishment-extensions',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5m4 0H9" />
     ),
@@ -14,6 +15,7 @@ const services = [
   {
     title: 'Bathroom Fitting',
     desc: 'Full bathroom installations including tiling, plumbing fixtures, sanitaryware, vanities, and all finishing works delivered to a high standard.',
+    href: '/services/bathroom-fitting',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
     ),
@@ -21,6 +23,7 @@ const services = [
   {
     title: 'Hard Flooring',
     desc: 'Supply and installation of hardwood, engineered wood, laminate, vinyl, and tile flooring with precise fitting and a clean finish.',
+    href: '/services/hard-flooring',
     icon: (
       <>
         <rect x="3" y="3" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
@@ -33,6 +36,7 @@ const services = [
   {
     title: 'Plastering',
     desc: 'Professional plastering, skimming, patch repairs, and surface preparation for smooth, durable, paint-ready walls and ceilings.',
+    href: '/services/plastering',
     icon: (
       <>
         <polygon points="12 2 2 7 12 12 22 7 12 2" strokeLinecap="round" strokeLinejoin="round" />
@@ -44,6 +48,7 @@ const services = [
   {
     title: 'Painting & Decorating',
     desc: 'Interior and exterior painting with careful preparation, neat application, and long-lasting finishes across residential and commercial spaces.',
+    href: '/services/painting-and-decorating',
     icon: (
       <>
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 16s1-1 3-1 4 2 6 2 3-1 3-1V4s-1 1-3 1-4-2-6-2-3 1-3 1z" />
@@ -54,20 +59,23 @@ const services = [
   {
     title: 'Finishing Carpentry',
     desc: 'Skirting boards, architraves, door hanging, boxing-in, panelling, and detailed finishing carpentry for a polished interior result.',
+    href: '/services/finishing-carpentry',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
     ),
   },
   {
     title: 'Electrical Works',
-    desc: 'Reliable electrical works including first fix, second fix, lighting, sockets, switches, fault finding, and finishing installations.',
+    desc: 'Practical electrical improvement support coordinated as part of refurbishment, decorating, and property improvement projects.',
+    href: '/services/electrical-works',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
     ),
   },
   {
     title: 'Plumbing',
-    desc: 'General plumbing works including pipework, fittings, sanitary installations, repairs, adjustments, and finishing connections.',
+    desc: 'Practical plumbing support coordinated as part of bathroom fitting, refurbishment, and property improvement projects.',
+    href: '/services/plumbing',
     icon: (
       <>
         <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
@@ -79,7 +87,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative py-20 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#1C1714] overflow-hidden">
+    <section id="services" className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#1C1714] overflow-hidden">
       {/* Subtle background texture */}
       <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: 'radial-gradient(circle at 1px 1px, #D4AF37 1px, transparent 0)',
@@ -99,8 +107,9 @@ export default function Services() {
         </Reveal>
         <Reveal delay={0.16}>
           <p className="ict-section-subtitle !text-[#9A9590]">
-            From bathrooms and flooring to full property refurbishments and extension works, we deliver
-            high-quality residential and commercial services across London with a professional finish.
+            From full property refreshes to detailed finishing work, Ictinus Contractors helps London
+            homeowners, landlords and businesses complete projects with care, clear communication and
+            reliable workmanship.
           </p>
         </Reveal>
 
@@ -113,15 +122,17 @@ export default function Services() {
           </div>
         </Reveal>
 
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-12 sm:mb-16" stagger={0.07}>
-          {services.map(({ title, desc, icon }, i) => (
-            <StaggerItem key={title}>
-              <motion.div
-                whileHover={{ y: -6, transition: { duration: 0.3, ease: 'easeOut' } }}
-                className="group relative h-full rounded-2xl cursor-default overflow-hidden"
-              >
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-10 sm:mb-12" stagger={0.07}>
+          {services.map(({ title, desc, icon, href }, i) => {
+            const isFeatured = [
+              'Property Refurbishment & Extensions',
+              'Bathroom Fitting',
+              'Painting & Decorating',
+            ].includes(title)
+            const cardContent = (
+              <>
                 {/* Card background with border effect */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[#D4AF37]/[0.12] to-[#D4AF37]/[0.04] p-px">
+                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-b p-px ${isFeatured ? 'from-[#D4AF37]/[0.26] to-[#D4AF37]/[0.07]' : 'from-[#D4AF37]/[0.12] to-[#D4AF37]/[0.04]'}`}>
                   <div className="h-full w-full rounded-2xl bg-[#252019]" />
                 </div>
 
@@ -129,6 +140,11 @@ export default function Services() {
                 <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-b from-[#D4AF37]/[0.08] to-transparent" />
 
                 <div className="relative p-6 sm:p-8">
+                  {isFeatured && (
+                    <span className="mb-5 inline-flex rounded-full border border-[#D4AF37]/25 px-2.5 py-1 font-['Plus_Jakarta_Sans'] text-[0.58rem] font-semibold uppercase tracking-[0.12em] text-[#D4AF37]/80">
+                      Main service
+                    </span>
+                  )}
                   {/* Number + Icon row */}
                   <div className="flex items-start justify-between mb-6">
                     <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#D4AF37]/[0.1] group-hover:bg-[#D4AF37]/[0.2] transition-colors duration-300 ring-1 ring-[#D4AF37]/[0.15]">
@@ -154,10 +170,36 @@ export default function Services() {
                   <p className="font-['Source_Serif_4'] text-[0.9375rem] leading-[1.75] text-[#9A9590] group-hover:text-[#B5AFA8] transition-colors duration-300">
                     {desc}
                   </p>
+
+                  {href && (
+                    <span className="mt-5 inline-flex items-center gap-2 font-['Source_Serif_4'] text-[0.88rem] font-semibold text-[#D4AF37]">
+                      View service
+                      <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
+                  )}
                 </div>
+              </>
+            )
+
+            return (
+            <StaggerItem key={title}>
+              <motion.div
+                whileHover={{ y: -6, transition: { duration: 0.3, ease: 'easeOut' } }}
+                className={`group relative h-full rounded-2xl overflow-hidden ${href ? 'cursor-pointer' : 'cursor-default'} ${isFeatured ? 'ring-1 ring-[#D4AF37]/30' : ''}`}
+              >
+                {href ? (
+                  <Link to={href} className="block h-full" aria-label={`View ${title} service page`}>
+                    {cardContent}
+                  </Link>
+                ) : (
+                  cardContent
+                )}
               </motion.div>
             </StaggerItem>
-          ))}
+            )
+          })}
         </StaggerContainer>
 
         <Reveal>
@@ -175,10 +217,10 @@ export default function Services() {
             </motion.div>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
               <Link
-                to="/contact"
-                className="inline-block font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/50 transition-colors duration-300"
+                to="/contact#quote"
+                className="inline-block font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/50 hover:shadow-[0_8px_24px_rgba(212,175,55,0.08)] transition-all duration-300"
               >
-                Request a Free Quote
+                Request a Quote
               </Link>
             </motion.div>
           </div>

@@ -1,13 +1,12 @@
 import { motion } from 'motion/react'
-import { Link } from 'react-router-dom'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 
 const audiences = [
   {
-    title: 'Your Home, Done Properly',
+    title: 'Home refreshes and renovation work handled with care.',
     audience: 'Homeowners',
     description:
-      "Whether you're refreshing a single room or undertaking a full renovation, we deliver the quality and care your home deserves — with clear communication and no unnecessary disruption.",
+      'Room refreshes, full refurbishments and finishing work completed with tidy working habits and clear updates.',
     icon: (
       <path
         strokeLinecap="round"
@@ -17,10 +16,10 @@ const audiences = [
     ),
   },
   {
-    title: 'Fast Turnarounds. Lettable Standards.',
-    audience: 'Landlords',
+    title: 'Practical improvements for rental properties and turnarounds.',
+    audience: 'Landlords & Letting Agents',
     description:
-      "We understand the importance of turning a property around quickly and to a standard that attracts quality tenants. Our team works efficiently and leaves every job clean and ready to let.",
+      'Decorating, repairs and improvement work planned around access, timing and a clean handover.',
     icon: (
       <path
         strokeLinecap="round"
@@ -30,10 +29,10 @@ const audiences = [
     ),
   },
   {
-    title: 'Reliable. Responsive. Easy to Work With.',
-    audience: 'Letting Agents & Property Managers',
+    title: 'Responsive support for managed homes and small portfolios.',
+    audience: 'Property Managers',
     description:
-      "Whether it's a void refurbishment or routine maintenance works, we communicate clearly, keep disruption to a minimum, and deliver a consistent standard every time.",
+      'Reliable communication, organised scheduling and consistent standards across repeat property work.',
     icon: (
       <path
         strokeLinecap="round"
@@ -43,10 +42,10 @@ const audiences = [
     ),
   },
   {
-    title: 'Professional Results for Commercial Spaces',
-    audience: 'Shops & Small Businesses',
+    title: 'Clean, professional finishes for customer-facing spaces.',
+    audience: 'Small Businesses',
     description:
-      "From office refreshes to shopfit decoration, we bring the same premium finish to your workspace — and work around your hours to keep downtime to a minimum.",
+      'Office, shop and workspace refreshes completed with a practical approach to disruption and access.',
     icon: (
       <path
         strokeLinecap="round"
@@ -59,16 +58,15 @@ const audiences = [
 
 export default function WhoWeWorkWith() {
   return (
-    <section id="who-we-work-with" className="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#F5F0E6]">
+    <section id="who-we-work-with" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#F5F0E6]">
       <div className="max-w-6xl mx-auto">
 
         <Reveal>
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="text-center mb-10 sm:mb-12">
             <p className="ict-section-label">Our Clients</p>
             <h2 className="ict-section-heading">Who We Work With</h2>
             <p className="ict-section-subtitle">
-              From first-time homeowners to experienced property investors — we work with
-              a wide range of clients across London.
+              Practical refurbishment, decorating and finishing support for property clients across London.
             </p>
           </div>
         </Reveal>
@@ -125,36 +123,6 @@ export default function WhoWeWorkWith() {
             </StaggerItem>
           ))}
         </StaggerContainer>
-
-        {/* CTA */}
-        <Reveal delay={0.15}>
-          <div className="text-center mt-12 sm:mt-14">
-            <p className="font-['Source_Serif_4'] text-[0.9375rem] text-[#5A5048] mb-5">
-              Not sure which category fits? We&rsquo;re happy to advise — just get in touch.
-            </p>
-            <motion.div
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-block"
-            >
-              <Link
-                to="/contact"
-                className="group inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-9 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
-              >
-                Get a Free Quote
-                <svg
-                  className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </motion.div>
-          </div>
-        </Reveal>
 
       </div>
     </section>

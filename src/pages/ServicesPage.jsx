@@ -195,6 +195,15 @@ const FAQS = [
   },
 ]
 
+const SERVICE_PAGE_URLS = {
+  'painting-decorating': 'https://ictinuscontractors.co.uk/services/painting-and-decorating',
+  plastering: 'https://ictinuscontractors.co.uk/services/plastering',
+  'hard-flooring': 'https://ictinuscontractors.co.uk/services/hard-flooring',
+  'bathroom-fitting': 'https://ictinuscontractors.co.uk/services/bathroom-fitting',
+  'property-refurbishment': 'https://ictinuscontractors.co.uk/services/property-refurbishment-extensions',
+  'finishing-carpentry': 'https://ictinuscontractors.co.uk/services/finishing-carpentry',
+}
+
 /* ─── Schema injection ─────────────────────────────────────────────── */
 function injectSchema() {
   const schema = {
@@ -218,7 +227,7 @@ function injectSchema() {
           '@type': 'ListItem',
           position: i + 1,
           name: headline,
-          url: `https://ictinuscontractors.co.uk/services#${id}`,
+          url: SERVICE_PAGE_URLS[id] || `https://ictinuscontractors.co.uk/services#${id}`,
         })),
       },
     ],
@@ -317,7 +326,7 @@ function ServiceSection({ service, index }) {
             ))}
 
             <Link
-              to="/contact"
+              to="/contact#quote"
               className="inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.85rem] tracking-wide px-6 py-3 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.2)] mt-2"
             >
               Request a Free Quote
@@ -451,11 +460,11 @@ function PageCTA() {
         </h2>
         <p className="font-['Source_Serif_4'] text-[0.95rem] text-[#C4BAB0] leading-relaxed mb-10 max-w-2xl mx-auto">
           Request a free, no-obligation written quote from Ictinus Contractors.
-          We cover all London boroughs and respond within one working day.
+          Share a few details about the work and we will guide you through the next step.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            to="/contact"
+            to="/contact#quote"
             className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
           >
             Request a Free Quote

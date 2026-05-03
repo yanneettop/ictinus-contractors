@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 /* ── Draggable comparison slider ──────────────────────────────────── */
 function ComparisonSlider({ before, after }) {
@@ -148,8 +149,6 @@ const pairs = [
 
 /* ── Section ──────────────────────────────────────────────────────── */
 export default function BeforeAfter() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-
   return (
     <section className="ict-ba-section">
       <div className="ict-ba-inner">
@@ -207,15 +206,15 @@ export default function BeforeAfter() {
           <p className="font-['Source_Serif_4'] text-[0.9375rem] italic text-[#7A6E65] mb-6 leading-[1.7]">
             Clear transformation, careful execution, lasting finish.
           </p>
-          <button
-            onClick={() => scrollTo('quote')}
+          <Link
+            to="/contact#quote"
             className="inline-flex items-center gap-2.5 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] hover:-translate-y-0.5 transition-all duration-300 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
           >
             Discuss a Similar Project
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </button>
+          </Link>
         </div>
 
       </div>

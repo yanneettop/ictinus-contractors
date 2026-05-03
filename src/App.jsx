@@ -7,8 +7,6 @@ import TrustRow from './components/TrustRow'
 import Services from './components/Services'
 import WhoWeWorkWith from './components/WhoWeWorkWith'
 import Portfolio from './components/Portfolio'
-import WhyChooseUs from './components/WhyChooseUs'
-import Testimonials from './components/Testimonials'
 import Footer from './components/Footer'
 import SectionDivider from './components/SectionDivider'
 import Reveal from './components/Reveal'
@@ -16,44 +14,55 @@ import useScrollReveal from './hooks/useScrollReveal'
 
 import AboutPage from './pages/AboutPage'
 import ServicesPage from './pages/ServicesPage'
+import {
+  BathroomFittingPage,
+  ElectricalWorksPage,
+  FinishingCarpentryPage,
+  HardFlooringPage,
+  PaintingAndDecoratingPage,
+  PlasteringPage,
+  PlumbingPage,
+  PropertyRefurbishmentExtensionsPage,
+} from './pages/ServicePageTemplate'
 import PortfolioPage from './pages/PortfolioPage'
 import ContactPage from './pages/ContactPage'
 
-/* ── Parallax Quote Divider ── */
+/* ── Photo Quote Divider ── */
 function ParallaxQuote() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
   })
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const textY = useTransform(scrollYProgress, [0, 1], ['20px', '-20px'])
-  const textOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '24%'])
+  const textY = useTransform(scrollYProgress, [0, 1], ['16px', '-16px'])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0])
 
   return (
-    <div ref={ref} className="relative h-[260px] sm:h-[340px] lg:h-[400px] overflow-hidden">
+    <div ref={ref} className="relative h-[260px] sm:h-[340px] lg:h-[390px] overflow-hidden bg-[#1C1714]">
       <motion.div
-        className="absolute inset-[-20%] bg-cover bg-center"
+        className="absolute inset-[-18%] bg-cover bg-center"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2100&auto=format&fit=crop)',
           y: bgY,
         }}
       />
-      <div className="absolute inset-0 bg-[#1C1714]/65" />
-      <div className="relative z-10 flex items-center justify-center h-full text-center px-4">
+      <div className="absolute inset-0 bg-[#1C1714]/68" />
+      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 48%, rgba(28,23,20,0.2) 0%, rgba(28,23,20,0.54) 74%)' }} />
+      <div className="relative z-10 flex h-full items-center justify-center px-4 text-center">
         <motion.div style={{ y: textY, opacity: textOpacity }}>
           <motion.div
-            className="w-10 h-px bg-[#D4AF37]/50 mx-auto mb-6"
+            className="mx-auto mb-6 h-px w-10 bg-[#D4AF37]/50"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           />
-          <p className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl lg:text-[2.75rem] font-semibold text-white/90 italic max-w-2xl leading-relaxed" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>
+          <p className="mx-auto max-w-3xl font-['Cormorant_Garamond'] text-2xl font-semibold italic leading-relaxed text-white/90 sm:text-3xl lg:text-[2.65rem]" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>
             &ldquo;Quality is never an accident; it is always the result of intelligent effort.&rdquo;
           </p>
           <motion.div
-            className="w-10 h-px bg-[#D4AF37]/50 mx-auto mt-6"
+            className="mx-auto mt-6 h-px w-10 bg-[#D4AF37]/50"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
@@ -66,6 +75,50 @@ function ParallaxQuote() {
 }
 
 /* ── Slim Homepage ── */
+const proofCards = [
+  { value: '9.97/10', label: 'Checkatrade rating' },
+  { value: '33', label: 'Verified reviews' },
+  { value: '10/10', label: 'Reliability' },
+  { value: '10/10', label: 'Communication' },
+]
+
+const reviewCards = [
+  {
+    title: 'Quality work, thorough and detail oriented',
+    quote: 'Konstantinos is a true professional. He kept communication open, gave honest and reliable quotes, and the finish was exceptional.',
+    meta: 'Painting / Decorating · E14 · Verified Checkatrade review',
+  },
+  {
+    title: 'Excellent job',
+    quote: 'He repainted my entire flat, walls and ceilings to a high standard. The finish is clean, fresh, and completely transformed the space.',
+    meta: 'Painter / Decorator · E14 · Verified Checkatrade review',
+  },
+  {
+    title: 'Great job from Ictinus',
+    quote: 'Super professional, easy to communicate with, and the results are beautiful. I would definitely recommend Ictinus.',
+    meta: 'Painting / Decorating · E1 · Verified Checkatrade review',
+  },
+]
+
+const howWeWorkItems = [
+  {
+    title: 'Clear communication',
+    text: 'You know what is happening, what comes next and how the work is progressing.',
+  },
+  {
+    title: 'Clean, organised work',
+    text: 'Work areas are kept tidy and disruption is managed carefully from start to finish.',
+  },
+  {
+    title: 'Careful preparation',
+    text: 'Surfaces, details and materials are prepared properly before finishing begins.',
+  },
+  {
+    title: 'Reliable finish',
+    text: 'Each project is completed with practical checks and attention to the final result.',
+  },
+]
+
 function HomePage() {
   useScrollReveal()
 
@@ -73,111 +126,223 @@ function HomePage() {
     <div className="min-h-screen bg-[#FAF9F6]">
       <Nav />
       <main id="main-content">
-        <Hero />
-        <TrustRow />
+        <div className="ict-home-hero-screen">
+          <Hero />
+          <TrustRow />
+        </div>
 
-      {/* Short intro */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6]">
+      {/* Trust and reviews */}
+      <section id="testimonials" className="py-8 sm:py-10 lg:py-10 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6]">
         <Reveal>
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="ict-section-label mb-2">About Ictinus Contractors</p>
-            <h2 className="font-['Cormorant_Garamond'] text-[1.75rem] md:text-[2.5rem] font-semibold text-[#1C1714] mb-4 leading-[1.15]">
-              A London Contractor Brand Built on Quality
-            </h2>
-            <motion.div
-              className="w-16 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-5"
-              initial={{ scaleX: 0, opacity: 0 }}
-              whileInView={{ scaleX: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            />
-            <p className="font-['Source_Serif_4'] text-[0.9375rem] sm:text-[1.0625rem] text-[#5A5048] leading-[1.78] mb-8">
-              With over 12 years of industry experience and a reputation built on quality workmanship,
-              reliability, and strong communication, Ictinus Contractors delivers a professional service
-              for homeowners, landlords, and businesses across London.
+          <div className="max-w-6xl mx-auto">
+            <div className="max-w-3xl mx-auto text-center">
+              <p className="ict-section-label mb-2">Reviews & Trust</p>
+              <h2 className="font-['Cormorant_Garamond'] text-[1.75rem] md:text-[2.5rem] font-semibold text-[#1C1714] mb-4 leading-[1.15]">
+                Trusted by London homeowners, landlords and property clients
+              </h2>
+              <motion.div
+                className="w-16 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-5"
+                initial={{ scaleX: 0, opacity: 0 }}
+                whileInView={{ scaleX: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              />
+              <p className="font-['Source_Serif_4'] text-[0.9375rem] sm:text-[1.03rem] text-[#5A5048] leading-[1.65] max-w-2xl mx-auto">
+                Verified reviews highlight our clean workmanship, reliable communication and organised
+                approach to refurbishment, decorating and property improvement work across London.
+              </p>
+            </div>
+
+            <div className="mt-7 grid grid-cols-2 gap-3 sm:mt-8 lg:grid-cols-4 lg:gap-4">
+              {proofCards.map(({ value, label }, i) => (
+                <motion.div
+                  key={`${value}-${label}`}
+                  className="group rounded-lg border border-[#D4AF37]/18 bg-[#FFFEFB]/78 px-4 py-3.5 text-center shadow-[0_8px_24px_rgba(28,23,20,0.04)] transition-colors duration-300 hover:border-[#D4AF37]/34 hover:bg-[#FDFCF9]"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -3, boxShadow: '0 12px 30px rgba(28,23,20,0.07), 0 2px 8px rgba(212,175,55,0.08)' }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <div className="mx-auto mb-2.5 flex h-8 w-8 items-center justify-center rounded-full border border-[#D4AF37]/24 bg-[#D4AF37]/8 transition-colors duration-300 group-hover:border-[#D4AF37]/40 group-hover:bg-[#D4AF37]/14">
+                    <svg className="h-4 w-4 text-[#B08D2A]" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75l2.25 2.25L15.75 9.75M12 3.75a8.25 8.25 0 100 16.5 8.25 8.25 0 000-16.5z" />
+                    </svg>
+                  </div>
+                  <p className="font-['Plus_Jakarta_Sans'] text-[1.25rem] font-bold leading-none tracking-[-0.01em] text-[#1C1714]">
+                    {value}
+                  </p>
+                  <p className="mt-1 font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-[#6A5B4C]">
+                    {label}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+
+            <p className="mt-4 text-center font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-[#6A5B4C] sm:text-[0.72rem]">
+              Quality of work 9.92 &middot; Fully insured &middot; Free estimates &middot; East London based &middot; Checkatrade member since March 2024 &middot; £1,000 Checkatrade guarantee
             </p>
-            <motion.div whileHover={{ scale: 1.04 }} className="inline-block">
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 font-['Source_Serif_4'] font-medium text-[0.9375rem] text-[#B08D2A] hover:text-[#D4AF37] transition-colors group"
+
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              {reviewCards.map(({ title, quote, meta }, i) => (
+                <motion.article
+                  key={title}
+                  className="group rounded-lg border border-[#D4AF37]/16 bg-[#FDFCF9] p-4 shadow-[0_10px_28px_rgba(28,23,20,0.045)] transition-colors duration-300 hover:border-[#D4AF37]/34"
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -4, boxShadow: '0 14px 34px rgba(28,23,20,0.075), 0 2px 8px rgba(212,175,55,0.08)' }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <div className="mb-3 flex gap-1 text-[#D4AF37]" aria-hidden="true">
+                    {[0, 1, 2, 3, 4].map((star) => (
+                      <svg key={star} className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81H7.03a1 1 0 00.95-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <h3 className="mb-2 font-['Cormorant_Garamond'] text-[1.2rem] font-semibold leading-tight text-[#1C1714] transition-colors duration-300 group-hover:text-[#B08D2A]">
+                    {title}
+                  </h3>
+                  <blockquote className="font-['Source_Serif_4'] text-[0.95rem] leading-[1.58] text-[#3D342D]">
+                    &ldquo;{quote}&rdquo;
+                  </blockquote>
+                  <p className="mt-3 font-['Plus_Jakarta_Sans'] text-[0.66rem] font-semibold uppercase tracking-[0.1em] text-[#A88636]">
+                    {meta}
+                  </p>
+                </motion.article>
+              ))}
+            </div>
+
+            <div className="mt-5 text-center">
+              <a
+                href="https://www.checkatrade.com/trades/ictinuscontractors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-[#B08D2A] underline decoration-[#D4AF37]/35 underline-offset-4 transition-colors hover:text-[#8B6C2C]"
               >
-                Learn more about us
-                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                Read all reviews on Checkatrade
+                <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7m0 0H9m8 0v8" />
                 </svg>
-              </Link>
+              </a>
+            </div>
+
+            <motion.div
+              className="mt-5 rounded-lg border border-[#D4AF37]/18 bg-[#1C1714] px-5 py-5 text-center shadow-[0_14px_34px_rgba(28,23,20,0.12)] sm:mt-7 sm:px-8 lg:flex lg:items-center lg:justify-between lg:gap-8 lg:text-left"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div>
+                <h3 className="font-['Cormorant_Garamond'] text-2xl font-semibold leading-tight text-white sm:text-[1.9rem]">
+                  Planning similar work?
+                </h3>
+                <p className="mx-auto mt-2 max-w-xl font-['Source_Serif_4'] text-[0.92rem] leading-relaxed text-[#C4BAB0] lg:mx-0">
+                  Send us a few details about your project and we&rsquo;ll guide you through the next step.
+                </p>
+              </div>
+              <motion.div className="mt-4 inline-block flex-shrink-0 lg:mt-0" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  to="/contact#quote"
+                  className="group inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-gold px-7 py-3 font-['Source_Serif_4'] text-[0.95rem] font-semibold tracking-wide text-[#1C1714] shadow-[0_6px_18px_rgba(212,175,55,0.24)] transition-shadow hover:shadow-[0_10px_28px_rgba(212,175,55,0.34)]"
+                >
+                  Request a Quote
+                  <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              </motion.div>
             </motion.div>
           </div>
         </Reveal>
       </section>
 
-        {/* Cream → Dark: into Services */}
         <SectionDivider variant="curve-down" fromColor="#FAF9F6" toColor="#1C1714" />
 
         {/* Services preview */}
         <Services />
 
-        {/* Dark → Cream: out of Services */}
         <SectionDivider variant="curve-up" fromColor="#1C1714" toColor="#F5F0E6" />
 
-        {/* Who We Work With */}
-        <WhoWeWorkWith />
+        {/* Compact How We Work strip */}
+        <section className="bg-[#F5F0E6] px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+          <Reveal>
+            <div className="mx-auto max-w-6xl">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {howWeWorkItems.map(({ title, text }, i) => (
+                  <motion.div
+                    key={title}
+                    className="group rounded-lg border border-[#D4AF37]/18 bg-[#FDFCF9] p-5 shadow-[0_1px_4px_rgba(0,0,0,0.045)] transition-colors duration-300 hover:border-[#D4AF37]/34"
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    whileHover={{ y: -3, boxShadow: '0 10px 26px rgba(28,23,20,0.06), 0 2px 8px rgba(212,175,55,0.07)' }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <p className="font-['Cormorant_Garamond'] text-[1.2rem] font-semibold leading-tight text-[#1C1714] transition-colors duration-300 group-hover:text-[#B08D2A]">
+                      {title}
+                    </p>
+                    <div className="my-3 h-px w-8 bg-[#D4AF37]/40" />
+                    <p className="font-['Source_Serif_4'] text-[0.9rem] leading-[1.55] text-[#5A5048]">
+                      {text}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </section>
 
-        {/* Ornament between two cream sections */}
         <SectionDivider variant="ornament" fromColor="#F5F0E6" />
 
         {/* Portfolio preview */}
         <Portfolio />
 
-        {/* Cream → Dark: into Why Choose Us */}
-        <SectionDivider variant="angle-down" fromColor="#FAF9F6" toColor="#1C1714" />
+        <SectionDivider variant="ornament" fromColor="#FAF9F6" />
 
-        {/* Why Choose Us */}
-        <WhyChooseUs />
+        {/* Who We Work With */}
+        <WhoWeWorkWith />
 
-        {/* Photo divider with parallax */}
-        <ParallaxQuote />
-
-        {/* Dark photo divider → Cream: into Testimonials */}
-        <SectionDivider variant="curve-up" fromColor="#1C1714" toColor="#F5F0E6" />
-
-        <Testimonials />
-
-        {/* Cream → Dark: into Final CTA */}
         <SectionDivider variant="curve-down" fromColor="#F5F0E6" toColor="#1C1714" />
 
+        <ParallaxQuote />
+
         {/* Final CTA */}
-        <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#1C1714]">
+        <section className="relative py-14 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#1C1714]">
         <Reveal>
           <div className="max-w-3xl mx-auto text-center">
+            <p className="mb-5 font-['Source_Serif_4'] text-[1rem] italic leading-relaxed text-[#F6EEDC]/80">
+              &ldquo;Clear communication, tidy work and a high-quality finish.&rdquo;
+              <span className="mt-2 block font-['Plus_Jakarta_Sans'] text-[0.65rem] not-italic font-semibold uppercase tracking-[0.11em] text-[#D4AF37]/75">
+                Verified Checkatrade review
+              </span>
+            </p>
             <h2 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-5 leading-tight">
-              Ready to Get Started?
+              Ready to discuss your project?
             </h2>
-            <p className="font-['Source_Serif_4'] text-[0.95rem] text-[#C4BAB0] leading-relaxed mb-10 max-w-2xl mx-auto">
-              Tell us about your project and we'll come back to you with a clear, no-obligation quote.
-              Most enquiries are answered within one business day.
+            <p className="font-['Source_Serif_4'] text-[0.95rem] text-[#C4BAB0] leading-relaxed mb-8 max-w-2xl mx-auto">
+              Send us a few details about the work you need and we&rsquo;ll guide you through the next step.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                 <Link
-                  to="/contact"
-                  className="block font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold shadow-lg"
+                  to="/contact#quote"
+                  className="block font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold shadow-lg transition-shadow hover:shadow-[0_10px_30px_rgba(212,175,55,0.34)]"
                 >
-                  Get Your Free Quote
+                  Request a Quote
                 </Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                 <a
-                  href="mailto:info@ictinuscontractors.co.uk"
+                  href="tel:07586480417"
                   className="block font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/40 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/60 text-center"
                 >
-                  Email Us Directly
+                  Call 07586 480417
                 </a>
               </motion.div>
             </div>
-            <p className="mt-6 font-['Source_Serif_4'] text-[0.8125rem] text-white/30 tracking-[0.15em] uppercase">
-              Free Consultation &nbsp;&middot;&nbsp; No Obligation &nbsp;&middot;&nbsp; Fast Response
-            </p>
           </div>
         </Reveal>
         </section>
@@ -215,6 +380,14 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/painting-and-decorating" element={<PaintingAndDecoratingPage />} />
+        <Route path="/services/property-refurbishment-extensions" element={<PropertyRefurbishmentExtensionsPage />} />
+        <Route path="/services/bathroom-fitting" element={<BathroomFittingPage />} />
+        <Route path="/services/hard-flooring" element={<HardFlooringPage />} />
+        <Route path="/services/plastering" element={<PlasteringPage />} />
+        <Route path="/services/finishing-carpentry" element={<FinishingCarpentryPage />} />
+        <Route path="/services/electrical-works" element={<ElectricalWorksPage />} />
+        <Route path="/services/plumbing" element={<PlumbingPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
