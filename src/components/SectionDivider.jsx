@@ -8,7 +8,7 @@
  *   "angle-down"   — angled cut, light → dark
  *   "angle-up"     — angled cut, dark → light
  */
-export default function SectionDivider({ variant = 'curve-down', fromColor, toColor, className = '' }) {
+export default function SectionDivider({ variant = 'curve-down', fromColor, toColor, className = '', size = 'default' }) {
   if (variant === 'ornament') {
     return (
       <div className={`relative py-2 bg-[${fromColor || '#FAF9F6'}] ${className}`}>
@@ -25,6 +25,7 @@ export default function SectionDivider({ variant = 'curve-down', fromColor, toCo
 
   const from = fromColor || (variant.includes('down') ? '#FAF9F6' : '#1C1714')
   const to = toColor || (variant.includes('down') ? '#1C1714' : '#FAF9F6')
+  const curveHeight = size === 'compact' ? 'h-[28px] sm:h-[40px] lg:h-[52px]' : 'h-[40px] sm:h-[60px] lg:h-[80px]'
 
   if (variant === 'curve-down') {
     return (
@@ -32,7 +33,7 @@ export default function SectionDivider({ variant = 'curve-down', fromColor, toCo
         <svg
           viewBox="0 0 1440 80"
           preserveAspectRatio="none"
-          className="block w-full h-[40px] sm:h-[60px] lg:h-[80px]"
+          className={`block w-full ${curveHeight}`}
           fill="none"
         >
           <path
@@ -50,7 +51,7 @@ export default function SectionDivider({ variant = 'curve-down', fromColor, toCo
         <svg
           viewBox="0 0 1440 80"
           preserveAspectRatio="none"
-          className="block w-full h-[40px] sm:h-[60px] lg:h-[80px]"
+          className={`block w-full ${curveHeight}`}
           fill="none"
         >
           <path

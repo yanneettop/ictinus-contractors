@@ -270,7 +270,7 @@ function HomePage() {
           <TrustRow />
         </div>
 
-        <SectionDivider variant="curve-down" fromColor="#FAF9F6" toColor="#1C1714" />
+        <SectionDivider variant="curve-down" fromColor="#FAF9F6" toColor="#1C1714" size="compact" />
 
         {/* Services preview */}
         <Services />
