@@ -270,8 +270,6 @@ function HomePage() {
           <TrustRow />
         </div>
 
-        <PlanningCtaBar />
-
         <SectionDivider variant="curve-down" fromColor="#FAF9F6" toColor="#1C1714" />
 
         {/* Services preview */}
@@ -312,6 +310,8 @@ function HomePage() {
 
         {/* Portfolio preview */}
         <Portfolio />
+
+        <PlanningCtaBar />
 
         {/* Trust and reviews */}
         <ReviewsSection />
