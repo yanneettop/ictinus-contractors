@@ -232,11 +232,11 @@ body {
 
 /* ─────────────────────────── Hero Trust Strip ───────────────────── */
 .ict-hero-trust-row {
-  background: #17120F;
-  border-top: 1px solid rgba(212,175,55,0.14);
-  border-bottom: 1px solid rgba(212,175,55,0.12);
+  background: rgba(23,18,15,0.96);
+  border-top: 1px solid rgba(212,175,55,0.11);
+  border-bottom: 1px solid rgba(246,238,220,0.06);
   flex: 0 0 auto;
-  padding: 0.78rem 1rem;
+  padding: 0.68rem 1rem;
 }
 .ict-hero-trust-inner {
   max-width: 72rem;
@@ -247,41 +247,39 @@ body {
   gap: 0.55rem 0.75rem;
   text-align: center;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   line-height: 1.45;
-  letter-spacing: 0.055em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(246,238,220,0.74);
+  color: rgba(246,238,220,0.68);
 }
 .ict-hero-trust-item {
   position: relative;
   min-width: 0;
 }
 .ict-hero-trust-item:first-child {
-  color: #D4AF37;
+  color: rgba(246,238,220,0.82);
   font-weight: 700;
-}
-.ict-hero-trust-item:last-child:nth-child(odd) {
-  grid-column: 1 / -1;
 }
 @media (max-width: 480px) {
   .ict-hero-trust-row {
-    padding: 0.72rem 0.9rem;
+    padding: 0.64rem 0.85rem;
   }
   .ict-hero-trust-inner {
-    font-size: 0.68rem;
-    letter-spacing: 0.045em;
+    gap: 0.5rem 0.65rem;
+    font-size: 0.63rem;
+    letter-spacing: 0.035em;
   }
 }
 @media (min-width: 640px) {
   .ict-hero-trust-row {
-    padding: 0.92rem 1.5rem;
+    padding: 0.76rem 1.5rem;
   }
   .ict-hero-trust-inner {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 1rem;
-    font-size: 0.76rem;
-    letter-spacing: 0.065em;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.9rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.045em;
   }
   .ict-hero-trust-item {
     padding: 0 0.25rem;
@@ -294,11 +292,13 @@ body {
     width: 3px;
     height: 3px;
     border-radius: 999px;
-    background: rgba(212,175,55,0.55);
+    background: rgba(212,175,55,0.42);
     transform: translateY(-50%);
   }
-  .ict-hero-trust-item:last-child:nth-child(odd) {
-    grid-column: auto;
+}
+@media (min-width: 1024px) {
+  .ict-hero-trust-inner {
+    font-size: 0.72rem;
   }
 }
 

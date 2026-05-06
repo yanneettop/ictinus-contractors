@@ -1,11 +1,10 @@
 import { motion } from 'motion/react'
 
 const trustItems = [
-  '9.97/10 Checkatrade',
-  '33 verified reviews',
-  'Fully insured',
-  'East London based',
-  'Free estimates',
+  'Rated 5★ across MyBuilder & Checkatrade',
+  'London refurbishment specialists',
+  'Free consultation',
+  'Professional, insured workmanship',
 ]
 
 export default function TrustRow() {
