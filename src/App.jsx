@@ -270,7 +270,9 @@ function HomePage() {
           <TrustRow />
         </div>
 
-        <SectionDivider variant="curve-down" fromColor="#FAF9F6" toColor="#1C1714" size="compact" />
+        <div className="bg-[#1C1714] px-4 py-5 sm:px-6 lg:px-8" aria-hidden="true">
+          <div className="mx-auto h-px max-w-6xl bg-gradient-to-r from-transparent via-[#D4AF37]/45 to-transparent" />
+        </div>
 
         {/* Services preview */}
         <Services />
