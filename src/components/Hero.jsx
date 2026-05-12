@@ -101,17 +101,18 @@ export default function Hero() {
           </motion.div>
           <motion.button
             type="button"
-            onClick={() => scrollTo('portfolio')}
-            className="font-['Source_Serif_4'] font-semibold text-[0.95rem] tracking-wide px-7 sm:px-8 py-3 sm:py-3.5 rounded-lg text-white border border-white/42 bg-[#1C1714]/28 backdrop-blur-sm shadow-[0_6px_22px_rgba(0,0,0,0.16)] hover:bg-[#1C1714]/38 hover:border-white/58 flex items-center justify-center gap-2"
+            onClick={() => scrollTo('testimonials')}
+            className="font-['Source_Serif_4'] font-semibold text-[0.95rem] tracking-wide px-7 sm:px-8 py-3 sm:py-3.5 rounded-lg text-white border border-white/42 bg-[#1C1714]/28 backdrop-blur-sm shadow-[0_6px_22px_rgba(0,0,0,0.16)] hover:bg-[#1C1714]/38 hover:border-white/58 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37] flex items-center justify-center gap-2"
             whileHover={{ scale: 1.03, borderColor: 'rgba(255,255,255,0.5)' }}
             whileTap={{ scale: 0.97 }}
           >
-            View Our Work
+            View Our Reviews
             <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" strokeWidth="1.7" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </motion.button>
         </motion.div>
+
       </div>
     </section>
   )

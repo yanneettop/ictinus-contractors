@@ -20,6 +20,11 @@ const quickLinks = [
   { label: 'Contact', to: '/contact' },
 ]
 
+const verifiedProfiles = [
+  { label: 'Checkatrade', href: 'https://www.checkatrade.com/trades/ictinuscontractors' },
+  { label: 'MyBuilder', href: 'https://www.mybuilder.com/profile/ictinus-contractors' },
+]
+
 export default function Footer() {
   return (
     <footer className="bg-[#1C1714] text-white px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
@@ -39,6 +44,24 @@ export default function Footer() {
             <p className="ict-footer-insurance">
               Fully insured · 12+ years experience · London-wide coverage
             </p>
+            <div className="mt-6 border-t border-white/10 pt-5">
+              <p className="font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-white/35">
+                Verified profiles
+              </p>
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+                {verifiedProfiles.map(({ label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-['Source_Serif_4'] text-[0.88rem] text-[#94A3B8] underline decoration-white/10 underline-offset-4 transition-colors hover:text-[#D4AF37] hover:decoration-[#D4AF37]/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div></StaggerItem>
 
           {/* Quick Links */}

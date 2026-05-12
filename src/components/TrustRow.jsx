@@ -1,10 +1,13 @@
 import { motion } from 'motion/react'
 
+const CHECKATRADE_URL = 'https://www.checkatrade.com/trades/ictinuscontractors'
+const MYBUILDER_URL = 'https://www.mybuilder.com/profile/ictinus-contractors'
+
 const trustItems = [
-  'Rated 5★ across MyBuilder & Checkatrade',
-  'London refurbishment specialists',
-  'Free consultation',
-  'Professional, insured workmanship',
+  { label: 'Checkatrade 9.97/10', href: CHECKATRADE_URL },
+  { label: '33 customer reviews' },
+  { label: 'Find us on MyBuilder', href: MYBUILDER_URL },
+  { label: 'Free, no-obligation quotes' },
 ]
 
 export default function TrustRow() {
@@ -18,9 +21,21 @@ export default function TrustRow() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
         {trustItems.map((item) => (
-          <span key={item} className="ict-hero-trust-item">
-            {item}
-          </span>
+          item.href ? (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ict-hero-trust-item transition-colors hover:text-[#D4AF37] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+            >
+              {item.label}
+            </a>
+          ) : (
+            <span key={item.label} className="ict-hero-trust-item">
+              {item.label}
+            </span>
+          )
         ))}
       </motion.div>
     </section>

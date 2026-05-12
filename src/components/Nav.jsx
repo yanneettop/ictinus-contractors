@@ -150,12 +150,15 @@ export default function Nav() {
                     </svg>
                   </Link>
                   <div className="invisible absolute left-1/2 top-full z-[70] w-[20rem] -translate-x-1/2 pt-5 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                    <div className="rounded-lg border border-[#D4AF37]/18 bg-[#1C1714]/98 p-2 shadow-[0_18px_45px_rgba(0,0,0,0.28)] backdrop-blur-lg">
+                    <div
+                      className="rounded-lg border border-[#D4AF37]/28 bg-[#1C1714] p-2 shadow-[0_22px_55px_rgba(0,0,0,0.42)] ring-1 ring-black/20"
+                      style={{ backgroundColor: 'rgba(28, 23, 20, 0.985)' }}
+                    >
                       {serviceLinks.map((service) => (
                         <Link
                           key={service.route}
                           to={service.route}
-                          className="block rounded-md px-3.5 py-2.5 font-['Source_Serif_4'] text-[0.9rem] leading-snug text-[#C9B09A] transition-colors duration-200 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] focus:bg-[#D4AF37]/10 focus:text-[#D4AF37] focus:outline-none"
+                          className="block rounded-md px-3.5 py-2.5 font-['Source_Serif_4'] text-[0.92rem] font-semibold leading-snug text-[#E6DCC8] transition-colors duration-200 hover:bg-[#D4AF37]/12 hover:text-[#F2D774] focus:bg-[#D4AF37]/12 focus:text-[#F2D774] focus:outline-none"
                         >
                           {service.label}
                         </Link>

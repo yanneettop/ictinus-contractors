@@ -27,6 +27,9 @@ import {
 import PortfolioPage from './pages/PortfolioPage'
 import ContactPage from './pages/ContactPage'
 
+const CHECKATRADE_URL = 'https://www.checkatrade.com/trades/ictinuscontractors'
+const MYBUILDER_URL = 'https://www.mybuilder.com/profile/ictinus-contractors'
+
 /* ── Photo Quote Divider ── */
 function ParallaxQuote() {
   const ref = useRef(null)
@@ -77,26 +80,26 @@ function ParallaxQuote() {
 /* ── Slim Homepage ── */
 const proofCards = [
   { value: '9.97/10', label: 'Checkatrade rating' },
-  { value: '33', label: 'Verified reviews' },
-  { value: '10/10', label: 'Reliability' },
-  { value: '10/10', label: 'Communication' },
+  { value: '33', label: 'Customer reviews' },
+  { value: 'Mar 2024', label: 'Member since' },
+  { value: 'London', label: 'Local contractor' },
 ]
 
 const reviewCards = [
   {
-    title: 'Quality work, thorough and detail oriented',
-    quote: 'Konstantinos is a true professional. He kept communication open, gave honest and reliable quotes, and the finish was exceptional.',
-    meta: 'Painting / Decorating · E14 · Verified Checkatrade review',
+    title: 'Quality work, thorough and detail orientated',
+    quote: 'Professional from start to finish, with clear communication, honest quotes and exceptional attention to detail.',
+    meta: 'E14 · Checkatrade review',
   },
   {
     title: 'Excellent job',
-    quote: 'He repainted my entire flat, walls and ceilings to a high standard. The finish is clean, fresh, and completely transformed the space.',
-    meta: 'Painter / Decorator · E14 · Verified Checkatrade review',
+    quote: 'Reliable, professional and thorough. The flat was repainted to a high standard with a clean, fresh finish.',
+    meta: 'E14 · Checkatrade review',
   },
   {
-    title: 'Great job from Ictinus',
-    quote: 'Super professional, easy to communicate with, and the results are beautiful. I would definitely recommend Ictinus.',
-    meta: 'Painting / Decorating · E1 · Verified Checkatrade review',
+    title: 'Outstanding work and true professionalism',
+    quote: 'Detailed, efficient and excellent quality work, completed within the agreed timeframe.',
+    meta: 'IG10 · Checkatrade review',
   },
 ]
 
@@ -118,6 +121,73 @@ const howWeWorkItems = [
     text: 'Each project is completed with practical checks and attention to the final result.',
   },
 ]
+
+function TrustProfileCards() {
+  return (
+    <div className="mt-8 grid gap-4 md:grid-cols-2">
+      <motion.article
+        className="rounded-lg border border-[#D4AF37]/32 bg-[#FFFEFB] p-6 shadow-[0_16px_44px_rgba(28,23,20,0.08)] sm:p-7"
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -4, boxShadow: '0 20px 52px rgba(28,23,20,0.1), 0 4px 14px rgba(212,175,55,0.1)' }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <p className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[#A88636]">
+          Checkatrade Reviews
+        </p>
+        <h3 className="mt-3 font-['Cormorant_Garamond'] text-[2rem] font-semibold leading-none text-[#1C1714] sm:text-[2.4rem]">
+          9.97/10 rating
+        </h3>
+        <p className="mt-4 font-['Source_Serif_4'] text-[0.96rem] leading-[1.68] text-[#4D433B]">
+          33 customer reviews, with consistent feedback for quality, reliability, communication and
+          attention to detail.
+        </p>
+        <a
+          href={CHECKATRADE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-gold px-6 py-3 font-['Source_Serif_4'] text-[0.92rem] font-semibold tracking-wide text-[#1C1714] shadow-[0_8px_24px_rgba(212,175,55,0.22)] transition-shadow hover:shadow-[0_12px_32px_rgba(212,175,55,0.32)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B08D2A]"
+        >
+          View Checkatrade Reviews
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7m0 0H9m8 0v8" />
+          </svg>
+        </a>
+      </motion.article>
+
+      <motion.article
+        className="rounded-lg border border-[#D4AF37]/18 bg-[#FDFCF9] p-6 shadow-[0_10px_28px_rgba(28,23,20,0.045)] sm:p-7"
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -3, boxShadow: '0 14px 34px rgba(28,23,20,0.07)' }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <p className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[#A88636]">
+          MyBuilder Profile
+        </p>
+        <h3 className="mt-3 font-['Cormorant_Garamond'] text-[1.75rem] font-semibold leading-tight text-[#1C1714] sm:text-[2.1rem]">
+          Find us on MyBuilder
+        </h3>
+        <p className="mt-4 font-['Source_Serif_4'] text-[0.96rem] leading-[1.68] text-[#5A5048]">
+          Customers can also view our trade profile and contact us through MyBuilder.
+        </p>
+        <a
+          href={MYBUILDER_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg border border-[#D4AF37]/42 px-6 py-3 font-['Source_Serif_4'] text-[0.92rem] font-semibold tracking-wide text-[#B08D2A] transition-colors hover:border-[#D4AF37]/70 hover:bg-[#D4AF37]/8 hover:text-[#8B6C2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B08D2A]"
+        >
+          View MyBuilder Profile
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7m0 0H9m8 0v8" />
+          </svg>
+        </a>
+      </motion.article>
+    </div>
+  )
+}
 
 function PlanningCtaBar() {
   return (
@@ -161,9 +231,9 @@ function ReviewsSection() {
       <Reveal>
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="ict-section-label mb-2">Reviews & Trust</p>
-            <h2 className="mb-4 font-['Cormorant_Garamond'] text-[1.75rem] font-semibold leading-[1.15] text-[#1C1714] md:text-[2.5rem]">
-              Trusted by London homeowners, landlords and property clients
+            <p className="ict-section-label mb-2">Reviews & Profiles</p>
+            <h2 className="mb-4 font-['Cormorant_Garamond'] text-[1.9rem] font-semibold leading-[1.15] text-[#1C1714] md:text-[2.65rem]">
+              Trusted by homeowners across London
             </h2>
             <motion.div
               className="mx-auto mb-5 h-px w-16 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent"
@@ -172,9 +242,22 @@ function ReviewsSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
             />
+            <p className="mx-auto max-w-2xl font-['Source_Serif_4'] text-[0.96rem] leading-[1.72] text-[#5A5048] sm:text-[1.05rem]">
+              From full refurbishments to detailed finishing work, Ictinus Contractors is trusted for clear
+              communication, reliable workmanship and a clean professional finish.
+            </p>
+          </div>
+
+          <TrustProfileCards />
+
+          <div className="mx-auto mt-12 max-w-3xl text-center sm:mt-14">
+            <p className="ict-section-label mb-2">Customer Feedback</p>
+            <h2 className="mb-4 font-['Cormorant_Garamond'] text-[1.75rem] font-semibold leading-[1.15] text-[#1C1714] md:text-[2.5rem]">
+              Checkatrade feedback from London customers
+            </h2>
             <p className="mx-auto max-w-2xl font-['Source_Serif_4'] text-[0.9375rem] leading-[1.65] text-[#5A5048] sm:text-[1.03rem]">
-              Verified reviews highlight our clean workmanship, reliable communication and organised
-              approach to refurbishment, decorating and property improvement work across London.
+              Short excerpts from customer feedback on professionalism, communication, quality workmanship,
+              reliability, attention to detail and clean finishes.
             </p>
           </div>
 
@@ -205,7 +288,7 @@ function ReviewsSection() {
           </div>
 
           <p className="mt-4 text-center font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-[#6A5B4C] sm:text-[0.72rem]">
-            Quality of work 9.92 &middot; Fully insured &middot; Free estimates &middot; East London based &middot; Checkatrade member since March 2024 &middot; £1,000 Checkatrade guarantee
+            East London based &middot; Checkatrade member since March 2024 &middot; Professional refurbishment and finishing work across London
           </p>
 
           <div className="mt-5 grid gap-4 md:grid-cols-3">
@@ -241,12 +324,12 @@ function ReviewsSection() {
 
           <div className="mt-5 text-center">
             <a
-              href="https://www.checkatrade.com/trades/ictinuscontractors"
+              href={CHECKATRADE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-[#B08D2A] underline decoration-[#D4AF37]/35 underline-offset-4 transition-colors hover:text-[#8B6C2C]"
             >
-              Read all reviews on Checkatrade
+              Read more reviews on Checkatrade
               <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7m0 0H9m8 0v8" />
               </svg>
@@ -339,9 +422,9 @@ function HomePage() {
               Ready to discuss your project?
             </h2>
             <p className="font-['Source_Serif_4'] text-[0.95rem] text-[#C4BAB0] leading-relaxed mb-8 max-w-2xl mx-auto">
-              Send us a few details about the work you need and we&rsquo;ll guide you through the next step.
+              Tell us what you need and we&rsquo;ll get back to you with clear advice and a free, no-obligation quote.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col items-center gap-4">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                 <Link
                   to="/contact#quote"
@@ -350,14 +433,17 @@ function HomePage() {
                   Request a Quote
                 </Link>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-                <a
-                  href="tel:07586480417"
-                  className="block font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/40 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/60 text-center"
-                >
-                  Call 07586 480417
-                </a>
-              </motion.div>
+              <a
+                href={MYBUILDER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 font-['Source_Serif_4'] text-[0.92rem] font-semibold text-[#D4AF37] underline decoration-[#D4AF37]/35 underline-offset-4 transition-colors hover:text-[#F2D774] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+              >
+                Prefer using MyBuilder? View our profile
+                <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7m0 0H9m8 0v8" />
+                </svg>
+              </a>
             </div>
           </div>
         </Reveal>

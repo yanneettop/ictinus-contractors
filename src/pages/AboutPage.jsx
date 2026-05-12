@@ -10,9 +10,9 @@ import useScrollReveal from '../hooks/useScrollReveal'
 
 const highlights = [
   { stat: '12+', label: 'Years in the Industry' },
-  { stat: '60+', label: 'Verified Client Reviews' },
+  { stat: '33', label: 'Checkatrade Reviews' },
   { stat: '9.97', label: 'Out of 10 on Checkatrade' },
-  { stat: '4.9/5', label: 'MyBuilder Rating' },
+  { stat: 'Mar 2024', label: 'Checkatrade Member Since' },
 ]
 
 const values = [

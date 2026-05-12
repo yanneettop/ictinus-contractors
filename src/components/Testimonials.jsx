@@ -24,8 +24,8 @@ const reviews = [
 
 const badges = [
   { val: '9.97/10', label: 'Checkatrade', href: CHECKATRADE_URL, icon: 'star' },
-  { val: '4.9/5',   label: 'MyBuilder',   href: MYBUILDER_URL,   icon: 'star' },
-  { val: '31',      label: 'Reviews',     href: null,            icon: 'check' },
+  { val: '33',      label: 'Reviews',     href: CHECKATRADE_URL, icon: 'check' },
+  { val: 'MyBuilder', label: 'Profile',   href: MYBUILDER_URL,   icon: 'check' },
 ]
 
 function Stars() {
@@ -67,14 +67,14 @@ function ReviewCard({ review }) {
       <div className="flex items-end justify-between gap-2">
         <div>
           <p className="font-['Cormorant_Garamond'] font-semibold text-[0.9375rem] text-[#1C1714] leading-snug">
-            MyBuilder reviewer
+            Checkatrade review
           </p>
           <p className="font-['Source_Serif_4'] text-[0.78rem] text-[#9A9590] mt-0.5">
             {review.project}
           </p>
         </div>
         <a
-          href={MYBUILDER_URL}
+          href={CHECKATRADE_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 text-[0.68rem] font-['Plus_Jakarta_Sans'] font-semibold uppercase tracking-[0.09em] text-[#B08D2A]/70 hover:text-[#D4AF37] transition-colors flex-shrink-0"
@@ -82,7 +82,7 @@ function ReviewCard({ review }) {
           <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
           </svg>
-          MyBuilder
+          Checkatrade
         </a>
       </div>
     </motion.div>
@@ -100,8 +100,8 @@ export default function Testimonials() {
             <p className="ict-section-label">Testimonials</p>
             <h2 className="ict-section-heading">What Our Clients Say</h2>
             <p className="ict-section-subtitle">
-              Rated 9.97/10 on Checkatrade and 4.9/5 on MyBuilder across 31 verified reviews
-              from homeowners and businesses across London.
+              Rated 9.97/10 on Checkatrade across 33 customer reviews, with MyBuilder available as an
+              additional route for customers who prefer that platform.
             </p>
           </div>
         </Reveal>
