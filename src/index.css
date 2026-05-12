@@ -52,6 +52,16 @@ body {
   .animate-bounce {
     animation: none !important;
   }
+
+  .service-hover-card,
+  .hover-lift {
+    transition: none !important;
+  }
+
+  .service-hover-card:hover,
+  .hover-lift:hover {
+    transform: none !important;
+  }
 }
 
 /* ── Custom Utilities ── */
@@ -71,6 +81,26 @@ body {
   .hover-lift:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(212,175,55,0.07);
+  }
+  .service-hover-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .service-hover-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(135deg, rgba(212,175,55,0.13), transparent 42%);
+    transition: opacity 0.3s ease;
+  }
+  .service-hover-card:hover {
+    transform: translateY(-4px);
+  }
+  .service-hover-card:hover::after {
+    opacity: 1;
   }
 }
 

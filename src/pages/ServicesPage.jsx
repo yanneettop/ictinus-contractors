@@ -275,7 +275,7 @@ function ServiceJumpNav() {
             <button
               key={id}
               onClick={() => scrollTo(id)}
-              className="font-['Source_Serif_4'] text-[0.72rem] font-medium tracking-wide text-[#5A5048] px-4 py-3.5 whitespace-nowrap hover:text-[#B08D2A] hover:bg-[#D4AF37]/05 border-b-2 border-transparent hover:border-[#D4AF37]/50 transition-all duration-200"
+              className="font-['Source_Serif_4'] text-[0.72rem] font-medium tracking-wide text-[#5A5048] px-4 py-3.5 whitespace-nowrap hover:text-[#B08D2A] hover:bg-[#D4AF37]/05 border-b-2 border-transparent hover:border-[#D4AF37]/50 hover:-translate-y-0.5 transition-all duration-200"
             >
               {label}
             </button>
@@ -303,8 +303,8 @@ function ServiceSection({ service, index }) {
 
           {/* Content column */}
           <div className={isEven ? 'lg:order-1' : 'lg:order-2'}>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-[#D4AF37]/12 border border-[#D4AF37]/20 flex items-center justify-center flex-shrink-0">
+            <div className="group flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-[#D4AF37]/12 border border-[#D4AF37]/20 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:border-[#D4AF37]/38 group-hover:bg-[#D4AF37]/20">
                 <ServiceIcon paths={service.icon} />
               </div>
               <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] uppercase tracking-[0.1em] text-[#A88636] font-600">
@@ -338,16 +338,16 @@ function ServiceSection({ service, index }) {
 
           {/* Includes card */}
           <div className={isEven ? 'lg:order-2' : 'lg:order-1'}>
-            <div className="bg-white rounded-2xl border border-[#D4AF37]/18 p-6 sm:p-8 shadow-[0_2px_16px_rgba(0,0,0,0.06)]">
+            <div className="service-hover-card bg-white rounded-2xl border border-[#D4AF37]/18 p-6 sm:p-8 shadow-[0_2px_16px_rgba(0,0,0,0.06)] hover:border-[#D4AF37]/34 hover:shadow-[0_14px_32px_rgba(28,23,20,0.085)]">
               <h3 className="font-['Cormorant_Garamond'] text-[1rem] font-semibold text-[#1C1714] mb-5 flex items-center gap-2">
                 <span className="w-5 h-px bg-[#D4AF37] flex-shrink-0" />
                 What&rsquo;s Included
               </h3>
               <ul className="space-y-3">
                 {service.includes.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
+                  <li key={item} className="group/item relative z-10 flex items-start gap-3 rounded-md px-1 py-1 transition-colors duration-200 hover:bg-[#D4AF37]/[0.055]">
                     <svg
-                      className="w-4 h-4 text-[#B08D2A] mt-0.5 flex-shrink-0"
+                      className="w-4 h-4 text-[#B08D2A] mt-0.5 flex-shrink-0 transition-transform duration-200 group-hover/item:scale-110"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2.5"
@@ -355,7 +355,7 @@ function ServiceSection({ service, index }) {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="font-['Source_Serif_4'] text-[0.875rem] text-[#3D342E] leading-snug">{item}</span>
+                    <span className="font-['Source_Serif_4'] text-[0.875rem] text-[#3D342E] leading-snug transition-colors duration-200 group-hover/item:text-[#1C1714]">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -398,7 +398,7 @@ function AreasSection() {
           {AREAS.map((a) => (
             <span
               key={a}
-              className="font-['Source_Serif_4'] text-[0.82rem] font-medium text-[#1C1714] bg-white border border-[#D4AF37]/28 rounded-full px-4 py-1.5"
+              className="font-['Source_Serif_4'] text-[0.82rem] font-medium text-[#1C1714] bg-white border border-[#D4AF37]/28 rounded-full px-4 py-1.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#D4AF37]/45 hover:text-[#B08D2A] hover:shadow-[0_8px_18px_rgba(28,23,20,0.06)]"
             >
               {a}
             </span>
@@ -432,12 +432,12 @@ function FAQSection() {
           {FAQS.map(({ q, a }) => (
             <div
               key={q}
-              className="bg-white rounded-xl border border-[#D4AF37]/15 p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
+              className="group service-hover-card bg-white rounded-xl border border-[#D4AF37]/15 p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#D4AF37]/32 hover:shadow-[0_12px_26px_rgba(28,23,20,0.07)]"
             >
-              <h3 className="font-['Cormorant_Garamond'] text-[1rem] font-semibold text-[#1C1714] mb-3 leading-snug">
+              <h3 className="relative z-10 font-['Cormorant_Garamond'] text-[1rem] font-semibold text-[#1C1714] mb-3 leading-snug transition-colors duration-300 group-hover:text-[#B08D2A]">
                 {q}
               </h3>
-              <p className="font-['Source_Serif_4'] text-[0.88rem] text-[#5A5048] leading-relaxed">{a}</p>
+              <p className="relative z-10 font-['Source_Serif_4'] text-[0.88rem] text-[#5A5048] leading-relaxed">{a}</p>
             </div>
           ))}
         </div>

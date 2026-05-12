@@ -698,7 +698,7 @@ function ServiceHero({ page }) {
             </div>
           </div>
 
-          <aside className="rounded-lg border border-[#D4AF37]/20 bg-[#FAF9F6]/[0.06] p-5 shadow-[0_14px_34px_rgba(0,0,0,0.16)] backdrop-blur-sm">
+          <aside className="service-hover-card rounded-lg border border-[#D4AF37]/20 bg-[#FAF9F6]/[0.06] p-5 shadow-[0_14px_34px_rgba(0,0,0,0.16)] backdrop-blur-sm hover:border-[#D4AF37]/38 hover:shadow-[0_18px_42px_rgba(0,0,0,0.22)]">
             <p className="font-['Source_Serif_4'] text-[0.95rem] leading-relaxed text-[#E8DFC9]">
               {page.hero.trustLine}
             </p>
@@ -777,10 +777,12 @@ function RelatedServices({ services }) {
                 <Link
                   key={service.href}
                   to={service.href}
-                  className="inline-flex items-center gap-2 rounded-lg border border-[#D4AF37]/24 bg-[#FAF7F0] px-4 py-2 font-['Source_Serif_4'] text-[0.9rem] font-semibold text-[#3D342E] transition-colors duration-200 hover:border-[#D4AF37]/45 hover:text-[#B08D2A]"
+                  className="group/service inline-flex items-center gap-2 rounded-lg border border-[#D4AF37]/24 bg-[#FAF7F0] px-4 py-2 font-['Source_Serif_4'] text-[0.9rem] font-semibold text-[#3D342E] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#D4AF37]/45 hover:bg-[#FFFEFB] hover:text-[#B08D2A] hover:shadow-[0_8px_18px_rgba(28,23,20,0.06)]"
                 >
                   {service.label}
-                  <ArrowIcon />
+                  <span className="transition-transform duration-200 group-hover/service:translate-x-0.5">
+                    <ArrowIcon />
+                  </span>
                 </Link>
               ))}
             </div>
@@ -843,9 +845,11 @@ function ServicePage({ page }) {
             <StaggerContainer className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4" stagger={0.05}>
               {page.helpItems.map((item) => (
                 <StaggerItem key={item}>
-                  <div className="flex h-full items-start gap-3 rounded-lg border border-[#D4AF37]/18 bg-[#FDFCF9] p-4 shadow-[0_8px_22px_rgba(28,23,20,0.035)]">
-                    <CheckIcon />
-                    <p className="font-['Source_Serif_4'] text-[0.95rem] leading-snug text-[#3D342E]">{item}</p>
+                  <div className="group service-hover-card flex h-full items-start gap-3 rounded-lg border border-[#D4AF37]/18 bg-[#FDFCF9] p-4 shadow-[0_8px_22px_rgba(28,23,20,0.035)] hover:border-[#D4AF37]/38 hover:bg-[#FFFEFB] hover:shadow-[0_12px_28px_rgba(28,23,20,0.07)]">
+                    <span className="relative z-10 transition-transform duration-300 group-hover:scale-110">
+                      <CheckIcon />
+                    </span>
+                    <p className="relative z-10 font-['Source_Serif_4'] text-[0.95rem] leading-snug text-[#3D342E] transition-colors duration-300 group-hover:text-[#1C1714]">{item}</p>
                   </div>
                 </StaggerItem>
               ))}
@@ -868,14 +872,14 @@ function ServicePage({ page }) {
             <div className="grid gap-4 md:grid-cols-4">
               {page.process.map((step, index) => (
                 <Reveal key={step.title} delay={index * 0.06}>
-                  <article className="h-full rounded-lg border border-[#D4AF37]/18 bg-[#252019] p-5">
-                    <div className="mb-5 font-['Cormorant_Garamond'] text-[2.2rem] font-light leading-none text-[#D4AF37]/45">
+                  <article className="group service-hover-card h-full rounded-lg border border-[#D4AF37]/18 bg-[#252019] p-5 hover:border-[#D4AF37]/36 hover:bg-[#2A241C] hover:shadow-[0_16px_34px_rgba(0,0,0,0.18)]">
+                    <div className="relative z-10 mb-5 font-['Cormorant_Garamond'] text-[2.2rem] font-light leading-none text-[#D4AF37]/45 transition-colors duration-300 group-hover:text-[#D4AF37]/75">
                       {index + 1}
                     </div>
-                    <h3 className="font-['Cormorant_Garamond'] text-[1.28rem] font-semibold leading-tight text-[#FAF9F6]">
+                    <h3 className="relative z-10 font-['Cormorant_Garamond'] text-[1.28rem] font-semibold leading-tight text-[#FAF9F6] transition-colors duration-300 group-hover:text-[#D4AF37]">
                       {step.title}
                     </h3>
-                    <p className="mt-3 font-['Source_Serif_4'] text-[0.92rem] leading-[1.65] text-[#B8AFA6]">
+                    <p className="relative z-10 mt-3 font-['Source_Serif_4'] text-[0.92rem] leading-[1.65] text-[#B8AFA6] transition-colors duration-300 group-hover:text-[#D7CEC2]">
                       {step.text}
                     </p>
                   </article>
@@ -898,11 +902,11 @@ function ServicePage({ page }) {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {page.reasons.map((reason) => (
                 <Reveal key={reason}>
-                  <article className="h-full rounded-lg border border-[#D4AF37]/18 bg-[#FFFEFB] p-5 shadow-[0_10px_26px_rgba(28,23,20,0.04)]">
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#D4AF37]/24 bg-[#D4AF37]/10">
+                  <article className="group service-hover-card h-full rounded-lg border border-[#D4AF37]/18 bg-[#FFFEFB] p-5 shadow-[0_10px_26px_rgba(28,23,20,0.04)] hover:border-[#D4AF37]/36 hover:shadow-[0_14px_30px_rgba(28,23,20,0.075)]">
+                    <div className="relative z-10 mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#D4AF37]/24 bg-[#D4AF37]/10 transition-all duration-300 group-hover:scale-110 group-hover:border-[#D4AF37]/40 group-hover:bg-[#D4AF37]/18">
                       <CheckIcon />
                     </div>
-                    <h3 className="font-['Cormorant_Garamond'] text-[1.2rem] font-semibold leading-tight text-[#1C1714]">
+                    <h3 className="relative z-10 font-['Cormorant_Garamond'] text-[1.2rem] font-semibold leading-tight text-[#1C1714] transition-colors duration-300 group-hover:text-[#B08D2A]">
                       {reason}
                     </h3>
                   </article>
@@ -918,7 +922,7 @@ function ServicePage({ page }) {
         <section className="bg-[#EEE8DC] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <Reveal>
-              <div className="rounded-lg border border-[#D4AF37]/20 bg-[#FDFCF9] p-6 shadow-[0_12px_30px_rgba(28,23,20,0.055)] sm:p-8">
+              <div className="service-hover-card rounded-lg border border-[#D4AF37]/20 bg-[#FDFCF9] p-6 shadow-[0_12px_30px_rgba(28,23,20,0.055)] hover:border-[#D4AF37]/34 hover:shadow-[0_16px_36px_rgba(28,23,20,0.08)] sm:p-8">
                 <div className="mb-4 flex justify-center gap-1 text-[#D4AF37]" aria-hidden="true">
                   {[0, 1, 2, 3, 4].map((star) => (
                     <svg key={star} className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
