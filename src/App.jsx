@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Routes, Route, useLocation, Link } from 'react-router-dom'
+import { Routes, Route, useLocation, Link, Navigate } from 'react-router-dom'
 import { motion, MotionConfig, useScroll, useTransform } from 'motion/react'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
@@ -492,6 +492,16 @@ export default function App() {
         <Route path="/services/plumbing" element={<PlumbingPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/request-a-quote" element={<Navigate to="/contact#quote" replace />} />
+        <Route path="/projects" element={<Navigate to="/portfolio" replace />} />
+        <Route path="/services/property-refurbishment-extensions-london" element={<Navigate to="/services/property-refurbishment-extensions" replace />} />
+        <Route path="/services/bathroom-fitting-london" element={<Navigate to="/services/bathroom-fitting" replace />} />
+        <Route path="/services/hard-flooring-london" element={<Navigate to="/services/hard-flooring" replace />} />
+        <Route path="/services/plastering-london" element={<Navigate to="/services/plastering" replace />} />
+        <Route path="/services/painting-decorating-london" element={<Navigate to="/services/painting-and-decorating" replace />} />
+        <Route path="/services/finishing-carpentry-london" element={<Navigate to="/services/finishing-carpentry" replace />} />
+        <Route path="/services/electrical-works-london" element={<Navigate to="/services/electrical-works" replace />} />
+        <Route path="/services/plumbing-london" element={<Navigate to="/services/plumbing" replace />} />
       </Routes>
     </MotionConfig>
   )

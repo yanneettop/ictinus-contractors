@@ -7,6 +7,7 @@ import Testimonials from '../components/Testimonials'
 import AreasWeCover from '../components/AreasWeCover'
 import Footer from '../components/Footer'
 import useScrollReveal from '../hooks/useScrollReveal'
+import { useSEO } from '../hooks/useSEO'
 
 const highlights = [
   { stat: '12+', label: 'Years in the Industry' },
@@ -40,6 +41,15 @@ const values = [
 
 export default function AboutPage() {
   useScrollReveal()
+  useSEO({
+    title: 'About Ictinus Contractors | London Refurbishment & Decorating Team',
+    description:
+      'Learn about Ictinus Contractors, a trusted London team for refurbishment, decorating, bathrooms, flooring, plastering and finishing works.',
+    canonical: 'https://ictinuscontractors.co.uk/about',
+    ogTitle: 'About Ictinus Contractors | London Refurbishment & Decorating Team',
+    ogDescription:
+      'Learn about Ictinus Contractors, a trusted London team for refurbishment, decorating, bathrooms, flooring, plastering and finishing works.',
+  })
 
   return (
     <div className="min-h-screen bg-[#FAF9F6]">

@@ -7,6 +7,7 @@ import Footer from '../components/Footer'
 import Reveal, { StaggerContainer, StaggerItem } from '../components/Reveal'
 import PortfolioGalleryModal from '../components/PortfolioGalleryModal'
 import useScrollReveal from '../hooks/useScrollReveal'
+import { useSEO } from '../hooks/useSEO'
 import {
   PORTFOLIO_CARD_PROJECTS,
   PORTFOLIO_FEATURED_PROJECT,
@@ -137,6 +138,15 @@ function ProjectTile({ project, hoveredKey, setHoveredKey, openGallery }) {
 
 export default function PortfolioPage() {
   useScrollReveal()
+  useSEO({
+    title: 'Project Portfolio | Ictinus Contractors London',
+    description:
+      'View recent refurbishment, decorating, bathroom, flooring and plastering projects completed by Ictinus Contractors across London.',
+    canonical: 'https://ictinuscontractors.co.uk/portfolio',
+    ogTitle: 'Project Portfolio | Ictinus Contractors London',
+    ogDescription:
+      'View recent refurbishment, decorating, bathroom, flooring and plastering projects completed by Ictinus Contractors across London.',
+  })
 
   const [hoveredKey, setHoveredKey] = useState(null)
   const [galleryKey, setGalleryKey] = useState(null)

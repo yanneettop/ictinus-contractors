@@ -4,6 +4,7 @@ import QuoteForm from '../components/QuoteForm'
 import AreasWeCover from '../components/AreasWeCover'
 import Footer from '../components/Footer'
 import useScrollReveal from '../hooks/useScrollReveal'
+import { useSEO } from '../hooks/useSEO'
 
 const contactMethods = [
   {
@@ -37,6 +38,15 @@ const contactMethods = [
 
 export default function ContactPage() {
   useScrollReveal()
+  useSEO({
+    title: 'Request a Quote | Ictinus Contractors London',
+    description:
+      'Request a free quote from Ictinus Contractors for refurbishment, bathroom fitting, painting, decorating, plastering, flooring and finishing works across London.',
+    canonical: 'https://ictinuscontractors.co.uk/contact',
+    ogTitle: 'Request a Quote | Ictinus Contractors London',
+    ogDescription:
+      'Request a free quote from Ictinus Contractors for refurbishment, bathroom fitting, painting, decorating, plastering, flooring and finishing works across London.',
+  })
 
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
