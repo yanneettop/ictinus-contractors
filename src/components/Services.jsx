@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 import FloatingElements from './FloatingElements'
+import { trackServiceCtaClick } from '../utils/tracking'
 
 const services = [
   {
@@ -190,7 +191,16 @@ export default function Services() {
                 className={`group relative h-full rounded-2xl overflow-hidden ${href ? 'cursor-pointer' : 'cursor-default'} ${isFeatured ? 'ring-1 ring-[#D4AF37]/30' : ''}`}
               >
                 {href ? (
-                  <Link to={href} className="block h-full" aria-label={`View ${title} service page`}>
+                  <Link
+                    to={href}
+                    onClick={() => trackServiceCtaClick({
+                      cta_label: 'Service card',
+                      target_path: href,
+                      service_name: title,
+                    })}
+                    className="block h-full"
+                    aria-label={`View ${title} service page`}
+                  >
                     {cardContent}
                   </Link>
                 ) : (
@@ -207,6 +217,7 @@ export default function Services() {
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/services"
+                onClick={() => trackServiceCtaClick({ cta_label: 'View All Services', target_path: '/services' })}
                 className="group inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
               >
                 View All Services
@@ -218,6 +229,7 @@ export default function Services() {
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/contact#quote"
+                onClick={() => trackServiceCtaClick({ cta_label: 'Request a Quote', target_path: '/contact#quote' })}
                 className="inline-block font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/50 hover:shadow-[0_8px_24px_rgba(212,175,55,0.08)] transition-all duration-300"
               >
                 Request a Quote

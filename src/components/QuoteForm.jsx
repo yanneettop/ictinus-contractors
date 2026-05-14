@@ -1,5 +1,7 @@
 import { useState, useRef, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
+import { trackQuoteFormSubmit } from '../utils/tracking'
 
 const WORK_OPTIONS = [
   'Property Refurbishment & Extensions',
@@ -174,6 +176,7 @@ function PhotoUpload({ files, setFiles }) {
 }
 
 export default function QuoteForm() {
+  const navigate = useNavigate()
   const [form, setForm] = useState(EMPTY)
   const [files, setFiles] = useState([])
   const [errors, setErrors] = useState({})
@@ -234,8 +237,23 @@ export default function QuoteForm() {
       const data = await res.json()
 
       if (data.success) {
+        const trackingContext = {
+          service_type: form.workType || 'Not specified',
+          property_type: form.propertyType || 'Not specified',
+          preferred_contact_method: form.contactMethod || 'Not specified',
+          page_path: window.location.pathname,
+        }
+
+        try {
+          sessionStorage.setItem('ictinus_quote_context', JSON.stringify(trackingContext))
+        } catch {
+          // Session storage is optional; tracking should not affect the quote flow.
+        }
+
+        trackQuoteFormSubmit(trackingContext)
         setSubmitted(true)
         files.forEach((f) => URL.revokeObjectURL(f.preview))
+        navigate('/thank-you')
       } else {
         setNotice({ type: 'error', msg: 'Something went wrong. Please email us directly or call 07586 480417.' })
       }
@@ -461,14 +479,14 @@ export default function QuoteForm() {
             </ul>
             <div className="ict-quote-callout">
               <span>Prefer to speak directly?</span>
-              <a href="tel:07586480417">Call 07586 480417</a>
+              <a href="tel:07586480417" data-link-location="quote form trust panel">Call 07586 480417</a>
             </div>
           </aside>
         </div>
 
         <p className="ict-email-note">
           Prefer to email directly?{' '}
-          <a href="mailto:info@ictinuscontractors.co.uk">
+          <a href="mailto:info@ictinuscontractors.co.uk" data-link-location="quote form email note">
             info@ictinuscontractors.co.uk
           </a>
         </p>

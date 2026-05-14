@@ -4,6 +4,7 @@ import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import Reveal, { StaggerContainer, StaggerItem } from '../components/Reveal'
 import { useSEO } from '../hooks/useSEO'
+import { trackServiceCtaClick } from '../utils/tracking'
 import {
   PORTFOLIO_CARD_PROJECTS,
   PORTFOLIO_FEATURED_PROJECT,
@@ -648,6 +649,8 @@ function CheckIcon() {
 }
 
 function ServiceHero({ page }) {
+  const serviceName = page.breadcrumb
+
   return (
     <header className="relative overflow-hidden bg-[#1C1714] px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-36 lg:px-8">
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=1800&q=70')] bg-cover bg-center opacity-[0.12]" />
@@ -684,6 +687,11 @@ function ServiceHero({ page }) {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/contact#quote"
+                onClick={() => trackServiceCtaClick({
+                  cta_label: 'Request a Quote',
+                  target_path: '/contact#quote',
+                  service_name: serviceName,
+                })}
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-gold px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold tracking-wide text-[#1C1714] shadow-[0_6px_18px_rgba(212,175,55,0.24)] transition-transform duration-200 hover:-translate-y-0.5"
               >
                 Request a Quote
@@ -691,6 +699,11 @@ function ServiceHero({ page }) {
               </Link>
               <Link
                 to="/portfolio"
+                onClick={() => trackServiceCtaClick({
+                  cta_label: 'View Recent Work',
+                  target_path: '/portfolio',
+                  service_name: serviceName,
+                })}
                 className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#D4AF37]/40 px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold tracking-wide text-[#D4AF37] transition-colors duration-200 hover:border-[#D4AF37]/60 hover:bg-[#D4AF37]/10"
               >
                 View Recent Work
@@ -761,7 +774,7 @@ function RelatedProjects({ page }) {
   )
 }
 
-function RelatedServices({ services }) {
+function RelatedServices({ services, sourceService }) {
   if (!services?.length) return null
 
   return (
@@ -777,6 +790,12 @@ function RelatedServices({ services }) {
                 <Link
                   key={service.href}
                   to={service.href}
+                  onClick={() => trackServiceCtaClick({
+                    cta_label: service.label,
+                    target_path: service.href,
+                    service_name: service.label,
+                    source_service: sourceService,
+                  })}
                   className="group/service inline-flex items-center gap-2 rounded-lg border border-[#D4AF37]/24 bg-[#FAF7F0] px-4 py-2 font-['Source_Serif_4'] text-[0.9rem] font-semibold text-[#3D342E] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#D4AF37]/45 hover:bg-[#FFFEFB] hover:text-[#B08D2A] hover:shadow-[0_8px_18px_rgba(28,23,20,0.06)]"
                 >
                   {service.label}
@@ -917,7 +936,7 @@ function ServicePage({ page }) {
         </section>
 
         <RelatedProjects page={page} />
-        <RelatedServices services={page.relatedServices} />
+        <RelatedServices services={page.relatedServices} sourceService={page.breadcrumb} />
 
         <section className="bg-[#EEE8DC] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
@@ -964,6 +983,11 @@ function ServicePage({ page }) {
               <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
                 <Link
                   to="/contact#quote"
+                  onClick={() => trackServiceCtaClick({
+                    cta_label: 'Request a Quote',
+                    target_path: '/contact#quote',
+                    service_name: page.breadcrumb,
+                  })}
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-gold px-8 py-3.5 font-['Source_Serif_4'] text-[0.9rem] font-semibold tracking-wide text-[#1C1714] shadow-lg transition-transform duration-200 hover:-translate-y-0.5"
                 >
                   Request a Quote
@@ -971,6 +995,12 @@ function ServicePage({ page }) {
                 </Link>
                 <a
                   href="tel:07586480417"
+                  data-link-location={`${page.breadcrumb} final CTA call button`}
+                  onClick={() => trackServiceCtaClick({
+                    cta_label: 'Call 07586 480417',
+                    target_path: 'tel:07586480417',
+                    service_name: page.breadcrumb,
+                  })}
                   className="inline-flex items-center justify-center rounded-lg border border-[#D4AF37]/40 px-8 py-3.5 font-['Source_Serif_4'] text-[0.9rem] font-semibold tracking-wide text-[#D4AF37] transition-colors duration-200 hover:border-[#D4AF37]/60 hover:bg-[#D4AF37]/10"
                 >
                   Call 07586 480417

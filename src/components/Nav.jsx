@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
+import { trackServiceCtaClick } from '../utils/tracking'
 
 const links = [
   { label: 'HOME',         route: '/' },
@@ -158,6 +159,11 @@ export default function Nav() {
                         <Link
                           key={service.route}
                           to={service.route}
+                          onClick={() => trackServiceCtaClick({
+                            cta_label: service.label,
+                            target_path: service.route,
+                            service_name: service.label,
+                          })}
                           className="block rounded-md px-3.5 py-2.5 font-['Source_Serif_4'] text-[0.92rem] font-semibold leading-snug text-[#E6DCC8] transition-colors duration-200 hover:bg-[#D4AF37]/12 hover:text-[#F2D774] focus:bg-[#D4AF37]/12 focus:text-[#F2D774] focus:outline-none"
                         >
                           {service.label}
@@ -213,6 +219,7 @@ export default function Nav() {
         <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
           <a
             href="tel:07586480417"
+            data-link-location="desktop header phone"
             className="flex items-center gap-1.5 font-['Source_Serif_4'] text-[0.8rem] tracking-wide text-[#D4AF37] hover:text-[#E8C94A] transition-colors"
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -226,6 +233,7 @@ export default function Nav() {
           >
             <Link
               to="/contact#quote"
+              onClick={() => trackServiceCtaClick({ cta_label: 'GET A QUOTE', target_path: '/contact#quote' })}
               className="block font-['Source_Serif_4'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-6 py-[0.65rem] rounded-lg bg-gradient-gold text-[#0F1923] shadow-[0_4px_16px_rgba(212,175,55,0.25)]"
             >
               GET A QUOTE
@@ -296,7 +304,14 @@ export default function Nav() {
                             <Link
                               key={service.route}
                               to={service.route}
-                              onClick={() => setMenuOpen(false)}
+                              onClick={() => {
+                                setMenuOpen(false)
+                                trackServiceCtaClick({
+                                  cta_label: service.label,
+                                  target_path: service.route,
+                                  service_name: service.label,
+                                })
+                              }}
                               className="block rounded-md px-3 py-2.5 font-['Source_Serif_4'] text-[0.9rem] leading-snug text-[#B8AFA6] transition-colors hover:bg-[#D4AF37]/10 hover:text-[#D4AF37]"
                             >
                               {service.label}
@@ -342,6 +357,7 @@ export default function Nav() {
               ))}
               <a
                 href="tel:07586480417"
+                data-link-location="mobile header phone"
                 className="flex items-center justify-center gap-2 w-full font-['Source_Serif_4'] text-[0.8rem] tracking-wide text-[#D4AF37] py-2.5 mt-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -351,7 +367,10 @@ export default function Nav() {
               </a>
               <Link
                 to="/contact#quote"
-                onClick={() => setMenuOpen(false)}
+                onClick={() => {
+                  setMenuOpen(false)
+                  trackServiceCtaClick({ cta_label: 'GET A QUOTE', target_path: '/contact#quote' })
+                }}
                 className="block w-full font-['Source_Serif_4'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-5 py-3 rounded-lg bg-gradient-gold text-[#1C1714] text-center mt-1"
               >
                 GET A QUOTE

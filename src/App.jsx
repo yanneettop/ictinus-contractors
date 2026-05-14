@@ -11,6 +11,8 @@ import Footer from './components/Footer'
 import SectionDivider from './components/SectionDivider'
 import Reveal from './components/Reveal'
 import useScrollReveal from './hooks/useScrollReveal'
+import useContactLinkTracking from './hooks/useContactLinkTracking'
+import { trackServiceCtaClick } from './utils/tracking'
 
 import AboutPage from './pages/AboutPage'
 import ServicesPage from './pages/ServicesPage'
@@ -26,6 +28,7 @@ import {
 } from './pages/ServicePageTemplate'
 import PortfolioPage from './pages/PortfolioPage'
 import ContactPage from './pages/ContactPage'
+import ThankYouPage from './pages/ThankYouPage'
 
 const CHECKATRADE_URL = 'https://www.checkatrade.com/trades/ictinuscontractors'
 const MYBUILDER_URL = 'https://www.mybuilder.com/profile/ictinus-contractors'
@@ -211,6 +214,7 @@ function PlanningCtaBar() {
           <motion.div className="mt-4 inline-block flex-shrink-0 lg:mt-0" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             <Link
               to="/contact#quote"
+              onClick={() => trackServiceCtaClick({ cta_label: 'Request a Quote', target_path: '/contact#quote' })}
               className="group inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-gold px-7 py-3 font-['Source_Serif_4'] text-[0.95rem] font-semibold tracking-wide text-[#1C1714] shadow-[0_6px_18px_rgba(212,175,55,0.24)] transition-shadow hover:shadow-[0_10px_28px_rgba(212,175,55,0.34)]"
             >
               Request a Quote
@@ -428,6 +432,7 @@ function HomePage() {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                 <Link
                   to="/contact#quote"
+                  onClick={() => trackServiceCtaClick({ cta_label: 'Request a Quote', target_path: '/contact#quote' })}
                   className="block font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold shadow-lg transition-shadow hover:shadow-[0_10px_30px_rgba(212,175,55,0.34)]"
                 >
                   Request a Quote
@@ -475,6 +480,8 @@ function ScrollManager() {
 }
 
 export default function App() {
+  useContactLinkTracking()
+
   return (
     <MotionConfig reducedMotion="user">
       <ScrollManager />
@@ -492,6 +499,7 @@ export default function App() {
         <Route path="/services/plumbing" element={<PlumbingPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/thank-you" element={<ThankYouPage />} />
         <Route path="/request-a-quote" element={<Navigate to="/contact#quote" replace />} />
         <Route path="/projects" element={<Navigate to="/portfolio" replace />} />
         <Route path="/services/property-refurbishment-extensions-london" element={<Navigate to="/services/property-refurbishment-extensions" replace />} />

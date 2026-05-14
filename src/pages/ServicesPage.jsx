@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import { useSEO } from '../hooks/useSEO'
+import { trackServiceCtaClick } from '../utils/tracking'
 
 /* ─── Service detail data ─────────────────────────────────────────── */
 const SERVICES = [
@@ -327,6 +328,11 @@ function ServiceSection({ service, index }) {
 
             <Link
               to="/contact#quote"
+              onClick={() => trackServiceCtaClick({
+                cta_label: 'Request a Free Quote',
+                target_path: '/contact#quote',
+                service_name: service.label,
+              })}
               className="inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.85rem] tracking-wide px-6 py-3 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.2)] mt-2"
             >
               Request a Free Quote
@@ -408,6 +414,7 @@ function AreasSection() {
           Not sure if we cover your postcode?{' '}
           <a
             href="mailto:info@ictinuscontractors.co.uk"
+            data-link-location="services coverage email"
             className="text-[#B08D2A] font-semibold underline underline-offset-2 hover:text-[#8b6c2c] transition-colors"
           >
             Drop us an email
@@ -465,12 +472,14 @@ function PageCTA() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             to="/contact#quote"
+            onClick={() => trackServiceCtaClick({ cta_label: 'Request a Free Quote', target_path: '/contact#quote' })}
             className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
           >
             Request a Free Quote
           </Link>
           <a
             href="mailto:info@ictinuscontractors.co.uk"
+            data-link-location="services final CTA email"
             className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/40 transition-all duration-300 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/60 text-center"
           >
             info@ictinuscontractors.co.uk

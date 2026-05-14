@@ -76,7 +76,11 @@ export default function ContactPage() {
                 </div>
                 <h3 className="font-['Cormorant_Garamond'] text-[1rem] font-semibold text-[#1C1714] mb-1">{title}</h3>
                 {href ? (
-                  <a href={href} className="font-['Source_Serif_4'] text-[0.875rem] text-[#B08D2A] hover:text-[#D4AF37] transition-colors font-medium">
+                  <a
+                    href={href}
+                    data-link-location={`contact method card: ${title}`}
+                    className="font-['Source_Serif_4'] text-[0.875rem] text-[#B08D2A] hover:text-[#D4AF37] transition-colors font-medium"
+                  >
                     {value}
                   </a>
                 ) : (
