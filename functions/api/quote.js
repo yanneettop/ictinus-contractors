@@ -2,18 +2,51 @@ const MAX_FILES = 8
 const MAX_FILE_SIZE = 5 * 1024 * 1024
 const ALLOWED_MIME_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'])
 const REQUIRED_FIELDS = ['name', 'phone', 'email', 'area', 'workType', 'description']
+const DEFAULT_ALLOWED_ORIGINS = [
+  'https://ictinuscontractors.co.uk',
+  'https://www.ictinuscontractors.co.uk',
+  'https://ictinus-contractors.pages.dev',
+]
 
-function json(data, status = 200) {
+function getAllowedOrigins(env) {
+  const configuredOrigins = String(env.ALLOWED_ORIGIN || '')
+    .split(',')
+    .map((allowedOrigin) => allowedOrigin.trim())
+    .filter(Boolean)
+
+  return [...new Set([...DEFAULT_ALLOWED_ORIGINS, ...configuredOrigins])]
+}
+
+function isOriginAllowed(origin, env) {
+  if (!env.ALLOWED_ORIGIN) return true
+  return getAllowedOrigins(env).includes(origin)
+}
+
+function responseHeaders(request, env) {
+  const headers = {
+    'content-type': 'application/json; charset=utf-8',
+    vary: 'Origin',
+  }
+  const origin = request?.headers.get('Origin')
+
+  if (origin && isOriginAllowed(origin, env)) {
+    headers['access-control-allow-origin'] = origin
+    headers['access-control-allow-methods'] = 'POST, OPTIONS'
+    headers['access-control-allow-headers'] = 'content-type'
+  }
+
+  return headers
+}
+
+function json(data, status = 200, request, env = {}) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: {
-      'content-type': 'application/json; charset=utf-8',
-    },
+    headers: responseHeaders(request, env),
   })
 }
 
-function error(message, status = 400) {
-  return json({ ok: false, message }, status)
+function error(message, status = 400, request, env) {
+  return json({ ok: false, message }, status, request, env)
 }
 
 function cleanText(value, maxLength = 2000) {
@@ -100,12 +133,7 @@ async function verifyTurnstile(token, request, env) {
 function validateOrigin(request, env) {
   if (!env.ALLOWED_ORIGIN) return true
   const origin = request.headers.get('Origin')
-  const allowedOrigins = env.ALLOWED_ORIGIN
-    .split(',')
-    .map((allowedOrigin) => allowedOrigin.trim())
-    .filter(Boolean)
-
-  return allowedOrigins.includes(origin)
+  return isOriginAllowed(origin, env)
 }
 
 function collectFields(formData) {
@@ -277,35 +305,42 @@ async function sendEmail(fields, submissionId, uploads, env) {
   }
 }
 
+export function onRequestOptions({ request, env }) {
+  return new Response(null, {
+    status: validateOrigin(request, env) ? 204 : 403,
+    headers: responseHeaders(request, env),
+  })
+}
+
 export async function onRequestPost({ request, env }) {
   if (!validateOrigin(request, env)) {
-    return error('This quote form can only be submitted from the Ictinus Contractors website.', 403)
+    return error('This quote form can only be submitted from the Ictinus Contractors website.', 403, request, env)
   }
 
   const contentType = request.headers.get('content-type') || ''
   if (!contentType.includes('multipart/form-data')) {
-    return error('Please submit the quote form again.', 415)
+    return error('Please submit the quote form again.', 415, request, env)
   }
 
   let formData
   try {
     formData = await request.formData()
   } catch {
-    return error('We could not read your quote request. Please try again.', 400)
+    return error('We could not read your quote request. Please try again.', 400, request, env)
   }
 
   const turnstileResult = await verifyTurnstile(cleanText(formData.get('cf-turnstile-response'), 3000), request, env)
   if (!turnstileResult.ok) {
-    return error(turnstileResult.message, turnstileResult.status)
+    return error(turnstileResult.message, turnstileResult.status, request, env)
   }
 
   const fields = collectFields(formData)
   const fieldError = validateFields(fields)
-  if (fieldError) return error(fieldError, 400)
+  if (fieldError) return error(fieldError, 400, request, env)
 
   const photos = collectPhotos(formData)
   const photoError = validatePhotos(photos)
-  if (photoError) return error(photoError, 400)
+  if (photoError) return error(photoError, 400, request, env)
 
   const submissionId = crypto.randomUUID()
 
@@ -313,8 +348,8 @@ export async function onRequestPost({ request, env }) {
     const uploads = await uploadPhotos(photos, env, submissionId)
     await sendEmail(fields, submissionId, uploads, env)
 
-    return json({ ok: true, message: 'Quote request sent successfully.' })
+    return json({ ok: true, message: 'Quote request sent successfully.' }, 200, request, env)
   } catch {
-    return error('We could not send your quote request right now. Please email us directly or call 07586 480417.', 502)
+    return error('We could not send your quote request right now. Please email us directly or call 07586 480417.', 502, request, env)
   }
 }

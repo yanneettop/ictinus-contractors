@@ -101,7 +101,7 @@ Production values:
 ```text
 QUOTE_TO_EMAIL=info@ictinuscontractors.co.uk
 QUOTE_FROM_EMAIL=Ictinus Contractors <quotes@ictinuscontractors.co.uk>
-ALLOWED_ORIGIN=https://www.ictinuscontractors.co.uk,https://ictinus-contractors.pages.dev
+ALLOWED_ORIGIN=https://ictinuscontractors.co.uk,https://www.ictinuscontractors.co.uk,https://ictinus-contractors.pages.dev
 R2_PUBLIC_BASE_URL=https://uploads.ictinuscontractors.co.uk
 ```
 
