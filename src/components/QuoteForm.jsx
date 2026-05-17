@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { trackQuoteFormSubmit } from '../utils/tracking'
@@ -47,6 +47,18 @@ const EMPTY = {
 
 const MAX_FILES = 8
 const MAX_MB = 5
+const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif']
+const HEIC_EXTENSIONS = ['.heic', '.heif']
+
+const isHeicFile = (file) => HEIC_EXTENSIONS.some((ext) => file.name.toLowerCase().endsWith(ext))
+
+const isAllowedPhoto = (file) => {
+  if (!file) return false
+  if (ALLOWED_FILE_TYPES.includes(file.type)) return true
+  return !file.type && isHeicFile(file)
+}
+
+const canPreviewPhoto = (file) => file.type && !['image/heic', 'image/heif'].includes(file.type) && !isHeicFile(file)
 
 function FieldError({ id, message }) {
   if (!message) return null
@@ -57,24 +69,104 @@ function FieldError({ id, message }) {
   )
 }
 
-function PhotoUpload({ files, setFiles }) {
+function TurnstileWidget({ siteKey, resetKey, onTokenChange }) {
+  const containerRef = useRef(null)
+  const widgetIdRef = useRef(null)
+
+  useEffect(() => {
+    if (!siteKey || !containerRef.current) return undefined
+
+    let cancelled = false
+
+    const renderWidget = () => {
+      if (cancelled || !window.turnstile || !containerRef.current || widgetIdRef.current !== null) return
+
+      widgetIdRef.current = window.turnstile.render(containerRef.current, {
+        sitekey: siteKey,
+        callback: (token) => onTokenChange(token),
+        'expired-callback': () => onTokenChange(''),
+        'error-callback': () => onTokenChange(''),
+      })
+    }
+
+    const existingScript = document.getElementById('cf-turnstile-script')
+    if (existingScript) {
+      if (window.turnstile) {
+        renderWidget()
+      } else {
+        existingScript.addEventListener('load', renderWidget, { once: true })
+      }
+    } else {
+      const script = document.createElement('script')
+      script.id = 'cf-turnstile-script'
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+      script.async = true
+      script.defer = true
+      script.addEventListener('load', renderWidget, { once: true })
+      document.head.appendChild(script)
+    }
+
+    return () => {
+      cancelled = true
+      if (window.turnstile && widgetIdRef.current !== null) {
+        window.turnstile.remove(widgetIdRef.current)
+        widgetIdRef.current = null
+      }
+    }
+  }, [siteKey, onTokenChange])
+
+  useEffect(() => {
+    if (window.turnstile && widgetIdRef.current !== null) {
+      window.turnstile.reset(widgetIdRef.current)
+      onTokenChange('')
+    }
+  }, [resetKey, onTokenChange])
+
+  if (!siteKey) {
+    return (
+      <div className="ict-form-notice error full-width" role="alert">
+        <strong>Spam check unavailable.</strong>
+        Please call 07586 480417 or email info@ictinuscontractors.co.uk.
+      </div>
+    )
+  }
+
+  return (
+    <div className="ict-form-group full-width">
+      <div ref={containerRef} />
+    </div>
+  )
+}
+
+function PhotoUpload({ files, setFiles, setNotice }) {
   const inputRef = useRef(null)
   const [dragging, setDragging] = useState(false)
   const inputId = 'quote-photos'
 
   const addFiles = useCallback((incoming) => {
-    const images = Array.from(incoming || []).filter((f) => f.type.startsWith('image/'))
+    const selected = Array.from(incoming || [])
+    const invalid = selected.filter((f) => !isAllowedPhoto(f) || f.size > MAX_MB * 1024 * 1024)
+    if (invalid.length > 0) {
+      setNotice({
+        type: 'error',
+        msg: `Please upload JPG, PNG, WebP, HEIC or HEIF photos only, up to ${MAX_MB}MB each.`,
+      })
+    }
+
+    const images = selected.filter((f) => isAllowedPhoto(f) && f.size <= MAX_MB * 1024 * 1024)
     setFiles((prev) => {
       const combined = [...prev]
       for (const f of images) {
         if (combined.length >= MAX_FILES) break
-        if (f.size > MAX_MB * 1024 * 1024) continue
         if (combined.some((p) => p.name === f.name && p.size === f.size)) continue
         combined.push(Object.assign(f, { preview: URL.createObjectURL(f) }))
       }
+      if (images.length > 0 && combined.length === MAX_FILES && prev.length + images.length > MAX_FILES) {
+        setNotice({ type: 'error', msg: `You can upload up to ${MAX_FILES} photos.` })
+      }
       return combined
     })
-  }, [setFiles])
+  }, [setFiles, setNotice])
 
   const remove = (idx) => {
     setFiles((prev) => {
@@ -115,7 +207,7 @@ function PhotoUpload({ files, setFiles }) {
           id={inputId}
           ref={inputRef}
           type="file"
-          accept="image/*"
+          accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif"
           multiple
           className="hidden"
           onChange={(e) => addFiles(e.target.files)}
@@ -149,7 +241,13 @@ function PhotoUpload({ files, setFiles }) {
                 exit={{ opacity: 0, scale: 0.85 }}
                 transition={{ duration: 0.2 }}
               >
-                <img src={f.preview} alt={f.name} className="h-full w-full object-cover" />
+                {canPreviewPhoto(f) ? (
+                  <img src={f.preview} alt={f.name} className="h-full w-full object-cover" />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-[#EFE7D8] px-2 text-center font-['Source_Serif_4'] text-[0.7rem] font-semibold uppercase tracking-wide text-[#8B6C2C]">
+                    HEIC photo
+                  </div>
+                )}
                 <button
                   type="button"
                   onClick={() => remove(i)}
@@ -177,12 +275,15 @@ function PhotoUpload({ files, setFiles }) {
 
 export default function QuoteForm() {
   const navigate = useNavigate()
+  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY
   const [form, setForm] = useState(EMPTY)
   const [files, setFiles] = useState([])
   const [errors, setErrors] = useState({})
   const [notice, setNotice] = useState(null)
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState('')
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0)
 
   const handle = (e) => {
     const { name, value } = e.target
@@ -200,6 +301,9 @@ export default function QuoteForm() {
     if (!form.area.trim()) next.area = 'Please enter your property postcode or area.'
     if (!form.workType) next.workType = 'Please select the type of work.'
     if (!form.description.trim()) next.description = 'Please describe the work you need.'
+    if (files.length > MAX_FILES) next.files = `Please upload no more than ${MAX_FILES} photos.`
+    const invalidPhoto = files.find((file) => !isAllowedPhoto(file) || file.size > MAX_MB * 1024 * 1024)
+    if (invalidPhoto) next.files = `Please upload JPG, PNG, WebP, HEIC or HEIF photos only, up to ${MAX_MB}MB each.`
     return next
   }
 
@@ -214,29 +318,31 @@ export default function QuoteForm() {
       return
     }
 
+    if (!turnstileToken) {
+      setNotice({ type: 'error', msg: 'Please complete the quick spam check and try again.' })
+      return
+    }
+
     setSending(true)
     try {
       const fd = new FormData()
-      fd.append('access_key', 'aa27f271-0058-42f0-b3e2-464fbbd41c8e')
-      fd.append('subject', `New Quote Request - ${form.workType} (${form.area})`)
-      fd.append('from_name', form.name)
-      fd.append('replyto', form.email)
-      fd.append('full_name', form.name)
+      fd.append('name', form.name)
       fd.append('phone', form.phone)
       fd.append('email', form.email)
-      fd.append('property_postcode_or_area', form.area)
-      fd.append('type_of_work', form.workType)
-      fd.append('project_description', form.description)
-      fd.append('property_type', form.propertyType || 'Not specified')
-      fd.append('preferred_start_time', form.preferredStart || 'Not specified')
-      fd.append('best_time_to_contact', form.bestTime || 'Not specified')
-      fd.append('preferred_contact_method', form.contactMethod || 'Not specified')
-      files.forEach((f) => fd.append('attachment[]', f, f.name))
+      fd.append('area', form.area)
+      fd.append('workType', form.workType)
+      fd.append('propertyType', form.propertyType)
+      fd.append('preferredStart', form.preferredStart)
+      fd.append('contactMethod', form.contactMethod)
+      fd.append('bestTime', form.bestTime)
+      fd.append('description', form.description)
+      fd.append('cf-turnstile-response', turnstileToken)
+      files.forEach((f) => fd.append('photos', f, f.name))
 
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd })
-      const data = await res.json()
+      const res = await fetch('/api/quote', { method: 'POST', body: fd })
+      const data = await res.json().catch(() => null)
 
-      if (data.success) {
+      if (res.ok && data?.ok) {
         const trackingContext = {
           service_type: form.workType || 'Not specified',
           property_type: form.propertyType || 'Not specified',
@@ -255,9 +361,11 @@ export default function QuoteForm() {
         files.forEach((f) => URL.revokeObjectURL(f.preview))
         navigate('/thank-you')
       } else {
-        setNotice({ type: 'error', msg: 'Something went wrong. Please email us directly or call 07586 480417.' })
+        setTurnstileResetKey((value) => value + 1)
+        setNotice({ type: 'error', msg: data?.message || 'Something went wrong. Please email us directly or call 07586 480417.' })
       }
     } catch {
+      setTurnstileResetKey((value) => value + 1)
       setNotice({ type: 'error', msg: 'Network error. Please email us directly or call 07586 480417.' })
     } finally {
       setSending(false)
@@ -426,7 +534,18 @@ export default function QuoteForm() {
                 <FieldError id={errorId('description')} message={errors.description} />
               </div>
 
-              <PhotoUpload files={files} setFiles={setFiles} />
+              <PhotoUpload files={files} setFiles={setFiles} setNotice={setNotice} />
+              {errors.files && (
+                <div className="ict-form-group full-width">
+                  <FieldError id={errorId('files')} message={errors.files} />
+                </div>
+              )}
+
+              <TurnstileWidget
+                siteKey={turnstileSiteKey}
+                resetKey={turnstileResetKey}
+                onTokenChange={setTurnstileToken}
+              />
 
               <div className="ict-form-group full-width">
                 <motion.button

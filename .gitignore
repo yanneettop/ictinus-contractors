@@ -1,6 +1,9 @@
 node_modules/
 dist/
 dist-optimized/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
 .claude/
 .vscode/
 .DS_Store
