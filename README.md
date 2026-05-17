@@ -101,9 +101,11 @@ Production values:
 ```text
 QUOTE_TO_EMAIL=info@ictinuscontractors.co.uk
 QUOTE_FROM_EMAIL=Ictinus Contractors <quotes@ictinuscontractors.co.uk>
-ALLOWED_ORIGIN=https://www.ictinuscontractors.co.uk
+ALLOWED_ORIGIN=https://www.ictinuscontractors.co.uk,https://ictinus-contractors.pages.dev
 R2_PUBLIC_BASE_URL=https://uploads.ictinuscontractors.co.uk
 ```
+
+`ALLOWED_ORIGIN` may contain one or more comma-separated origins. Whitespace around each origin is ignored.
 
 Never commit real API keys or Turnstile secrets.
 

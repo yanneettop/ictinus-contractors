@@ -100,7 +100,12 @@ async function verifyTurnstile(token, request, env) {
 function validateOrigin(request, env) {
   if (!env.ALLOWED_ORIGIN) return true
   const origin = request.headers.get('Origin')
-  return origin === env.ALLOWED_ORIGIN
+  const allowedOrigins = env.ALLOWED_ORIGIN
+    .split(',')
+    .map((allowedOrigin) => allowedOrigin.trim())
+    .filter(Boolean)
+
+  return allowedOrigins.includes(origin)
 }
 
 function collectFields(formData) {
