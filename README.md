@@ -64,16 +64,9 @@ It handles:
 - required field validation
 - Cloudflare Turnstile verification
 - photo validation
-- R2 uploads
-- Resend email notification
+- Resend email notification with uploaded photos attached
 
-Uploaded images are stored in R2 with keys like:
-
-```text
-quotes/ictinus/YYYY-MM-DD/submission-id/sanitized-original-filename
-```
-
-Images are not attached to the email. The email includes R2 object keys and clickable links when `R2_PUBLIC_BASE_URL` is configured.
+Uploaded images are attached directly to the Resend email. Each photo may be up to 5MB, with a backend total attachment limit of 25MB to stay safely below Resend's 40MB email size limit after Base64 encoding.
 
 ## Required Environment Variables
 
@@ -87,7 +80,6 @@ TURNSTILE_SECRET_KEY
 QUOTE_TO_EMAIL
 QUOTE_FROM_EMAIL
 ALLOWED_ORIGIN
-R2_PUBLIC_BASE_URL
 ```
 
 Frontend build variable:
@@ -102,22 +94,11 @@ Production values:
 QUOTE_TO_EMAIL=info@ictinuscontractors.co.uk
 QUOTE_FROM_EMAIL=Ictinus Contractors <quotes@ictinuscontractors.co.uk>
 ALLOWED_ORIGIN=https://ictinuscontractors.co.uk,https://www.ictinuscontractors.co.uk,https://ictinus-contractors.pages.dev
-R2_PUBLIC_BASE_URL=https://uploads.ictinuscontractors.co.uk
 ```
 
 `ALLOWED_ORIGIN` may contain one or more comma-separated origins. Whitespace around each origin is ignored.
 
 Never commit real API keys or Turnstile secrets.
-
-## R2 Binding
-
-Create an R2 bucket and bind it to the Pages project as:
-
-```text
-QUOTE_UPLOADS
-```
-
-For dashboard-based Cloudflare Pages deployment, configure this binding in the Cloudflare Pages project settings.
 
 ## Turnstile Setup
 
@@ -171,8 +152,7 @@ Local testing checklist:
 - Submit with one JPG/PNG/WebP image.
 - Submit with more than 8 images and confirm validation.
 - Submit an image larger than 5MB and confirm validation.
-- Confirm an R2 object is created under `quotes/ictinus/`.
-- Confirm the Resend email arrives.
+- Confirm the Resend email arrives with the uploaded photo attached.
 - Confirm successful submission navigates to `/thank-you`.
 
 ## Production Testing Checklist
@@ -183,8 +163,7 @@ After deployment through Cloudflare Pages:
 - Confirm no request is sent to Web3Forms.
 - Confirm Turnstile renders on `/contact#quote`.
 - Submit a test quote with photos.
-- Confirm photos land in the `QUOTE_UPLOADS` R2 bucket.
-- Confirm the email includes the submission ID, quote fields, object keys, and upload links.
+- Confirm the email includes the submission ID, quote fields, and attached photos.
 - Confirm `/thank-you` navigation works after `ok: true`.
 - Confirm quote tracking fires only after a successful backend response.
 

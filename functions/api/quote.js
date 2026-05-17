@@ -1,5 +1,6 @@
 const MAX_FILES = 8
 const MAX_FILE_SIZE = 5 * 1024 * 1024
+const MAX_TOTAL_ATTACHMENT_SIZE = 25 * 1024 * 1024
 const ALLOWED_MIME_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'])
 const REQUIRED_FIELDS = ['name', 'phone', 'email', 'area', 'workType', 'description']
 const DEFAULT_ALLOWED_ORIGINS = [
@@ -90,13 +91,6 @@ function sanitizeFilename(name) {
   return cleaned || 'photo'
 }
 
-function publicUrlForKey(baseUrl, key) {
-  if (!baseUrl) return ''
-  const base = baseUrl.replace(/\/+$/, '')
-  const encodedKey = key.split('/').map(encodeURIComponent).join('/')
-  return `${base}/${encodedKey}`
-}
-
 async function verifyTurnstile(token, request, env) {
   if (!env.TURNSTILE_SECRET_KEY) {
     return { ok: false, status: 500, message: 'Spam protection is not configured yet.' }
@@ -172,6 +166,11 @@ function validatePhotos(photos) {
     return `Please upload no more than ${MAX_FILES} photos.`
   }
 
+  const totalSize = photos.reduce((sum, photo) => sum + photo.size, 0)
+  if (totalSize > MAX_TOTAL_ATTACHMENT_SIZE) {
+    return 'Please upload fewer or smaller photos so they can be attached to the email.'
+  }
+
   for (const photo of photos) {
     if (photo.size > MAX_FILE_SIZE) {
       return 'Each photo must be 5MB or smaller.'
@@ -185,47 +184,38 @@ function validatePhotos(photos) {
   return ''
 }
 
-async function uploadPhotos(photos, env, submissionId) {
-  if (!photos.length) return []
-  if (!env.QUOTE_UPLOADS) {
-    throw new Error('QUOTE_UPLOADS binding missing')
+function uniqueAttachmentFilename(photo, usedNames) {
+  const filename = sanitizeFilename(photo.name)
+  const seen = usedNames.get(filename) || 0
+  usedNames.set(filename, seen + 1)
+
+  return seen === 0 ? filename : filename.replace(/(\.[^.]+)?$/, `-${seen + 1}$1`)
+}
+
+function arrayBufferToBase64(buffer) {
+  const bytes = new Uint8Array(buffer)
+  const chunkSize = 0x8000
+  let binary = ''
+
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize))
   }
 
-  const date = new Date().toISOString().slice(0, 10)
+  return btoa(binary)
+}
+
+async function buildAttachments(photos) {
   const usedNames = new Map()
 
   return Promise.all(photos.map(async (photo) => {
-    const filename = sanitizeFilename(photo.name)
-    const seen = usedNames.get(filename) || 0
-    usedNames.set(filename, seen + 1)
-
-    const finalFilename = seen === 0 ? filename : filename.replace(/(\.[^.]+)?$/, `-${seen + 1}$1`)
-    const key = `quotes/ictinus/${date}/${submissionId}/${finalFilename}`
-
-    await env.QUOTE_UPLOADS.put(key, photo.stream(), {
-      httpMetadata: {
-        contentType: photo.type || (isHeicName(photo.name) ? 'image/heic' : 'application/octet-stream'),
-      },
-      customMetadata: {
-        originalName: photo.name,
-        submissionId,
-      },
-    })
+    const content = arrayBufferToBase64(await photo.arrayBuffer())
 
     return {
-      key,
-      filename: photo.name,
-      size: photo.size,
-      type: photo.type || 'unknown',
-      url: publicUrlForKey(env.R2_PUBLIC_BASE_URL, key),
+      filename: uniqueAttachmentFilename(photo, usedNames),
+      content,
+      content_type: photo.type || (isHeicName(photo.name) ? 'image/heic' : 'application/octet-stream'),
     }
   }))
-}
-
-function formatBytes(bytes) {
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
 function fieldRow(label, value) {
@@ -237,22 +227,10 @@ function fieldRow(label, value) {
   `
 }
 
-function buildEmailHtml(fields, submissionId, uploads) {
-  const uploadItems = uploads.length
-    ? uploads.map((upload) => {
-      const link = upload.url
-        ? `<a href="${escapeHtml(upload.url)}" style="color:#8B6C2C;">Open photo</a>`
-        : 'No public link configured'
-
-      return `
-        <li style="margin-bottom:10px;">
-          <strong>${escapeHtml(upload.filename)}</strong> (${escapeHtml(formatBytes(upload.size))})<br>
-          <code style="font-size:12px;color:#5A5048;">${escapeHtml(upload.key)}</code><br>
-          ${link}
-        </li>
-      `
-    }).join('')
-    : '<li>No photos uploaded.</li>'
+function buildEmailHtml(fields, submissionId, photos) {
+  const photoSummary = photos.length
+    ? `<p style="margin:0;">${escapeHtml(String(photos.length))} photo${photos.length === 1 ? '' : 's'} attached to this email.</p>`
+    : '<p style="margin:0;">No photos uploaded.</p>'
 
   return `
     <div style="font-family:Arial,sans-serif;line-height:1.5;color:#1C1714;">
@@ -275,14 +253,28 @@ function buildEmailHtml(fields, submissionId, uploads) {
       <p style="white-space:pre-wrap;margin:0 0 20px;">${escapeHtml(fields.description)}</p>
 
       <h2 style="font-size:18px;margin:22px 0 8px;">Uploaded photos</h2>
-      <ul style="padding-left:20px;margin:0;">${uploadItems}</ul>
+      ${photoSummary}
     </div>
   `
 }
 
-async function sendEmail(fields, submissionId, uploads, env) {
+async function sendEmail(fields, submissionId, photos, env) {
   if (!env.RESEND_API_KEY || !env.QUOTE_TO_EMAIL || !env.QUOTE_FROM_EMAIL) {
     throw new Error('Resend configuration missing')
+  }
+
+  const attachments = await buildAttachments(photos)
+
+  const emailPayload = {
+    from: env.QUOTE_FROM_EMAIL,
+    to: [env.QUOTE_TO_EMAIL],
+    subject: 'New Quote Request - Ictinus Contractors',
+    html: buildEmailHtml(fields, submissionId, photos),
+    reply_to: fields.email,
+  }
+
+  if (attachments.length) {
+    emailPayload.attachments = attachments
   }
 
   const response = await fetch('https://api.resend.com/emails', {
@@ -291,13 +283,7 @@ async function sendEmail(fields, submissionId, uploads, env) {
       Authorization: `Bearer ${env.RESEND_API_KEY}`,
       'content-type': 'application/json',
     },
-    body: JSON.stringify({
-      from: env.QUOTE_FROM_EMAIL,
-      to: [env.QUOTE_TO_EMAIL],
-      subject: 'New Quote Request - Ictinus Contractors',
-      html: buildEmailHtml(fields, submissionId, uploads),
-      reply_to: fields.email,
-    }),
+    body: JSON.stringify(emailPayload),
   })
 
   if (!response.ok) {
@@ -345,8 +331,7 @@ export async function onRequestPost({ request, env }) {
   const submissionId = crypto.randomUUID()
 
   try {
-    const uploads = await uploadPhotos(photos, env, submissionId)
-    await sendEmail(fields, submissionId, uploads, env)
+    await sendEmail(fields, submissionId, photos, env)
 
     return json({ ok: true, message: 'Quote request sent successfully.' }, 200, request, env)
   } catch {

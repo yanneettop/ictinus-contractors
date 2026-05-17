@@ -3,5 +3,4 @@ TURNSTILE_SECRET_KEY=0x4AAAAAA_replace_with_turnstile_secret_key
 QUOTE_TO_EMAIL=info@ictinuscontractors.co.uk
 QUOTE_FROM_EMAIL="Ictinus Contractors <quotes@ictinuscontractors.co.uk>"
 ALLOWED_ORIGIN=http://localhost:8788
-R2_PUBLIC_BASE_URL=https://uploads.ictinuscontractors.co.uk
 VITE_TURNSTILE_SITE_KEY=0x4AAAAAA_replace_with_turnstile_site_key
