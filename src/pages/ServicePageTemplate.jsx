@@ -16,7 +16,7 @@ const servicePages = {
       title: 'Painting & Decorating London | Ictinus Contractors',
       description:
         'Professional painting and decorating services across London for homeowners, landlords and businesses. Clean preparation, reliable communication and high-quality finishing.',
-      canonical: 'https://ictinuscontractors.co.uk/services/painting-and-decorating',
+      canonical: 'https://www.ictinuscontractors.co.uk/services/painting-and-decorating',
     },
     breadcrumb: 'Painting & Decorating',
     hero: {
@@ -88,7 +88,7 @@ const servicePages = {
       title: 'Property Refurbishment & Extensions London | Ictinus Contractors',
       description:
         'Property refurbishment and extension improvement work across London for homeowners, landlords and businesses. Clean workmanship, clear communication and reliable finishing.',
-      canonical: 'https://ictinuscontractors.co.uk/services/property-refurbishment-extensions',
+      canonical: 'https://www.ictinuscontractors.co.uk/services/property-refurbishment-extensions',
     },
     breadcrumb: 'Property Refurbishment & Extensions',
     hero: {
@@ -162,7 +162,7 @@ const servicePages = {
       title: 'Bathroom Fitting London | Ictinus Contractors',
       description:
         'Bathroom fitting and bathroom improvement services across London for homeowners, landlords and businesses. Clean workmanship, careful preparation and reliable finishing.',
-      canonical: 'https://ictinuscontractors.co.uk/services/bathroom-fitting',
+      canonical: 'https://www.ictinuscontractors.co.uk/services/bathroom-fitting',
     },
     breadcrumb: 'Bathroom Fitting',
     hero: {
@@ -236,7 +236,7 @@ const servicePages = {
       title: 'Hard Flooring London | Ictinus Contractors',
       description:
         'Hard flooring installation and preparation services across London for homes, flats, rental properties and commercial spaces. Clean workmanship and reliable finishing.',
-      canonical: 'https://ictinuscontractors.co.uk/services/hard-flooring',
+      canonical: 'https://www.ictinuscontractors.co.uk/services/hard-flooring',
     },
     breadcrumb: 'Hard Flooring',
     hero: {
@@ -310,7 +310,7 @@ const servicePages = {
       title: 'Plastering London | Ictinus Contractors',
       description:
         'Plastering and surface preparation services across London for homes, flats, rental properties and refurbishment projects. Smooth finishes, clean work and reliable communication.',
-      canonical: 'https://ictinuscontractors.co.uk/services/plastering',
+      canonical: 'https://www.ictinuscontractors.co.uk/services/plastering',
     },
     breadcrumb: 'Plastering',
     hero: {
@@ -384,7 +384,7 @@ const servicePages = {
       title: 'Finishing Carpentry London | Ictinus Contractors',
       description:
         'Finishing carpentry services across London for homes, flats, rental properties and refurbishment projects. Skirting, architraves, doors and clean finishing details.',
-      canonical: 'https://ictinuscontractors.co.uk/services/finishing-carpentry',
+      canonical: 'https://www.ictinuscontractors.co.uk/services/finishing-carpentry',
     },
     breadcrumb: 'Finishing Carpentry',
     hero: {
@@ -458,7 +458,7 @@ const servicePages = {
       title: 'Electrical Works London | Ictinus Contractors',
       description:
         'Electrical improvement support across London as part of refurbishment, decorating and property improvement projects. Clear communication, tidy work and reliable coordination.',
-      canonical: 'https://ictinuscontractors.co.uk/services/electrical-works',
+      canonical: 'https://www.ictinuscontractors.co.uk/services/electrical-works',
     },
     breadcrumb: 'Electrical Works',
     hero: {
@@ -533,7 +533,7 @@ const servicePages = {
       title: 'Plumbing Support London | Ictinus Contractors',
       description:
         'Plumbing support across London as part of bathroom fitting, refurbishment and property improvement projects. Clean workmanship, clear communication and reliable coordination.',
-      canonical: 'https://ictinuscontractors.co.uk/services/plumbing',
+      canonical: 'https://www.ictinuscontractors.co.uk/services/plumbing',
     },
     breadcrumb: 'Plumbing',
     hero: {
@@ -613,7 +613,7 @@ function injectServiceSchema(page) {
     provider: {
       '@type': 'LocalBusiness',
       name: 'Ictinus Contractors',
-      url: 'https://ictinuscontractors.co.uk',
+      url: 'https://www.ictinuscontractors.co.uk',
       telephone: '+447586480417',
       areaServed: 'London',
     },
