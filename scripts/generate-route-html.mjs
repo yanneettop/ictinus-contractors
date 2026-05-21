@@ -29,9 +29,21 @@ function canonicalForRoute(route) {
 }
 
 function htmlForRoute(route) {
+  const routeUrl = canonicalForRoute(route)
+
   let html = sourceHtml.replace(
     /<link\s+rel="canonical"\s+href="[^"]*"\s*\/>/,
-    `<link rel="canonical" href="${canonicalForRoute(route)}" />`,
+    `<link rel="canonical" href="${routeUrl}" />`,
+  )
+
+  html = html.replace(
+    /<meta\s+property="og:url"\s+content="[^"]*"\s*\/>/,
+    `<meta property="og:url" content="${routeUrl}" />`,
+  )
+
+  html = html.replace(
+    /<meta\s+name="twitter:url"\s+content="[^"]*"\s*\/>/,
+    `<meta name="twitter:url" content="${routeUrl}" />`,
   )
 
   if (route === '/thank-you') {
