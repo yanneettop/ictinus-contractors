@@ -142,7 +142,7 @@ export default function PortfolioPage() {
     title: 'Project Portfolio | Ictinus Contractors London',
     description:
       'View recent refurbishment, decorating, bathroom, flooring and plastering projects completed by Ictinus Contractors across London.',
-    canonical: 'https://www.ictinuscontractors.co.uk/portfolio',
+    canonical: 'https://www.ictinuscontractors.co.uk/portfolio/',
     ogTitle: 'Project Portfolio | Ictinus Contractors London',
     ogDescription:
       'View recent refurbishment, decorating, bathroom, flooring and plastering projects completed by Ictinus Contractors across London.',

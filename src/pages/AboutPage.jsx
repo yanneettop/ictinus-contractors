@@ -45,7 +45,7 @@ export default function AboutPage() {
     title: 'About Ictinus Contractors | London Refurbishment & Decorating Team',
     description:
       'Learn about Ictinus Contractors, a trusted London team for refurbishment, decorating, bathrooms, flooring, plastering and finishing works.',
-    canonical: 'https://www.ictinuscontractors.co.uk/about',
+    canonical: 'https://www.ictinuscontractors.co.uk/about/',
     ogTitle: 'About Ictinus Contractors | London Refurbishment & Decorating Team',
     ogDescription:
       'Learn about Ictinus Contractors, a trusted London team for refurbishment, decorating, bathrooms, flooring, plastering and finishing works.',

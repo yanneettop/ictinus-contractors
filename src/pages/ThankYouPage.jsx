@@ -11,7 +11,7 @@ export default function ThankYouPage() {
   useSEO({
     title: 'Thank You | Ictinus Contractors',
     description: 'Thank you for contacting Ictinus Contractors. Your quote request has been received.',
-    canonical: 'https://www.ictinuscontractors.co.uk/thank-you',
+    canonical: 'https://www.ictinuscontractors.co.uk/thank-you/',
     robots: 'noindex, nofollow',
   })
 

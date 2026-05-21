@@ -25,7 +25,7 @@ const sourceIndex = join(distDir, 'index.html')
 const sourceHtml = readFileSync(sourceIndex, 'utf8')
 
 function canonicalForRoute(route) {
-  return route === '/' ? `${SITE_URL}/` : `${SITE_URL}${route}`
+  return route === '/' ? `${SITE_URL}/` : `${SITE_URL}${route}/`
 }
 
 function htmlForRoute(route) {

@@ -42,7 +42,7 @@ export default function ContactPage() {
     title: 'Request a Quote | Ictinus Contractors London',
     description:
       'Request a free quote from Ictinus Contractors for refurbishment, bathroom fitting, painting, decorating, plastering, flooring and finishing works across London.',
-    canonical: 'https://www.ictinuscontractors.co.uk/contact',
+    canonical: 'https://www.ictinuscontractors.co.uk/contact/',
     ogTitle: 'Request a Quote | Ictinus Contractors London',
     ogDescription:
       'Request a free quote from Ictinus Contractors for refurbishment, bathroom fitting, painting, decorating, plastering, flooring and finishing works across London.',
