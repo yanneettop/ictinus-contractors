@@ -10,9 +10,9 @@ export default defineConfig({
   root: __dirname,
   plugins: [
     react(),
-    // Pre-compress static assets, but leave HTML uncompressed so Pages serves prerendered routes reliably.
-    compression({ algorithm: 'gzip', exclude: [/\.(br|html)$/], threshold: 1024 }),
-    compression({ algorithm: 'brotliCompress', exclude: [/\.(gz|html)$/], threshold: 1024 }),
+    // Pre-compress assets with gzip and brotli for faster serving
+    compression({ algorithm: 'gzip', exclude: [/\.(br)$/], threshold: 1024 }),
+    compression({ algorithm: 'brotliCompress', exclude: [/\.(gz)$/], threshold: 1024 }),
   ],
   base: '/',
   server: {
