@@ -1,6 +1,5 @@
-import { brotliCompressSync, constants, gzipSync } from 'node:zlib'
-import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { join, relative } from 'node:path'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { createServer } from 'vite'
 
 const reactRouterEsm = join(process.cwd(), 'node_modules/react-router/dist/development/index.mjs')
@@ -32,34 +31,6 @@ function injectRootHtml(html, appHtml) {
   return html.replace(emptyRoot, `<div id="root">${appHtml}</div>`)
 }
 
-function listHtmlFiles(dir) {
-  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-    const target = join(dir, entry.name)
-
-    if (entry.isDirectory()) {
-      return listHtmlFiles(target)
-    }
-
-    return entry.isFile() && entry.name.endsWith('.html') ? [target] : []
-  })
-}
-
-function compressHtmlFiles() {
-  for (const file of listHtmlFiles(distDir)) {
-    const html = readFileSync(file)
-    writeFileSync(`${file}.gz`, gzipSync(html, { level: 9 }))
-    writeFileSync(
-      `${file}.br`,
-      brotliCompressSync(html, {
-        params: {
-          [constants.BROTLI_PARAM_QUALITY]: 11,
-        },
-      }),
-    )
-    console.log(`Compressed ${relative(distDir, file)}`)
-  }
-}
-
 const vite = await createServer({
   server: { middlewareMode: true },
   appType: 'custom',
@@ -81,8 +52,6 @@ try {
     writeFileSync(target, injectRootHtml(html, appHtml))
     console.log(`Prerendered ${route} -> dist/${file}`)
   }
-
-  compressHtmlFiles()
 } finally {
   await vite.close()
 }
