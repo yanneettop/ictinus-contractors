@@ -62,7 +62,7 @@ export const PORTFOLIO_CARD_PROJECTS = [
     tags: 'Bathroom Fitting, Plumbing',
     description:
       'A dated bathroom transformed into a clean, practical space with neat tiling, plumbing and finishing details.',
-    image: '/Portfolio/bathroom_renovation_hero.png',
+    image: '/Portfolio/bathroom_renovation_hero.webp',
     hoverImage: '/Portfolio/bathroom_renovation_hero_before.png',
     hasGallery: true,
   },
@@ -74,7 +74,7 @@ export const PORTFOLIO_CARD_PROJECTS = [
     tags: 'Painting, Finishing Carpentry',
     description:
       'Careful preparation, decorating and finishing details produced a cleaner, more polished interior.',
-    image: '/Portfolio/painting_finishing_hero.png',
+    image: '/Portfolio/painting_finishing_hero.webp',
     hoverImage: '/Portfolio/painting_finishing_hero_before.png',
     hasGallery: true,
   },
@@ -86,7 +86,7 @@ export const PORTFOLIO_CARD_PROJECTS = [
     tags: 'Flooring, Finishing',
     description:
       'Hard flooring installed with tidy edges, a clean fit and a durable finish for everyday use.',
-    image: '/Portfolio/flooring_hero.png',
+    image: '/Portfolio/flooring_hero.webp',
     hoverImage: '/Portfolio/flooring_hero_before.png',
     hasGallery: true,
   },
@@ -98,7 +98,7 @@ export const PORTFOLIO_CARD_PROJECTS = [
     tags: 'Plastering, Decorating Prep',
     description:
       'Walls prepared and plastered to a smooth, paint-ready finish before decoration.',
-    image: '/Portfolio/plastering_hero.png',
+    image: '/Portfolio/plastering_hero.webp',
     hoverImage: '/Portfolio/plastering_hero_before.png',
     hasGallery: true,
   },
