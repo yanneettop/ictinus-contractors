@@ -361,7 +361,7 @@ export default function PortfolioPage() {
               talk through the scope and provide a free quote.
             </p>
             <Link
-              to="/contact#quote"
+              to="/contact/#quote"
               className="inline-block rounded-lg bg-gradient-gold px-8 py-3.5 font-['Source_Serif_4'] text-[0.9rem] font-semibold tracking-wide text-[#1C1714] shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[#D4AF37]/30"
             >
               Discuss Your Project

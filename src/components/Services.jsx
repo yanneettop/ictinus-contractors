@@ -8,7 +8,7 @@ const services = [
   {
     title: 'Property Refurbishment & Extensions',
     desc: 'Complete property refurbishments and extension works, from structural improvements and layout changes to high-quality finishing throughout.',
-    href: '/services/property-refurbishment-extensions',
+    href: '/services/property-refurbishment-extensions/',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5m4 0H9" />
     ),
@@ -16,7 +16,7 @@ const services = [
   {
     title: 'Bathroom Fitting',
     desc: 'Full bathroom installations including tiling, plumbing fixtures, sanitaryware, vanities, and all finishing works delivered to a high standard.',
-    href: '/services/bathroom-fitting',
+    href: '/services/bathroom-fitting/',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
     ),
@@ -24,7 +24,7 @@ const services = [
   {
     title: 'Hard Flooring',
     desc: 'Supply and installation of hardwood, engineered wood, laminate, vinyl, and tile flooring with precise fitting and a clean finish.',
-    href: '/services/hard-flooring',
+    href: '/services/hard-flooring/',
     icon: (
       <>
         <rect x="3" y="3" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
@@ -37,7 +37,7 @@ const services = [
   {
     title: 'Plastering',
     desc: 'Professional plastering, skimming, patch repairs, and surface preparation for smooth, durable, paint-ready walls and ceilings.',
-    href: '/services/plastering',
+    href: '/services/plastering/',
     icon: (
       <>
         <polygon points="12 2 2 7 12 12 22 7 12 2" strokeLinecap="round" strokeLinejoin="round" />
@@ -49,7 +49,7 @@ const services = [
   {
     title: 'Painting & Decorating',
     desc: 'Interior and exterior painting with careful preparation, neat application, and long-lasting finishes across residential and commercial spaces.',
-    href: '/services/painting-and-decorating',
+    href: '/services/painting-and-decorating/',
     icon: (
       <>
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 16s1-1 3-1 4 2 6 2 3-1 3-1V4s-1 1-3 1-4-2-6-2-3 1-3 1z" />
@@ -60,7 +60,7 @@ const services = [
   {
     title: 'Finishing Carpentry',
     desc: 'Skirting boards, architraves, door hanging, boxing-in, panelling, and detailed finishing carpentry for a polished interior result.',
-    href: '/services/finishing-carpentry',
+    href: '/services/finishing-carpentry/',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
     ),
@@ -68,7 +68,7 @@ const services = [
   {
     title: 'Electrical Works',
     desc: 'Practical electrical improvement support coordinated as part of refurbishment, decorating, and property improvement projects.',
-    href: '/services/electrical-works',
+    href: '/services/electrical-works/',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
     ),
@@ -76,7 +76,7 @@ const services = [
   {
     title: 'Plumbing',
     desc: 'Practical plumbing support coordinated as part of bathroom fitting, refurbishment, and property improvement projects.',
-    href: '/services/plumbing',
+    href: '/services/plumbing/',
     icon: (
       <>
         <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
@@ -216,7 +216,7 @@ export default function Services() {
           <div className="text-center flex flex-col sm:flex-row gap-3 justify-center">
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
               <Link
-                to="/services"
+                to="/services/"
                 onClick={() => trackServiceCtaClick({ cta_label: 'View All Services', target_path: '/services' })}
                 className="group inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
               >
@@ -228,7 +228,7 @@ export default function Services() {
             </motion.div>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
               <Link
-                to="/contact#quote"
+                to="/contact/#quote"
                 onClick={() => trackServiceCtaClick({ cta_label: 'Request a Quote', target_path: '/contact#quote' })}
                 className="inline-block font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/50 hover:shadow-[0_8px_24px_rgba(212,175,55,0.08)] transition-all duration-300"
               >

@@ -91,7 +91,7 @@ export default function Hero() {
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
             <Link
-              to="/contact#quote"
+              to="/contact/#quote"
               onClick={() => trackServiceCtaClick({ cta_label: 'Request a Quote', target_path: '/contact#quote' })}
               className="group font-['Source_Serif_4'] font-semibold text-[1rem] tracking-wide px-8 sm:px-10 py-3.5 sm:py-[1.1rem] rounded-lg text-[#1C1714] bg-gradient-gold shadow-[0_8px_26px_rgba(197,160,72,0.38)] ring-1 ring-[#E8C96D]/35 hover:shadow-[0_12px_38px_rgba(197,160,72,0.5)] flex items-center justify-center gap-2"
             >

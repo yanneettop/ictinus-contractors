@@ -327,7 +327,7 @@ function ServiceSection({ service, index }) {
             ))}
 
             <Link
-              to="/contact#quote"
+              to="/contact/#quote"
               onClick={() => trackServiceCtaClick({
                 cta_label: 'Request a Free Quote',
                 target_path: '/contact#quote',
@@ -471,7 +471,7 @@ function PageCTA() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            to="/contact#quote"
+            to="/contact/#quote"
             onClick={() => trackServiceCtaClick({ cta_label: 'Request a Free Quote', target_path: '/contact#quote' })}
             className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
           >

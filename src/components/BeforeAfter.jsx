@@ -207,7 +207,7 @@ export default function BeforeAfter() {
             Clear transformation, careful execution, lasting finish.
           </p>
           <Link
-            to="/contact#quote"
+            to="/contact/#quote"
             className="inline-flex items-center gap-2.5 font-['Source_Serif_4'] font-semibold text-[0.9375rem] tracking-wide px-8 py-3.5 rounded-lg bg-gradient-gold text-[#1C1714] hover:-translate-y-0.5 transition-all duration-300 shadow-[0_4px_14px_rgba(212,175,55,0.25)]"
           >
             Discuss a Similar Project

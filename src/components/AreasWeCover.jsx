@@ -25,7 +25,7 @@ export default function AreasWeCover() {
 
         <p className="ict-areas-cta" data-reveal style={{ transitionDelay: '120ms' }}>
           Not sure if we cover your area?{' '}
-          <Link to="/contact" style={{ color: '#B08D2A', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: '2px' }}>
+          <Link to="/contact/" style={{ color: '#B08D2A', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: '2px' }}>
             Submit your postcode
           </Link>{' '}
           and we&rsquo;ll confirm availability.

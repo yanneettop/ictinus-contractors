@@ -54,7 +54,7 @@ export default function ThankYouPage() {
                 Call 07586 480417
               </a>
               <Link
-                to="/services"
+                to="/services/"
                 onClick={() => trackServiceCtaClick({ cta_label: 'View Our Services', target_path: '/services' })}
                 className="inline-flex items-center justify-center rounded-lg border border-[#D4AF37]/40 px-8 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold tracking-wide text-[#D4AF37] transition-colors duration-200 hover:border-[#D4AF37]/60 hover:bg-[#D4AF37]/10"
               >

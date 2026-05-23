@@ -67,10 +67,10 @@ const servicePages = {
     ],
     relatedProjectKeys: ['painting', 'refurb', 'plastering'],
     relatedServices: [
-      { label: 'Plastering', href: '/services/plastering' },
-      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions' },
-      { label: 'Finishing Carpentry', href: '/services/finishing-carpentry' },
-      { label: 'Hard Flooring', href: '/services/hard-flooring' },
+      { label: 'Plastering', href: '/services/plastering/' },
+      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions/' },
+      { label: 'Finishing Carpentry', href: '/services/finishing-carpentry/' },
+      { label: 'Hard Flooring', href: '/services/hard-flooring/' },
     ],
     review: {
       quote:
@@ -141,10 +141,10 @@ const servicePages = {
     ],
     relatedProjectKeys: ['refurb', 'painting', 'bath'],
     relatedServices: [
-      { label: 'Painting & Decorating', href: '/services/painting-and-decorating' },
-      { label: 'Bathroom Fitting', href: '/services/bathroom-fitting' },
-      { label: 'Hard Flooring', href: '/services/hard-flooring' },
-      { label: 'Plastering', href: '/services/plastering' },
+      { label: 'Painting & Decorating', href: '/services/painting-and-decorating/' },
+      { label: 'Bathroom Fitting', href: '/services/bathroom-fitting/' },
+      { label: 'Hard Flooring', href: '/services/hard-flooring/' },
+      { label: 'Plastering', href: '/services/plastering/' },
     ],
     review: {
       quote:
@@ -215,10 +215,10 @@ const servicePages = {
     ],
     relatedProjectKeys: ['bath', 'refurb', 'painting'],
     relatedServices: [
-      { label: 'Plumbing', href: '/services/plumbing' },
-      { label: 'Electrical Works', href: '/services/electrical-works' },
-      { label: 'Hard Flooring', href: '/services/hard-flooring' },
-      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions' },
+      { label: 'Plumbing', href: '/services/plumbing/' },
+      { label: 'Electrical Works', href: '/services/electrical-works/' },
+      { label: 'Hard Flooring', href: '/services/hard-flooring/' },
+      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions/' },
     ],
     review: {
       quote:
@@ -289,10 +289,10 @@ const servicePages = {
     ],
     relatedProjectKeys: ['flooring', 'refurb', 'painting'],
     relatedServices: [
-      { label: 'Finishing Carpentry', href: '/services/finishing-carpentry' },
-      { label: 'Painting & Decorating', href: '/services/painting-and-decorating' },
-      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions' },
-      { label: 'Plastering', href: '/services/plastering' },
+      { label: 'Finishing Carpentry', href: '/services/finishing-carpentry/' },
+      { label: 'Painting & Decorating', href: '/services/painting-and-decorating/' },
+      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions/' },
+      { label: 'Plastering', href: '/services/plastering/' },
     ],
     review: {
       quote:
@@ -363,10 +363,10 @@ const servicePages = {
     ],
     relatedProjectKeys: ['plastering', 'painting', 'refurb'],
     relatedServices: [
-      { label: 'Painting & Decorating', href: '/services/painting-and-decorating' },
-      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions' },
-      { label: 'Bathroom Fitting', href: '/services/bathroom-fitting' },
-      { label: 'Finishing Carpentry', href: '/services/finishing-carpentry' },
+      { label: 'Painting & Decorating', href: '/services/painting-and-decorating/' },
+      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions/' },
+      { label: 'Bathroom Fitting', href: '/services/bathroom-fitting/' },
+      { label: 'Finishing Carpentry', href: '/services/finishing-carpentry/' },
     ],
     review: {
       quote:
@@ -437,10 +437,10 @@ const servicePages = {
     ],
     relatedProjectKeys: ['painting', 'refurb', 'flooring'],
     relatedServices: [
-      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions' },
-      { label: 'Painting & Decorating', href: '/services/painting-and-decorating' },
-      { label: 'Hard Flooring', href: '/services/hard-flooring' },
-      { label: 'Plastering', href: '/services/plastering' },
+      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions/' },
+      { label: 'Painting & Decorating', href: '/services/painting-and-decorating/' },
+      { label: 'Hard Flooring', href: '/services/hard-flooring/' },
+      { label: 'Plastering', href: '/services/plastering/' },
     ],
     review: {
       quote:
@@ -512,10 +512,10 @@ const servicePages = {
     ],
     relatedProjectKeys: ['refurb', 'painting', 'bath'],
     relatedServices: [
-      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions' },
-      { label: 'Bathroom Fitting', href: '/services/bathroom-fitting' },
-      { label: 'Painting & Decorating', href: '/services/painting-and-decorating' },
-      { label: 'Plumbing', href: '/services/plumbing' },
+      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions/' },
+      { label: 'Bathroom Fitting', href: '/services/bathroom-fitting/' },
+      { label: 'Painting & Decorating', href: '/services/painting-and-decorating/' },
+      { label: 'Plumbing', href: '/services/plumbing/' },
     ],
     review: {
       quote:
@@ -587,10 +587,10 @@ const servicePages = {
     ],
     relatedProjectKeys: ['bath', 'refurb', 'painting'],
     relatedServices: [
-      { label: 'Bathroom Fitting', href: '/services/bathroom-fitting' },
-      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions' },
-      { label: 'Painting & Decorating', href: '/services/painting-and-decorating' },
-      { label: 'Electrical Works', href: '/services/electrical-works' },
+      { label: 'Bathroom Fitting', href: '/services/bathroom-fitting/' },
+      { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions/' },
+      { label: 'Painting & Decorating', href: '/services/painting-and-decorating/' },
+      { label: 'Electrical Works', href: '/services/electrical-works/' },
     ],
     review: {
       quote:
@@ -663,7 +663,7 @@ function ServiceHero({ page }) {
             Home
           </Link>
           <span className="text-[#D4AF37]/45">/</span>
-          <Link to="/services" className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[#C9B09A] transition-colors hover:text-[#D4AF37]">
+          <Link to="/services/" className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[#C9B09A] transition-colors hover:text-[#D4AF37]">
             Services
           </Link>
           <span className="text-[#D4AF37]/45">/</span>
@@ -686,7 +686,7 @@ function ServiceHero({ page }) {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
-                to="/contact#quote"
+                to="/contact/#quote"
                 onClick={() => trackServiceCtaClick({
                   cta_label: 'Request a Quote',
                   target_path: '/contact#quote',
@@ -698,7 +698,7 @@ function ServiceHero({ page }) {
                 <ArrowIcon />
               </Link>
               <Link
-                to="/portfolio"
+                to="/portfolio/"
                 onClick={() => trackServiceCtaClick({
                   cta_label: 'View Recent Work',
                   target_path: '/portfolio',
@@ -743,7 +743,7 @@ function RelatedProjects({ page }) {
           {projects.map((project) => (
             <StaggerItem key={project.key}>
               <Link
-                to="/portfolio"
+                to="/portfolio/"
                 className="group block h-full overflow-hidden rounded-lg border border-[#D4AF37]/18 bg-[#FDFCF9] shadow-[0_10px_28px_rgba(28,23,20,0.045)] transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/34 hover:shadow-[0_14px_34px_rgba(28,23,20,0.075)]"
               >
                 <div className="aspect-[16/11] overflow-hidden bg-[#EEE8DC]">
@@ -982,7 +982,7 @@ function ServicePage({ page }) {
               </p>
               <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
                 <Link
-                  to="/contact#quote"
+                  to="/contact/#quote"
                   onClick={() => trackServiceCtaClick({
                     cta_label: 'Request a Quote',
                     target_path: '/contact#quote',

@@ -4,21 +4,21 @@ import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 import { trackServiceCtaClick } from '../utils/tracking'
 
 const mainServices = [
-  { label: 'Property Refurbishment & Extensions', to: '/services/property-refurbishment-extensions' },
-  { label: 'Bathroom Fitting', to: '/services/bathroom-fitting' },
-  { label: 'Hard Flooring', to: '/services/hard-flooring' },
-  { label: 'Plastering', to: '/services/plastering' },
-  { label: 'Painting & Decorating', to: '/services/painting-and-decorating' },
-  { label: 'Finishing Carpentry', to: '/services/finishing-carpentry' },
-  { label: 'Electrical Works', to: '/services/electrical-works' },
-  { label: 'Plumbing', to: '/services/plumbing' },
+  { label: 'Property Refurbishment & Extensions', to: '/services/property-refurbishment-extensions/' },
+  { label: 'Bathroom Fitting', to: '/services/bathroom-fitting/' },
+  { label: 'Hard Flooring', to: '/services/hard-flooring/' },
+  { label: 'Plastering', to: '/services/plastering/' },
+  { label: 'Painting & Decorating', to: '/services/painting-and-decorating/' },
+  { label: 'Finishing Carpentry', to: '/services/finishing-carpentry/' },
+  { label: 'Electrical Works', to: '/services/electrical-works/' },
+  { label: 'Plumbing', to: '/services/plumbing/' },
 ]
 
 const quickLinks = [
-  { label: 'About', to: '/about' },
-  { label: 'Services', to: '/services' },
-  { label: 'Portfolio', to: '/portfolio' },
-  { label: 'Contact', to: '/contact' },
+  { label: 'About', to: '/about/' },
+  { label: 'Services', to: '/services/' },
+  { label: 'Portfolio', to: '/portfolio/' },
+  { label: 'Contact', to: '/contact/' },
 ]
 
 const verifiedProfiles = [
@@ -140,7 +140,7 @@ export default function Footer() {
               </div>
               <div className="pt-2">
                 <Link
-                  to="/contact#quote"
+                  to="/contact/#quote"
                   onClick={() => trackServiceCtaClick({ cta_label: 'Get a Quote', target_path: '/contact#quote' })}
                   className="inline-block font-['Source_Serif_4'] text-[0.9375rem] font-semibold tracking-wide px-5 py-2.5 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5"
                 >
