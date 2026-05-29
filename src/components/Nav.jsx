@@ -27,7 +27,7 @@ function ColumnIcon({ className }) {
   return (
     <img
       src="/logo_trans.png"
-      alt="Ictinus Contractors logo"
+      alt="Ictinus Contractors"
       className={`h-14 md:h-16 w-auto ${className}`}
     />
   )
