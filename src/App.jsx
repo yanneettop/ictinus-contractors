@@ -500,16 +500,16 @@ export default function App() {
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
-        <Route path="/request-a-quote" element={<Navigate to="/contact#quote" replace />} />
-        <Route path="/projects" element={<Navigate to="/portfolio" replace />} />
-        <Route path="/services/property-refurbishment-extensions-london" element={<Navigate to="/services/property-refurbishment-extensions" replace />} />
-        <Route path="/services/bathroom-fitting-london" element={<Navigate to="/services/bathroom-fitting" replace />} />
-        <Route path="/services/hard-flooring-london" element={<Navigate to="/services/hard-flooring" replace />} />
-        <Route path="/services/plastering-london" element={<Navigate to="/services/plastering" replace />} />
-        <Route path="/services/painting-decorating-london" element={<Navigate to="/services/painting-and-decorating" replace />} />
-        <Route path="/services/finishing-carpentry-london" element={<Navigate to="/services/finishing-carpentry" replace />} />
-        <Route path="/services/electrical-works-london" element={<Navigate to="/services/electrical-works" replace />} />
-        <Route path="/services/plumbing-london" element={<Navigate to="/services/plumbing" replace />} />
+        <Route path="/request-a-quote" element={<Navigate to="/contact/#quote" replace />} />
+        <Route path="/projects" element={<Navigate to="/portfolio/" replace />} />
+        <Route path="/services/property-refurbishment-extensions-london" element={<Navigate to="/services/property-refurbishment-extensions/" replace />} />
+        <Route path="/services/bathroom-fitting-london" element={<Navigate to="/services/bathroom-fitting/" replace />} />
+        <Route path="/services/hard-flooring-london" element={<Navigate to="/services/hard-flooring/" replace />} />
+        <Route path="/services/plastering-london" element={<Navigate to="/services/plastering/" replace />} />
+        <Route path="/services/painting-decorating-london" element={<Navigate to="/services/painting-and-decorating/" replace />} />
+        <Route path="/services/finishing-carpentry-london" element={<Navigate to="/services/finishing-carpentry/" replace />} />
+        <Route path="/services/electrical-works-london" element={<Navigate to="/services/electrical-works/" replace />} />
+        <Route path="/services/plumbing-london" element={<Navigate to="/services/plumbing/" replace />} />
       </Routes>
     </MotionConfig>
   )

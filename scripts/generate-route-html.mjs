@@ -20,6 +20,79 @@ const routes = [
   '/thank-you',
 ]
 
+const routeMeta = {
+  '/': {
+    title: 'Ictinus Contractors | Property Refurbishment & Renovations in London',
+    description:
+      'Trusted London contractors for property refurbishment, painting & decorating, bathrooms, plastering and hard flooring. Rated 9.97/10 on Checkatrade.',
+  },
+  '/about': {
+    title: 'About Ictinus Contractors | London Refurbishment & Decorating Team',
+    description:
+      'Learn about Ictinus Contractors, a trusted London team for refurbishment, decorating, bathrooms, flooring, plastering and finishing works.',
+  },
+  '/services': {
+    title: 'Decorating & Refurbishment Services in London | Ictinus Contractors',
+    description:
+      'Expert painting & decorating, plastering, bathroom fitting, hard flooring installation and property refurbishment across London. 9.97/10 Checkatrade. Fully insured. Free quotes.',
+  },
+  '/services/painting-and-decorating': {
+    title: 'Painting & Decorating London | Ictinus Contractors',
+    description:
+      'Professional painting and decorating services across London for homeowners, landlords and businesses. Clean preparation, reliable communication and high-quality finishing.',
+  },
+  '/services/property-refurbishment-extensions': {
+    title: 'Property Refurbishment & Extensions London | Ictinus Contractors',
+    description:
+      'Property refurbishment and extension improvement work across London for homeowners, landlords and businesses. Clean workmanship, clear communication and reliable finishing.',
+  },
+  '/services/bathroom-fitting': {
+    title: 'Bathroom Fitting London | Ictinus Contractors',
+    description:
+      'Bathroom fitting and bathroom improvement services across London for homeowners, landlords and businesses. Clean workmanship, careful preparation and reliable finishing.',
+  },
+  '/services/hard-flooring': {
+    title: 'Hard Flooring London | Ictinus Contractors',
+    description:
+      'Hard flooring installation and preparation services across London for homes, flats, rental properties and commercial spaces. Clean workmanship and reliable finishing.',
+  },
+  '/services/plastering': {
+    title: 'Plastering London | Ictinus Contractors',
+    description:
+      'Plastering and surface preparation services across London for homes, flats, rental properties and refurbishment projects. Smooth finishes, clean work and reliable communication.',
+  },
+  '/services/finishing-carpentry': {
+    title: 'Finishing Carpentry London | Ictinus Contractors',
+    description:
+      'Finishing carpentry services across London for homes, flats, rental properties and refurbishment projects. Skirting, architraves, doors and clean finishing details.',
+  },
+  '/services/electrical-works': {
+    title: 'Electrical Works London | Ictinus Contractors',
+    description:
+      'Electrical works coordination and support for London refurbishments, bathrooms and property improvements. Reliable finishing, planning and trade coordination.',
+  },
+  '/services/plumbing': {
+    title: 'Plumbing Support London | Ictinus Contractors',
+    description:
+      'Plumbing support for London bathroom works, refurbishments and property improvements. Clean coordination, reliable finishing and clear communication.',
+  },
+  '/portfolio': {
+    title: 'Project Portfolio | Ictinus Contractors London',
+    description:
+      'View recent refurbishment, decorating, bathroom, flooring and plastering projects completed by Ictinus Contractors across London.',
+  },
+  '/contact': {
+    title: 'Request a Quote | Ictinus Contractors London',
+    description:
+      'Request a free quote from Ictinus Contractors for refurbishment, bathroom fitting, painting, decorating, plastering, flooring and finishing works across London.',
+  },
+  '/thank-you': {
+    title: 'Thank You | Ictinus Contractors',
+    description:
+      'Thank you for contacting Ictinus Contractors. We will review your enquiry and get back to you as soon as possible.',
+  },
+}
+
 const distDir = join(process.cwd(), 'dist')
 const sourceIndex = join(distDir, 'index.html')
 const sourceHtml = readFileSync(sourceIndex, 'utf8')
@@ -30,15 +103,46 @@ function canonicalForRoute(route) {
 
 function htmlForRoute(route) {
   const routeUrl = canonicalForRoute(route)
+  const meta = routeMeta[route] || routeMeta['/']
 
   let html = sourceHtml.replace(
+    /<title>.*?<\/title>/,
+    `<title>${meta.title}</title>`,
+  )
+
+  html = html.replace(
+    /<meta\s+name="description"\s+content="[^"]*"\s*\/>/,
+    `<meta name="description" content="${meta.description}" />`,
+  )
+
+  html = html.replace(
     /<link\s+rel="canonical"\s+href="[^"]*"\s*\/>/,
     `<link rel="canonical" href="${routeUrl}" />`,
   )
 
   html = html.replace(
+    /<meta\s+property="og:title"\s+content="[^"]*"\s*\/>/,
+    `<meta property="og:title" content="${meta.title}" />`,
+  )
+
+  html = html.replace(
+    /<meta\s+property="og:description"\s+content="[^"]*"\s*\/>/,
+    `<meta property="og:description" content="${meta.description}" />`,
+  )
+
+  html = html.replace(
     /<meta\s+property="og:url"\s+content="[^"]*"\s*\/>/,
     `<meta property="og:url" content="${routeUrl}" />`,
+  )
+
+  html = html.replace(
+    /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/>/,
+    `<meta name="twitter:title" content="${meta.title}" />`,
+  )
+
+  html = html.replace(
+    /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/>/,
+    `<meta name="twitter:description" content="${meta.description}" />`,
   )
 
   html = html.replace(
