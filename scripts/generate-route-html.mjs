@@ -24,7 +24,7 @@ const routeMeta = {
   '/': {
     title: 'Ictinus Contractors | London Refurbishment & Renovation Specialists',
     description:
-      'Trusted London contractors for property refurbishment, painting & decorating, bathrooms, plastering and hard flooring. Rated 9.97/10 on Checkatrade.',
+      'Trusted London contractors for property refurbishment, bathroom fitting, painting and decorating, plastering, hard flooring, electrical works and plumbing.',
   },
   '/about': {
     title: 'About Ictinus Contractors | London Refurbishment & Decorating Team',
