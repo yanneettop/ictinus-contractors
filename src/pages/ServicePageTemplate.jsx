@@ -15,62 +15,81 @@ const servicePages = {
     seo: {
       title: 'Painting & Decorating London | Ictinus Contractors',
       description:
-        'Professional painting and decorating services across London for homeowners, landlords and businesses. Clean preparation, reliable communication and high-quality finishing.',
+        'Painting and decorating in London by Ictinus Contractors. Interior painting, walls, ceilings, woodwork, preparation and tidy finishing. Free quotes.',
       canonical: 'https://www.ictinuscontractors.co.uk/services/painting-and-decorating/',
     },
     breadcrumb: 'Painting & Decorating',
     hero: {
-      heading: 'Painting & Decorating Services Across London',
+      heading: 'Painting and Decorating London',
       subheading:
-        'Clean, organised interior and exterior painting and decorating work for homes, flats, rental properties and commercial spaces.',
+        'Reliable painting and decorating services across London for homes, flats, rental properties and wider refurbishment projects.',
       trustLine:
         '9.97/10 Checkatrade · 33 verified reviews · Fully insured · Free estimates',
     },
     intro: {
-      heading: 'Reliable decorating work with proper preparation',
+      heading: 'London decorators for careful preparation and clean finishing',
       body:
-        'A good finish starts before the first coat of paint. Ictinus Contractors focuses on preparation, clean workmanship and clear communication, helping London homeowners, landlords and businesses refresh their properties with confidence.',
+        'Ictinus Contractors provides reliable painting and decorating services across London for homes, flats and refurbishment projects. We help homeowners, landlords and property clients refresh interiors with proper preparation, careful workmanship and practical communication from the first enquiry through to the final check.',
+      note:
+        'A good decorating result depends on what happens before the paint goes on. We take time to prepare walls, ceilings and woodwork properly, protect the working area and complete the finish in a tidy, organised way.',
     },
     helpItems: [
       'Interior painting',
-      'Exterior painting',
       'Walls and ceilings',
-      'Woodwork, doors and trims',
+      'Woodwork, skirting boards and architraves',
       'Surface preparation',
-      'Filling, sanding and minor repairs',
-      'Rental property refreshes',
-      'Commercial decorating',
+      'Crack and hole filling',
+      'Sanding and smoothing',
+      'Stain blocking and priming where needed',
+      'Full decorating as part of refurbishment work',
     ],
     process: [
       {
-        title: 'Discuss the work',
-        text: 'We review your project details, photos and requirements.',
+        title: 'Initial discussion',
+        text: 'We talk through the rooms, current condition, preferred finish, access and any decorating priorities.',
       },
       {
-        title: 'Prepare properly',
-        text: 'Surfaces are checked, filled, sanded and protected before decorating starts.',
+        title: 'Viewing or photo review',
+        text: 'We review the space in person or from clear photos so the scope and preparation needs are understood.',
       },
       {
-        title: 'Complete the finish',
-        text: 'Painting and decorating work is completed carefully with attention to detail.',
+        title: 'Clear quotation',
+        text: 'You receive a practical quote for the agreed painting, decorating, repairs and finishing work.',
       },
       {
-        title: 'Leave the space tidy',
-        text: 'We aim to keep the work organised and leave the property clean.',
+        title: 'Protection of floors and furniture',
+        text: 'Floors, furniture and nearby surfaces are protected before preparation or painting begins.',
+      },
+      {
+        title: 'Preparation and repairs',
+        text: 'Cracks, holes and uneven areas are filled, sanded and primed where needed before decorating.',
+      },
+      {
+        title: 'Painting and decorating work',
+        text: 'Walls, ceilings, woodwork and trims are decorated carefully with attention to edges and finish.',
+      },
+      {
+        title: 'Final checks and tidy handover',
+        text: 'We check the finished work, tidy the area and leave the rooms ready to use.',
       },
     ],
+    processHeading: 'Our painting and decorating process',
     reasons: [
-      'Verified Checkatrade reviews',
-      'Clear communication',
-      'Clean, organised work',
       'Careful preparation',
+      'Clean and tidy work',
+      'Reliable communication',
+      'London-based contractor team',
+      'Suitable for single rooms or wider refurbishments',
+      'Checkatrade and MyBuilder trust signals',
     ],
     relatedProjectKeys: ['painting', 'refurb', 'plastering'],
     relatedServices: [
-      { label: 'Plastering', href: '/services/plastering/' },
       { label: 'Property Refurbishment & Extensions', href: '/services/property-refurbishment-extensions/' },
+      { label: 'Plastering', href: '/services/plastering/' },
       { label: 'Finishing Carpentry', href: '/services/finishing-carpentry/' },
       { label: 'Hard Flooring', href: '/services/hard-flooring/' },
+      { label: 'View Portfolio', href: '/portfolio/' },
+      { label: 'Contact for a Quote', href: '/contact/' },
     ],
     review: {
       quote:
@@ -80,8 +99,36 @@ const servicePages = {
     finalCta: {
       heading: 'Need painting or decorating work in London?',
       text:
-        'Send us a few details about your property and the work you need. Photos help us understand the project faster.',
+        'Call Ictinus Contractors or request a quote online. Send a few details about the rooms, surfaces and finish you need. Photos help us understand the work faster.',
     },
+    faqHeading: 'Painting and decorating FAQs',
+    faq: [
+      {
+        question: 'Do you handle both painting and decorating?',
+        answer:
+          'Yes. Ictinus Contractors handles painting and decorating work across London, including walls, ceilings, woodwork, trims, preparation and finishing details.',
+      },
+      {
+        question: 'Can you repair cracks and holes before painting?',
+        answer:
+          'Yes. We can fill cracks, holes and minor surface damage before painting. Preparation can include sanding, smoothing, priming and stain blocking where required.',
+      },
+      {
+        question: 'Do you paint woodwork such as skirting boards and architraves?',
+        answer:
+          'Yes. We paint interior woodwork including skirting boards, architraves, doors and trims as part of room decorating or wider refurbishment work.',
+      },
+      {
+        question: 'Do you work on full flats and houses as well as single rooms?',
+        answer:
+          'Yes. We quote for individual rooms, full flats, houses, rental refreshes and decorating work as part of larger refurbishment projects.',
+      },
+      {
+        question: 'How do I request a quote?',
+        answer:
+          'Call 07586 480417 or use the contact form to request a quote. Include the property location, rooms involved, surfaces to be decorated and any helpful photos.',
+      },
+    ],
   },
   propertyRefurbishmentExtensions: {
     seo: {
@@ -170,6 +217,7 @@ const servicePages = {
       text:
         'Call Ictinus Contractors or request a quote online. Send a few details about the property, the rooms involved and any photos you have so we can understand the project and guide you through the next step.',
     },
+    faqHeading: 'Property refurbishment FAQs',
     faq: [
       {
         question: 'Do you handle full property refurbishments?',
@@ -853,7 +901,7 @@ function RelatedServices({ services, sourceService }) {
   )
 }
 
-function ServiceFaq({ faq }) {
+function ServiceFaq({ faq, heading = 'Service FAQs' }) {
   if (!faq?.length) return null
 
   return (
@@ -863,7 +911,7 @@ function ServiceFaq({ faq }) {
           <div className="mb-9 max-w-3xl">
             <p className="ict-section-label text-left">FAQ</p>
             <h2 className="font-['Cormorant_Garamond'] text-3xl font-semibold leading-tight text-[#1C1714] sm:text-[2.45rem]">
-              Property refurbishment FAQs
+              {heading}
             </h2>
           </div>
         </Reveal>
@@ -1011,7 +1059,7 @@ function ServicePage({ page }) {
 
         <RelatedProjects page={page} />
         <RelatedServices services={page.relatedServices} sourceService={page.breadcrumb} />
-        <ServiceFaq faq={page.faq} />
+        <ServiceFaq faq={page.faq} heading={page.faqHeading} />
 
         <section className="bg-[#EEE8DC] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">

@@ -39,7 +39,7 @@ const routeMeta = {
   '/services/painting-and-decorating': {
     title: 'Painting & Decorating London | Ictinus Contractors',
     description:
-      'Professional painting and decorating services across London for homeowners, landlords and businesses. Clean preparation, reliable communication and high-quality finishing.',
+      'Painting and decorating in London by Ictinus Contractors. Interior painting, walls, ceilings, woodwork, preparation and tidy finishing. Free quotes.',
   },
   '/services/property-refurbishment-extensions': {
     title: 'Property Refurbishment London | Ictinus Contractors',
