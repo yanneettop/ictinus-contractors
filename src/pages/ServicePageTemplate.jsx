@@ -85,66 +85,80 @@ const servicePages = {
   },
   propertyRefurbishmentExtensions: {
     seo: {
-      title: 'Property Refurbishment & Extensions London | Ictinus Contractors',
+      title: 'Property Refurbishment London | Ictinus Contractors',
       description:
-        'Property refurbishment and extension improvement work across London for homeowners, landlords and businesses. Clean workmanship, clear communication and reliable finishing.',
+        'Property refurbishment in London by Ictinus Contractors. Full refurbishments, room renovations, decorating, plastering, flooring and bathroom fitting. Free quotes.',
       canonical: 'https://www.ictinuscontractors.co.uk/services/property-refurbishment-extensions/',
     },
     breadcrumb: 'Property Refurbishment & Extensions',
     hero: {
-      heading: 'Property Refurbishment & Extensions Across London',
+      heading: 'Property Refurbishment London',
       subheading:
-        'Organised refurbishment and property improvement work for homes, flats, rental properties and commercial spaces, completed with care from preparation to final finish.',
+        'Practical property refurbishment, renovation and extension finishing work across London for homes, flats, rental properties and commercial spaces.',
       trustLine:
         '9.97/10 Checkatrade · 33 verified reviews · Fully insured · Free estimates',
     },
     intro: {
-      heading: 'Reliable refurbishment work with clear communication',
+      heading: 'London refurbishment contractors for organised renovation work',
       body:
-        'Refurbishment projects need more than good workmanship. They need planning, coordination and clear communication from start to finish. Ictinus Contractors helps London homeowners, landlords and businesses improve their properties with organised work, careful preparation and reliable finishing.',
+        'Ictinus Contractors handles property refurbishment and renovation work across London, from single-room improvements to fuller flat, house and rental property refurbishments. Our team brings together the practical trades needed to prepare, repair and finish interiors properly, with clear communication from the first enquiry through to handover.',
+      note:
+        'Whether you are refreshing a tired room, preparing a rental property, improving a bathroom, or coordinating several finishing trades at once, we help keep the work tidy, realistic and well managed.',
     },
     helpItems: [
-      'Full property refreshes',
-      'Room refurbishments',
-      'Layout improvement support',
-      'Extension finishing work',
+      'Full property refurbishment',
+      'Room renovations',
       'Painting and decorating',
-      'Plastering and surface preparation',
-      'Flooring and finishing details',
-      'Bathroom and kitchen improvement support',
-      'Rental property upgrades',
-      'Commercial property improvements',
+      'Plastering and wall preparation',
+      'Hard flooring',
+      'Bathroom fitting',
+      'Finishing carpentry',
+      'Electrical and plumbing coordination where required',
     ],
     process: [
       {
-        title: 'Understand the project',
-        text: 'We discuss the work, review photos or site details and clarify what needs to be improved.',
+        title: 'Initial discussion',
+        text: 'We talk through the property, the condition of the rooms, your priorities, access needs and the outcome you want.',
       },
       {
-        title: 'Plan the work clearly',
-        text: 'We outline the key stages so the project feels organised before work begins.',
+        title: 'Site visit or project review',
+        text: 'For most refurbishment enquiries, we review photos, plans or the property itself so the scope is properly understood.',
       },
       {
-        title: 'Complete the refurbishment',
-        text: 'Work is carried out with care, preparation and attention to the finishing details.',
+        title: 'Clear quotation',
+        text: 'You receive a practical quotation that explains the work involved, the relevant trades and the agreed next steps.',
       },
       {
-        title: 'Final checks and tidy finish',
-        text: 'We review the completed work and aim to leave the space clean, practical and ready to use.',
+        title: 'Preparation and scheduling',
+        text: 'We plan the order of works, protect the space where needed and coordinate materials, access and trade timing.',
+      },
+      {
+        title: 'Careful workmanship',
+        text: 'Refurbishment work is completed with attention to preparation, clean finishing and the details that affect daily use.',
+      },
+      {
+        title: 'Final checks and tidy handover',
+        text: 'We review the completed work, handle final details and aim to leave the property clean, practical and ready to use.',
       },
     ],
+    processHeading: 'Our refurbishment process',
     reasons: [
-      'Verified Checkatrade reviews',
-      'Organised project approach',
+      'London-based contractor team',
       'Clear communication',
-      'Careful finishing work',
+      'Reliable workmanship',
+      'Tidy, respectful work',
+      'Connected services under one contractor',
+      'Checkatrade and MyBuilder trust signals',
     ],
     relatedProjectKeys: ['refurb', 'painting', 'bath'],
     relatedServices: [
       { label: 'Painting & Decorating', href: '/services/painting-and-decorating/' },
-      { label: 'Bathroom Fitting', href: '/services/bathroom-fitting/' },
-      { label: 'Hard Flooring', href: '/services/hard-flooring/' },
       { label: 'Plastering', href: '/services/plastering/' },
+      { label: 'Hard Flooring', href: '/services/hard-flooring/' },
+      { label: 'Bathroom Fitting', href: '/services/bathroom-fitting/' },
+      { label: 'Finishing Carpentry', href: '/services/finishing-carpentry/' },
+      { label: 'View Portfolio', href: '/portfolio/' },
+      { label: 'Contact for a Quote', href: '/contact/' },
     ],
     review: {
       quote:
@@ -154,8 +168,35 @@ const servicePages = {
     finalCta: {
       heading: 'Planning refurbishment work in London?',
       text:
-        'Send us a few details about the property and the work you need. Photos help us understand the project faster and guide you through the next step.',
+        'Call Ictinus Contractors or request a quote online. Send a few details about the property, the rooms involved and any photos you have so we can understand the project and guide you through the next step.',
     },
+    faq: [
+      {
+        question: 'Do you handle full property refurbishments?',
+        answer:
+          'Yes. Ictinus Contractors can help with full property refurbishments across London, including preparation, decorating, plastering, hard flooring, bathroom fitting, finishing carpentry and coordination of electrical or plumbing work where required.',
+      },
+      {
+        question: 'Can you quote for separate rooms or small renovations?',
+        answer:
+          'Yes. We quote for single rooms, small renovation jobs and phased refurbishment work as well as larger projects. Photos, measurements and a short description are usually enough to start the conversation.',
+      },
+      {
+        question: 'Do you cover painting, flooring and plastering together?',
+        answer:
+          'Yes. These services are often combined during refurbishment work. We can coordinate wall preparation, plastering, decorating, hard flooring and finishing details so the room is completed in a sensible order.',
+      },
+      {
+        question: 'Do you work across London?',
+        answer:
+          'Yes. Ictinus Contractors is a London-based contractor team working across London for homeowners, landlords, property managers and businesses.',
+      },
+      {
+        question: 'How do I request a quote?',
+        answer:
+          'Call 07586 480417 or use the contact form to request a quote. Include the property location, the rooms involved, the work you need and any helpful photos.',
+      },
+    ],
   },
   bathroomFitting: {
     seo: {
@@ -812,6 +853,39 @@ function RelatedServices({ services, sourceService }) {
   )
 }
 
+function ServiceFaq({ faq }) {
+  if (!faq?.length) return null
+
+  return (
+    <section className="bg-[#FAF9F6] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div className="mx-auto max-w-4xl">
+        <Reveal>
+          <div className="mb-9 max-w-3xl">
+            <p className="ict-section-label text-left">FAQ</p>
+            <h2 className="font-['Cormorant_Garamond'] text-3xl font-semibold leading-tight text-[#1C1714] sm:text-[2.45rem]">
+              Property refurbishment FAQs
+            </h2>
+          </div>
+        </Reveal>
+        <div className="space-y-4">
+          {faq.map((item) => (
+            <Reveal key={item.question}>
+              <article className="rounded-lg border border-[#D4AF37]/18 bg-[#FFFEFB] p-5 shadow-[0_10px_26px_rgba(28,23,20,0.04)] sm:p-6">
+                <h3 className="font-['Cormorant_Garamond'] text-[1.25rem] font-semibold leading-tight text-[#1C1714]">
+                  {item.question}
+                </h3>
+                <p className="mt-3 font-['Source_Serif_4'] text-[0.95rem] leading-[1.7] text-[#5A5048]">
+                  {item.answer}
+                </p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function ServicePage({ page }) {
   useSEO({
     title: page.seo.title,
@@ -884,7 +958,7 @@ function ServicePage({ page }) {
                   Method
                 </p>
                 <h2 className="mt-3 font-['Cormorant_Garamond'] text-3xl font-semibold leading-tight text-white sm:text-[2.45rem]">
-                  Our process
+                  {page.processHeading || 'Our process'}
                 </h2>
               </div>
             </Reveal>
@@ -937,6 +1011,7 @@ function ServicePage({ page }) {
 
         <RelatedProjects page={page} />
         <RelatedServices services={page.relatedServices} sourceService={page.breadcrumb} />
+        <ServiceFaq faq={page.faq} />
 
         <section className="bg-[#EEE8DC] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">

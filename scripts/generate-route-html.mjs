@@ -42,9 +42,9 @@ const routeMeta = {
       'Professional painting and decorating services across London for homeowners, landlords and businesses. Clean preparation, reliable communication and high-quality finishing.',
   },
   '/services/property-refurbishment-extensions': {
-    title: 'Property Refurbishment & Extensions London | Ictinus Contractors',
+    title: 'Property Refurbishment London | Ictinus Contractors',
     description:
-      'Property refurbishment and extension improvement work across London for homeowners, landlords and businesses. Clean workmanship, clear communication and reliable finishing.',
+      'Property refurbishment in London by Ictinus Contractors. Full refurbishments, room renovations, decorating, plastering, flooring and bathroom fitting. Free quotes.',
   },
   '/services/bathroom-fitting': {
     title: 'Bathroom Fitting London | Ictinus Contractors',
