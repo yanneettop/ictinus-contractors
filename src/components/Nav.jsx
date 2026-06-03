@@ -5,10 +5,9 @@ import { trackServiceCtaClick } from '../utils/tracking'
 
 const links = [
   { label: 'HOME',         route: '/' },
-  { label: 'ABOUT',        route: '/about/' },
   { label: 'SERVICES',     route: '/services/' },
   { label: 'PORTFOLIO',    route: '/portfolio/' },
-  { label: 'TESTIMONIALS', id: 'testimonials', route: null },
+  { label: 'ABOUT',        route: '/about/' },
   { label: 'CONTACT',      route: '/contact/' },
 ]
 
@@ -83,7 +82,7 @@ export default function Nav() {
   const handleLink = (link) => {
     setMenuOpen(false)
 
-    // Section anchor on homepage (e.g. testimonials)
+    // Section anchor on homepage.
     if (link.id && !link.route) {
       if (isHome) {
         document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth' })
