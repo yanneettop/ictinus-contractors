@@ -40,16 +40,17 @@ function ParallaxQuote() {
     target: ref,
     offset: ['start end', 'end start'],
   })
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '24%'])
+  const bgY = useTransform(scrollYProgress, [0, 1], ['-12%', '8%'])
   const textY = useTransform(scrollYProgress, [0, 1], ['16px', '-16px'])
   const textOpacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0])
 
   return (
-    <div ref={ref} className="relative h-[260px] sm:h-[340px] lg:h-[390px] overflow-hidden bg-[#1C1714]">
+    <div ref={ref} className="relative h-[330px] sm:h-[430px] lg:h-[520px] overflow-hidden bg-[#1C1714]">
       <motion.div
         className="absolute inset-[-18%] bg-cover bg-center"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2100&auto=format&fit=crop)',
+          backgroundPosition: 'center 90%',
           y: bgY,
         }}
       />
@@ -84,7 +85,7 @@ function ParallaxQuote() {
 const proofCards = [
   { value: '9.97/10', label: 'Checkatrade rating' },
   { value: '33', label: 'Customer reviews' },
-  { value: 'Mar 2024', label: 'Member since' },
+  { value: '12+', label: 'Years experience' },
   { value: 'London', label: 'Local contractor' },
 ]
 
@@ -104,6 +105,12 @@ const reviewCards = [
     quote: 'Detailed, efficient and excellent quality work, completed within the agreed timeframe.',
     meta: 'IG10 · Checkatrade review',
   },
+]
+
+const myBuilderStats = [
+  { value: '4.9/5', label: 'MyBuilder rating' },
+  { value: '31', label: 'MyBuilder reviews' },
+  { value: 'Apr 2026', label: 'Latest feedback' },
 ]
 
 const howWeWorkItems = [
@@ -171,16 +178,29 @@ function TrustProfileCards() {
           MyBuilder Profile
         </p>
         <h3 className="mt-3 font-['Cormorant_Garamond'] text-[1.75rem] font-semibold leading-tight text-[#1C1714] sm:text-[2.1rem]">
-          Find us on MyBuilder
+          4.9/5 rating on MyBuilder
         </h3>
         <p className="mt-4 font-['Source_Serif_4'] text-[0.96rem] leading-[1.68] text-[#5A5048]">
-          Customers can also view our trade profile and contact us through MyBuilder.
+          31 MyBuilder reviews add another trust signal alongside Checkatrade, with customers highlighting
+          reliability, professionalism and clean finishing work.
         </p>
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          {myBuilderStats.map(({ value, label }) => (
+            <div key={label} className="rounded-lg border border-[#D4AF37]/18 bg-[#FFFEFB]/78 px-3 py-3 text-center">
+              <p className="font-['Plus_Jakarta_Sans'] text-[1.05rem] font-bold leading-none tracking-[-0.01em] text-[#1C1714]">
+                {value}
+              </p>
+              <p className="mt-1.5 font-['Plus_Jakarta_Sans'] text-[0.58rem] font-semibold uppercase leading-tight tracking-[0.08em] text-[#7A6758]">
+                {label}
+              </p>
+            </div>
+          ))}
+        </div>
         <a
           href={MYBUILDER_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg border border-[#D4AF37]/42 px-6 py-3 font-['Source_Serif_4'] text-[0.92rem] font-semibold tracking-wide text-[#B08D2A] transition-colors hover:border-[#D4AF37]/70 hover:bg-[#D4AF37]/8 hover:text-[#8B6C2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B08D2A]"
+          className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg border border-[#D4AF37]/42 px-6 py-3 font-['Source_Serif_4'] text-[0.92rem] font-semibold tracking-wide text-[#B08D2A] transition-colors hover:border-[#D4AF37]/70 hover:bg-[#D4AF37]/8 hover:text-[#8B6C2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B08D2A]"
         >
           View MyBuilder Profile
           <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
@@ -292,7 +312,7 @@ function ReviewsSection() {
           </div>
 
           <p className="mt-4 text-center font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-[#6A5B4C] sm:text-[0.72rem]">
-            East London based &middot; Checkatrade member since March 2024 &middot; Professional refurbishment and finishing work across London
+            East London based &middot; Professional refurbishment and finishing work across London
           </p>
 
           <div className="mt-5 grid gap-4 md:grid-cols-3">
@@ -407,8 +427,6 @@ function HomePage() {
 
         {/* Who We Work With */}
         <WhoWeWorkWith />
-
-        <SectionDivider variant="curve-down" fromColor="#F5F0E6" toColor="#1C1714" />
 
         <ParallaxQuote />
 

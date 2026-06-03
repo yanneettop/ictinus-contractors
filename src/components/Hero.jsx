@@ -1,28 +1,70 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { Link } from 'react-router-dom'
 import { trackServiceCtaClick } from '../utils/tracking'
 
 const SLIDES = [
-  'https://019ae1ec-ea13-75da-8bd7-dfb6402a319f.mochausercontent.com/ChatGPT-Image-Jan-7-2026-01_42_25-AM.png',
-  'https://019ae1ec-ea13-75da-8bd7-dfb6402a319f.mochausercontent.com/ChatGPT-Image-Jan-7-2026-02_13_24-AM.png',
+  '/hero/hero-main-original.webp',
+  '/hero/hero-townhouse-hallway.webp',
+  '/hero/hero-renovated-bathroom.webp',
+  '/hero/hero-finished-bedroom.webp',
 ]
+
+const SLIDE_INTERVAL_MS = 5500
+const CROSSFADE_MS = 2400
+const KEN_BURNS_MS = 12000
 
 const KB_TRANSFORMS = [
   { from: 'scale(1.02) translate(0%, 0%)', to: 'scale(1.06) translate(-1%, -0.5%)' },
   { from: 'scale(1.05) translate(0.5%, 0%)', to: 'scale(1.01) translate(-0.5%, 0.5%)' },
+  { from: 'scale(1.03) translate(-0.5%, 0.5%)', to: 'scale(1.07) translate(0.75%, -0.75%)' },
+  { from: 'scale(1.04) translate(0.25%, -0.25%)', to: 'scale(1.02) translate(-0.75%, 0.5%)' },
 ]
 
 export default function Hero() {
   const [current, setCurrent] = useState(0)
+  const [heroStarted, setHeroStarted] = useState(false)
+  const [exitingSlides, setExitingSlides] = useState([])
+  const previousSlide = useRef(0)
   const prefersReducedMotion = useReducedMotion()
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setHeroStarted(true)
+      return
+    }
+
+    const frame = requestAnimationFrame(() => setHeroStarted(true))
+    return () => cancelAnimationFrame(frame)
+  }, [prefersReducedMotion])
+
+  useEffect(() => {
     if (prefersReducedMotion) return
-    const id = setInterval(() => setCurrent((c) => (c + 1) % SLIDES.length), 7000)
+    const id = setInterval(() => setCurrent((c) => (c + 1) % SLIDES.length), SLIDE_INTERVAL_MS)
     return () => clearInterval(id)
   }, [prefersReducedMotion])
+
+  useEffect(() => {
+    const outgoing = previousSlide.current
+    previousSlide.current = current
+
+    if (outgoing === current) return undefined
+
+    setExitingSlides((slides) => [...new Set([...slides, outgoing])])
+    const timeout = setTimeout(() => {
+      setExitingSlides((slides) => slides.filter((slide) => slide !== outgoing))
+    }, CROSSFADE_MS)
+
+    return () => clearTimeout(timeout)
+  }, [current])
+
+  useEffect(() => {
+    SLIDES.forEach((src) => {
+      const image = new Image()
+      image.src = src
+    })
+  }, [])
 
   return (
     <section className="relative flex flex-1 items-center justify-center overflow-hidden">
@@ -31,18 +73,24 @@ export default function Hero() {
       {SLIDES.map((src, i) => {
         const kb = KB_TRANSFORMS[i % KB_TRANSFORMS.length]
         const isActive = current === i
+        const isExiting = exitingSlides.includes(i)
         return (
           <div
             key={src}
-            className="absolute inset-0 transition-opacity duration-[1500ms]"
-            style={{ opacity: isActive ? 1 : 0 }}
+            className="absolute inset-0 transition-opacity ease-in-out"
+            style={{
+              opacity: isActive ? 1 : 0,
+              transitionDuration: `${CROSSFADE_MS}ms`,
+              willChange: 'opacity',
+            }}
           >
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
                 backgroundImage: `url(${src})`,
-                transform: isActive ? kb.to : kb.from,
-                transition: prefersReducedMotion ? 'none' : isActive ? 'transform 7s ease-in-out' : 'transform 0s',
+                transform: heroStarted && (isActive || isExiting) ? kb.to : kb.from,
+                transition: prefersReducedMotion ? 'none' : isActive ? `transform ${KEN_BURNS_MS}ms ease-in-out` : 'transform 0s',
+                willChange: 'transform',
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-[#0D0A08]/70 via-[#1A1511]/58 to-[#0C0906]/72" />
@@ -60,7 +108,7 @@ export default function Hero() {
           style={{ textShadow: '0 2px 28px rgba(8,5,3,0.75)' }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           Reliable Refurbishment &amp; Decorating Across London
         </motion.h1>
@@ -70,7 +118,7 @@ export default function Hero() {
           className="w-14 sm:w-16 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-6 sm:mb-8"
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
+          transition={{ duration: 0.6 }}
         />
 
         <motion.p
@@ -78,7 +126,7 @@ export default function Hero() {
           style={{ textShadow: '0 1px 14px rgba(8,5,3,0.68)' }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           Clean, organised property improvement work for homeowners, landlords and businesses, delivered with clear communication from start to finish.
         </motion.p>
@@ -87,7 +135,7 @@ export default function Hero() {
           className="flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
             <Link
