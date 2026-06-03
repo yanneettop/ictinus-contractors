@@ -372,7 +372,7 @@ function HomePage() {
     <div className="min-h-screen bg-[#FAF9F6]">
       <Nav />
       <main id="main-content">
-        <div className="ict-home-hero-screen">
+        <div className="ict-home-hero-screen" data-nav-hero>
           <Hero />
           <TrustRow />
         </div>

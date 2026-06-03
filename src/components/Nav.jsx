@@ -34,7 +34,7 @@ function ColumnIcon({ className }) {
 }
 
 export default function Nav() {
-  const [scrolled, setScrolled]   = useState(false)
+  const [overHero, setOverHero]   = useState(true)
   const [menuOpen, setMenuOpen]   = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const navigate                  = useNavigate()
@@ -42,10 +42,38 @@ export default function Nav() {
   const isHome                    = location.pathname === '/'
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 30)
-    window.addEventListener('scroll', handler, { passive: true })
-    return () => window.removeEventListener('scroll', handler)
-  }, [])
+    if (!isHome) {
+      setOverHero(false)
+      return undefined
+    }
+
+    const hero = document.querySelector('[data-nav-hero]')
+    if (!hero) {
+      setOverHero(window.scrollY <= 30)
+      return undefined
+    }
+
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const headerHeight = window.innerWidth >= 768 ? 72 : 64
+      setOverHero(hero.getBoundingClientRect().bottom > headerHeight)
+    }
+    const scheduleUpdate = () => {
+      if (frame) return
+      frame = window.requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', scheduleUpdate)
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
+    }
+  }, [isHome, location.pathname])
 
   useEffect(() => {
     setMenuOpen(false)
@@ -82,14 +110,20 @@ export default function Nav() {
     }
   }
 
-  const navSolid = scrolled || !isHome
+  const navSolid = !overHero || !isHome || menuOpen
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <motion.nav
+      animate={{
+        backgroundColor: navSolid ? 'rgba(28, 23, 20, 0.92)' : 'rgba(28, 23, 20, 0)',
+        borderColor: navSolid ? 'rgba(212, 175, 55, 0.18)' : 'rgba(212, 175, 55, 0)',
+        boxShadow: navSolid ? '0 12px 34px rgba(0, 0, 0, 0.2)' : '0 0 0 rgba(0, 0, 0, 0)',
+      }}
+      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-[backdrop-filter] duration-300 ${
         navSolid
-          ? 'bg-[#1C1714]/96 backdrop-blur-lg border-b border-[#D4AF37]/15 shadow-lg shadow-black/10'
-          : 'bg-transparent'
+          ? 'backdrop-blur-md'
+          : 'backdrop-blur-0'
       }`}
     >
       <a
@@ -379,6 +413,6 @@ export default function Nav() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   )
 }
