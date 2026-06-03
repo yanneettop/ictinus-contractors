@@ -125,30 +125,20 @@ export default function Services() {
 
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-10 sm:mb-12" stagger={0.07}>
           {services.map(({ title, desc, icon, href }, i) => {
-            const isFeatured = [
-              'Property Refurbishment & Extensions',
-              'Bathroom Fitting',
-              'Painting & Decorating',
-            ].includes(title)
             const cardContent = (
               <>
                 {/* Card background with border effect */}
-                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-b p-px ${isFeatured ? 'from-[#D4AF37]/[0.26] to-[#D4AF37]/[0.07]' : 'from-[#D4AF37]/[0.12] to-[#D4AF37]/[0.04]'}`}>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-[#D4AF37]/[0.12] to-[#D4AF37]/[0.04] p-px transition-colors duration-300 group-hover:from-[#D4AF37]/[0.26] group-hover:to-[#D4AF37]/[0.07] group-focus-within:from-[#D4AF37]/[0.26] group-focus-within:to-[#D4AF37]/[0.07]">
                   <div className="h-full w-full rounded-2xl bg-[#252019]" />
                 </div>
 
                 {/* Hover glow */}
-                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-b from-[#D4AF37]/[0.08] to-transparent" />
+                <div className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 bg-gradient-to-b from-[#D4AF37]/[0.08] to-transparent group-hover:opacity-100 group-focus-within:opacity-100" />
 
                 <div className="relative p-6 sm:p-8">
-                  {isFeatured && (
-                    <span className="mb-5 inline-flex rounded-full border border-[#D4AF37]/25 px-2.5 py-1 font-['Plus_Jakarta_Sans'] text-[0.58rem] font-semibold uppercase tracking-[0.12em] text-[#D4AF37]/80">
-                      Main service
-                    </span>
-                  )}
                   {/* Number + Icon row */}
                   <div className="flex items-start justify-between mb-6">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#D4AF37]/[0.1] group-hover:bg-[#D4AF37]/[0.2] transition-colors duration-300 ring-1 ring-[#D4AF37]/[0.15]">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#D4AF37]/[0.1] transition-colors duration-300 ring-1 ring-[#D4AF37]/[0.15] group-hover:bg-[#D4AF37]/[0.2] group-focus-within:bg-[#D4AF37]/[0.2]">
                       <svg
                         className="w-5 h-5 text-[#D4AF37] transition-colors duration-300"
                         fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24"
@@ -156,19 +146,19 @@ export default function Services() {
                         {icon}
                       </svg>
                     </div>
-                    <span className="font-['Cormorant_Garamond'] text-[2rem] font-light leading-none text-[#D4AF37]/[0.15] group-hover:text-[#D4AF37]/[0.3] transition-colors duration-300 select-none">
+                    <span className="font-['Cormorant_Garamond'] text-[2rem] font-light leading-none text-[#D4AF37]/[0.15] transition-colors duration-300 select-none group-hover:text-[#D4AF37]/[0.3] group-focus-within:text-[#D4AF37]/[0.3]">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                   </div>
 
-                  <h3 className="font-['Cormorant_Garamond'] font-semibold text-[1.3rem] mb-3 leading-snug tracking-[-0.01em] text-[#FAF9F6] group-hover:text-[#D4AF37] transition-colors duration-300">
+                  <h3 className="font-['Cormorant_Garamond'] font-semibold text-[1.3rem] mb-3 leading-snug tracking-[-0.01em] text-[#FAF9F6] transition-colors duration-300 group-hover:text-[#D4AF37] group-focus-within:text-[#D4AF37]">
                     {title}
                   </h3>
 
                   {/* Gold accent line */}
-                  <div className="w-8 h-px bg-[#D4AF37]/30 group-hover:w-12 group-hover:bg-[#D4AF37]/60 transition-all duration-400 mb-3" />
+                  <div className="w-8 h-px bg-[#D4AF37]/30 transition-all duration-400 mb-3 group-hover:w-12 group-hover:bg-[#D4AF37]/60 group-focus-within:w-12 group-focus-within:bg-[#D4AF37]/60" />
 
-                  <p className="font-['Source_Serif_4'] text-[0.9375rem] leading-[1.75] text-[#9A9590] group-hover:text-[#B5AFA8] transition-colors duration-300">
+                  <p className="font-['Source_Serif_4'] text-[0.9375rem] leading-[1.75] text-[#9A9590] transition-colors duration-300 group-hover:text-[#B5AFA8] group-focus-within:text-[#B5AFA8]">
                     {desc}
                   </p>
 
@@ -188,7 +178,7 @@ export default function Services() {
             <StaggerItem key={title}>
               <motion.div
                 whileHover={{ y: -6, transition: { duration: 0.3, ease: 'easeOut' } }}
-                className={`group relative h-full rounded-2xl overflow-hidden ${href ? 'cursor-pointer' : 'cursor-default'} ${isFeatured ? 'ring-1 ring-[#D4AF37]/30' : ''}`}
+                className={`group relative h-full overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-[0_18px_38px_rgba(0,0,0,0.22)] focus-within:shadow-[0_18px_38px_rgba(0,0,0,0.22)] ${href ? 'cursor-pointer' : 'cursor-default'}`}
               >
                 {href ? (
                   <Link

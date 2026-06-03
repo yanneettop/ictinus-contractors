@@ -22,7 +22,7 @@ const routes = [
 
 const routeMeta = {
   '/': {
-    title: 'Ictinus Contractors | London Refurbishment & Renovation Specialists',
+    title: 'Ictinus Contractors | London Refurbishment & Renovation',
     description:
       'Trusted London contractors for property refurbishment, bathroom fitting, painting and decorating, plastering, hard flooring, electrical works and plumbing.',
   },
