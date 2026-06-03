@@ -694,31 +694,26 @@ const servicePages = {
   },
 }
 
-function injectServiceSchema(page) {
-  const schema = {
+function buildServiceSchema(page) {
+  return {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: page.hero.heading,
+    serviceType: page.breadcrumb,
+    description: page.seo.description,
+    url: page.seo.canonical,
     provider: {
-      '@type': 'LocalBusiness',
+      '@type': 'HomeAndConstructionBusiness',
+      '@id': 'https://www.ictinuscontractors.co.uk/#localbusiness',
       name: 'Ictinus Contractors',
       url: 'https://www.ictinuscontractors.co.uk/',
       telephone: '+447586480417',
-      areaServed: 'London',
     },
-    areaServed: 'London',
-    description: page.seo.description,
-    url: page.seo.canonical,
+    areaServed: {
+      '@type': 'City',
+      name: 'London',
+    },
   }
-
-  const existing = document.querySelector('#service-page-schema')
-  if (existing) existing.remove()
-  const el = document.createElement('script')
-  el.id = 'service-page-schema'
-  el.type = 'application/ld+json'
-  el.textContent = JSON.stringify(schema)
-  document.head.appendChild(el)
-  return () => el.remove()
 }
 
 function ArrowIcon() {
@@ -945,13 +940,19 @@ function ServicePage({ page }) {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    return injectServiceSchema(page)
   }, [page])
+
+  const serviceSchema = buildServiceSchema(page)
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#FAF9F6]">
       <Nav />
       <main id="main-content">
+        <script
+          id="service-page-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        />
         <ServiceHero page={page} />
 
         <section className="bg-[#EEE8DC] px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
