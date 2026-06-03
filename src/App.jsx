@@ -45,7 +45,7 @@ function ParallaxQuote() {
   const textOpacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0])
 
   return (
-    <div ref={ref} className="relative h-[330px] sm:h-[430px] lg:h-[520px] overflow-hidden bg-[#1C1714]">
+    <div ref={ref} className="relative h-[420px] sm:h-[540px] lg:h-[640px] xl:h-[680px] overflow-hidden bg-[#1C1714]">
       <motion.div
         className="absolute inset-[-18%] bg-cover bg-center"
         style={{
