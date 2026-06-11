@@ -277,14 +277,19 @@
     </div>
     <div id="root"></div>
     <script>
-      // Prerendered pages already have visible content — skip the loader there.
+      // Brand intro: show the loader once per session, skip it on every
+      // subsequent page view so navigation stays instant.
       (function () {
-        var root = document.getElementById('root');
         var loader = document.getElementById('app-loader');
-        if (loader && root && root.children.length > 0) {
+        if (!loader) return;
+        var seen = false;
+        try { seen = sessionStorage.getItem('ict-loader-shown') === '1'; } catch (e) {}
+        if (seen) {
           loader.remove();
           return;
         }
+        try { sessionStorage.setItem('ict-loader-shown', '1'); } catch (e) {}
+        window.__ictLoaderStart = Date.now();
         // Safety net: never trap the user behind the loader if the app fails to boot.
         setTimeout(function () {
           var l = document.getElementById('app-loader');

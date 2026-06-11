@@ -12,8 +12,9 @@ createRoot(document.getElementById('root')).render(
   </StrictMode>,
 )
 
-// Fade out the boot loader once React has painted the first frame.
-// rAF never fires in hidden tabs, so a timer backstop guarantees removal.
+// Fade out the boot loader after the intro animation has had time to play
+// (build 1.1s + wordmark), but never before React is ready underneath.
+const LOADER_MIN_VISIBLE_MS = 1600
 let loaderHidden = false
 function hideAppLoader() {
   if (loaderHidden) return
@@ -23,5 +24,8 @@ function hideAppLoader() {
   loader.classList.add('app-loader--hide')
   setTimeout(() => loader.remove(), 450)
 }
-requestAnimationFrame(() => requestAnimationFrame(hideAppLoader))
-setTimeout(hideAppLoader, 800)
+if (document.getElementById('app-loader')) {
+  const shownAt = window.__ictLoaderStart || Date.now()
+  const remaining = Math.max(0, LOADER_MIN_VISIBLE_MS - (Date.now() - shownAt))
+  setTimeout(hideAppLoader, remaining)
+}
