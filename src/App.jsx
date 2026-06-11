@@ -8,6 +8,7 @@ import Services from './components/Services'
 import WhoWeWorkWith from './components/WhoWeWorkWith'
 import Portfolio from './components/Portfolio'
 import Footer from './components/Footer'
+import CookieConsent from './components/CookieConsent'
 import SectionDivider from './components/SectionDivider'
 import Reveal from './components/Reveal'
 import useScrollReveal from './hooks/useScrollReveal'
@@ -503,6 +504,7 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <ScrollManager />
+      <CookieConsent />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />

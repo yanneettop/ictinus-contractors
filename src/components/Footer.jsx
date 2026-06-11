@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 import { trackServiceCtaClick } from '../utils/tracking'
+import { openCookieSettings } from '../utils/consent'
 
 const mainServices = [
   { label: 'Property Refurbishment & Extensions', to: '/services/property-refurbishment-extensions/' },
@@ -153,9 +154,18 @@ export default function Footer() {
 
         {/* Divider + copyright */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="font-['Source_Serif_4'] text-[0.8125rem] text-[#94A3B8]/60 text-center">
-            &copy; {new Date().getFullYear()} Ictinus Contractors. All rights reserved.
-          </p>
+          <div className="flex flex-col items-center gap-1 sm:items-start">
+            <p className="font-['Source_Serif_4'] text-[0.8125rem] text-[#94A3B8]/60 text-center">
+              &copy; {new Date().getFullYear()} Ictinus Contractors. All rights reserved.
+            </p>
+            <button
+              type="button"
+              onClick={openCookieSettings}
+              className="font-['Source_Serif_4'] text-[0.75rem] text-[#94A3B8]/60 underline decoration-[#94A3B8]/30 underline-offset-4 transition-colors duration-200 hover:text-[#D4AF37]/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+            >
+              Cookie settings
+            </button>
+          </div>
           <div className="flex flex-col items-center gap-1 sm:items-end">
             <p className="font-['Source_Serif_4'] text-[0.8125rem] text-[#94A3B8]/60 text-center">
               London, United Kingdom
