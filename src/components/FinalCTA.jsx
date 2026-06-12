@@ -17,7 +17,7 @@ export default function FinalCTA() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            to="/contact/#quote"
+            to="/contact#quote"
             className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-[#D4AF37]/30"
           >
             Request a Quote

@@ -1,5 +1,22 @@
 import { useEffect } from 'react'
 
+const SITE_ORIGIN = 'https://www.ictinuscontractors.co.uk'
+
+function normalizeCanonical(canonical) {
+  const url = new URL(canonical || window.location.pathname, SITE_ORIGIN)
+
+  url.protocol = 'https:'
+  url.hostname = 'www.ictinuscontractors.co.uk'
+  url.search = ''
+  url.hash = ''
+
+  if (url.pathname.length > 1) {
+    url.pathname = url.pathname.replace(/\/+$/, '')
+  }
+
+  return url.toString()
+}
+
 /**
  * useSEO — sets document title, meta description, canonical, and OG tags.
  * Falls back gracefully if any element doesn't exist.
@@ -34,7 +51,8 @@ export function useSEO({ title, description, canonical, ogTitle, ogDescription, 
       linkCanon.rel = 'canonical'
       document.head.appendChild(linkCanon)
     }
-    linkCanon.href = canonical || window.location.href
+    const canonicalUrl = normalizeCanonical(canonical)
+    linkCanon.href = canonicalUrl
 
     // --- Robots ---
     let robotsMeta = document.querySelector('meta[name="robots"]')
@@ -57,7 +75,7 @@ export function useSEO({ title, description, canonical, ogTitle, ogDescription, 
 
     // --- OG url ---
     const ogUrlEl = document.querySelector('meta[property="og:url"]')
-    if (ogUrlEl) ogUrlEl.setAttribute('content', canonical || window.location.href)
+    if (ogUrlEl) ogUrlEl.setAttribute('content', canonicalUrl)
 
     // Restore on unmount
     return () => {

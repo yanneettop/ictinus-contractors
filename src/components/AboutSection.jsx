@@ -45,7 +45,7 @@ export default function AboutSection() {
               whileTap={{ scale: 0.97 }}
             >
               <Link
-                to="/contact/#quote"
+                to="/contact#quote"
                 className="block rounded-lg bg-gradient-gold px-6 py-3 font-['Source_Serif_4'] text-[0.9375rem] font-semibold tracking-wide text-[#1C1714] shadow-md"
               >
                 Get a Free Quote

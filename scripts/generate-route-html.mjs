@@ -98,7 +98,7 @@ const sourceIndex = join(distDir, 'index.html')
 const sourceHtml = readFileSync(sourceIndex, 'utf8')
 
 function canonicalForRoute(route) {
-  return route === '/' ? `${SITE_URL}/` : `${SITE_URL}${route}/`
+  return route === '/' ? `${SITE_URL}/` : `${SITE_URL}${route}`
 }
 
 function htmlForRoute(route) {
@@ -166,8 +166,13 @@ for (const route of routes) {
     continue
   }
 
-  const target = join(distDir, route.slice(1), 'index.html')
-  mkdirSync(dirname(target), { recursive: true })
-  copyFileSync(sourceIndex, target)
-  writeFileSync(target, htmlForRoute(route))
+  const html = htmlForRoute(route)
+  const directoryTarget = join(distDir, route.slice(1), 'index.html')
+  const fileTarget = join(distDir, `${route.slice(1)}.html`)
+
+  mkdirSync(dirname(directoryTarget), { recursive: true })
+  mkdirSync(dirname(fileTarget), { recursive: true })
+  copyFileSync(sourceIndex, directoryTarget)
+  writeFileSync(directoryTarget, html)
+  writeFileSync(fileTarget, html)
 }

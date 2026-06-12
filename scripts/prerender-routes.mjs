@@ -6,18 +6,18 @@ const reactRouterEsm = join(process.cwd(), 'node_modules/react-router/dist/devel
 
 const routes = [
   { route: '/', file: 'index.html' },
-  { route: '/about/', file: 'about/index.html' },
-  { route: '/services/', file: 'services/index.html' },
-  { route: '/services/painting-and-decorating/', file: 'services/painting-and-decorating/index.html' },
-  { route: '/services/property-refurbishment-extensions/', file: 'services/property-refurbishment-extensions/index.html' },
-  { route: '/services/bathroom-fitting/', file: 'services/bathroom-fitting/index.html' },
-  { route: '/services/hard-flooring/', file: 'services/hard-flooring/index.html' },
-  { route: '/services/plastering/', file: 'services/plastering/index.html' },
-  { route: '/services/finishing-carpentry/', file: 'services/finishing-carpentry/index.html' },
-  { route: '/services/electrical-works/', file: 'services/electrical-works/index.html' },
-  { route: '/services/plumbing/', file: 'services/plumbing/index.html' },
-  { route: '/portfolio/', file: 'portfolio/index.html' },
-  { route: '/contact/', file: 'contact/index.html' },
+  { route: '/about', file: 'about/index.html', altFile: 'about.html' },
+  { route: '/services', file: 'services/index.html', altFile: 'services.html' },
+  { route: '/services/painting-and-decorating', file: 'services/painting-and-decorating/index.html', altFile: 'services/painting-and-decorating.html' },
+  { route: '/services/property-refurbishment-extensions', file: 'services/property-refurbishment-extensions/index.html', altFile: 'services/property-refurbishment-extensions.html' },
+  { route: '/services/bathroom-fitting', file: 'services/bathroom-fitting/index.html', altFile: 'services/bathroom-fitting.html' },
+  { route: '/services/hard-flooring', file: 'services/hard-flooring/index.html', altFile: 'services/hard-flooring.html' },
+  { route: '/services/plastering', file: 'services/plastering/index.html', altFile: 'services/plastering.html' },
+  { route: '/services/finishing-carpentry', file: 'services/finishing-carpentry/index.html', altFile: 'services/finishing-carpentry.html' },
+  { route: '/services/electrical-works', file: 'services/electrical-works/index.html', altFile: 'services/electrical-works.html' },
+  { route: '/services/plumbing', file: 'services/plumbing/index.html', altFile: 'services/plumbing.html' },
+  { route: '/portfolio', file: 'portfolio/index.html', altFile: 'portfolio.html' },
+  { route: '/contact', file: 'contact/index.html', altFile: 'contact.html' },
 ]
 
 const distDir = join(process.cwd(), 'dist')
@@ -71,11 +71,16 @@ const vite = await createServer({
 try {
   const { renderRoute } = await vite.ssrLoadModule('/src/entry-prerender.jsx')
 
-  for (const { route, file } of routes) {
+  for (const { route, file, altFile } of routes) {
     const target = join(distDir, file)
     const html = readFileSync(target, 'utf8')
     const appHtml = renderRoute(route)
-    writeFileSync(target, injectRootHtml(html, appHtml))
+    const prerenderedHtml = injectRootHtml(html, appHtml)
+
+    writeFileSync(target, prerenderedHtml)
+    if (altFile) {
+      writeFileSync(join(distDir, altFile), prerenderedHtml)
+    }
     console.log(`Prerendered ${route} -> dist/${file}`)
   }
 } finally {

@@ -1,4 +1,8 @@
 User-agent: *
+Disallow: /wp-content/
+Disallow: /wp-includes/
+Disallow: /wp-admin/
+Disallow: /comments/feed/
 Allow: /
 
 Sitemap: https://www.ictinuscontractors.co.uk/sitemap.xml

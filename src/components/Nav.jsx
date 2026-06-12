@@ -5,21 +5,21 @@ import { trackServiceCtaClick } from '../utils/tracking'
 
 const links = [
   { label: 'HOME',         route: '/' },
-  { label: 'SERVICES',     route: '/services/' },
-  { label: 'PORTFOLIO',    route: '/portfolio/' },
-  { label: 'ABOUT',        route: '/about/' },
-  { label: 'CONTACT',      route: '/contact/' },
+  { label: 'SERVICES',     route: '/services' },
+  { label: 'PORTFOLIO',    route: '/portfolio' },
+  { label: 'ABOUT',        route: '/about' },
+  { label: 'CONTACT',      route: '/contact' },
 ]
 
 const serviceLinks = [
-  { label: 'Property Refurbishment & Extensions', route: '/services/property-refurbishment-extensions/' },
-  { label: 'Bathroom Fitting', route: '/services/bathroom-fitting/' },
-  { label: 'Hard Flooring', route: '/services/hard-flooring/' },
-  { label: 'Plastering', route: '/services/plastering/' },
-  { label: 'Painting & Decorating', route: '/services/painting-and-decorating/' },
-  { label: 'Finishing Carpentry', route: '/services/finishing-carpentry/' },
-  { label: 'Electrical Works', route: '/services/electrical-works/' },
-  { label: 'Plumbing', route: '/services/plumbing/' },
+  { label: 'Property Refurbishment & Extensions', route: '/services/property-refurbishment-extensions' },
+  { label: 'Bathroom Fitting', route: '/services/bathroom-fitting' },
+  { label: 'Hard Flooring', route: '/services/hard-flooring' },
+  { label: 'Plastering', route: '/services/plastering' },
+  { label: 'Painting & Decorating', route: '/services/painting-and-decorating' },
+  { label: 'Finishing Carpentry', route: '/services/finishing-carpentry' },
+  { label: 'Electrical Works', route: '/services/electrical-works' },
+  { label: 'Plumbing', route: '/services/plumbing' },
 ]
 
 function ColumnIcon({ className }) {
@@ -160,7 +160,7 @@ export default function Nav() {
         <div className="hidden lg:flex items-center gap-7 flex-1 justify-center">
           {links.map((link) => {
             const active =
-              (link.route === '/services/' && location.pathname.startsWith('/services')) ||
+              (link.route === '/services' && location.pathname.startsWith('/services')) ||
               (link.route && link.route !== '/' && location.pathname === link.route) ||
               (link.route === '/' && isHome)
 
@@ -168,7 +168,7 @@ export default function Nav() {
               return (
                 <div key={link.label} className="group relative">
                   <Link
-                    to="/services/"
+                    to="/services"
                     aria-haspopup="true"
                     className={`flex items-center gap-1.5 font-['Source_Serif_4'] text-[0.75rem] tracking-[0.14em] uppercase transition-colors duration-200 ${
                       active
@@ -265,7 +265,7 @@ export default function Nav() {
             whileTap={{ scale: 0.97 }}
           >
             <Link
-              to="/contact/#quote"
+              to="/contact#quote"
               onClick={() => trackServiceCtaClick({ cta_label: 'GET A QUOTE', target_path: '/contact#quote' })}
               className="block font-['Source_Serif_4'] text-[0.75rem] font-semibold tracking-[0.14em] uppercase px-6 py-[0.65rem] rounded-lg bg-gradient-gold text-[#0F1923] shadow-[0_4px_16px_rgba(212,175,55,0.25)]"
             >
@@ -399,7 +399,7 @@ export default function Nav() {
                 07586 480417
               </a>
               <Link
-                to="/contact/#quote"
+                to="/contact#quote"
                 onClick={() => {
                   setMenuOpen(false)
                   trackServiceCtaClick({ cta_label: 'GET A QUOTE', target_path: '/contact#quote' })

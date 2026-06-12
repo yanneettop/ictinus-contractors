@@ -234,7 +234,7 @@ function PlanningCtaBar() {
           </div>
           <motion.div className="mt-4 inline-block flex-shrink-0 lg:mt-0" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             <Link
-              to="/contact/#quote"
+              to="/contact#quote"
               onClick={() => trackServiceCtaClick({ cta_label: 'Request a Quote', target_path: '/contact#quote' })}
               className="group inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-gold px-7 py-3 font-['Source_Serif_4'] text-[0.95rem] font-semibold tracking-wide text-[#1C1714] shadow-[0_6px_18px_rgba(212,175,55,0.24)] transition-shadow hover:shadow-[0_10px_28px_rgba(212,175,55,0.34)]"
             >
@@ -450,7 +450,7 @@ function HomePage() {
             <div className="flex flex-col items-center gap-4">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                 <Link
-                  to="/contact/#quote"
+                  to="/contact#quote"
                   onClick={() => trackServiceCtaClick({ cta_label: 'Request a Quote', target_path: '/contact#quote' })}
                   className="block font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold shadow-lg transition-shadow hover:shadow-[0_10px_30px_rgba(212,175,55,0.34)]"
                 >
@@ -520,16 +520,16 @@ export default function App() {
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
-        <Route path="/request-a-quote" element={<Navigate to="/contact/#quote" replace />} />
-        <Route path="/projects" element={<Navigate to="/portfolio/" replace />} />
-        <Route path="/services/property-refurbishment-extensions-london" element={<Navigate to="/services/property-refurbishment-extensions/" replace />} />
-        <Route path="/services/bathroom-fitting-london" element={<Navigate to="/services/bathroom-fitting/" replace />} />
-        <Route path="/services/hard-flooring-london" element={<Navigate to="/services/hard-flooring/" replace />} />
-        <Route path="/services/plastering-london" element={<Navigate to="/services/plastering/" replace />} />
-        <Route path="/services/painting-decorating-london" element={<Navigate to="/services/painting-and-decorating/" replace />} />
-        <Route path="/services/finishing-carpentry-london" element={<Navigate to="/services/finishing-carpentry/" replace />} />
-        <Route path="/services/electrical-works-london" element={<Navigate to="/services/electrical-works/" replace />} />
-        <Route path="/services/plumbing-london" element={<Navigate to="/services/plumbing/" replace />} />
+        <Route path="/request-a-quote" element={<Navigate to="/contact#quote" replace />} />
+        <Route path="/projects" element={<Navigate to="/portfolio" replace />} />
+        <Route path="/services/property-refurbishment-extensions-london" element={<Navigate to="/services/property-refurbishment-extensions" replace />} />
+        <Route path="/services/bathroom-fitting-london" element={<Navigate to="/services/bathroom-fitting" replace />} />
+        <Route path="/services/hard-flooring-london" element={<Navigate to="/services/hard-flooring" replace />} />
+        <Route path="/services/plastering-london" element={<Navigate to="/services/plastering" replace />} />
+        <Route path="/services/painting-decorating-london" element={<Navigate to="/services/painting-and-decorating" replace />} />
+        <Route path="/services/finishing-carpentry-london" element={<Navigate to="/services/finishing-carpentry" replace />} />
+        <Route path="/services/electrical-works-london" element={<Navigate to="/services/electrical-works" replace />} />
+        <Route path="/services/plumbing-london" element={<Navigate to="/services/plumbing" replace />} />
       </Routes>
     </MotionConfig>
   )

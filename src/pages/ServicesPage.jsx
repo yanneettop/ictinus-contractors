@@ -197,12 +197,12 @@ const FAQS = [
 ]
 
 const SERVICE_PAGE_URLS = {
-  'painting-decorating': 'https://www.ictinuscontractors.co.uk/services/painting-and-decorating/',
-  plastering: 'https://www.ictinuscontractors.co.uk/services/plastering/',
-  'hard-flooring': 'https://www.ictinuscontractors.co.uk/services/hard-flooring/',
-  'bathroom-fitting': 'https://www.ictinuscontractors.co.uk/services/bathroom-fitting/',
-  'property-refurbishment': 'https://www.ictinuscontractors.co.uk/services/property-refurbishment-extensions/',
-  'finishing-carpentry': 'https://www.ictinuscontractors.co.uk/services/finishing-carpentry/',
+  'painting-decorating': 'https://www.ictinuscontractors.co.uk/services/painting-and-decorating',
+  plastering: 'https://www.ictinuscontractors.co.uk/services/plastering',
+  'hard-flooring': 'https://www.ictinuscontractors.co.uk/services/hard-flooring',
+  'bathroom-fitting': 'https://www.ictinuscontractors.co.uk/services/bathroom-fitting',
+  'property-refurbishment': 'https://www.ictinuscontractors.co.uk/services/property-refurbishment-extensions',
+  'finishing-carpentry': 'https://www.ictinuscontractors.co.uk/services/finishing-carpentry',
 }
 
 /* ─── Schema injection ─────────────────────────────────────────────── */
@@ -222,13 +222,13 @@ function injectSchema() {
         '@type': 'ItemList',
         name: 'Decorating and Refurbishment Services in London',
         description: 'Professional decorating, plastering, flooring, bathroom fitting and property refurbishment services across London by Ictinus Contractors.',
-        url: 'https://www.ictinuscontractors.co.uk/services/',
+        url: 'https://www.ictinuscontractors.co.uk/services',
         numberOfItems: SERVICES.length,
         itemListElement: SERVICES.map(({ id, headline }, i) => ({
           '@type': 'ListItem',
           position: i + 1,
           name: headline,
-          url: SERVICE_PAGE_URLS[id] || `https://www.ictinuscontractors.co.uk/services/#${id}`,
+          url: SERVICE_PAGE_URLS[id] || `https://www.ictinuscontractors.co.uk/services#${id}`,
         })),
       },
     ],
@@ -327,7 +327,7 @@ function ServiceSection({ service, index }) {
             ))}
 
             <Link
-              to="/contact/#quote"
+              to="/contact#quote"
               onClick={() => trackServiceCtaClick({
                 cta_label: 'Request a Free Quote',
                 target_path: '/contact#quote',
@@ -471,7 +471,7 @@ function PageCTA() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            to="/contact/#quote"
+            to="/contact#quote"
             onClick={() => trackServiceCtaClick({ cta_label: 'Request a Free Quote', target_path: '/contact#quote' })}
             className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
           >
@@ -496,7 +496,7 @@ export default function ServicesPage() {
     title: 'Decorating & Refurbishment Services in London | Ictinus Contractors',
     description:
       'Expert painting & decorating, plastering, bathroom fitting, hard flooring installation and property refurbishment across London. 9.97/10 Checkatrade. Fully insured. Free quotes.',
-    canonical: 'https://www.ictinuscontractors.co.uk/services/',
+    canonical: 'https://www.ictinuscontractors.co.uk/services',
     ogTitle: 'Decorating & Refurbishment Services in London | Ictinus Contractors',
     ogDescription:
       'Professional decorating, plastering, bathroom fitting and property refurbishment across London. 9.97/10 Checkatrade. Free quotes.',
