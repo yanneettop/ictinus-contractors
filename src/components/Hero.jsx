@@ -41,7 +41,8 @@ export default function Hero() {
   const [current, setCurrent] = useState(0)
   const [heroStarted, setHeroStarted] = useState(false)
   const [exitingSlides, setExitingSlides] = useState([])
-  const previousSlide = useRef(0)
+  const currentSlide = useRef(0)
+  const slideTimeouts = useRef([])
   const prefersReducedMotion = useReducedMotion()
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
@@ -56,24 +57,31 @@ export default function Hero() {
   }, [prefersReducedMotion])
 
   useEffect(() => {
-    if (prefersReducedMotion) return
-    const id = setInterval(() => setCurrent((c) => (c + 1) % SLIDES.length), SLIDE_INTERVAL_MS)
-    return () => clearInterval(id)
-  }, [prefersReducedMotion])
+    currentSlide.current = current
+  }, [current])
 
   useEffect(() => {
-    const outgoing = previousSlide.current
-    previousSlide.current = current
+    if (prefersReducedMotion) return undefined
 
-    if (outgoing === current) return undefined
+    const id = setInterval(() => {
+      const outgoing = currentSlide.current
+      const next = (outgoing + 1) % SLIDES.length
 
-    setExitingSlides((slides) => [...new Set([...slides, outgoing])])
-    const timeout = setTimeout(() => {
-      setExitingSlides((slides) => slides.filter((slide) => slide !== outgoing))
-    }, CROSSFADE_MS)
+      setExitingSlides((slides) => [...new Set([...slides, outgoing])])
+      setCurrent(next)
 
-    return () => clearTimeout(timeout)
-  }, [current])
+      const timeout = setTimeout(() => {
+        setExitingSlides((slides) => slides.filter((slide) => slide !== outgoing))
+      }, CROSSFADE_MS)
+      slideTimeouts.current.push(timeout)
+    }, SLIDE_INTERVAL_MS)
+
+    return () => {
+      clearInterval(id)
+      slideTimeouts.current.forEach(clearTimeout)
+      slideTimeouts.current = []
+    }
+  }, [prefersReducedMotion])
 
   return (
     <section className="relative flex flex-1 items-center justify-center overflow-hidden">
@@ -91,6 +99,7 @@ export default function Hero() {
             className="absolute inset-0 transition-opacity ease-in-out"
             style={{
               opacity: isActive ? 1 : 0,
+              zIndex: isActive ? 1 : 2,
               transitionDuration: `${CROSSFADE_MS}ms`,
               willChange: 'opacity',
             }}

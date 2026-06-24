@@ -38,8 +38,8 @@ export default function Footer() {
             <p className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold tracking-[0.15em] text-gradient-gold mb-2">
               ICTINUS
             </p>
-            <p className="font-['Plus_Jakarta_Sans'] text-[0.7rem] uppercase tracking-[0.2em] text-white/30 mb-5">Contractors</p>
-            <p className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8] leading-[1.72] mb-4">
+            <p className="font-['Plus_Jakarta_Sans'] text-[0.7rem] uppercase tracking-[0.2em] text-[#BFAF9C] mb-5">Contractors</p>
+            <p className="font-['Source_Serif_4'] text-[0.9375rem] text-[#C8B8A6] leading-[1.72] mb-4">
               Professional decorating, refurbishment, and finishing services across London.
               Premium results, reliable project management, and clear communication on every job.
             </p>
@@ -47,7 +47,7 @@ export default function Footer() {
               Fully insured · 12+ years experience · London-wide coverage
             </p>
             <div className="mt-6 border-t border-white/10 pt-5">
-              <p className="font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-white/35">
+              <p className="font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#BFAF9C]">
                 Verified profiles
               </p>
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
@@ -57,7 +57,7 @@ export default function Footer() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-['Source_Serif_4'] text-[0.88rem] text-[#94A3B8] underline decoration-white/10 underline-offset-4 transition-colors hover:text-[#D4AF37] hover:decoration-[#D4AF37]/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+                    className="font-['Source_Serif_4'] text-[0.88rem] text-[#C8B8A6] underline decoration-[#C8B8A6]/45 underline-offset-4 transition-colors hover:text-[#D4AF37] hover:decoration-[#D4AF37]/65 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
                   >
                     {label}
                   </a>
@@ -68,9 +68,9 @@ export default function Footer() {
 
           {/* Quick Links */}
           <StaggerItem><div>
-            <h4 className="font-['Cormorant_Garamond'] text-[0.875rem] font-semibold text-[#F1F5F9]/90 tracking-widest uppercase mb-5">
+            <p className="font-['Cormorant_Garamond'] text-[0.875rem] font-semibold text-[#F1F5F9]/90 tracking-widest uppercase mb-5">
               Quick Links
-            </h4>
+            </p>
             <ul className="space-y-2">
               {quickLinks.map(({ label, to }) => (
                 <li key={label}>
@@ -81,7 +81,7 @@ export default function Footer() {
                       target_path: to,
                       service_name: label,
                     })}
-                    className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8] hover:text-[#D4AF37] transition-colors duration-200"
+                    className="font-['Source_Serif_4'] text-[0.9375rem] text-[#C8B8A6] underline decoration-[#C8B8A6]/35 underline-offset-4 hover:text-[#D4AF37] hover:decoration-[#D4AF37]/65 transition-colors duration-200"
                   >
                     {label}
                   </Link>
@@ -92,15 +92,15 @@ export default function Footer() {
 
           {/* Services column */}
           <StaggerItem><div>
-            <h4 className="font-['Cormorant_Garamond'] text-[0.875rem] font-semibold text-[#F1F5F9]/90 tracking-widest uppercase mb-5">
+            <p className="font-['Cormorant_Garamond'] text-[0.875rem] font-semibold text-[#F1F5F9]/90 tracking-widest uppercase mb-5">
               Services
-            </h4>
+            </p>
             <ul className="space-y-2">
               {mainServices.map(({ label, to }) => (
                 <li key={to}>
                   <Link
                     to={to}
-                    className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8] hover:text-[#D4AF37] transition-colors duration-200"
+                    className="font-['Source_Serif_4'] text-[0.9375rem] text-[#C8B8A6] underline decoration-[#C8B8A6]/35 underline-offset-4 hover:text-[#D4AF37] hover:decoration-[#D4AF37]/65 transition-colors duration-200"
                   >
                     {label}
                   </Link>
@@ -111,15 +111,15 @@ export default function Footer() {
 
           {/* Contact column */}
           <StaggerItem><div>
-            <h4 className="font-['Cormorant_Garamond'] text-[0.875rem] font-semibold text-[#F1F5F9]/90 tracking-widest uppercase mb-5">
+            <p className="font-['Cormorant_Garamond'] text-[0.875rem] font-semibold text-[#F1F5F9]/90 tracking-widest uppercase mb-5">
               Contact Us
-            </h4>
+            </p>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <svg className="w-4 h-4 text-[#D4AF37] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <a href="mailto:info@ictinuscontractors.co.uk" data-link-location="footer contact email" className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8] hover:text-[#D4AF37] transition-colors">
+                <a href="mailto:info@ictinuscontractors.co.uk" data-link-location="footer contact email" className="font-['Source_Serif_4'] text-[0.9375rem] text-[#C8B8A6] underline decoration-[#C8B8A6]/35 underline-offset-4 hover:text-[#D4AF37] hover:decoration-[#D4AF37]/65 transition-colors">
                   info@ictinuscontractors.co.uk
                 </a>
               </div>
@@ -127,7 +127,7 @@ export default function Footer() {
                 <svg className="w-4 h-4 text-[#D4AF37] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                 </svg>
-                <a href="tel:07586480417" data-link-location="footer contact phone" className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8] hover:text-[#D4AF37] transition-colors">
+                <a href="tel:07586480417" data-link-location="footer contact phone" className="font-['Source_Serif_4'] text-[0.9375rem] text-[#C8B8A6] underline decoration-[#C8B8A6]/35 underline-offset-4 hover:text-[#D4AF37] hover:decoration-[#D4AF37]/65 transition-colors">
                   07586 480417
                 </a>
               </div>
@@ -135,7 +135,7 @@ export default function Footer() {
                 <svg className="w-4 h-4 text-[#D4AF37] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span className="font-['Source_Serif_4'] text-[0.9375rem] text-[#94A3B8]">
+                <span className="font-['Source_Serif_4'] text-[0.9375rem] text-[#C8B8A6]">
                   East London &amp; surrounding boroughs
                 </span>
               </div>
@@ -155,28 +155,28 @@ export default function Footer() {
         {/* Divider + copyright */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
           <div className="flex flex-col items-center gap-1 sm:items-start">
-            <p className="font-['Source_Serif_4'] text-[0.8125rem] text-[#94A3B8]/60 text-center">
+            <p className="font-['Source_Serif_4'] text-[0.8125rem] text-[#BFAF9C] text-center">
               &copy; {new Date().getFullYear()} Ictinus Contractors. All rights reserved.
             </p>
             <button
               type="button"
               onClick={openCookieSettings}
-              className="font-['Source_Serif_4'] text-[0.75rem] text-[#94A3B8]/60 underline decoration-[#94A3B8]/30 underline-offset-4 transition-colors duration-200 hover:text-[#D4AF37]/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+              className="font-['Source_Serif_4'] text-[0.75rem] text-[#BFAF9C] underline decoration-[#BFAF9C]/45 underline-offset-4 transition-colors duration-200 hover:text-[#D4AF37]/85 hover:decoration-[#D4AF37]/65 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
             >
               Cookie settings
             </button>
           </div>
           <div className="flex flex-col items-center gap-1 sm:items-end">
-            <p className="font-['Source_Serif_4'] text-[0.8125rem] text-[#94A3B8]/60 text-center">
+            <p className="font-['Source_Serif_4'] text-[0.8125rem] text-[#BFAF9C] text-center">
               London, United Kingdom
             </p>
-            <p className="font-['Source_Serif_4'] text-[0.75rem] text-[#94A3B8]/45 text-center">
+            <p className="font-['Source_Serif_4'] text-[0.75rem] text-[#BFAF9C] text-center">
               Website crafted by{' '}
               <a
                 href="https://pixelrebels.space"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#94A3B8]/65 transition-colors duration-200 hover:text-[#D4AF37]/85"
+                className="text-[#E1E5E9] underline decoration-[#E1E5E9]/45 underline-offset-4 transition-colors duration-200 hover:text-[#D4AF37]/85 hover:decoration-[#D4AF37]/65"
               >
                 Pixel Rebels
               </a>
