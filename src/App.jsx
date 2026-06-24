@@ -1,13 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { lazy, Suspense, useEffect, useRef } from 'react'
 import { Routes, Route, useLocation, Link, Navigate } from 'react-router-dom'
-import { motion, MotionConfig, useScroll, useTransform } from 'motion/react'
+import { motion, MotionConfig, useInView, useScroll, useTransform } from 'motion/react'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import TrustRow from './components/TrustRow'
-import Services from './components/Services'
-import WhoWeWorkWith from './components/WhoWeWorkWith'
-import Portfolio from './components/Portfolio'
-import Footer from './components/Footer'
 import CookieConsent from './components/CookieConsent'
 import SectionDivider from './components/SectionDivider'
 import Reveal from './components/Reveal'
@@ -15,21 +11,24 @@ import useScrollReveal from './hooks/useScrollReveal'
 import useContactLinkTracking from './hooks/useContactLinkTracking'
 import { trackServiceCtaClick } from './utils/tracking'
 
-import AboutPage from './pages/AboutPage'
-import ServicesPage from './pages/ServicesPage'
-import {
-  BathroomFittingPage,
-  ElectricalWorksPage,
-  FinishingCarpentryPage,
-  HardFlooringPage,
-  PaintingAndDecoratingPage,
-  PlasteringPage,
-  PlumbingPage,
-  PropertyRefurbishmentExtensionsPage,
-} from './pages/ServicePageTemplate'
-import PortfolioPage from './pages/PortfolioPage'
-import ContactPage from './pages/ContactPage'
-import ThankYouPage from './pages/ThankYouPage'
+const Services = lazy(() => import('./components/Services'))
+const WhoWeWorkWith = lazy(() => import('./components/WhoWeWorkWith'))
+const Portfolio = lazy(() => import('./components/Portfolio'))
+const Footer = lazy(() => import('./components/Footer'))
+
+const AboutPage = lazy(() => import('./pages/AboutPage'))
+const ServicesPage = lazy(() => import('./pages/ServicesPage'))
+const PortfolioPage = lazy(() => import('./pages/PortfolioPage'))
+const ContactPage = lazy(() => import('./pages/ContactPage'))
+const ThankYouPage = lazy(() => import('./pages/ThankYouPage'))
+const BathroomFittingPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.BathroomFittingPage })))
+const ElectricalWorksPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.ElectricalWorksPage })))
+const FinishingCarpentryPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.FinishingCarpentryPage })))
+const HardFlooringPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.HardFlooringPage })))
+const PaintingAndDecoratingPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.PaintingAndDecoratingPage })))
+const PlasteringPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.PlasteringPage })))
+const PlumbingPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.PlumbingPage })))
+const PropertyRefurbishmentExtensionsPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.PropertyRefurbishmentExtensionsPage })))
 
 const CHECKATRADE_URL = 'https://www.checkatrade.com/trades/ictinuscontractors'
 const MYBUILDER_URL = 'https://www.mybuilder.com/profile/ictinus-contractors'
@@ -37,6 +36,7 @@ const MYBUILDER_URL = 'https://www.mybuilder.com/profile/ictinus-contractors'
 /* ── Photo Quote Divider ── */
 function ParallaxQuote() {
   const ref = useRef(null)
+  const shouldLoadBackground = useInView(ref, { once: true, margin: '320px' })
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
@@ -50,7 +50,9 @@ function ParallaxQuote() {
       <motion.div
         className="absolute inset-[-18%] bg-cover bg-center"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2100&auto=format&fit=crop)',
+          backgroundImage: shouldLoadBackground
+            ? 'url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=60&w=1200&auto=format&fit=crop)'
+            : 'none',
           backgroundPosition: 'center 90%',
           y: bgY,
         }}
@@ -383,7 +385,9 @@ function HomePage() {
         </div>
 
         {/* Services preview */}
-        <Services />
+        <Suspense fallback={null}>
+          <Services />
+        </Suspense>
 
         <SectionDivider variant="curve-up" fromColor="#1C1714" toColor="#F5F0E6" />
 
@@ -419,7 +423,9 @@ function HomePage() {
         <SectionDivider variant="ornament" fromColor="#F5F0E6" />
 
         {/* Portfolio preview */}
-        <Portfolio />
+        <Suspense fallback={null}>
+          <Portfolio />
+        </Suspense>
 
         <PlanningCtaBar />
 
@@ -427,7 +433,9 @@ function HomePage() {
         <ReviewsSection />
 
         {/* Who We Work With */}
-        <WhoWeWorkWith />
+        <Suspense fallback={null}>
+          <WhoWeWorkWith />
+        </Suspense>
 
         <ParallaxQuote />
 
@@ -474,7 +482,9 @@ function HomePage() {
         </section>
       </main>
 
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   )
 }
@@ -505,32 +515,34 @@ export default function App() {
     <MotionConfig reducedMotion="user">
       <ScrollManager />
       <CookieConsent />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/services/painting-and-decorating" element={<PaintingAndDecoratingPage />} />
-        <Route path="/services/property-refurbishment-extensions" element={<PropertyRefurbishmentExtensionsPage />} />
-        <Route path="/services/bathroom-fitting" element={<BathroomFittingPage />} />
-        <Route path="/services/hard-flooring" element={<HardFlooringPage />} />
-        <Route path="/services/plastering" element={<PlasteringPage />} />
-        <Route path="/services/finishing-carpentry" element={<FinishingCarpentryPage />} />
-        <Route path="/services/electrical-works" element={<ElectricalWorksPage />} />
-        <Route path="/services/plumbing" element={<PlumbingPage />} />
-        <Route path="/portfolio" element={<PortfolioPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/thank-you" element={<ThankYouPage />} />
-        <Route path="/request-a-quote" element={<Navigate to="/contact#quote" replace />} />
-        <Route path="/projects" element={<Navigate to="/portfolio" replace />} />
-        <Route path="/services/property-refurbishment-extensions-london" element={<Navigate to="/services/property-refurbishment-extensions" replace />} />
-        <Route path="/services/bathroom-fitting-london" element={<Navigate to="/services/bathroom-fitting" replace />} />
-        <Route path="/services/hard-flooring-london" element={<Navigate to="/services/hard-flooring" replace />} />
-        <Route path="/services/plastering-london" element={<Navigate to="/services/plastering" replace />} />
-        <Route path="/services/painting-decorating-london" element={<Navigate to="/services/painting-and-decorating" replace />} />
-        <Route path="/services/finishing-carpentry-london" element={<Navigate to="/services/finishing-carpentry" replace />} />
-        <Route path="/services/electrical-works-london" element={<Navigate to="/services/electrical-works" replace />} />
-        <Route path="/services/plumbing-london" element={<Navigate to="/services/plumbing" replace />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/services/painting-and-decorating" element={<PaintingAndDecoratingPage />} />
+          <Route path="/services/property-refurbishment-extensions" element={<PropertyRefurbishmentExtensionsPage />} />
+          <Route path="/services/bathroom-fitting" element={<BathroomFittingPage />} />
+          <Route path="/services/hard-flooring" element={<HardFlooringPage />} />
+          <Route path="/services/plastering" element={<PlasteringPage />} />
+          <Route path="/services/finishing-carpentry" element={<FinishingCarpentryPage />} />
+          <Route path="/services/electrical-works" element={<ElectricalWorksPage />} />
+          <Route path="/services/plumbing" element={<PlumbingPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/thank-you" element={<ThankYouPage />} />
+          <Route path="/request-a-quote" element={<Navigate to="/contact#quote" replace />} />
+          <Route path="/projects" element={<Navigate to="/portfolio" replace />} />
+          <Route path="/services/property-refurbishment-extensions-london" element={<Navigate to="/services/property-refurbishment-extensions" replace />} />
+          <Route path="/services/bathroom-fitting-london" element={<Navigate to="/services/bathroom-fitting" replace />} />
+          <Route path="/services/hard-flooring-london" element={<Navigate to="/services/hard-flooring" replace />} />
+          <Route path="/services/plastering-london" element={<Navigate to="/services/plastering" replace />} />
+          <Route path="/services/painting-decorating-london" element={<Navigate to="/services/painting-and-decorating" replace />} />
+          <Route path="/services/finishing-carpentry-london" element={<Navigate to="/services/finishing-carpentry" replace />} />
+          <Route path="/services/electrical-works-london" element={<Navigate to="/services/electrical-works" replace />} />
+          <Route path="/services/plumbing-london" element={<Navigate to="/services/plumbing" replace />} />
+        </Routes>
+      </Suspense>
     </MotionConfig>
   )
 }

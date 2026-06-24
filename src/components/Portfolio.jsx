@@ -8,6 +8,39 @@ import {
   PORTFOLIO_GALLERIES,
 } from './portfolioData'
 
+const RESPONSIVE_IMAGE_META = {
+  '/Portfolio/refurb_after_reception.webp': { name: 'refurb_after_reception', width: 1600, height: 1200 },
+  '/Portfolio/refurb_before_reception.webp': { name: 'refurb_before_reception', width: 1600, height: 1200 },
+  '/Portfolio/bathroom_renovation_hero.webp': { name: 'bathroom_renovation_hero', width: 1536, height: 1024 },
+  '/Portfolio/bathroom_renovation_hero_before.png': { name: 'bathroom_renovation_hero_before', width: 1448, height: 1086 },
+  '/Portfolio/painting_finishing_hero.webp': { name: 'painting_finishing_hero', width: 1454, height: 1082 },
+  '/Portfolio/painting_finishing_hero_before.png': { name: 'painting_finishing_hero_before', width: 1476, height: 1065 },
+  '/Portfolio/flooring_hero.webp': { name: 'flooring_hero', width: 1448, height: 1086 },
+  '/Portfolio/flooring_hero_before.png': { name: 'flooring_hero_before', width: 1448, height: 1086 },
+  '/Portfolio/plastering_hero.webp': { name: 'plastering_hero', width: 1475, height: 1067 },
+  '/Portfolio/plastering_hero_before.png': { name: 'plastering_hero_before', width: 1449, height: 1086 },
+}
+
+const PORTFOLIO_WIDTHS = [480, 800, 1200]
+
+function responsivePortfolioSrc(src, width = 800) {
+  const meta = RESPONSIVE_IMAGE_META[src]
+  return meta ? `/Portfolio/responsive/${meta.name}-${width}.webp` : src
+}
+
+function responsivePortfolioSrcSet(src) {
+  const meta = RESPONSIVE_IMAGE_META[src]
+  if (!meta) return undefined
+  return PORTFOLIO_WIDTHS
+    .filter((width) => width <= meta.width)
+    .map((width) => `${responsivePortfolioSrc(src, width)} ${width}w`)
+    .join(', ')
+}
+
+function responsivePortfolioSize(src) {
+  return RESPONSIVE_IMAGE_META[src] ?? { width: 1200, height: 900 }
+}
+
 function MetaLine({ location, serviceType }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -38,6 +71,7 @@ function MetaLine({ location, serviceType }) {
 function GalleryCard({ project, hoveredKey, setHoveredKey, toggledKey, setToggledKey, openGallery }) {
   const isActive = hoveredKey === project.key || toggledKey === project.key
   const activeImage = isActive && project.hoverImage ? project.hoverImage : project.image
+  const activeImageSize = responsivePortfolioSize(activeImage)
 
   const handleImageTap = () => {
     if (project.hoverImage) {
@@ -80,9 +114,14 @@ function GalleryCard({ project, hoveredKey, setHoveredKey, toggledKey, setToggle
         <AnimatePresence mode="wait">
           <motion.img
             key={activeImage}
-            src={activeImage}
+            src={responsivePortfolioSrc(activeImage)}
+            srcSet={responsivePortfolioSrcSet(activeImage)}
+            sizes="(min-width: 1024px) 560px, (min-width: 640px) 50vw, 100vw"
             alt={project.title}
             loading="lazy"
+            decoding="async"
+            width={activeImageSize.width}
+            height={activeImageSize.height}
             draggable={false}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -181,6 +220,7 @@ export default function Portfolio() {
     featuredActive && PORTFOLIO_FEATURED_PROJECT.hoverImage
       ? PORTFOLIO_FEATURED_PROJECT.hoverImage
       : PORTFOLIO_FEATURED_PROJECT.image
+  const featuredImageSize = responsivePortfolioSize(featuredImage)
 
   const handleFeaturedImageTap = () => {
     if (PORTFOLIO_FEATURED_PROJECT.hoverImage) {
@@ -238,9 +278,14 @@ export default function Portfolio() {
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={featuredImage}
-                    src={featuredImage}
+                    src={responsivePortfolioSrc(featuredImage, 1200)}
+                    srcSet={responsivePortfolioSrcSet(featuredImage)}
+                    sizes="(min-width: 1024px) 60vw, 100vw"
                     alt={PORTFOLIO_FEATURED_PROJECT.title}
-                    loading="eager"
+                    loading="lazy"
+                    decoding="async"
+                    width={featuredImageSize.width}
+                    height={featuredImageSize.height}
                     draggable={false}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}

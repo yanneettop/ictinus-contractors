@@ -4,11 +4,24 @@ import { Link } from 'react-router-dom'
 import { trackServiceCtaClick } from '../utils/tracking'
 
 const SLIDES = [
-  '/hero/hero-main-original.webp',
-  '/hero/hero-townhouse-hallway.webp',
-  '/hero/hero-renovated-bathroom.webp',
-  '/hero/hero-finished-bedroom.webp',
+  { name: 'hero-main-original', width: 1536, height: 1024 },
+  { name: 'hero-townhouse-hallway', width: 1536, height: 1024 },
+  { name: 'hero-renovated-bathroom', width: 1619, height: 971 },
+  { name: 'hero-finished-bedroom', width: 1536, height: 1024 },
 ]
+
+const HERO_WIDTHS = [640, 960, 1280, 1536]
+
+function heroSrc(slide, width, format = 'webp') {
+  return `/hero/${slide.name}-${width}.${format}`
+}
+
+function heroSrcSet(slide, format = 'webp') {
+  return HERO_WIDTHS
+    .filter((width) => width <= slide.width)
+    .map((width) => `${heroSrc(slide, width, format)} ${width}w`)
+    .join(', ')
+}
 
 const SLIDE_INTERVAL_MS = 5500
 const CROSSFADE_MS = 2400
@@ -59,24 +72,19 @@ export default function Hero() {
     return () => clearTimeout(timeout)
   }, [current])
 
-  useEffect(() => {
-    SLIDES.forEach((src) => {
-      const image = new Image()
-      image.src = src
-    })
-  }, [])
-
   return (
     <section className="relative flex flex-1 items-center justify-center overflow-hidden">
 
       {/* Slideshow backgrounds with Ken Burns */}
-      {SLIDES.map((src, i) => {
+      {SLIDES.map((slide, i) => {
         const kb = KB_TRANSFORMS[i % KB_TRANSFORMS.length]
         const isActive = current === i
         const isExiting = exitingSlides.includes(i)
+        if (!isActive && !isExiting) return null
+
         return (
           <div
-            key={src}
+            key={slide.name}
             className="absolute inset-0 transition-opacity ease-in-out"
             style={{
               opacity: isActive ? 1 : 0,
@@ -84,15 +92,30 @@ export default function Hero() {
               willChange: 'opacity',
             }}
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            <picture
+              className="absolute inset-0 block"
               style={{
-                backgroundImage: `url(${src})`,
                 transform: heroStarted && (isActive || isExiting) ? kb.to : kb.from,
                 transition: prefersReducedMotion ? 'none' : isActive ? `transform ${KEN_BURNS_MS}ms ease-in-out` : 'transform 0s',
                 willChange: 'transform',
               }}
-            />
+            >
+              <source type="image/avif" srcSet={heroSrcSet(slide, 'avif')} sizes="100vw" />
+              <source type="image/webp" srcSet={heroSrcSet(slide, 'webp')} sizes="100vw" />
+              <img
+                src={heroSrc(slide, Math.min(1536, slide.width), 'webp')}
+                srcSet={heroSrcSet(slide, 'webp')}
+                sizes="100vw"
+                alt=""
+                width={slide.width}
+                height={slide.height}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : 'auto'}
+                decoding="async"
+                className="h-full w-full object-cover object-center"
+                draggable={false}
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-b from-[#0D0A08]/70 via-[#1A1511]/58 to-[#0C0906]/72" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#1A1410]/68 via-[#1A1410]/42 to-[#1A1410]/18" />
             <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 46%, rgba(18,13,10,0.5) 0%, rgba(18,13,10,0.28) 34%, rgba(18,13,10,0.06) 68%)' }} />
