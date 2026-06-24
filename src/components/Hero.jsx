@@ -140,6 +140,15 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center px-5 sm:px-8 lg:px-10 max-w-[680px] mx-auto pt-24 sm:pt-28 lg:pt-24 xl:pt-28 pb-8 sm:pb-10 lg:pb-8 xl:pb-10 lg:-translate-y-1">
+        <motion.div
+          className="ict-hero-badge"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span>Est. 2018</span>
+        </motion.div>
+
         <motion.h1
           className="font-['Cormorant_Garamond'] text-[clamp(2rem,8vw,2.45rem)] sm:text-[2.85rem] lg:text-[3.2rem] xl:text-[3.45rem] font-bold text-white max-w-[680px] mx-auto mb-6 sm:mb-8 leading-[1.08] sm:leading-[1.1] tracking-[0.01em]"
           style={{ textShadow: '0 2px 28px rgba(8,5,3,0.75)' }}
