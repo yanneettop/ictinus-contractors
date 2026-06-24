@@ -10,16 +10,19 @@ const SLIDES = [
   { name: 'hero-finished-bedroom', width: 1536, height: 1024 },
 ]
 
-const HERO_WIDTHS = [640, 960, 1280, 1536]
+const HERO_DESKTOP_WIDTHS = [640, 960, 1280, 1536]
+const HERO_MOBILE_WIDTHS = [480, 640, 720]
 
-function heroSrc(slide, width, format = 'webp') {
-  return `/hero/${slide.name}-${width}.${format}`
+function heroSrc(slide, width, format = 'webp', variant = 'desktop') {
+  const suffix = variant === 'mobile' ? `mobile-${width}` : width
+  return `/hero/${slide.name}-${suffix}.${format}`
 }
 
-function heroSrcSet(slide, format = 'webp') {
-  return HERO_WIDTHS
+function heroSrcSet(slide, format = 'webp', variant = 'desktop') {
+  const widths = variant === 'mobile' ? HERO_MOBILE_WIDTHS : HERO_DESKTOP_WIDTHS
+  return widths
     .filter((width) => width <= slide.width)
-    .map((width) => `${heroSrc(slide, width, format)} ${width}w`)
+    .map((width) => `${heroSrc(slide, width, format, variant)} ${width}w`)
     .join(', ')
 }
 
@@ -100,6 +103,8 @@ export default function Hero() {
                 willChange: 'transform',
               }}
             >
+              <source media="(max-width: 639px)" type="image/avif" srcSet={heroSrcSet(slide, 'avif', 'mobile')} sizes="100vw" />
+              <source media="(max-width: 639px)" type="image/webp" srcSet={heroSrcSet(slide, 'webp', 'mobile')} sizes="100vw" />
               <source type="image/avif" srcSet={heroSrcSet(slide, 'avif')} sizes="100vw" />
               <source type="image/webp" srcSet={heroSrcSet(slide, 'webp')} sizes="100vw" />
               <img

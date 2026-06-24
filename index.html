@@ -7,7 +7,6 @@
     <!-- Google tag (gtag.js) with Consent Mode v2: everything denied until the
       cookie banner records a choice. Clarity and Ahrefs load from the consent
       module (src/utils/consent.js) only after analytics consent. -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG0SK4N6N"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -20,6 +19,23 @@
       gtag('js', new Date());
 
       gtag('config', 'G-MBG0SK4N6N');
+
+      (function () {
+        function loadGtag() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-MBG0SK4N6N';
+          document.head.appendChild(script);
+        }
+
+        window.addEventListener('load', function () {
+          if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(loadGtag, { timeout: 3000 });
+          } else {
+            window.setTimeout(loadGtag, 1500);
+          }
+        }, { once: true });
+      })();
     </script>
 
     <!-- Primary Meta Tags -->
@@ -76,9 +92,20 @@
       rel="preload"
       as="image"
       type="image/avif"
-      href="/hero/hero-main-original-960.avif"
+      href="/hero/hero-main-original-mobile-720.avif"
+      imagesrcset="/hero/hero-main-original-mobile-480.avif 480w, /hero/hero-main-original-mobile-640.avif 640w, /hero/hero-main-original-mobile-720.avif 720w"
+      imagesizes="100vw"
+      media="(max-width: 639px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      type="image/avif"
+      href="/hero/hero-main-original-1280.avif"
       imagesrcset="/hero/hero-main-original-640.avif 640w, /hero/hero-main-original-960.avif 960w, /hero/hero-main-original-1280.avif 1280w, /hero/hero-main-original-1536.avif 1536w"
       imagesizes="100vw"
+      media="(min-width: 640px)"
       fetchpriority="high"
     />
     
@@ -274,7 +301,14 @@
       }
     </style>
     <div id="app-loader" role="status" aria-label="Loading">
-      <img src="/logo_trans.png" alt="Ictinus Contractors" width="120" height="120" />
+      <img
+        src="/logo_trans-120.webp"
+        srcset="/logo_trans-120.webp 120w, /logo_trans-240.webp 240w"
+        sizes="120px"
+        alt="Ictinus Contractors"
+        width="120"
+        height="120"
+      />
       <div class="app-loader__bar" aria-hidden="true"></div>
       <div class="app-loader__name" aria-hidden="true">Ictinus</div>
     </div>

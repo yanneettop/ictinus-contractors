@@ -25,8 +25,13 @@ const serviceLinks = [
 function ColumnIcon({ className }) {
   return (
     <img
-      src="/logo_trans.png"
+      src="/logo_trans-120.webp"
+      srcSet="/logo_trans-120.webp 120w, /logo_trans-240.webp 240w"
+      sizes="(min-width: 768px) 64px, 56px"
       alt="Ictinus Contractors"
+      width="120"
+      height="120"
+      decoding="async"
       className={`h-14 md:h-16 w-auto ${className}`}
     />
   )
