@@ -456,6 +456,15 @@ body {
   flex-shrink: 0;
 }
 
+@keyframes ict-hero-ken-burns {
+  from {
+    transform: var(--kb-from);
+  }
+  to {
+    transform: var(--kb-to);
+  }
+}
+
 /* ─────────────────────────── Section Shared ─────────────────────── */
 
 /* Eyebrow / section label */

@@ -105,10 +105,14 @@ export default function Hero() {
             }}
           >
             <picture
-              className="absolute inset-0 block"
+              className="ict-hero-picture absolute inset-0 block"
               style={{
-                transform: heroStarted && (isActive || isExiting) ? kb.to : kb.from,
-                transition: prefersReducedMotion ? 'none' : isActive ? `transform ${KEN_BURNS_MS}ms ease-in-out` : 'transform 0s',
+                '--kb-from': kb.from,
+                '--kb-to': kb.to,
+                animation: heroStarted && !prefersReducedMotion && (isActive || isExiting)
+                  ? `ict-hero-ken-burns ${KEN_BURNS_MS}ms ease-in-out forwards`
+                  : 'none',
+                transform: kb.from,
                 willChange: 'transform',
               }}
             >
