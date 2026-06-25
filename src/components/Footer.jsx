@@ -27,6 +27,36 @@ const verifiedProfiles = [
   { label: 'MyBuilder', href: 'https://www.mybuilder.com/profile/ictinus-contractors' },
 ]
 
+function FooterBrandMark() {
+  return (
+    <Link
+      to="/"
+      className="group inline-flex items-center gap-3 sm:gap-3.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+      aria-label="Go to Ictinus Contractors homepage"
+    >
+      <img
+        src="/logo_trans-120.webp"
+        srcSet="/logo_trans-120.webp 120w, /logo_trans-240.webp 240w"
+        sizes="(min-width: 640px) 58px, 50px"
+        alt=""
+        width="120"
+        height="120"
+        loading="lazy"
+        decoding="async"
+        className="h-[50px] w-auto flex-shrink-0 transition-transform duration-300 group-hover:scale-[1.04] sm:h-[58px]"
+      />
+      <span className="flex flex-col leading-none text-left">
+        <span className="font-['Cormorant_Garamond'] text-[1.42rem] font-semibold uppercase tracking-[0.18em] text-[#D4AF37] sm:text-[1.68rem] sm:tracking-[0.24em]">
+          ICTINUS
+        </span>
+        <span className="mt-1.5 font-['Cormorant_Garamond'] text-[0.84rem] font-semibold uppercase tracking-[0.13em] text-[#E6DCC8] sm:mt-2 sm:text-[0.98rem] sm:tracking-[0.16em]">
+          CONTRACTORS
+        </span>
+      </span>
+    </Link>
+  )
+}
+
 export default function Footer() {
   return (
     <footer className="bg-[#1C1714] text-white px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
@@ -35,10 +65,9 @@ export default function Footer() {
 
           {/* Brand column */}
           <StaggerItem><div className="sm:col-span-2 lg:col-span-1">
-            <p className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-bold tracking-[0.15em] text-gradient-gold mb-2">
-              ICTINUS
-            </p>
-            <p className="font-['Plus_Jakarta_Sans'] text-[0.7rem] uppercase tracking-[0.2em] text-[#BFAF9C] mb-5">Contractors</p>
+            <div className="mb-6">
+              <FooterBrandMark />
+            </div>
             <p className="font-['Source_Serif_4'] text-[0.9375rem] text-[#C8B8A6] leading-[1.72] mb-4">
               Professional decorating, refurbishment, and finishing services across London.
               Premium results, reliable project management, and clear communication on every job.
