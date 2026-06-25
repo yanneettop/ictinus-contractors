@@ -90,8 +90,7 @@ export default function CookieConsent() {
 
   return (
     <aside
-      role="dialog"
-      aria-modal="false"
+      role="region"
       aria-labelledby="cookie-consent-title"
       className="fixed bottom-3 left-3 right-3 z-[60] max-h-[80vh] overflow-y-auto rounded-md border border-[#1C1714]/12 bg-[#F9F7F2]/95 p-5 shadow-[0_18px_48px_rgba(28,23,20,0.16)] backdrop-blur-sm sm:bottom-6 sm:left-6 sm:right-auto sm:w-full sm:max-w-[440px]"
     >
