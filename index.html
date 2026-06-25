@@ -278,25 +278,9 @@
         0% { transform: translateX(-110%); }
         100% { transform: translateX(310%); }
       }
-      /* Wordmark settles in with letter-spacing */
-      .app-loader__name {
-        font-family: 'Cormorant Garamond', Georgia, serif;
-        font-size: 15px;
-        font-weight: 600;
-        color: #202D2D;
-        letter-spacing: 0.42em;
-        text-indent: 0.42em; /* balance tracking so text is optically centered */
-        text-transform: uppercase;
-        animation: app-loader-name 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
-      }
-      @keyframes app-loader-name {
-        0% { opacity: 0; letter-spacing: 0.7em; text-indent: 0.7em; }
-        100% { opacity: 1; letter-spacing: 0.42em; text-indent: 0.42em; }
-      }
       @media (prefers-reduced-motion: reduce) {
         #app-loader img,
-        .app-loader__bar::before,
-        .app-loader__name { animation: none; }
+        .app-loader__bar::before { animation: none; }
         #app-loader { transition: none; }
       }
     </style>
@@ -310,7 +294,6 @@
         height="120"
       />
       <div class="app-loader__bar" aria-hidden="true"></div>
-      <div class="app-loader__name" aria-hidden="true">Ictinus</div>
     </div>
     <div id="root"></div>
     <script>
