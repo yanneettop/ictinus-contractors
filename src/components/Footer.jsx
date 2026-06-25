@@ -37,19 +37,19 @@ function FooterBrandMark() {
       <img
         src="/logo_trans-120.webp"
         srcSet="/logo_trans-120.webp 120w, /logo_trans-240.webp 240w"
-        sizes="(min-width: 640px) 58px, 50px"
+        sizes="(min-width: 1024px) 72px, (min-width: 640px) 62px, 50px"
         alt=""
         width="120"
         height="120"
         loading="lazy"
         decoding="async"
-        className="h-[50px] w-auto flex-shrink-0 transition-transform duration-300 group-hover:scale-[1.04] sm:h-[58px]"
+        className="h-[50px] w-auto flex-shrink-0 transition-transform duration-300 group-hover:scale-[1.04] sm:h-[62px] lg:h-[72px]"
       />
       <span className="flex flex-col leading-none text-left">
         <span className="font-['Cormorant_Garamond'] text-[1.42rem] font-semibold uppercase tracking-[0.18em] text-[#D4AF37] sm:text-[1.68rem] sm:tracking-[0.24em]">
           ICTINUS
         </span>
-        <span className="mt-1.5 font-['Cormorant_Garamond'] text-[0.84rem] font-semibold uppercase tracking-[0.13em] text-[#E6DCC8] sm:mt-2 sm:text-[0.98rem] sm:tracking-[0.16em]">
+        <span className="mt-1.5 font-['Cormorant_Garamond'] text-[0.84rem] font-semibold uppercase tracking-[0.13em] text-[#D4AF37] sm:mt-2 sm:text-[0.98rem] sm:tracking-[0.16em]">
           CONTRACTORS
         </span>
       </span>
