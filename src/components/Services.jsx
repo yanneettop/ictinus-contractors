@@ -135,6 +135,14 @@ export default function Services() {
                 {/* Hover glow */}
                 <div className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 bg-gradient-to-b from-[#D4AF37]/[0.08] to-transparent group-hover:opacity-100 group-focus-within:opacity-100" />
 
+                {href && (
+                  <span className="pointer-events-none absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-[#D4AF37]/25 bg-[#1C1714]/50 text-[#D4AF37] opacity-0 shadow-[0_8px_18px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out group-hover:translate-x-1.5 group-hover:-translate-y-1.5 group-hover:opacity-100 group-focus-within:translate-x-1.5 group-focus-within:-translate-y-1.5 group-focus-within:opacity-100">
+                    <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.9" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7m0 0H9m8 0v8" />
+                    </svg>
+                  </span>
+                )}
+
                 <div className="relative p-6 sm:p-8">
                   {/* Number + Icon row */}
                   <div className="flex items-start justify-between mb-6">

@@ -32,6 +32,7 @@ const PropertyRefurbishmentExtensionsPage = lazy(() => import('./pages/ServicePa
 
 const CHECKATRADE_URL = 'https://www.checkatrade.com/trades/ictinuscontractors'
 const MYBUILDER_URL = 'https://www.mybuilder.com/profile/ictinus-contractors'
+const GOOGLE_URL = 'https://www.google.com/maps/place/Ictinus+Contractors/@51.565339,0.1147425,11z/data=!3m1!4b1!4m6!3m5!1s0x63d2cc228ef76369:0x5eabc14ee3673111!8m2!3d51.565339!4d0.1147425!16s%2Fg%2F11nj9z39xx?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D'
 
 /* ── Photo Quote Divider ── */
 function ParallaxQuote() {
@@ -86,9 +87,9 @@ function ParallaxQuote() {
 
 /* ── Slim Homepage ── */
 const proofCards = [
-  { value: '9.97/10', label: 'Checkatrade rating' },
-  { value: '33', label: 'Customer reviews' },
-  { value: '12+', label: 'Years experience' },
+  { value: '10/10', label: 'Checkatrade rating' },
+  { value: '5.0/5', label: 'Google reviews' },
+  { value: '30+', label: 'Verified reviews' },
   { value: 'London', label: 'Local contractor' },
 ]
 
@@ -110,10 +111,61 @@ const reviewCards = [
   },
 ]
 
+const feedbackCards = [
+  {
+    title: 'Outstanding from start to finish',
+    quote: 'The quality of work, professionalism, and overall attention to detail were outstanding from start to finish.',
+    reviewer: 'Vasilis Moukas',
+    meta: 'Google review',
+    sourceUrl: GOOGLE_URL,
+  },
+  {
+    title: 'Brilliant home improvement services',
+    quote: 'Costa and the team provided brilliant home improvement services from start to finish. Their professionalism, attention to detail, and quality of work really stood out.',
+    reviewer: 'Bernard Nuza',
+    meta: 'Google review',
+    sourceUrl: GOOGLE_URL,
+  },
+  {
+    title: 'Professional, kind and clean',
+    quote: 'Konstantinos and his team were professional, kind, and kept the place clean every day.',
+    reviewer: 'Jim Jimmy',
+    meta: 'Google review',
+    sourceUrl: GOOGLE_URL,
+  },
+  {
+    title: 'Fast and professional renovation',
+    quote: 'The renovation of my small house was much easier and much faster than I imagined. Excellent professional, with expertise and within the time limits that we had arranged.',
+    reviewer: 'Stefanos Nikolaos Raris',
+    meta: 'Google review',
+    sourceUrl: GOOGLE_URL,
+  },
+  {
+    title: 'Bathroom renovation and painting',
+    quote: "I recently had the bathroom renovation and wall painting handled for my entire home, and I couldn't be happier with the results. Highly skilled and knowledgeable, with dedication and attention to detail that truly set the work apart.",
+    reviewer: 'Euston, London',
+    meta: 'MyBuilder review',
+    sourceUrl: MYBUILDER_URL,
+  },
+  {
+    title: 'Fantastic painting and decorating',
+    quote: 'Konstantinos and his team from Ictinus did a fantastic job painting and decorating my flat. They were super professional, easy to communicate with, and the results are beautiful.',
+    reviewer: 'E1, London',
+    meta: 'Checkatrade review',
+    sourceUrl: CHECKATRADE_URL,
+  },
+]
+
 const myBuilderStats = [
   { value: '4.9/5', label: 'MyBuilder rating' },
-  { value: '31', label: 'MyBuilder reviews' },
+  { value: 'Verified', label: 'Trade profile' },
   { value: 'Apr 2026', label: 'Latest feedback' },
+]
+
+const checkatradeStats = [
+  { value: '10/10', label: 'Checkatrade rating' },
+  { value: 'Verified', label: 'Trade profile' },
+  { value: 'London', label: 'Customer feedback' },
 ]
 
 const howWeWorkItems = [
@@ -139,7 +191,7 @@ function TrustProfileCards() {
   return (
     <div className="mt-8 grid gap-4 md:grid-cols-2">
       <motion.article
-        className="rounded-lg border border-[#D4AF37]/32 bg-[#FFFEFB] p-6 shadow-[0_16px_44px_rgba(28,23,20,0.08)] sm:p-7"
+        className="flex h-full flex-col rounded-lg border border-[#D4AF37]/24 bg-[#FFFEFB] p-6 shadow-[0_16px_44px_rgba(28,23,20,0.07)] sm:p-7"
         initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         whileHover={{ y: -4, boxShadow: '0 20px 52px rgba(28,23,20,0.1), 0 4px 14px rgba(212,175,55,0.1)' }}
@@ -149,18 +201,29 @@ function TrustProfileCards() {
         <p className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[#A88636]">
           Checkatrade Reviews
         </p>
-        <h3 className="mt-3 font-['Cormorant_Garamond'] text-[2rem] font-semibold leading-none text-[#1C1714] sm:text-[2.4rem]">
-          9.97/10 rating
+        <h3 className="mt-3 font-['Cormorant_Garamond'] text-[1.75rem] font-semibold leading-tight text-[#1C1714] sm:text-[2.1rem]">
+          10/10 rating on Checkatrade
         </h3>
         <p className="mt-4 font-['Source_Serif_4'] text-[0.96rem] leading-[1.68] text-[#4D433B]">
-          33 customer reviews, with consistent feedback for quality, reliability, communication and
-          attention to detail.
+          Consistent customer feedback for quality, reliability, communication and attention to detail.
         </p>
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          {checkatradeStats.map(({ value, label }) => (
+            <div key={label} className="rounded-lg border border-[#D4AF37]/18 bg-[#FFFEFB]/78 px-3 py-3 text-center">
+              <p className="font-['Plus_Jakarta_Sans'] text-[1.05rem] font-bold leading-none tracking-[-0.01em] text-[#1C1714]">
+                {value}
+              </p>
+              <p className="mt-1.5 font-['Plus_Jakarta_Sans'] text-[0.58rem] font-semibold uppercase leading-tight tracking-[0.08em] text-[#7A6758]">
+                {label}
+              </p>
+            </div>
+          ))}
+        </div>
         <a
           href={CHECKATRADE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-gold px-6 py-3 font-['Source_Serif_4'] text-[0.92rem] font-semibold tracking-wide text-[#1C1714] shadow-[0_8px_24px_rgba(212,175,55,0.22)] transition-shadow hover:shadow-[0_12px_32px_rgba(212,175,55,0.32)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B08D2A]"
+          className="mt-5 inline-flex items-center justify-center gap-2 self-start rounded-lg border border-[#D4AF37]/42 px-6 py-3 font-['Source_Serif_4'] text-[0.92rem] font-semibold tracking-wide text-[#B08D2A] transition-colors hover:border-[#D4AF37]/70 hover:bg-[#D4AF37]/8 hover:text-[#8B6C2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B08D2A]"
         >
           View Checkatrade Reviews
           <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
@@ -170,10 +233,10 @@ function TrustProfileCards() {
       </motion.article>
 
       <motion.article
-        className="rounded-lg border border-[#D4AF37]/18 bg-[#FDFCF9] p-6 shadow-[0_10px_28px_rgba(28,23,20,0.045)] sm:p-7"
+        className="flex h-full flex-col rounded-lg border border-[#D4AF37]/24 bg-[#FFFEFB] p-6 shadow-[0_16px_44px_rgba(28,23,20,0.07)] sm:p-7"
         initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
-        whileHover={{ y: -3, boxShadow: '0 14px 34px rgba(28,23,20,0.07)' }}
+        whileHover={{ y: -4, boxShadow: '0 20px 52px rgba(28,23,20,0.1), 0 4px 14px rgba(212,175,55,0.1)' }}
         viewport={{ once: true }}
         transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
       >
@@ -183,9 +246,9 @@ function TrustProfileCards() {
         <h3 className="mt-3 font-['Cormorant_Garamond'] text-[1.75rem] font-semibold leading-tight text-[#1C1714] sm:text-[2.1rem]">
           4.9/5 rating on MyBuilder
         </h3>
-        <p className="mt-4 font-['Source_Serif_4'] text-[0.96rem] leading-[1.68] text-[#5A5048]">
-          31 MyBuilder reviews add another trust signal alongside Checkatrade, with customers highlighting
-          reliability, professionalism and clean finishing work.
+        <p className="mt-4 font-['Source_Serif_4'] text-[0.96rem] leading-[1.68] text-[#4D433B]">
+          Customer feedback adds another trust signal alongside Checkatrade, highlighting reliability,
+          professionalism and clean finishing work.
         </p>
         <div className="mt-5 grid grid-cols-3 gap-2">
           {myBuilderStats.map(({ value, label }) => (
@@ -203,7 +266,7 @@ function TrustProfileCards() {
           href={MYBUILDER_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg border border-[#D4AF37]/42 px-6 py-3 font-['Source_Serif_4'] text-[0.92rem] font-semibold tracking-wide text-[#B08D2A] transition-colors hover:border-[#D4AF37]/70 hover:bg-[#D4AF37]/8 hover:text-[#8B6C2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B08D2A]"
+          className="mt-5 inline-flex items-center justify-center gap-2 self-start rounded-lg border border-[#D4AF37]/42 px-6 py-3 font-['Source_Serif_4'] text-[0.92rem] font-semibold tracking-wide text-[#B08D2A] transition-colors hover:border-[#D4AF37]/70 hover:bg-[#D4AF37]/8 hover:text-[#8B6C2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B08D2A]"
         >
           View MyBuilder Profile
           <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
@@ -280,11 +343,11 @@ function ReviewsSection() {
           <div className="mx-auto mt-12 max-w-3xl text-center sm:mt-14">
             <p className="ict-section-label mb-2">Customer Feedback</p>
             <h2 className="mb-4 font-['Cormorant_Garamond'] text-[1.75rem] font-semibold leading-[1.15] text-[#1C1714] md:text-[2.5rem]">
-              Checkatrade feedback from London customers
+              Trusted by London homeowners
             </h2>
             <p className="mx-auto max-w-2xl font-['Source_Serif_4'] text-[0.9375rem] leading-[1.65] text-[#5A5048] sm:text-[1.03rem]">
-              Short excerpts from customer feedback on professionalism, communication, quality workmanship,
-              reliability, attention to detail and clean finishes.
+              Short excerpts from Google, Checkatrade and trade platform reviews, highlighting professionalism,
+              clear communication, reliable workmanship, attention to detail and clean finishes.
             </p>
           </div>
 
@@ -315,11 +378,11 @@ function ReviewsSection() {
           </div>
 
           <p className="mt-4 text-center font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.09em] text-[#6A5B4C] sm:text-[0.72rem]">
-            East London based &middot; Professional refurbishment and finishing work across London
+            East London based &middot; Refurbishment, painting and finishing work across London
           </p>
 
-          <div className="mt-5 grid gap-4 md:grid-cols-3">
-            {reviewCards.map(({ title, quote, meta }, i) => (
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {feedbackCards.map(({ title, quote, reviewer, meta, sourceUrl }, i) => (
               <motion.article
                 key={title}
                 className="group rounded-lg border border-[#D4AF37]/16 bg-[#FDFCF9] p-4 shadow-[0_10px_28px_rgba(28,23,20,0.045)] transition-colors duration-300 hover:border-[#D4AF37]/34"
@@ -342,21 +405,39 @@ function ReviewsSection() {
                 <blockquote className="font-['Source_Serif_4'] text-[0.95rem] leading-[1.58] text-[#3D342D]">
                   &ldquo;{quote}&rdquo;
                 </blockquote>
-                <p className="mt-3 font-['Plus_Jakarta_Sans'] text-[0.66rem] font-semibold uppercase tracking-[0.1em] text-[#A88636]">
-                  {meta}
-                </p>
+                <a
+                  href={sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex flex-col font-['Plus_Jakarta_Sans'] text-[0.66rem] font-semibold uppercase tracking-[0.1em] text-[#A88636] transition-colors hover:text-[#8B6C2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B08D2A]"
+                  aria-label={`Read ${reviewer} review`}
+                >
+                  <span>{meta}</span>
+                  <span className="mt-1 text-[0.62rem] tracking-[0.08em] text-[#7A6758]">{reviewer}</span>
+                </a>
               </motion.article>
             ))}
           </div>
 
-          <div className="mt-5 text-center">
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href={GOOGLE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-gold px-6 py-3 font-['Source_Serif_4'] text-[0.95rem] font-semibold tracking-wide text-[#1C1714] shadow-[0_8px_24px_rgba(212,175,55,0.22)] transition-shadow hover:shadow-[0_12px_32px_rgba(212,175,55,0.32)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B08D2A]"
+            >
+              Read Google reviews
+              <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7m0 0H9m8 0v8" />
+              </svg>
+            </a>
             <a
               href={CHECKATRADE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-[#B08D2A] underline decoration-[#D4AF37]/35 underline-offset-4 transition-colors hover:text-[#8B6C2C]"
+              className="group inline-flex items-center justify-center gap-2 rounded-lg border border-[#D4AF37]/42 px-6 py-3 font-['Source_Serif_4'] text-[0.95rem] font-semibold tracking-wide text-[#B08D2A] transition-colors hover:border-[#D4AF37]/70 hover:bg-[#D4AF37]/8 hover:text-[#8B6C2C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B08D2A]"
             >
-              Read more reviews on Checkatrade
+              Read Checkatrade reviews
               <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7m0 0H9m8 0v8" />
               </svg>

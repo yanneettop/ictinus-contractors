@@ -285,11 +285,9 @@ body {
 }
 .ict-hero-trust-item {
   position: relative;
-  min-width: 0;
-}
-.ict-hero-trust-item:first-child {
   color: rgba(246,238,220,0.82);
   font-weight: 700;
+  min-width: 0;
 }
 @media (max-width: 480px) {
   .ict-hero-trust-row {
