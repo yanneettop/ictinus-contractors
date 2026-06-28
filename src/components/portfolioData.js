@@ -41,7 +41,6 @@ export const PORTFOLIO_FEATURED_PROJECT = {
     'A complete home refurbishment carried out across the main living areas, bedrooms, hallway, staircase, kitchen and bathroom. The work focused on careful preparation, clean decoration, flooring, woodwork and finishing details to create a brighter, calmer and more cohesive home.',
   image: '/Portfolio/full-property-refurbishment-london-reception-room.webp',
   hoverImage: '/Portfolio/full-property-refurbishment-london-galley-kitchen.webp',
-  caseStudyPath: '/portfolio/complete-east-london-home-refurbishment',
   pillLabel: '8 finished spaces',
   hasGallery: true,
   galleryPreview: ['Reception room', 'Kitchen and bathroom', 'Bedroom and finishing details'],

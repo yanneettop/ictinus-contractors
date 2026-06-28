@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 import PortfolioGalleryModal from './PortfolioGalleryModal'
@@ -23,7 +22,6 @@ const RESPONSIVE_IMAGE_META = {
 }
 
 const PORTFOLIO_WIDTHS = [480, 800, 1200]
-const MotionLink = motion.create(Link)
 
 function responsivePortfolioSrc(src, width = 800) {
   const meta = RESPONSIVE_IMAGE_META[src]
@@ -210,6 +208,15 @@ export default function Portfolio() {
       : PORTFOLIO_FEATURED_PROJECT.image
   const featuredImageSize = responsivePortfolioSize(featuredImage)
 
+  const handleFeaturedGalleryOpen = () => openGallery(featuredKey)
+
+  const handleFeaturedKeyDown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      handleFeaturedGalleryOpen()
+    }
+  }
+
   return (
     <section id="portfolio" className="bg-[#FAF9F6] px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -225,18 +232,21 @@ export default function Portfolio() {
         </Reveal>
 
         <Reveal direction="scale" delay={0.1}>
-          <MotionLink
-            to={PORTFOLIO_FEATURED_PROJECT.caseStudyPath}
+          <motion.article
             onHoverStart={() => setHoveredKey(featuredKey)}
             onHoverEnd={() => setHoveredKey(null)}
+            onClick={handleFeaturedGalleryOpen}
+            onKeyDown={handleFeaturedKeyDown}
             whileHover={{
               y: -2,
               boxShadow: '0 16px 40px rgba(0,0,0,0.09), 0 3px 10px rgba(212,175,55,0.07)',
               borderColor: 'rgba(212,175,55,0.38)',
             }}
             transition={{ duration: 0.3 }}
-            className="group mb-6 block overflow-hidden rounded-[16px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-[0_1px_4px_rgba(0,0,0,0.06)] no-underline"
-            aria-label={`View case study for ${PORTFOLIO_FEATURED_PROJECT.title}`}
+            className="group mb-6 cursor-pointer overflow-hidden rounded-[16px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-[0_1px_4px_rgba(0,0,0,0.06)]"
+            role="button"
+            tabIndex={0}
+            aria-label={`Open gallery for ${PORTFOLIO_FEATURED_PROJECT.title}`}
           >
             <div className="flex flex-col lg:flex-row">
               <div className="relative min-h-[260px] w-full flex-shrink-0 overflow-hidden sm:min-h-[340px] lg:min-h-[440px] lg:w-[60%]">
@@ -286,7 +296,7 @@ export default function Portfolio() {
                     {PORTFOLIO_FEATURED_PROJECT.pillLabel}
                   </span>
                   <span className="group/project inline-flex items-center gap-2 font-['Source_Serif_4'] text-[0.9rem] font-semibold text-[#1C1714] transition-colors group-hover:text-[#B08D2A]">
-                    View case study
+                    View Project
                   <svg className="h-4 w-4 transition-transform duration-200 group-hover/project:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -294,7 +304,7 @@ export default function Portfolio() {
                 </div>
               </div>
             </div>
-          </MotionLink>
+          </motion.article>
         </Reveal>
 
         <StaggerContainer className="grid grid-cols-1 gap-5 sm:grid-cols-2" stagger={0.08}>

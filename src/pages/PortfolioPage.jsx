@@ -15,8 +15,6 @@ import {
   PORTFOLIO_PAGE_PROJECTS,
 } from '../components/portfolioData'
 
-const MotionLink = motion.create(Link)
-
 function MetaLine({ category, location, tags }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -175,6 +173,15 @@ export default function PortfolioPage() {
       ? PORTFOLIO_FEATURED_PROJECT.hoverImage
       : PORTFOLIO_FEATURED_PROJECT.image
 
+  const handleFeaturedGalleryOpen = () => openGallery(PORTFOLIO_FEATURED_PROJECT.key)
+
+  const handleFeaturedKeyDown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      handleFeaturedGalleryOpen()
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
       <Nav />
@@ -229,18 +236,21 @@ export default function PortfolioPage() {
             </Reveal>
 
             <Reveal direction="scale" delay={0.05}>
-              <MotionLink
-                to={PORTFOLIO_FEATURED_PROJECT.caseStudyPath}
+              <motion.article
                 onHoverStart={() => setHoveredKey(PORTFOLIO_FEATURED_PROJECT.key)}
                 onHoverEnd={() => setHoveredKey(null)}
+                onClick={handleFeaturedGalleryOpen}
+                onKeyDown={handleFeaturedKeyDown}
                 whileHover={{
                   y: -2,
                   boxShadow: '0 18px 44px rgba(0,0,0,0.1), 0 4px 12px rgba(212,175,55,0.08)',
                   borderColor: 'rgba(212,175,55,0.35)',
                 }}
                 transition={{ duration: 0.3 }}
-                className="group mb-8 block overflow-hidden rounded-[20px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-sm no-underline"
-                aria-label={`View case study for ${PORTFOLIO_FEATURED_PROJECT.title}`}
+                className="group mb-8 cursor-pointer overflow-hidden rounded-[20px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-sm"
+                role="button"
+                tabIndex={0}
+                aria-label={`Open gallery for ${PORTFOLIO_FEATURED_PROJECT.title}`}
               >
                 <div className="flex flex-col lg:flex-row">
                   <div className="relative min-h-[260px] w-full flex-shrink-0 overflow-hidden sm:min-h-[340px] lg:min-h-[440px] lg:w-[60%]">
@@ -286,7 +296,7 @@ export default function PortfolioPage() {
                         {PORTFOLIO_FEATURED_PROJECT.pillLabel}
                       </span>
                       <span className="group/project inline-flex items-center gap-2 font-['Source_Serif_4'] text-[0.88rem] font-semibold text-[#1C1714] transition-colors group-hover:text-[#B08D2A]">
-                        View case study
+                        View Project
                         <svg className="h-4 w-4 transition-transform duration-200 group-hover/project:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -294,7 +304,7 @@ export default function PortfolioPage() {
                     </div>
                   </div>
                 </div>
-              </MotionLink>
+              </motion.article>
             </Reveal>
 
             <StaggerContainer className="grid grid-cols-1 gap-6 md:grid-cols-2" stagger={0.08}>
