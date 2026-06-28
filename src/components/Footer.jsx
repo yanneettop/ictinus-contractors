@@ -6,11 +6,11 @@ import { openCookieSettings } from '../utils/consent'
 
 const mainServices = [
   { label: 'Property Refurbishment & Extensions', to: '/services/property-refurbishment-extensions' },
-  { label: 'Bathroom Fitting', to: '/services/bathroom-fitting' },
-  { label: 'Hard Flooring', to: '/services/hard-flooring' },
-  { label: 'Plastering', to: '/services/plastering' },
+  { label: 'Bathroom Fitting & Renovation', to: '/services/bathroom-fitting' },
   { label: 'Painting & Decorating', to: '/services/painting-and-decorating' },
-  { label: 'Finishing Carpentry', to: '/services/finishing-carpentry' },
+  { label: 'Plastering & Surface Preparation', to: '/services/plastering' },
+  { label: 'Hard Flooring Installation', to: '/services/hard-flooring' },
+  { label: 'Finishing Carpentry & Detail Work', to: '/services/finishing-carpentry' },
   { label: 'Electrical Works', to: '/services/electrical-works' },
   { label: 'Plumbing', to: '/services/plumbing' },
 ]

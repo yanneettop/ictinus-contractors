@@ -9,12 +9,12 @@ import {
 } from './portfolioData'
 
 const RESPONSIVE_IMAGE_META = {
-  '/Portfolio/refurb_after_reception.webp': { name: 'refurb_after_reception', width: 1600, height: 1200 },
-  '/Portfolio/refurb_before_reception.webp': { name: 'refurb_before_reception', width: 1600, height: 1200 },
-  '/Portfolio/bathroom_renovation_hero.webp': { name: 'bathroom_renovation_hero', width: 1536, height: 1024 },
-  '/Portfolio/bathroom_renovation_hero_before.png': { name: 'bathroom_renovation_hero_before', width: 1448, height: 1086 },
-  '/Portfolio/painting_finishing_hero.webp': { name: 'painting_finishing_hero', width: 1454, height: 1082 },
-  '/Portfolio/painting_finishing_hero_before.png': { name: 'painting_finishing_hero_before', width: 1476, height: 1065 },
+  '/Portfolio/full-property-refurbishment-london-reception-room.webp': { name: 'full-property-refurbishment-london-reception-room', width: 1537, height: 1023 },
+  '/Portfolio/full-property-refurbishment-london-galley-kitchen.webp': { name: 'full-property-refurbishment-london-galley-kitchen', width: 1536, height: 1024 },
+  '/Portfolio/bathroom-renovation-london-walk-in-shower.webp': { name: 'bathroom-renovation-london-walk-in-shower', width: 1536, height: 1024 },
+  '/Portfolio/bathroom-renovation-london-freestanding-bath.webp': { name: 'bathroom-renovation-london-freestanding-bath', width: 1536, height: 1024 },
+  '/Portfolio/painting-finishing-london-living-room.webp': { name: 'painting-finishing-london-living-room', width: 1536, height: 1024 },
+  '/Portfolio/painting-finishing-london-hallway-staircase.webp': { name: 'painting-finishing-london-hallway-staircase', width: 1024, height: 1536 },
   '/Portfolio/flooring_hero.webp': { name: 'flooring_hero', width: 1448, height: 1086 },
   '/Portfolio/flooring_hero_before.png': { name: 'flooring_hero_before', width: 1448, height: 1086 },
   '/Portfolio/plastering_hero.webp': { name: 'plastering_hero', width: 1475, height: 1067 },

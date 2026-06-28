@@ -14,36 +14,11 @@ const services = [
     ),
   },
   {
-    title: 'Bathroom Fitting',
+    title: 'Bathroom Fitting & Renovation',
     desc: 'Full bathroom installations including tiling, plumbing fixtures, sanitaryware, vanities, and all finishing works delivered to a high standard.',
     href: '/services/bathroom-fitting',
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
-    ),
-  },
-  {
-    title: 'Hard Flooring',
-    desc: 'Supply and installation of hardwood, engineered wood, laminate, vinyl, and tile flooring with precise fitting and a clean finish.',
-    href: '/services/hard-flooring',
-    icon: (
-      <>
-        <rect x="3" y="3" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
-        <rect x="14" y="3" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
-        <rect x="14" y="14" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
-        <rect x="3" y="14" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
-      </>
-    ),
-  },
-  {
-    title: 'Plastering',
-    desc: 'Professional plastering, skimming, patch repairs, and surface preparation for smooth, durable, paint-ready walls and ceilings.',
-    href: '/services/plastering',
-    icon: (
-      <>
-        <polygon points="12 2 2 7 12 12 22 7 12 2" strokeLinecap="round" strokeLinejoin="round" />
-        <polyline points="2 17 12 22 22 17" strokeLinecap="round" strokeLinejoin="round" />
-        <polyline points="2 12 12 17 22 12" strokeLinecap="round" strokeLinejoin="round" />
-      </>
     ),
   },
   {
@@ -58,7 +33,32 @@ const services = [
     ),
   },
   {
-    title: 'Finishing Carpentry',
+    title: 'Plastering & Surface Preparation',
+    desc: 'Professional plastering, skimming, patch repairs, and surface preparation for smooth, durable, paint-ready walls and ceilings.',
+    href: '/services/plastering',
+    icon: (
+      <>
+        <polygon points="12 2 2 7 12 12 22 7 12 2" strokeLinecap="round" strokeLinejoin="round" />
+        <polyline points="2 17 12 22 22 17" strokeLinecap="round" strokeLinejoin="round" />
+        <polyline points="2 12 12 17 22 12" strokeLinecap="round" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  {
+    title: 'Hard Flooring Installation',
+    desc: 'Supply and installation of hardwood, engineered wood, laminate, vinyl, and tile flooring with precise fitting and a clean finish.',
+    href: '/services/hard-flooring',
+    icon: (
+      <>
+        <rect x="3" y="3" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
+        <rect x="14" y="3" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
+        <rect x="14" y="14" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
+        <rect x="3" y="14" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  {
+    title: 'Finishing Carpentry & Detail Work',
     desc: 'Skirting boards, architraves, door hanging, boxing-in, panelling, and detailed finishing carpentry for a polished interior result.',
     href: '/services/finishing-carpentry',
     icon: (

@@ -1,33 +1,25 @@
 export const PORTFOLIO_GALLERIES = {
   refurb: [
-    { src: '/Portfolio/refurb_after_reception.webp', alt: 'Full Property Refurbishment - reception room after', label: 'After' },
-    { src: '/Portfolio/refurb_after_bedroom.webp', alt: 'Full Property Refurbishment - bedroom after', label: 'After' },
-    { src: '/Portfolio/refurb_after_reception2.webp', alt: 'Full Property Refurbishment - reception corner after', label: 'After' },
-    { src: '/Portfolio/refurb_after_landing.webp', alt: 'Full Property Refurbishment - landing after', label: 'After' },
-    { src: '/Portfolio/refurb_after_hallway.webp', alt: 'Full Property Refurbishment - hallway after', label: 'After' },
-    { src: '/Portfolio/refurb_after_staircase.webp', alt: 'Full Property Refurbishment - staircase after', label: 'After' },
-    { src: '/Portfolio/refurb_before_reception.webp', alt: 'Full Property Refurbishment - reception room before', label: 'Before' },
-    { src: '/Portfolio/refurb_before_reception2.webp', alt: 'Full Property Refurbishment - reception corner before', label: 'Before' },
-    { src: '/Portfolio/refurb_before_landing.webp', alt: 'Full Property Refurbishment - landing before', label: 'Before' },
-    { src: '/Portfolio/refurb_before_landing2.webp', alt: 'Full Property Refurbishment - alternate landing before', label: 'Before' },
-    { src: '/Portfolio/refurb_before_hallway.webp', alt: 'Full Property Refurbishment - hallway before', label: 'Before' },
-    { src: '/Portfolio/refurb_before_bedroom.webp', alt: 'Full Property Refurbishment - bedroom before', label: 'Before' },
+    { src: '/Portfolio/full-property-refurbishment-london-reception-room.webp', alt: 'Full Property Refurbishment - London reception room', label: 'After' },
+    { src: '/Portfolio/full-property-refurbishment-london-galley-kitchen.webp', alt: 'Full Property Refurbishment - London galley kitchen', label: 'After' },
+    { src: '/Portfolio/full-property-refurbishment-london-bedroom.webp', alt: 'Full Property Refurbishment - London bedroom', label: 'After' },
+    { src: '/Portfolio/full-property-refurbishment-london-white-bathroom.webp', alt: 'Full Property Refurbishment - London white bathroom', label: 'After' },
+    { src: '/Portfolio/full-property-refurbishment-london-staircase.webp', alt: 'Full Property Refurbishment - London staircase', label: 'After' },
+    { src: '/Portfolio/full-property-refurbishment-wallpaper-panelling-hallway-detail.webp', alt: 'Full Property Refurbishment - wallpaper and panelling detail', label: 'Detail' },
+    { src: '/Portfolio/full-property-refurbishment-navy-radiator-cover-hallway-detail.webp', alt: 'Full Property Refurbishment - bespoke radiator cover detail', label: 'Detail' },
+    { src: '/Portfolio/full-property-refurbishment-sage-panelling-child-room-detail.webp', alt: 'Full Property Refurbishment - sage panelling detail', label: 'Detail' },
   ],
   bath: [
-    { src: '/Portfolio/bathroom_renovation_collage_1.jpeg', alt: 'Bathroom Renovation - collage image 1', label: 'Collage' },
-    { src: '/Portfolio/bathroom_renovation_collage_2.jpeg', alt: 'Bathroom Renovation - collage image 2', label: 'Collage' },
-    { src: '/Portfolio/bathroom_renovation_collage_3.jpeg', alt: 'Bathroom Renovation - collage image 3', label: 'Collage' },
-    { src: '/Portfolio/bathroom_renovation_collage_4.jpeg', alt: 'Bathroom Renovation - collage image 4', label: 'Collage' },
+    { src: '/Portfolio/bathroom-renovation-london-walk-in-shower.webp', alt: 'Bathroom Renovation - London walk-in shower bathroom', label: 'After' },
+    { src: '/Portfolio/bathroom-renovation-london-freestanding-bath.webp', alt: 'Bathroom Renovation - London bathroom with freestanding bath', label: 'After' },
+    { src: '/Portfolio/bathroom-renovation-london-green-shower-room.webp', alt: 'Bathroom Renovation - London green tiled shower room', label: 'After' },
+    { src: '/Portfolio/bathroom-renovation-london-microcement-wet-room.webp', alt: 'Bathroom Renovation - London microcement wet room', label: 'After' },
   ],
   painting: [
-    { src: '/Portfolio/painting_finishing_collage_1.jpeg', alt: 'Painting and Finishing - collage image 1', label: 'Collage' },
-    { src: '/Portfolio/painting_finishing_collage_2.jpeg', alt: 'Painting and Finishing - collage image 2', label: 'Collage' },
-    { src: '/Portfolio/painting_finishing_collage_3.jpeg', alt: 'Painting and Finishing - collage image 3', label: 'Collage' },
-    { src: '/Portfolio/painting_finishing_collage_4.jpeg', alt: 'Painting and Finishing - collage image 4', label: 'Collage' },
-    { src: '/Portfolio/painting_finishing_collage_5.jpeg', alt: 'Painting and Finishing - collage image 5', label: 'Collage' },
-    { src: '/Portfolio/painting_finishing_collage_6.jpeg', alt: 'Painting and Finishing - collage image 6', label: 'Collage' },
-    { src: '/Portfolio/painting_finishing_collage_7.jpeg', alt: 'Painting and Finishing - collage image 7', label: 'Collage' },
-    { src: '/Portfolio/painting_finishing_collage_8.jpeg', alt: 'Painting and Finishing - collage image 8', label: 'Collage' },
+    { src: '/Portfolio/painting-finishing-london-living-room.webp', alt: 'Painting and Finishing - London living room decoration', label: 'After' },
+    { src: '/Portfolio/painting-finishing-london-kitchen-dining.webp', alt: 'Painting and Finishing - London kitchen and dining decoration', label: 'After' },
+    { src: '/Portfolio/painting-finishing-london-bedroom.webp', alt: 'Painting and Finishing - London bedroom decoration', label: 'After' },
+    { src: '/Portfolio/painting-finishing-london-hallway-staircase.webp', alt: 'Painting and Finishing - London hallway and staircase decoration', label: 'After' },
   ],
   plastering: [
     { src: '/Portfolio/plastering_collage_1.png', alt: 'Plastering and Surface Preparation - collage image 1', label: 'Collage' },
@@ -47,10 +39,10 @@ export const PORTFOLIO_FEATURED_PROJECT = {
     'A full interior refresh creating brighter, cleaner rooms with consistent decoration, flooring and finishing details.',
   longDescription:
     'A full-house refurbishment delivered across key living spaces, circulation areas, and bedrooms. The scope included preparation, decoration, flooring, and finishing work designed to create a brighter, more cohesive home from top to bottom.',
-  image: '/Portfolio/refurb_after_reception.webp',
-  hoverImage: '/Portfolio/refurb_before_reception.webp',
+  image: '/Portfolio/full-property-refurbishment-london-reception-room.webp',
+  hoverImage: '/Portfolio/full-property-refurbishment-london-galley-kitchen.webp',
   hasGallery: true,
-  galleryPreview: ['Reception room', 'Landing and hallway', 'Bedroom and staircase'],
+  galleryPreview: ['Reception room', 'Kitchen and bathroom', 'Bedroom and finishing details'],
 }
 
 export const PORTFOLIO_CARD_PROJECTS = [
@@ -62,8 +54,8 @@ export const PORTFOLIO_CARD_PROJECTS = [
     tags: 'Bathroom Fitting, Plumbing',
     description:
       'A dated bathroom transformed into a clean, practical space with neat tiling, plumbing and finishing details.',
-    image: '/Portfolio/bathroom_renovation_hero.webp',
-    hoverImage: '/Portfolio/bathroom_renovation_hero_before.png',
+    image: '/Portfolio/bathroom-renovation-london-walk-in-shower.webp',
+    hoverImage: '/Portfolio/bathroom-renovation-london-freestanding-bath.webp',
     hasGallery: true,
   },
   {
@@ -74,8 +66,8 @@ export const PORTFOLIO_CARD_PROJECTS = [
     tags: 'Painting, Finishing Carpentry',
     description:
       'Careful preparation, decorating and finishing details produced a cleaner, more polished interior.',
-    image: '/Portfolio/painting_finishing_hero.webp',
-    hoverImage: '/Portfolio/painting_finishing_hero_before.png',
+    image: '/Portfolio/painting-finishing-london-living-room.webp',
+    hoverImage: '/Portfolio/painting-finishing-london-hallway-staircase.webp',
     hasGallery: true,
   },
   {

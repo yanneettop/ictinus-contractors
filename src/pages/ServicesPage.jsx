@@ -1,212 +1,210 @@
 import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import { useSEO } from '../hooks/useSEO'
 import { trackServiceCtaClick } from '../utils/tracking'
 
-/* ─── Service detail data ─────────────────────────────────────────── */
-const SERVICES = [
-  {
-    id: 'painting-decorating',
-    label: 'Painting & Decorating',
-    headline: 'Painting & Decorating in London',
-    tag: 'Interior & Exterior Specialists',
-    intro: `London property owners trust Ictinus Contractors for painting and decorating that goes beyond a quick coat of paint. Proper surface preparation is at the heart of everything we do — filling, sanding, priming, and caulking before a single brush stroke ensures a result that looks exceptional and lasts for years.`,
-    body: `Our painting services cover interior rooms, hallways, kitchens, and bathrooms through to exterior facades, masonry, and timber. Whether you are refreshing a rental property, preparing a home for sale, or undertaking a full redecoration, we match materials to the job: breathable paints for older properties, specialist kitchen and bathroom formulations where moisture is a factor, and premium brands for commercial spaces.
+/* ─── Icons ───────────────────────────────────────────────────────── */
+const ICONS = {
+  refurbishment: (
+    <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5m4 0H9" />
+  ),
+  bathroom: (
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
+  ),
+  painting: (
+    <>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16s1-1 3-1 4 2 6 2 3-1 3-1V4s-1 1-3 1-4-2-6-2-3 1-3 1z" />
+      <line x1="4" y1="20" x2="4" y2="16" strokeLinecap="round" />
+    </>
+  ),
+  plastering: (
+    <>
+      <polygon points="12 2 2 7 12 12 22 7 12 2" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="2 17 12 22 22 17" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="2 12 12 17 22 12" strokeLinecap="round" strokeLinejoin="round" />
+    </>
+  ),
+  flooring: (
+    <>
+      <rect x="3" y="3" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="14" y="3" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="14" y="14" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="3" y="14" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
+    </>
+  ),
+  carpentry: (
+    <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+  ),
+  electrical: (
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+  ),
+  plumbing: (
+    <>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+      <line x1="5" y1="5" x2="5.01" y2="5" strokeLinecap="round" strokeWidth="2.5" />
+    </>
+  ),
+}
 
-We work across all London boroughs — from Victorian terraces in Hackney and Islington to modern apartments in Canary Wharf and Stratford — bringing the same level of care and precision to every project, regardless of size.`,
-    includes: [
-      'Full surface preparation — filling, sanding, sealing',
-      'Ceiling painting and coving detail',
-      'Feature walls and accent colours',
-      'Interior woodwork: doors, skirting, and architraves',
-      'Exterior masonry, render, and timber painting',
-      'Colour consultancy and finish advice',
-    ],
-    icon: (
-      <>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16s1-1 3-1 4 2 6 2 3-1 3-1V4s-1 1-3 1-4-2-6-2-3 1-3 1z" />
-        <line x1="4" y1="20" x2="4" y2="16" strokeLinecap="round" />
-      </>
-    ),
-  },
+/* ─── Main services (enquiry-driving, larger blocks) ──────────────── */
+const MAIN_SERVICES = [
   {
-    id: 'wallpapering',
-    label: 'Wallpapering',
-    headline: 'Professional Wallpaper Hanging in London',
-    tag: 'All Paper Types & Styles',
-    intro: `A well-hung feature wall or fully papered room transforms a space in a way that paint alone cannot achieve. Ictinus Contractors specialises in precision wallpaper hanging across all paper types — from standard vinyl through to textured, grasscloth, fabric-backed, and heavyweight designer papers that demand expert technique.`,
-    body: `Correct preparation is essential for lasting results. We line walls where needed to achieve a flat base, properly align patterns across joins, and finish edges cleanly at ceiling lines and architraves. Our team has experience with all repeat formats including straight-match, half-drop, and random designs.
-
-Whether it is a single feature wall in a residential living room, a complete renovation of a listed property with delicate heritage papers, or a high-specification commercial interior, we deliver a finish that is clean, precise, and built to last.`,
-    includes: [
-      'Wall preparation and lining paper application',
-      'Standard and luxury vinyl wallpapers',
-      'Feature walls and full-room installations',
-      'Grasscloth, fabric-backed, and textured papers',
-      'Pattern matching across all repeat types',
-      'Careful protection of surrounding surfaces throughout',
+    id: 'property-refurbishment',
+    title: 'Property Refurbishment & Extensions',
+    tag: 'Full Projects, Managed End to End',
+    href: '/services/property-refurbishment-extensions',
+    cta: 'View service',
+    icon: ICONS.refurbishment,
+    desc: 'Full property refurbishments and extension finishing for London homes and flats. We plan the work, coordinate the trades and manage the project from strip-out through to a clean, finished handover.',
+    points: [
+      'Whole-property and single-room refurbishments',
+      'Layout changes and extension finishing',
+      'Coordinated multi-trade project management',
+      'Flats, houses and staged or phased works',
+      'Clear written schedule agreed before work begins',
     ],
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-    ),
-  },
-  {
-    id: 'plastering',
-    label: 'Plastering',
-    headline: 'Plastering Services in London',
-    tag: 'Skimming, Patching & Dry-Lining',
-    intro: `Smooth, paint-ready walls are the foundation of any quality decoration. Ictinus Contractors provides professional plastering services across London — from a full re-skim of a single room to extensive multi-room works on residential and commercial properties.`,
-    body: `We carry out skim plastering over existing surfaces, patch repairs following pipework or electrical works, and full dry-lining where speed and thermal performance matter. Every plastered surface is finished to a consistent, high-quality level and handed over ready for decoration.
-
-Good plastering is invisible — you only notice it when it is done poorly. Our team understands this and works to a standard that ensures the final painted or wallpapered result reflects the premium finish the project demands. We work throughout London, including Hackney, Shoreditch, Islington, Kensington, and Southwark.`,
-    includes: [
-      'Skim plastering and full room re-skimming',
-      'Patch and repair plastering (post-pipework, post-electrical)',
-      'Dry-lining and plasterboard installation',
-      'Coving and cornice installation',
-      'External and internal render',
-      'Pre-decoration surface preparation and assessment',
-    ],
-    icon: (
-      <>
-        <polygon points="12 2 2 7 12 12 22 7 12 2" strokeLinecap="round" strokeLinejoin="round" />
-        <polyline points="2 17 12 22 22 17" strokeLinecap="round" strokeLinejoin="round" />
-        <polyline points="2 12 12 17 22 12" strokeLinecap="round" strokeLinejoin="round" />
-      </>
-    ),
-  },
-  {
-    id: 'hard-flooring',
-    label: 'Hard Flooring',
-    headline: 'Hard Flooring Installation in London',
-    tag: 'Engineered Wood, LVT, Tile & More',
-    intro: `The right floor makes or breaks an interior. Ictinus Contractors installs hard flooring across London to a precision finish — engineered wood, solid hardwood, luxury vinyl tile (LVT), laminate, and porcelain or ceramic tiling for bathrooms, kitchens, and living areas.`,
-    body: `Our installation process starts with proper subfloor assessment and preparation: levelling screeds where necessary, laying acoustic underlay where required, and acclimating timber products to the installation environment. The result is a floor that looks premium and performs long-term — without the movement, squeaking, or lifting that shortcuts produce.
-
-We work on both residential and commercial flooring projects, from a single room in a Hackney apartment to multi-floor refurbishments in commercial offices across Central London.`,
-    includes: [
-      'Engineered and solid hardwood flooring',
-      'Luxury vinyl tile (LVT) and vinyl plank',
-      'Laminate flooring installation',
-      'Porcelain and ceramic tile installation',
-      'Subfloor preparation, levelling, and moisture management',
-      'Stair nosings, threshold strips, and finishing trims',
-    ],
-    icon: (
-      <>
-        <rect x="3" y="3" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
-        <rect x="14" y="3" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
-        <rect x="14" y="14" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
-        <rect x="3" y="14" width="7" height="7" strokeLinecap="round" strokeLinejoin="round" />
-      </>
-    ),
   },
   {
     id: 'bathroom-fitting',
-    label: 'Bathroom Fitting',
-    headline: 'Bathroom Fitting & Installation in London',
-    tag: 'Full Installations & Refurbishments',
-    intro: `A bathroom refurbishment is one of the highest-value investments in a property — and one that demands careful coordination of trades. Ictinus Contractors manages bathroom fitting end-to-end across London, handling tiling, all plumbing connections, vanity and fixture installation, and every finishing detail.`,
-    body: `We work with clients' chosen sanitaryware and tiles or advise on supplier selections where preferred. Our bathroom projects range from straightforward refreshes — new tiling, shower enclosures, and fresh sanitary fittings — to complete strip-out and refurbishment of en-suites, family bathrooms, and hotel-standard guest bathrooms in high-end residential properties.
-
-Every bathroom project is planned carefully before work begins. We coordinate all trades, manage the programme, and leave you with a finished, fully tested, spotless bathroom on handover.`,
-    includes: [
-      'Full bathroom strip-out and refurbishment',
-      'Floor and wall tiling (all sizes and formats)',
-      'Bath, shower enclosure, and walk-in shower installation',
-      'Vanity units and WC fitting',
-      'All plumbing connections and water pressure testing',
-      'Towel rail, mirror, and accessory fitting',
+    title: 'Bathroom Fitting & Renovation',
+    tag: 'Full Strip-Out to Finishing',
+    href: '/services/bathroom-fitting',
+    cta: 'View service',
+    icon: ICONS.bathroom,
+    desc: 'Complete bathroom renovation across London — from a straightforward refresh to a full strip-out and refit, with tiling, fixtures and plumbing handled from start to finish.',
+    points: [
+      'Full bathroom strip-out and renovation',
+      'Wall and floor tiling in all formats',
+      'Bath, shower and walk-in shower installation',
+      'Vanity units, WC and fixture fitting',
+      'All plumbing connections tested before handover',
     ],
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
-    ),
   },
   {
-    id: 'property-refurbishment',
-    label: 'Property Refurbishment',
-    headline: 'Property Refurbishment in London',
-    tag: 'Residential & Commercial Projects',
-    intro: `End-to-end property refurbishments are where Ictinus Contractors delivers most value. We manage complex, multi-trade projects for residential landlords, property developers, and owner-occupiers — coordinating all works from initial strip-out through to final snagging and handover.`,
-    body: `Whether you are preparing a flat for the rental market, undertaking a full renovation of a Victorian terrace, or refreshing a commercial office for new tenants, our project management approach ensures trades are sequenced correctly, materials arrive on time, and the programme is delivered within the agreed budget and timeline.
-
-We are trusted by landlords across East and Central London for reliable, cost-effective refurbishment work that maximises rental value and minimises void periods. Our experience spans properties from studio flats to multi-floor residential buildings and commercial premises.`,
-    includes: [
-      'Full property refurbishment management and coordination',
-      'Residential and commercial projects of all scales',
-      'Pre-sale and pre-rental property makeovers',
-      'Multi-room coordinated decorating and flooring',
-      'Kitchen and bathroom refurbishments within the project',
-      'Landlord and developer refurbishments with minimal disruption',
+    id: 'painting-decorating',
+    title: 'Painting & Decorating',
+    tag: 'Careful Preparation, Clean Finish',
+    href: '/services/painting-and-decorating',
+    cta: 'View service',
+    icon: ICONS.painting,
+    desc: 'Interior and exterior painting and decorating across London, built on proper preparation — filling, sanding and priming before a clean, long-lasting finish.',
+    points: [
+      'Full surface preparation before painting',
+      'Walls, ceilings and coving',
+      'Interior woodwork, doors and skirting',
+      'Exterior masonry, render and timber',
+      'Feature walls and colour advice',
     ],
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 00-1-1h-2a1 1 0 00-1 1v5m4 0H9" />
-    ),
+  },
+  {
+    id: 'plastering',
+    title: 'Plastering & Surface Preparation',
+    tag: 'Smooth, Paint-Ready Surfaces',
+    href: '/services/plastering',
+    cta: 'View service',
+    icon: ICONS.plastering,
+    desc: 'Skimming, patching and surface preparation that gives walls and ceilings a smooth, paint-ready finish for refurbishment and decorating work.',
+    points: [
+      'Skimming and full re-skims',
+      'Patch and repair plastering',
+      'Dry-lining and plasterboard',
+      'Surface preparation before decorating',
+      'Making good after pipework or electrical',
+    ],
+  },
+]
+
+/* ─── Supporting trades (part of complete projects) ───────────────── */
+const SUPPORTING_TRADES = [
+  {
+    id: 'hard-flooring',
+    title: 'Hard Flooring Installation',
+    href: '/services/hard-flooring',
+    cta: 'Request a Flooring Quote',
+    icon: ICONS.flooring,
+    desc: 'Engineered wood, laminate, LVT and tile flooring installed over a properly prepared subfloor for a clean, hard-wearing result.',
   },
   {
     id: 'finishing-carpentry',
-    label: 'Finishing Carpentry',
-    headline: 'Finishing Carpentry & Detail Work in London',
-    tag: 'Skirting, Architraves & Bespoke Joinery',
-    intro: `The details define the quality of a finish. Ictinus Contractors provides finishing carpentry and joinery services across London that bring a project to completion with precision — skirting boards fitted tight to the floor, architraves mitred clean at corners, and doors hanging square and closing without resistance.`,
-    body: `Our finishing carpentry covers the full range of interior details: from standard MDF skirting and architrave installation in new builds to bespoke hardwood features and built-in storage in premium residential properties. We work alongside decorators and main contractors, or as the lead trade, to ensure every last detail is executed to the standard the project deserves.
-
-Good finishing carpentry is what elevates a well-decorated room into something that feels truly complete and considered. We bring that discipline to every project we work on across London.`,
-    includes: [
-      'Skirting board supply and installation (MDF, hardwood)',
-      'Architraves and door casings — all profiles',
-      'Internal door hanging and lining sets',
-      'Dado rails, picture rails, and feature panelling',
-      'Built-in shelving, alcove units, and storage',
-      'Bespoke timber features and custom joinery details',
-    ],
-    icon: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
-    ),
+    title: 'Finishing Carpentry & Detail Work',
+    href: '/services/finishing-carpentry',
+    cta: 'Discuss Finishing Details',
+    icon: ICONS.carpentry,
+    desc: 'Skirting, architraves, doors and detail joinery fitted precisely to complete a refurbishment, bathroom or kitchen project.',
+  },
+  {
+    id: 'electrical-works',
+    title: 'Electrical Works',
+    href: '/services/electrical-works',
+    cta: 'Ask About Electrical Work',
+    icon: ICONS.electrical,
+    desc: 'Electrical works for refurbishments, kitchens, bathrooms and property upgrades, coordinated within the wider project with suitably qualified input where required.',
+  },
+  {
+    id: 'plumbing',
+    title: 'Plumbing',
+    href: '/services/plumbing',
+    cta: 'Ask About Plumbing Work',
+    icon: ICONS.plumbing,
+    desc: 'Plumbing support for bathrooms, kitchens and refurbishment projects, coordinated cleanly with the rest of the work.',
   },
 ]
+
+/* ─── Trust points ────────────────────────────────────────────────── */
+const TRUST_POINTS = [
+  'Clear written quotations before work starts',
+  'Careful preparation and clean finishing',
+  'Suitable for flats, houses and staged refurbishments',
+  'Public liability insurance in place',
+  'Multi-trade support for complete projects',
+  'London-based team with a professional approach',
+]
+
+/* ─── Ordered service list (for schema) ───────────────────────────── */
+const SERVICE_PAGE_URLS = {
+  'property-refurbishment': 'https://www.ictinuscontractors.co.uk/services/property-refurbishment-extensions',
+  'bathroom-fitting': 'https://www.ictinuscontractors.co.uk/services/bathroom-fitting',
+  'painting-decorating': 'https://www.ictinuscontractors.co.uk/services/painting-and-decorating',
+  plastering: 'https://www.ictinuscontractors.co.uk/services/plastering',
+  'hard-flooring': 'https://www.ictinuscontractors.co.uk/services/hard-flooring',
+  'finishing-carpentry': 'https://www.ictinuscontractors.co.uk/services/finishing-carpentry',
+  'electrical-works': 'https://www.ictinuscontractors.co.uk/services/electrical-works',
+  plumbing: 'https://www.ictinuscontractors.co.uk/services/plumbing',
+}
 
 /* ─── FAQ data ─────────────────────────────────────────────────────── */
 const FAQS = [
   {
-    q: 'How much does painting and decorating cost in London?',
-    a: `The cost depends on the size of the space, the condition of surfaces, and materials specified. A single bedroom typically ranges from £400–£700 fully decorated; a full house redecoration across multiple rooms is quoted per project. Ictinus Contractors provides free, detailed, written quotes with no obligation — contact us to arrange an assessment.`,
+    q: 'What refurbishment services do you offer in London?',
+    a: `Ictinus Contractors provides property refurbishment, bathroom renovation, painting and decorating, plastering, flooring installation, finishing carpentry, and electrical and plumbing support across London. We can take on a single trade or coordinate several trades for a complete project.`,
+  },
+  {
+    q: 'Do you handle full property refurbishments?',
+    a: `Yes. Full property refurbishments are where we deliver most value — coordinating strip-out, plastering, decorating, flooring, bathrooms and finishing for landlords, developers and owner-occupiers, with a clear schedule agreed before work starts.`,
   },
   {
     q: 'Are Ictinus Contractors fully insured?',
-    a: `Yes. Ictinus Contractors carries full public liability insurance on every project. Confirmation of cover can be provided before any work begins.`,
+    a: `Yes. Ictinus Contractors carries public liability insurance on every project. Confirmation of cover can be provided before any work begins.`,
   },
   {
     q: 'Which London boroughs do you cover?',
-    a: `We operate across all London boroughs. Our core coverage includes Hackney, Shoreditch, Bethnal Green, Islington, Tower Hamlets, Canary Wharf, Stratford, Camden, Kensington, Chelsea, Greenwich, Fulham, Southwark, Lewisham, Brixton, and Central London. If you are unsure whether we cover your area, contact us with your postcode.`,
+    a: `We operate across all London boroughs. Core coverage includes Hackney, Shoreditch, Bethnal Green, Islington, Tower Hamlets, Canary Wharf, Stratford, Camden, Kensington, Chelsea, Greenwich, Fulham, Southwark, Lewisham, Brixton, and Central London. If you are unsure whether we cover your area, contact us with your postcode.`,
   },
   {
-    q: 'How long does a full property refurbishment take?',
-    a: `Timescales depend on the scope of works. A two-bedroom flat refurbishment typically takes 3–6 weeks; larger properties or more extensive schemes are programmed individually. Every project begins with a detailed schedule of works agreed before we start, so you always know what to expect.`,
-  },
-  {
-    q: 'Do you provide free quotes for decorating and refurbishment work?',
-    a: `Yes. We provide free, no-obligation, written quotes for all projects — from a single room to a full property refurbishment. Submit your details through our enquiry form or contact us directly at info@ictinuscontractors.co.uk to arrange a site visit.`,
-  },
-  {
-    q: 'Do you work on commercial as well as residential properties?',
-    a: `Yes. We undertake both residential and commercial projects including offices, retail units, landlord refurbishments, and hospitality interiors. Our team understands the importance of working efficiently and with minimal disruption in occupied or operational commercial environments.`,
+    q: 'Do you provide free quotes for renovation and decorating work?',
+    a: `Yes. We provide free, no-obligation, written quotes for all projects — from a single room to a full property refurbishment. Submit your details through our enquiry form or email info@ictinuscontractors.co.uk to arrange a site visit.`,
   },
 ]
 
-const SERVICE_PAGE_URLS = {
-  'painting-decorating': 'https://www.ictinuscontractors.co.uk/services/painting-and-decorating',
-  plastering: 'https://www.ictinuscontractors.co.uk/services/plastering',
-  'hard-flooring': 'https://www.ictinuscontractors.co.uk/services/hard-flooring',
-  'bathroom-fitting': 'https://www.ictinuscontractors.co.uk/services/bathroom-fitting',
-  'property-refurbishment': 'https://www.ictinuscontractors.co.uk/services/property-refurbishment-extensions',
-  'finishing-carpentry': 'https://www.ictinuscontractors.co.uk/services/finishing-carpentry',
-}
-
 /* ─── Schema injection ─────────────────────────────────────────────── */
 function injectSchema() {
+  const ordered = [
+    ...MAIN_SERVICES.map((s) => ({ id: s.id, name: s.title })),
+    ...SUPPORTING_TRADES.map((s) => ({ id: s.id, name: s.title })),
+  ]
+
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -220,14 +218,15 @@ function injectSchema() {
       },
       {
         '@type': 'ItemList',
-        name: 'Decorating and Refurbishment Services in London',
-        description: 'Professional decorating, plastering, flooring, bathroom fitting and property refurbishment services across London by Ictinus Contractors.',
+        name: 'Renovation, Refurbishment & Decorating Services in London',
+        description:
+          'Property refurbishment, bathroom renovation, painting and decorating, plastering, flooring, finishing carpentry, electrical and plumbing services across London by Ictinus Contractors.',
         url: 'https://www.ictinuscontractors.co.uk/services',
-        numberOfItems: SERVICES.length,
-        itemListElement: SERVICES.map(({ id, headline }, i) => ({
+        numberOfItems: ordered.length,
+        itemListElement: ordered.map(({ id, name }, i) => ({
           '@type': 'ListItem',
           position: i + 1,
-          name: headline,
+          name,
           url: SERVICE_PAGE_URLS[id] || `https://www.ictinuscontractors.co.uk/services#${id}`,
         })),
       },
@@ -244,139 +243,126 @@ function injectSchema() {
   return () => el.remove()
 }
 
-/* ─── Service Icon wrapper ────────────────────────────────────────── */
-function ServiceIcon({ paths }) {
+/* ─── Icon wrapper ────────────────────────────────────────────────── */
+function ServiceIcon({ paths, className = 'w-5 h-5 text-[#D4AF37]' }) {
   return (
-    <svg
-      className="w-5 h-5 text-[#D4AF37]"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
+    <svg className={className} fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24" aria-hidden="true">
       {paths}
     </svg>
   )
 }
 
-/* ─── Jump nav ────────────────────────────────────────────────────── */
-function ServiceJumpNav() {
-  const scrollTo = (id) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-
+function ArrowIcon({ className = 'w-4 h-4' }) {
   return (
-    <nav
-      aria-label="Services navigation"
-      className="bg-white border-b border-[#D4AF37]/15 sticky top-[4rem] md:top-[4.5rem] z-40 shadow-sm"
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto">
-        <div className="flex gap-0 min-w-max py-0">
-          {SERVICES.map(({ id, label }) => (
-            <button
-              key={id}
-              onClick={() => scrollTo(id)}
-              className="font-['Source_Serif_4'] text-[0.72rem] font-medium tracking-wide text-[#5A5048] px-4 py-3.5 whitespace-nowrap hover:text-[#B08D2A] hover:bg-[#D4AF37]/05 border-b-2 border-transparent hover:border-[#D4AF37]/50 hover:-translate-y-0.5 transition-all duration-200"
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
-    </nav>
+    <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+    </svg>
   )
 }
 
-/* ─── Individual service section ──────────────────────────────────── */
-function ServiceSection({ service, index }) {
-  const navigate = useNavigate()
-  const isEven = index % 2 === 0
-
+/* ─── Main service card (large) ───────────────────────────────────── */
+function MainServiceCard({ service }) {
   return (
-    <section
+    <article
       id={service.id}
-      className={`py-16 sm:py-20 px-4 sm:px-6 lg:px-8 scroll-mt-28 ${
-        isEven ? 'bg-[#FAF9F6]' : 'bg-[#F5F0E6]'
-      }`}
+      className="group service-hover-card relative scroll-mt-28 flex h-full flex-col rounded-2xl border border-[#D4AF37]/20 bg-white p-6 shadow-[0_4px_18px_rgba(28,23,20,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/38 hover:shadow-[0_16px_36px_rgba(28,23,20,0.09)] sm:p-8"
     >
-      <div className="max-w-5xl mx-auto">
-        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start`}>
+      {/* Stretched link — covers whole card, sits behind content */}
+      <Link
+        to={service.href}
+        onClick={() => trackServiceCtaClick({ cta_label: service.cta, target_path: service.href, service_name: service.title })}
+        className="absolute inset-0 z-0 rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4AF37]"
+        aria-label={`View ${service.title} service page`}
+      />
 
-          {/* Content column */}
-          <div className={isEven ? 'lg:order-1' : 'lg:order-2'}>
-            <div className="group flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-[#D4AF37]/12 border border-[#D4AF37]/20 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:border-[#D4AF37]/38 group-hover:bg-[#D4AF37]/20">
-                <ServiceIcon paths={service.icon} />
-              </div>
-              <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] uppercase tracking-[0.1em] text-[#A88636] font-600">
-                {service.tag}
-              </span>
-            </div>
-
-            <h2 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-semibold text-[#1C1714] mb-4 leading-snug">
-              {service.headline}
-            </h2>
-
-            <p className="font-['Source_Serif_4'] text-[0.93rem] text-[#3D342E] leading-relaxed mb-4">
-              {service.intro}
-            </p>
-            {service.body.split('\n\n').map((para, i) => (
-              <p key={i} className="font-['Source_Serif_4'] text-[0.93rem] text-[#5A5048] leading-relaxed mb-4">
-                {para}
-              </p>
-            ))}
-
-            <Link
-              to="/contact#quote"
-              onClick={() => trackServiceCtaClick({
-                cta_label: 'Request a Free Quote',
-                target_path: '/contact#quote',
-                service_name: service.label,
-              })}
-              className="inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.85rem] tracking-wide px-6 py-3 rounded-lg bg-gradient-gold text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_14px_rgba(212,175,55,0.2)] mt-2"
-            >
-              Request a Free Quote
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-          </div>
-
-          {/* Includes card */}
-          <div className={isEven ? 'lg:order-2' : 'lg:order-1'}>
-            <div className="service-hover-card bg-white rounded-2xl border border-[#D4AF37]/18 p-6 sm:p-8 shadow-[0_2px_16px_rgba(0,0,0,0.06)] hover:border-[#D4AF37]/34 hover:shadow-[0_14px_32px_rgba(28,23,20,0.085)]">
-              <h3 className="font-['Cormorant_Garamond'] text-[1rem] font-semibold text-[#1C1714] mb-5 flex items-center gap-2">
-                <span className="w-5 h-px bg-[#D4AF37] flex-shrink-0" />
-                What&rsquo;s Included
-              </h3>
-              <ul className="space-y-3">
-                {service.includes.map((item) => (
-                  <li key={item} className="group/item relative z-10 flex items-start gap-3 rounded-md px-1 py-1 transition-colors duration-200 hover:bg-[#D4AF37]/[0.055]">
-                    <svg
-                      className="w-4 h-4 text-[#B08D2A] mt-0.5 flex-shrink-0 transition-transform duration-200 group-hover/item:scale-110"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="font-['Source_Serif_4'] text-[0.875rem] text-[#3D342E] leading-snug transition-colors duration-200 group-hover/item:text-[#1C1714]">{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-6 pt-5 border-t border-[#D4AF37]/12">
-                <p className="font-['Source_Serif_4'] text-[0.8rem] text-[#9A9590] leading-relaxed italic">
-                  Free, no-obligation written quote provided before any work begins.
-                </p>
-              </div>
-            </div>
-          </div>
-
-        </div>
+      {/* Arrow top-right — appears on hover */}
+      <div className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[#D4AF37]/0 bg-[#D4AF37]/0 opacity-0 transition-all duration-200 group-hover:border-[#D4AF37]/25 group-hover:bg-[#D4AF37]/10 group-hover:opacity-100">
+        <svg className="h-3.5 w-3.5 -translate-y-px translate-x-px text-[#B08D2A]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+        </svg>
       </div>
-    </section>
+
+      <div className="relative z-10 mb-4 flex items-center gap-3">
+        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-[#D4AF37]/22 bg-[#D4AF37]/12">
+          <ServiceIcon paths={service.icon} className="w-5 h-5 text-[#B08D2A]" />
+        </div>
+        <span className="font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-[#A88636]">
+          {service.tag}
+        </span>
+      </div>
+
+      <h3 className="relative z-10 mb-3 font-['Cormorant_Garamond'] text-2xl font-semibold leading-snug text-[#1C1714] sm:text-[1.7rem]">
+        {service.title}
+      </h3>
+
+      <p className="relative z-10 mb-5 font-['Source_Serif_4'] text-[0.95rem] leading-relaxed text-[#5A5048]">
+        {service.desc}
+      </p>
+
+      <ul className="relative z-10 mb-6 space-y-2.5">
+        {service.points.map((point) => (
+          <li key={point} className="flex items-start gap-2.5">
+            <svg className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#B08D2A]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="font-['Source_Serif_4'] text-[0.9rem] leading-snug text-[#3D342E]">{point}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="relative z-10 mt-auto flex flex-col gap-3 sm:flex-row sm:items-center">
+        {/* Gold button — decorative, click handled by stretched link above */}
+        <span className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-gold px-6 py-3 font-['Source_Serif_4'] text-[0.88rem] font-semibold tracking-wide text-[#1C1714] shadow-[0_4px_14px_rgba(212,175,55,0.2)]">
+          {service.cta}
+          <ArrowIcon />
+        </span>
+        {/* Quote link — z-10 so it sits above the stretched link */}
+        <Link
+          to="/contact#quote"
+          onClick={(e) => { e.stopPropagation(); trackServiceCtaClick({ cta_label: 'Request a quote', target_path: '/contact#quote', service_name: service.title }) }}
+          className="relative z-10 inline-flex items-center gap-1.5 font-['Source_Serif_4'] text-[0.85rem] font-semibold text-[#B08D2A] underline decoration-[#D4AF37]/35 underline-offset-4 transition-colors hover:text-[#8B6C2C]"
+        >
+          Request a quote
+        </Link>
+      </div>
+    </article>
+  )
+}
+
+/* ─── Supporting trade card (compact) ─────────────────────────────── */
+function SupportingTradeCard({ service }) {
+  return (
+    <article id={service.id} className="scroll-mt-28 h-full">
+      <Link
+        to={service.href}
+        onClick={() => trackServiceCtaClick({ cta_label: service.cta, target_path: service.href, service_name: service.title })}
+        className="group service-hover-card relative flex h-full flex-col rounded-xl border border-[#D4AF37]/16 bg-[#FDFCF9] p-5 shadow-[0_2px_12px_rgba(28,23,20,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/34 hover:shadow-[0_12px_26px_rgba(28,23,20,0.07)] sm:p-6"
+      >
+        {/* Arrow top-right — appears on hover */}
+        <div className="absolute right-4 top-4 flex h-7 w-7 items-center justify-center rounded-full border border-[#D4AF37]/0 bg-[#D4AF37]/0 opacity-0 transition-all duration-200 group-hover:border-[#D4AF37]/25 group-hover:bg-[#D4AF37]/10 group-hover:opacity-100">
+          <svg className="h-3.5 w-3.5 -translate-y-px translate-x-px text-[#B08D2A]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+          </svg>
+        </div>
+
+        <div className="relative z-10 mb-3 flex h-10 w-10 items-center justify-center rounded-full border border-[#D4AF37]/22 bg-[#D4AF37]/10">
+          <ServiceIcon paths={service.icon} className="w-5 h-5 text-[#B08D2A]" />
+        </div>
+
+        <h3 className="relative z-10 mb-2 font-['Cormorant_Garamond'] text-[1.3rem] font-semibold leading-snug text-[#1C1714] transition-colors duration-200 group-hover:text-[#8B6C2C]">
+          {service.title}
+        </h3>
+
+        <p className="relative z-10 mb-5 font-['Source_Serif_4'] text-[0.88rem] leading-relaxed text-[#5A5048]">
+          {service.desc}
+        </p>
+
+        <span className="relative z-10 mt-auto inline-flex items-center gap-2 font-['Source_Serif_4'] text-[0.85rem] font-semibold text-[#B08D2A] transition-colors duration-200 group-hover:text-[#8B6C2C]">
+          {service.cta}
+          <ArrowIcon className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+        </span>
+      </Link>
+    </article>
   )
 }
 
@@ -390,21 +376,21 @@ const AREAS = [
 
 function AreasSection() {
   return (
-    <section className="py-14 px-4 sm:px-6 lg:px-8 bg-[#EEE8DC] border-t border-[#D4AF37]/15">
-      <div className="max-w-4xl mx-auto text-center">
+    <section className="border-t border-[#D4AF37]/15 bg-[#EEE8DC] px-4 py-14 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl text-center">
         <p className="ict-section-label">Coverage</p>
-        <h2 className="font-['Cormorant_Garamond'] text-2xl sm:text-[1.75rem] font-semibold text-[#1C1714] mb-3">
-          Decorating Services Across London
+        <h2 className="mb-3 font-['Cormorant_Garamond'] text-2xl font-semibold text-[#1C1714] sm:text-[1.75rem]">
+          Refurbishment Services Across London
         </h2>
-        <p className="font-['Source_Serif_4'] text-[0.93rem] text-[#5A5048] leading-relaxed mb-8 max-w-2xl mx-auto">
-          Based in East London, Ictinus Contractors delivers painting and decorating, plastering, flooring,
-          bathroom fitting and property refurbishment services to clients across all London boroughs including:
+        <p className="mx-auto mb-8 max-w-2xl font-['Source_Serif_4'] text-[0.93rem] leading-relaxed text-[#5A5048]">
+          Based in East London, Ictinus Contractors delivers property refurbishment, bathroom renovation,
+          painting and decorating, plastering, flooring and finishing work to clients across all London boroughs including:
         </p>
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        <div className="mb-8 flex flex-wrap justify-center gap-2">
           {AREAS.map((a) => (
             <span
               key={a}
-              className="font-['Source_Serif_4'] text-[0.82rem] font-medium text-[#1C1714] bg-white border border-[#D4AF37]/28 rounded-full px-4 py-1.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#D4AF37]/45 hover:text-[#B08D2A] hover:shadow-[0_8px_18px_rgba(28,23,20,0.06)]"
+              className="rounded-full border border-[#D4AF37]/28 bg-white px-4 py-1.5 font-['Source_Serif_4'] text-[0.82rem] font-medium text-[#1C1714] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#D4AF37]/45 hover:text-[#B08D2A] hover:shadow-[0_8px_18px_rgba(28,23,20,0.06)]"
             >
               {a}
             </span>
@@ -415,7 +401,7 @@ function AreasSection() {
           <a
             href="mailto:info@ictinuscontractors.co.uk"
             data-link-location="services coverage email"
-            className="text-[#B08D2A] font-semibold underline underline-offset-2 hover:text-[#8b6c2c] transition-colors"
+            className="font-semibold text-[#B08D2A] underline underline-offset-2 transition-colors hover:text-[#8b6c2c]"
           >
             Drop us an email
           </a>{' '}
@@ -426,25 +412,62 @@ function AreasSection() {
   )
 }
 
+/* ─── Why choose us (trust block) ─────────────────────────────────── */
+function WhyChooseSection() {
+  return (
+    <section className="bg-[#F5F0E6] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-10 max-w-3xl">
+          <p className="ict-section-label text-left">Why Ictinus</p>
+          <h2 className="font-['Cormorant_Garamond'] text-3xl font-semibold leading-tight text-[#1C1714] sm:text-[2.4rem]">
+            Why Clients Choose Ictinus Contractors
+          </h2>
+          <p className="mt-4 font-['Source_Serif_4'] text-[0.95rem] leading-relaxed text-[#5A5048]">
+            A calm, reliable approach to renovation and refurbishment work, with clear communication and
+            careful finishing from the first quote to handover.
+          </p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {TRUST_POINTS.map((point) => (
+            <article
+              key={point}
+              className="service-hover-card flex items-start gap-3 rounded-xl border border-[#D4AF37]/18 bg-[#FFFEFB] p-5 shadow-[0_10px_26px_rgba(28,23,20,0.04)] hover:border-[#D4AF37]/36 hover:shadow-[0_14px_30px_rgba(28,23,20,0.075)]"
+            >
+              <div className="relative z-10 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-[#D4AF37]/24 bg-[#D4AF37]/10">
+                <svg className="h-4 w-4 text-[#B08D2A]" fill="none" stroke="currentColor" strokeWidth="2.4" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <p className="relative z-10 font-['Source_Serif_4'] text-[0.95rem] font-medium leading-snug text-[#1C1714]">
+                {point}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ─── FAQ section ──────────────────────────────────────────────────── */
 function FAQSection() {
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6]">
-      <div className="max-w-3xl mx-auto">
+    <section className="bg-[#FAF9F6] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div className="mx-auto max-w-3xl">
         <p className="ict-section-label">FAQ</p>
-        <h2 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-semibold text-[#1C1714] text-center mb-12 leading-snug">
+        <h2 className="mb-12 text-center font-['Cormorant_Garamond'] text-2xl font-semibold leading-snug text-[#1C1714] sm:text-3xl">
           Frequently Asked Questions
         </h2>
         <div className="space-y-6">
           {FAQS.map(({ q, a }) => (
             <div
               key={q}
-              className="group service-hover-card bg-white rounded-xl border border-[#D4AF37]/15 p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#D4AF37]/32 hover:shadow-[0_12px_26px_rgba(28,23,20,0.07)]"
+              className="group service-hover-card rounded-xl border border-[#D4AF37]/15 bg-white p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-[#D4AF37]/32 hover:shadow-[0_12px_26px_rgba(28,23,20,0.07)]"
             >
-              <h3 className="relative z-10 font-['Cormorant_Garamond'] text-[1rem] font-semibold text-[#1C1714] mb-3 leading-snug transition-colors duration-300 group-hover:text-[#B08D2A]">
+              <h3 className="relative z-10 mb-3 font-['Cormorant_Garamond'] text-[1rem] font-semibold leading-snug text-[#1C1714] transition-colors duration-300 group-hover:text-[#B08D2A]">
                 {q}
               </h3>
-              <p className="relative z-10 font-['Source_Serif_4'] text-[0.88rem] text-[#5A5048] leading-relaxed">{a}</p>
+              <p className="relative z-10 font-['Source_Serif_4'] text-[0.88rem] leading-relaxed text-[#5A5048]">{a}</p>
             </div>
           ))}
         </div>
@@ -456,33 +479,35 @@ function FAQSection() {
 /* ─── Final CTA ────────────────────────────────────────────────────── */
 function PageCTA() {
   return (
-    <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-[#1C1714] overflow-hidden">
+    <section className="relative overflow-hidden bg-[#1C1714] px-4 py-20 sm:px-6 lg:px-8">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
-      <div className="max-w-3xl mx-auto text-center">
-        <p className="font-['Plus_Jakarta_Sans'] text-[0.72rem] uppercase tracking-[0.1em] text-[#A88636] font-semibold mb-3">
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="mb-3 font-['Plus_Jakarta_Sans'] text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-[#A88636]">
           Get Started
         </p>
-        <h2 className="font-['Cormorant_Garamond'] text-3xl md:text-4xl font-semibold text-white mb-5 leading-tight">
-          Ready to Discuss Your London Project?
+        <h2 className="mb-5 font-['Cormorant_Garamond'] text-3xl font-semibold leading-tight text-white md:text-4xl">
+          Ready to Discuss Your London Renovation Project?
         </h2>
-        <p className="font-['Source_Serif_4'] text-[0.95rem] text-[#C4BAB0] leading-relaxed mb-10 max-w-2xl mx-auto">
-          Request a free, no-obligation written quote from Ictinus Contractors.
-          Share a few details about the work and we will guide you through the next step.
+        <p className="mx-auto mb-10 max-w-2xl font-['Source_Serif_4'] text-[0.95rem] leading-relaxed text-[#C4BAB0]">
+          Tell us what you are planning, share a few details about the property and we&rsquo;ll guide you on the
+          next step — whether it&rsquo;s a full refurbishment, bathroom renovation, decorating work or a
+          combination of trades.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Link
             to="/contact#quote"
-            onClick={() => trackServiceCtaClick({ cta_label: 'Request a Free Quote', target_path: '/contact#quote' })}
-            className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
+            onClick={() => trackServiceCtaClick({ cta_label: 'Request a Quote', target_path: '/contact#quote' })}
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-gold px-8 py-3.5 font-['Source_Serif_4'] text-[0.9rem] font-semibold tracking-wide text-[#1C1714] shadow-lg transition-transform duration-300 hover:-translate-y-0.5"
           >
-            Request a Free Quote
+            Request a Quote
+            <ArrowIcon />
           </Link>
           <a
-            href="mailto:info@ictinuscontractors.co.uk"
+            href="mailto:info@ictinuscontractors.co.uk?subject=Project%20Details%20Enquiry"
             data-link-location="services final CTA email"
-            className="font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#D4AF37] border border-[#D4AF37]/40 transition-all duration-300 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/60 text-center"
+            className="inline-flex items-center justify-center rounded-lg border border-[#D4AF37]/40 px-8 py-3.5 text-center font-['Source_Serif_4'] text-[0.9rem] font-semibold tracking-wide text-[#D4AF37] transition-colors duration-300 hover:border-[#D4AF37]/60 hover:bg-[#D4AF37]/10"
           >
-            info@ictinuscontractors.co.uk
+            Email Us Your Project Details
           </a>
         </div>
       </div>
@@ -493,13 +518,13 @@ function PageCTA() {
 /* ─── Main page ────────────────────────────────────────────────────── */
 export default function ServicesPage() {
   useSEO({
-    title: 'Decorating & Refurbishment Services in London | Ictinus Contractors',
+    title: 'Renovation, Refurbishment & Decorating Services in London | Ictinus Contractors',
     description:
-      'Expert painting & decorating, plastering, bathroom fitting, hard flooring installation and property refurbishment across London. 9.97/10 Checkatrade. Fully insured. Free quotes.',
+      'Property refurbishment, bathroom renovation, painting and decorating, plastering, flooring, finishing carpentry, electrical and plumbing across London. 9.97/10 Checkatrade. Fully insured. Free quotes.',
     canonical: 'https://www.ictinuscontractors.co.uk/services',
-    ogTitle: 'Decorating & Refurbishment Services in London | Ictinus Contractors',
+    ogTitle: 'Renovation, Refurbishment & Decorating Services in London | Ictinus Contractors',
     ogDescription:
-      'Professional decorating, plastering, bathroom fitting and property refurbishment across London. 9.97/10 Checkatrade. Free quotes.',
+      'Refurbishment, bathroom renovation, decorating and supporting trades across London. 9.97/10 Checkatrade. Free quotes.',
   })
 
   useEffect(() => {
@@ -507,50 +532,54 @@ export default function ServicesPage() {
     return injectSchema()
   }, [])
 
+  const scrollToMain = (e) => {
+    e.preventDefault()
+    document.getElementById('main-services')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
       <Nav />
 
       {/* ── Page Hero ── */}
-      <header className="relative bg-[#1C1714] pt-28 pb-16 sm:pt-36 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <header className="relative overflow-hidden bg-[#1C1714] px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-36 lg:px-8">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1562663474-6cbb3eaa4d14?auto=format&fit=crop&w=1400&q=60')] bg-cover bg-center opacity-10" />
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/35 to-transparent" />
 
-        <div className="relative max-w-4xl mx-auto text-center">
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center justify-center gap-2 mb-6">
-            <a href="/" className="font-['Plus_Jakarta_Sans'] text-[0.7rem] text-[#C9B09A] hover:text-[#D4AF37] transition-colors uppercase tracking-wider">
+        <div className="relative mx-auto max-w-4xl text-center">
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center justify-center gap-2">
+            <a href="/" className="font-['Plus_Jakarta_Sans'] text-[0.7rem] uppercase tracking-wider text-[#C9B09A] transition-colors hover:text-[#D4AF37]">
               Home
             </a>
-            <svg className="w-3 h-3 text-[#D4AF37]/40" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <svg className="h-3 w-3 text-[#D4AF37]/40" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
-            <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] text-[#D4AF37] uppercase tracking-wider">Services</span>
+            <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] uppercase tracking-wider text-[#D4AF37]">Services</span>
           </nav>
 
-          <p className="font-['Plus_Jakarta_Sans'] text-[0.72rem] uppercase tracking-[0.1em] text-[#A88636] font-semibold mb-4">
+          <p className="mb-4 font-['Plus_Jakarta_Sans'] text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-[#A88636]">
             FULLY INSURED · LONDON BASED · 12+ YEARS EXPERIENCE
           </p>
 
-          <h1 className="font-['Cormorant_Garamond'] text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-5 leading-tight">
-            Professional Decorating &amp; Refurbishment Services in London
+          <h1 className="mb-5 font-['Cormorant_Garamond'] text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
+            Renovation, Refurbishment &amp; Decorating Services in London
           </h1>
 
-          <p className="font-['Source_Serif_4'] text-[1rem] sm:text-[1.05rem] text-[#C4BAB0] leading-relaxed mb-8 max-w-2xl mx-auto">
-            Painting &amp; decorating, plastering, bathroom fitting, hard flooring installation, and full property
-            refurbishment — delivered to a premium standard across all London boroughs.
+          <p className="mx-auto mb-8 max-w-2xl font-['Source_Serif_4'] text-[1rem] leading-relaxed text-[#C4BAB0] sm:text-[1.05rem]">
+            From full property refurbishments to bathrooms, decorating and finishing trades, Ictinus
+            Contractors helps London homeowners complete projects with careful planning, reliable workmanship and a
+            clean professional finish.
           </p>
 
-          {/* Trust bar */}
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
+          <div className="mb-8 flex flex-wrap justify-center gap-x-6 gap-y-2">
             {[
               '9.97/10 Checkatrade',
               '33 Checkatrade Reviews',
               'Find us on MyBuilder',
               'Free Written Quotes',
             ].map((t) => (
-              <span key={t} className="font-['Source_Serif_4'] text-[0.8rem] text-[#D4AF37]/80 flex items-center gap-1.5">
-                <svg className="w-3.5 h-3.5 text-[#D4AF37]" fill="currentColor" viewBox="0 0 20 20">
+              <span key={t} className="flex items-center gap-1.5 font-['Source_Serif_4'] text-[0.8rem] text-[#D4AF37]/80">
+                <svg className="h-3.5 w-3.5 text-[#D4AF37]" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                 </svg>
                 {t}
@@ -558,54 +587,98 @@ export default function ServicesPage() {
             ))}
           </div>
 
-          <a
-            href="#painting-decorating"
-            onClick={(e) => {
-              e.preventDefault()
-              document.getElementById('painting-decorating')?.scrollIntoView({ behavior: 'smooth' })
-            }}
-            className="inline-flex items-center gap-2 font-['Source_Serif_4'] font-semibold text-[0.9rem] tracking-wide px-8 py-3.5 rounded-lg text-[#1C1714] bg-gradient-gold transition-all duration-300 hover:scale-105 shadow-lg"
-          >
-            View All Services
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </a>
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <Link
+              to="/contact#quote"
+              onClick={() => trackServiceCtaClick({ cta_label: 'Request a Quote', target_path: '/contact#quote' })}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-gold px-8 py-3.5 font-['Source_Serif_4'] text-[0.9rem] font-semibold tracking-wide text-[#1C1714] shadow-lg transition-transform duration-300 hover:-translate-y-0.5"
+            >
+              Request a Quote
+              <ArrowIcon />
+            </Link>
+            <a
+              href="#main-services"
+              onClick={scrollToMain}
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#D4AF37]/40 px-8 py-3.5 font-['Source_Serif_4'] text-[0.9rem] font-semibold tracking-wide text-[#D4AF37] transition-colors duration-300 hover:border-[#D4AF37]/60 hover:bg-[#D4AF37]/10"
+            >
+              View Our Main Services
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+          </div>
         </div>
       </header>
 
-      {/* ── Sticky service jump nav ── */}
-      <ServiceJumpNav />
-
       {/* ── Intro context ── */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#EEE8DC] border-b border-[#D4AF37]/15">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="font-['Source_Serif_4'] text-[0.95rem] text-[#3D342E] leading-relaxed">
-            Ictinus Contractors is a professional London contractor specialising in decorating, refurbishment,
-            and finishing. We serve homeowners, landlords, and commercial clients from our East London base —
-            rated <strong className="text-[#B08D2A]">9.97/10 on Checkatrade</strong> across{' '}
-            <strong className="text-[#B08D2A]">33 customer reviews</strong>, with a MyBuilder profile available
-            as an additional enquiry route.
-            Every project is fully insured and backed by 12+ years of experience across London.
+      <section className="border-b border-[#D4AF37]/15 bg-[#EEE8DC] px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="font-['Source_Serif_4'] text-[0.95rem] leading-relaxed text-[#3D342E]">
+            Ictinus Contractors is a professional London contractor specialising in property refurbishment,
+            bathroom renovation, decorating and finishing. We serve homeowners, landlords and commercial
+            clients from our East London base — rated{' '}
+            <strong className="text-[#B08D2A]">9.97/10 on Checkatrade</strong> across{' '}
+            <strong className="text-[#B08D2A]">33 customer reviews</strong>, with a MyBuilder profile available as an
+            additional enquiry route. Every project is fully insured and backed by 12+ years of experience across London.
           </p>
         </div>
       </section>
 
-      {/* ── Seven service sections ── */}
       <main id="main-content">
-        {SERVICES.map((service, i) => (
-          <ServiceSection key={service.id} service={service} index={i} />
-        ))}
+        {/* ── Main Services ── */}
+        <section id="main-services" className="scroll-mt-24 bg-[#FAF9F6] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-10 max-w-3xl">
+              <p className="ict-section-label text-left">Main Services</p>
+              <h2 className="font-['Cormorant_Garamond'] text-3xl font-semibold leading-tight text-[#1C1714] sm:text-[2.45rem]">
+                Main Services for London Homes &amp; Flats
+              </h2>
+              <p className="mt-4 font-['Source_Serif_4'] text-[0.95rem] leading-relaxed text-[#5A5048]">
+                The services most London homeowners enquire about — refurbishment, bathrooms, decorating and
+                plastering — handled with careful planning and a clean, professional finish.
+              </p>
+            </div>
+            <div className="grid gap-6 lg:grid-cols-2">
+              {MAIN_SERVICES.map((service) => (
+                <MainServiceCard key={service.id} service={service} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Supporting Trades ── */}
+        <section id="supporting-trades" className="scroll-mt-24 bg-[#F5F0E6] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-10 max-w-3xl">
+              <p className="ict-section-label text-left">Supporting Trades</p>
+              <h2 className="font-['Cormorant_Garamond'] text-3xl font-semibold leading-tight text-[#1C1714] sm:text-[2.45rem]">
+                Supporting Trades for Complete Projects
+              </h2>
+              <p className="mt-4 font-['Source_Serif_4'] text-[0.95rem] leading-relaxed text-[#5A5048]">
+                The finishing and technical trades that complete a refurbishment, bathroom or property
+                improvement — coordinated within the wider project so everything is finished cleanly.
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {SUPPORTING_TRADES.map((service) => (
+                <SupportingTradeCard key={service.id} service={service} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Areas ── */}
+        <AreasSection />
+
+        {/* ── Why choose us ── */}
+        <WhyChooseSection />
+
+        {/* ── FAQ ── */}
+        <FAQSection />
+
+        {/* ── Final CTA ── */}
+        <PageCTA />
       </main>
-
-      {/* ── Areas ── */}
-      <AreasSection />
-
-      {/* ── FAQ ── */}
-      <FAQSection />
-
-      {/* ── Final CTA ── */}
-      <PageCTA />
 
       <Footer />
     </div>
