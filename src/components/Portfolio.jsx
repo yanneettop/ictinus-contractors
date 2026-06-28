@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 import PortfolioGalleryModal from './PortfolioGalleryModal'
@@ -194,6 +195,7 @@ function GalleryCard({ project, hoveredKey, setHoveredKey, toggledKey, setToggle
 }
 
 export default function Portfolio() {
+  const navigate = useNavigate()
   const [hoveredKey, setHoveredKey] = useState(null)
   const [toggledKey, setToggledKey] = useState(null)
   const [galleryKey, setGalleryKey] = useState(null)
@@ -210,12 +212,12 @@ export default function Portfolio() {
       : PORTFOLIO_FEATURED_PROJECT.image
   const featuredImageSize = responsivePortfolioSize(featuredImage)
 
-  const handleFeaturedGalleryOpen = () => openGallery(featuredKey)
+  const handleFeaturedProjectOpen = () => navigate(PORTFOLIO_FEATURED_PROJECT.caseStudyPath)
 
   const handleFeaturedKeyDown = (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      handleFeaturedGalleryOpen()
+      handleFeaturedProjectOpen()
     }
   }
 
@@ -237,7 +239,7 @@ export default function Portfolio() {
           <motion.article
             onHoverStart={() => setHoveredKey(featuredKey)}
             onHoverEnd={() => setHoveredKey(null)}
-            onClick={handleFeaturedGalleryOpen}
+            onClick={handleFeaturedProjectOpen}
             onKeyDown={handleFeaturedKeyDown}
             whileHover={{
               y: -2,
@@ -248,7 +250,7 @@ export default function Portfolio() {
             className="group mb-6 cursor-pointer overflow-hidden rounded-[16px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-[0_1px_4px_rgba(0,0,0,0.06)]"
             role="button"
             tabIndex={0}
-            aria-label={`Open gallery for ${PORTFOLIO_FEATURED_PROJECT.title}`}
+            aria-label={`Open case study for ${PORTFOLIO_FEATURED_PROJECT.title}`}
           >
             <div className="flex flex-col lg:flex-row">
               <div className="relative min-h-[260px] w-full flex-shrink-0 overflow-hidden sm:min-h-[340px] lg:min-h-[440px] lg:w-[60%]">

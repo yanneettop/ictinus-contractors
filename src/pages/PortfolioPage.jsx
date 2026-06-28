@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import Nav from '../components/Nav'
 import PageHero from '../components/PageHero'
@@ -150,6 +150,7 @@ function ProjectTile({ project, hoveredKey, setHoveredKey, openGallery }) {
 }
 
 export default function PortfolioPage() {
+  const navigate = useNavigate()
   useScrollReveal()
   useSEO({
     title: 'Project Portfolio | Ictinus Contractors London',
@@ -173,12 +174,12 @@ export default function PortfolioPage() {
       ? PORTFOLIO_FEATURED_PROJECT.hoverImage
       : PORTFOLIO_FEATURED_PROJECT.image
 
-  const handleFeaturedGalleryOpen = () => openGallery(PORTFOLIO_FEATURED_PROJECT.key)
+  const handleFeaturedProjectOpen = () => navigate(PORTFOLIO_FEATURED_PROJECT.caseStudyPath)
 
   const handleFeaturedKeyDown = (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      handleFeaturedGalleryOpen()
+      handleFeaturedProjectOpen()
     }
   }
 
@@ -239,7 +240,7 @@ export default function PortfolioPage() {
               <motion.article
                 onHoverStart={() => setHoveredKey(PORTFOLIO_FEATURED_PROJECT.key)}
                 onHoverEnd={() => setHoveredKey(null)}
-                onClick={handleFeaturedGalleryOpen}
+                onClick={handleFeaturedProjectOpen}
                 onKeyDown={handleFeaturedKeyDown}
                 whileHover={{
                   y: -2,
@@ -250,7 +251,7 @@ export default function PortfolioPage() {
                 className="group mb-8 cursor-pointer overflow-hidden rounded-[20px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-sm"
                 role="button"
                 tabIndex={0}
-                aria-label={`Open gallery for ${PORTFOLIO_FEATURED_PROJECT.title}`}
+                aria-label={`Open case study for ${PORTFOLIO_FEATURED_PROJECT.title}`}
               >
                 <div className="flex flex-col lg:flex-row">
                   <div className="relative min-h-[260px] w-full flex-shrink-0 overflow-hidden sm:min-h-[340px] lg:min-h-[440px] lg:w-[60%]">

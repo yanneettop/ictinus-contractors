@@ -19,6 +19,7 @@ const Footer = lazy(() => import('./components/Footer'))
 const AboutPage = lazy(() => import('./pages/AboutPage'))
 const ServicesPage = lazy(() => import('./pages/ServicesPage'))
 const PortfolioPage = lazy(() => import('./pages/PortfolioPage'))
+const RefurbishmentCaseStudyPage = lazy(() => import('./pages/RefurbishmentCaseStudyPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
 const ThankYouPage = lazy(() => import('./pages/ThankYouPage'))
 const BathroomFittingPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.BathroomFittingPage })))
@@ -610,6 +611,7 @@ export default function App() {
           <Route path="/services/electrical-works" element={<ElectricalWorksPage />} />
           <Route path="/services/plumbing" element={<PlumbingPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/portfolio/complete-east-london-home-refurbishment" element={<RefurbishmentCaseStudyPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/thank-you" element={<ThankYouPage />} />
           <Route path="/request-a-quote" element={<Navigate to="/contact#quote" replace />} />

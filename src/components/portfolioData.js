@@ -1,5 +1,9 @@
 export const PORTFOLIO_GALLERIES = {
   refurb: [
+    { src: '/Portfolio/full-property-refurbishment-before-reception-room.webp', alt: 'Full Property Refurbishment - reception room before refurbishment', label: 'Before' },
+    { src: '/Portfolio/full-property-refurbishment-before-kitchen.webp', alt: 'Full Property Refurbishment - kitchen before refurbishment', label: 'Before' },
+    { src: '/Portfolio/full-property-refurbishment-before-bedroom.webp', alt: 'Full Property Refurbishment - bedroom before refurbishment', label: 'Before' },
+    { src: '/Portfolio/full-property-refurbishment-before-hallway-staircase.webp', alt: 'Full Property Refurbishment - hallway and staircase before refurbishment', label: 'Before' },
     { src: '/Portfolio/full-property-refurbishment-london-reception-room.webp', alt: 'Full Property Refurbishment - London reception room', label: 'After' },
     { src: '/Portfolio/full-property-refurbishment-london-galley-kitchen.webp', alt: 'Full Property Refurbishment - London galley kitchen', label: 'After' },
     { src: '/Portfolio/full-property-refurbishment-london-bedroom.webp', alt: 'Full Property Refurbishment - London bedroom', label: 'After' },
@@ -39,18 +43,19 @@ export const PORTFOLIO_GALLERIES = {
 
 export const PORTFOLIO_FEATURED_PROJECT = {
   key: 'refurb',
-  title: 'Complete East London Home Refurbishment',
+  title: 'Complete East London Home Refurbishment & Interior Finishing',
   category: 'Property Refurbishment',
   location: 'East London',
-  tags: 'Refurbishment, Decorating, Flooring & Finishing',
+  tags: 'Interior Redecoration, Woodwork, Flooring & Finishing',
   description:
-    'A complete home refurbishment carried out across the main living areas, bedrooms, hallway, staircase, kitchen and bathroom. The work focused on careful preparation, clean decoration, flooring, woodwork and finishing details to create a brighter, calmer and more cohesive home.',
+    'A full interior refurbishment and redecoration project across living areas, bedrooms, kitchen, bathroom, hallway and staircase. The work focused on careful preparation, premium paint finishes, detailed woodwork and a calm, consistent look throughout the home.',
   longDescription:
-    'A complete home refurbishment carried out across the main living areas, bedrooms, hallway, staircase, kitchen and bathroom. The work focused on careful preparation, clean decoration, flooring, woodwork and finishing details to create a brighter, calmer and more cohesive home.',
+    'A full interior refurbishment and redecoration project across living areas, bedrooms, kitchen, bathroom, hallway and staircase. The work focused on careful preparation, premium paint finishes, detailed woodwork and a calm, consistent look throughout the home.',
   image: '/Portfolio/full-property-refurbishment-london-reception-room.webp',
   hoverImage: '/Portfolio/full-property-refurbishment-london-galley-kitchen.webp',
   pillLabel: '8 finished spaces',
   hasGallery: true,
+  caseStudyPath: '/portfolio/complete-east-london-home-refurbishment',
   galleryPreview: ['Reception room', 'Kitchen and bathroom', 'Bedroom and finishing details'],
 }
 

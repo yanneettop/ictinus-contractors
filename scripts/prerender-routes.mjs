@@ -17,6 +17,11 @@ const routes = [
   { route: '/services/electrical-works', file: 'services/electrical-works/index.html', altFile: 'services/electrical-works.html' },
   { route: '/services/plumbing', file: 'services/plumbing/index.html', altFile: 'services/plumbing.html' },
   { route: '/portfolio', file: 'portfolio/index.html', altFile: 'portfolio.html' },
+  {
+    route: '/portfolio/complete-east-london-home-refurbishment',
+    file: 'portfolio/complete-east-london-home-refurbishment/index.html',
+    altFile: 'portfolio/complete-east-london-home-refurbishment.html',
+  },
   { route: '/contact', file: 'contact/index.html', altFile: 'contact.html' },
 ]
 

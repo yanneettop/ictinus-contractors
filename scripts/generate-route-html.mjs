@@ -16,6 +16,7 @@ const routes = [
   '/services/electrical-works',
   '/services/plumbing',
   '/portfolio',
+  '/portfolio/complete-east-london-home-refurbishment',
   '/contact',
   '/thank-you',
 ]
@@ -80,6 +81,11 @@ const routeMeta = {
     title: 'Project Portfolio | Ictinus Contractors London',
     description:
       'View recent refurbishment, decorating, bathroom, flooring and plastering projects completed by Ictinus Contractors across London.',
+  },
+  '/portfolio/complete-east-london-home-refurbishment': {
+    title: 'Complete East London Home Refurbishment & Interior Finishing | Ictinus Contractors',
+    description:
+      'A full-home interior refurbishment and redecoration case study in East London, focused on preparation, premium paint finishes, woodwork and consistent room-to-room detailing.',
   },
   '/contact': {
     title: 'Request a Quote | Ictinus Contractors London',
