@@ -24,7 +24,7 @@ const servicePages = {
       subheading:
         'Reliable painting and decorating services across London for homes, flats, rental properties and wider refurbishment projects.',
       trustLine:
-        '9.97/10 Checkatrade · 33 verified reviews · Fully insured · Free estimates',
+        '9.97/10 Checkatrade · Verified reviews · Fully insured · Free estimates',
     },
     intro: {
       heading: 'London decorators for careful preparation and clean finishing',
@@ -143,7 +143,7 @@ const servicePages = {
       subheading:
         'Practical property refurbishment, renovation and extension finishing work across London for homes, flats, rental properties and commercial spaces.',
       trustLine:
-        '9.97/10 Checkatrade · 33 verified reviews · Fully insured · Free estimates',
+        '9.97/10 Checkatrade · Verified reviews · Fully insured · Free estimates',
     },
     intro: {
       heading: 'London refurbishment contractors for organised renovation work',
@@ -259,7 +259,7 @@ const servicePages = {
       subheading:
         'Clean, organised bathroom fitting and improvement work for homes, flats, rental properties and commercial spaces, completed with care and attention to detail.',
       trustLine:
-        '9.97/10 Checkatrade · 33 verified reviews · Fully insured · Free estimates',
+        '9.97/10 Checkatrade · Verified reviews · Fully insured · Free estimates',
     },
     intro: {
       heading: 'Bathroom work completed with care and clear communication',
@@ -333,7 +333,7 @@ const servicePages = {
       subheading:
         'Reliable hard flooring installation and preparation work for homes, flats, rental properties and commercial spaces, completed with clean workmanship and attention to detail.',
       trustLine:
-        '9.97/10 Checkatrade · 33 verified reviews · Fully insured · Free estimates',
+        '9.97/10 Checkatrade · Verified reviews · Fully insured · Free estimates',
     },
     intro: {
       heading: 'Flooring work that starts with proper preparation',
@@ -407,7 +407,7 @@ const servicePages = {
       subheading:
         'Smooth plastering and surface preparation work for homes, flats, rental properties and refurbishment projects, completed with care and clean workmanship.',
       trustLine:
-        '9.97/10 Checkatrade · 33 verified reviews · Fully insured · Free estimates',
+        '9.97/10 Checkatrade · Verified reviews · Fully insured · Free estimates',
     },
     intro: {
       heading: 'Smooth surfaces for a cleaner final finish',
@@ -481,7 +481,7 @@ const servicePages = {
       subheading:
         'Skirting, architraves, doors and detailed finishing carpentry for homes, flats, rental properties and refurbishment projects.',
       trustLine:
-        '9.97/10 Checkatrade · 33 verified reviews · Fully insured · Free estimates',
+        '9.97/10 Checkatrade · Verified reviews · Fully insured · Free estimates',
     },
     intro: {
       heading: 'The finishing details that complete a space',
@@ -555,7 +555,7 @@ const servicePages = {
       subheading:
         'Practical electrical improvement support for homes, flats, rental properties and commercial spaces as part of wider refurbishment and property projects.',
       trustLine:
-        '9.97/10 Checkatrade · 33 verified reviews · Fully insured · Free estimates',
+        '9.97/10 Checkatrade · Verified reviews · Fully insured · Free estimates',
     },
     intro: {
       heading: 'Electrical support handled with care and coordination',
@@ -630,7 +630,7 @@ const servicePages = {
       subheading:
         'Practical plumbing support for bathrooms, refurbishments, rental properties and wider property improvement projects.',
       trustLine:
-        '9.97/10 Checkatrade · 33 verified reviews · Fully insured · Free estimates',
+        '9.97/10 Checkatrade · Verified reviews · Fully insured · Free estimates',
     },
     intro: {
       heading: 'Plumbing support for smoother property projects',

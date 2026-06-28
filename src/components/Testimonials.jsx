@@ -24,7 +24,7 @@ const reviews = [
 
 const badges = [
   { val: '9.97/10', label: 'Checkatrade', href: CHECKATRADE_URL, icon: 'star' },
-  { val: '33',      label: 'Reviews',     href: CHECKATRADE_URL, icon: 'check' },
+  { val: 'Verified', label: 'Reviews',    href: CHECKATRADE_URL, icon: 'check' },
   { val: 'MyBuilder', label: 'Profile',   href: MYBUILDER_URL,   icon: 'check' },
 ]
 
@@ -100,7 +100,7 @@ export default function Testimonials() {
             <p className="ict-section-label">Testimonials</p>
             <h2 className="ict-section-heading">What Our Clients Say</h2>
             <p className="ict-section-subtitle">
-              Rated 9.97/10 on Checkatrade across 33 customer reviews, with MyBuilder available as an
+              Rated 9.97/10 on Checkatrade, with MyBuilder available as an
               additional route for customers who prefer that platform.
             </p>
           </div>

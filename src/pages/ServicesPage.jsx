@@ -574,7 +574,7 @@ export default function ServicesPage() {
           <div className="mb-8 flex flex-wrap justify-center gap-x-6 gap-y-2">
             {[
               '9.97/10 Checkatrade',
-              '33 Checkatrade Reviews',
+              'Verified Checkatrade Reviews',
               'Find us on MyBuilder',
               'Free Written Quotes',
             ].map((t) => (
@@ -617,8 +617,7 @@ export default function ServicesPage() {
             Ictinus Contractors is a professional London contractor specialising in property refurbishment,
             bathroom renovation, decorating and finishing. We serve homeowners, landlords and commercial
             clients from our East London base — rated{' '}
-            <strong className="text-[#B08D2A]">9.97/10 on Checkatrade</strong> across{' '}
-            <strong className="text-[#B08D2A]">33 customer reviews</strong>, with a MyBuilder profile available as an
+            <strong className="text-[#B08D2A]">9.97/10 on Checkatrade</strong>, with a MyBuilder profile available as an
             additional enquiry route. Every project is fully insured and backed by 12+ years of experience across London.
           </p>
         </div>

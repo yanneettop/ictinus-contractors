@@ -22,6 +22,8 @@ export const PORTFOLIO_GALLERIES = {
     { src: '/Portfolio/painting-finishing-london-hallway-staircase.webp', alt: 'Painting and Finishing - London hallway and staircase decoration', label: 'After' },
   ],
   plastering: [
+    { src: '/Portfolio/plastering-surface-preparation-london-garden-room-after.webp', alt: 'Plastering and Surface Preparation - finished garden room', label: 'After' },
+    { src: '/Portfolio/plastering-surface-preparation-london-open-plan-room-after.webp', alt: 'Plastering and Surface Preparation - finished open-plan room', label: 'After' },
     { src: '/Portfolio/plastering-surface-preparation-london-extension-before-after.webp', alt: 'Plastering and Surface Preparation - extension room before and after', label: 'Before / After' },
     { src: '/Portfolio/plastering-surface-preparation-london-hallway-before-after.webp', alt: 'Plastering and Surface Preparation - hallway before and after', label: 'Before / After' },
     { src: '/Portfolio/plastering-surface-preparation-london-window-reveal-before-after.webp', alt: 'Plastering and Surface Preparation - window reveal before and after', label: 'Before / After' },
@@ -97,8 +99,8 @@ export const PORTFOLIO_CARD_PROJECTS = [
     tags: 'Plastering, Decorating Prep',
     description:
       'Walls prepared and plastered to a smooth, paint-ready finish before decoration.',
-    image: '/Portfolio/plastering-surface-preparation-london-extension-before-after.webp',
-    hoverImage: '/Portfolio/plastering-surface-preparation-london-hallway-before-after.webp',
+    image: '/Portfolio/plastering-surface-preparation-london-garden-room-after.webp',
+    hoverImage: '/Portfolio/plastering-surface-preparation-london-open-plan-room-after.webp',
     hasGallery: true,
   },
 ]

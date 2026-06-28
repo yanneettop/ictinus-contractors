@@ -17,6 +17,8 @@ const RESPONSIVE_IMAGE_META = {
   '/Portfolio/painting-finishing-london-hallway-staircase.webp': { name: 'painting-finishing-london-hallway-staircase', width: 1024, height: 1536 },
   '/Portfolio/hard-flooring-installation-london-open-plan-living-dining.webp': { name: 'hard-flooring-installation-london-open-plan-living-dining', width: 1536, height: 1024 },
   '/Portfolio/hard-flooring-installation-london-herringbone-hallway-kitchen.webp': { name: 'hard-flooring-installation-london-herringbone-hallway-kitchen', width: 1419, height: 1108 },
+  '/Portfolio/plastering-surface-preparation-london-garden-room-after.webp': { name: 'plastering-surface-preparation-london-garden-room-after', width: 1536, height: 1024 },
+  '/Portfolio/plastering-surface-preparation-london-open-plan-room-after.webp': { name: 'plastering-surface-preparation-london-open-plan-room-after', width: 1536, height: 1024 },
   '/Portfolio/plastering-surface-preparation-london-extension-before-after.webp': { name: 'plastering-surface-preparation-london-extension-before-after', width: 1600, height: 1000 },
   '/Portfolio/plastering-surface-preparation-london-hallway-before-after.webp': { name: 'plastering-surface-preparation-london-hallway-before-after', width: 1600, height: 1000 },
 }

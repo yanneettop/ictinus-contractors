@@ -89,7 +89,7 @@ function ParallaxQuote() {
 const proofCards = [
   { value: '10/10', label: 'Checkatrade rating' },
   { value: '5.0/5', label: 'Google reviews' },
-  { value: '30+', label: 'Verified reviews' },
+  { value: 'Verified', label: 'Customer feedback' },
   { value: 'London', label: 'Local contractor' },
 ]
 

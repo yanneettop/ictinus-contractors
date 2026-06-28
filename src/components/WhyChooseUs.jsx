@@ -87,7 +87,7 @@ export default function WhyChooseUs() {
             </h2>
             <div className="w-12 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-6" />
             <p className="text-[#B8AFA6] text-[1.0625rem] leading-[1.78] max-w-[42rem] mx-auto font-['Source_Serif_4']">
-              Rated 9.97 out of 10 on Checkatrade, with 33 customer reviews. Our reputation is built on
+              Rated 9.97 out of 10 on Checkatrade. Our reputation is built on
               consistent results, honest communication, and a professional approach to every project.
             </p>
 

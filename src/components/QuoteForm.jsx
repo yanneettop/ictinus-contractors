@@ -583,7 +583,7 @@ export default function QuoteForm() {
             <ul>
               {[
                 '9.97/10 Checkatrade rating',
-                '33 verified reviews',
+                'Verified reviews',
                 'Fully insured',
                 'Free estimates',
                 'Clear communication',
