@@ -15,10 +15,10 @@ const RESPONSIVE_IMAGE_META = {
   '/Portfolio/bathroom-renovation-london-freestanding-bath.webp': { name: 'bathroom-renovation-london-freestanding-bath', width: 1536, height: 1024 },
   '/Portfolio/painting-finishing-london-living-room.webp': { name: 'painting-finishing-london-living-room', width: 1536, height: 1024 },
   '/Portfolio/painting-finishing-london-hallway-staircase.webp': { name: 'painting-finishing-london-hallway-staircase', width: 1024, height: 1536 },
-  '/Portfolio/flooring_hero.webp': { name: 'flooring_hero', width: 1448, height: 1086 },
-  '/Portfolio/flooring_hero_before.png': { name: 'flooring_hero_before', width: 1448, height: 1086 },
-  '/Portfolio/plastering_hero.webp': { name: 'plastering_hero', width: 1475, height: 1067 },
-  '/Portfolio/plastering_hero_before.png': { name: 'plastering_hero_before', width: 1449, height: 1086 },
+  '/Portfolio/hard-flooring-installation-london-open-plan-living-dining.webp': { name: 'hard-flooring-installation-london-open-plan-living-dining', width: 1536, height: 1024 },
+  '/Portfolio/hard-flooring-installation-london-herringbone-hallway-kitchen.webp': { name: 'hard-flooring-installation-london-herringbone-hallway-kitchen', width: 1419, height: 1108 },
+  '/Portfolio/plastering-surface-preparation-london-extension-before-after.webp': { name: 'plastering-surface-preparation-london-extension-before-after', width: 1600, height: 1000 },
+  '/Portfolio/plastering-surface-preparation-london-hallway-before-after.webp': { name: 'plastering-surface-preparation-london-hallway-before-after', width: 1600, height: 1000 },
 }
 
 const PORTFOLIO_WIDTHS = [480, 800, 1200]

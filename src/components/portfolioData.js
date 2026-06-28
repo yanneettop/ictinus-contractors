@@ -22,10 +22,16 @@ export const PORTFOLIO_GALLERIES = {
     { src: '/Portfolio/painting-finishing-london-hallway-staircase.webp', alt: 'Painting and Finishing - London hallway and staircase decoration', label: 'After' },
   ],
   plastering: [
-    { src: '/Portfolio/plastering_collage_1.png', alt: 'Plastering and Surface Preparation - collage image 1', label: 'Collage' },
+    { src: '/Portfolio/plastering-surface-preparation-london-extension-before-after.webp', alt: 'Plastering and Surface Preparation - extension room before and after', label: 'Before / After' },
+    { src: '/Portfolio/plastering-surface-preparation-london-hallway-before-after.webp', alt: 'Plastering and Surface Preparation - hallway before and after', label: 'Before / After' },
+    { src: '/Portfolio/plastering-surface-preparation-london-window-reveal-before-after.webp', alt: 'Plastering and Surface Preparation - window reveal before and after', label: 'Before / After' },
+    { src: '/Portfolio/plastering-surface-preparation-london-ceiling-before-after.webp', alt: 'Plastering and Surface Preparation - ceiling before and after', label: 'Before / After' },
   ],
   flooring: [
-    { src: '/Portfolio/flooring_collage_1.png', alt: 'Hard Flooring Installation - collage image 1', label: 'Collage' },
+    { src: '/Portfolio/hard-flooring-installation-london-open-plan-living-dining.webp', alt: 'Hard Flooring Installation - London open-plan living and dining room', label: 'After' },
+    { src: '/Portfolio/hard-flooring-installation-london-herringbone-hallway-kitchen.webp', alt: 'Hard Flooring Installation - herringbone flooring through hallway and kitchen', label: 'After' },
+    { src: '/Portfolio/hard-flooring-installation-london-skirting-threshold-detail.webp', alt: 'Hard Flooring Installation - skirting and threshold detail', label: 'Detail' },
+    { src: '/Portfolio/hard-flooring-installation-london-dark-home-office.webp', alt: 'Hard Flooring Installation - dark wood floor in London home office', label: 'After' },
   ],
 }
 
@@ -79,8 +85,8 @@ export const PORTFOLIO_CARD_PROJECTS = [
     tags: 'Flooring, Finishing',
     description:
       'Hard flooring installed with tidy edges, a clean fit and a durable finish for everyday use.',
-    image: '/Portfolio/flooring_hero.webp',
-    hoverImage: '/Portfolio/flooring_hero_before.png',
+    image: '/Portfolio/hard-flooring-installation-london-open-plan-living-dining.webp',
+    hoverImage: '/Portfolio/hard-flooring-installation-london-herringbone-hallway-kitchen.webp',
     hasGallery: true,
   },
   {
@@ -91,8 +97,8 @@ export const PORTFOLIO_CARD_PROJECTS = [
     tags: 'Plastering, Decorating Prep',
     description:
       'Walls prepared and plastered to a smooth, paint-ready finish before decoration.',
-    image: '/Portfolio/plastering_hero.webp',
-    hoverImage: '/Portfolio/plastering_hero_before.png',
+    image: '/Portfolio/plastering-surface-preparation-london-extension-before-after.webp',
+    hoverImage: '/Portfolio/plastering-surface-preparation-london-hallway-before-after.webp',
     hasGallery: true,
   },
 ]
