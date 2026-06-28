@@ -15,6 +15,8 @@ import {
   PORTFOLIO_PAGE_PROJECTS,
 } from '../components/portfolioData'
 
+const MotionLink = motion.create(Link)
+
 function MetaLine({ category, location, tags }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -40,6 +42,33 @@ function MetaLine({ category, location, tags }) {
       </span>
       <span className="text-[0.55rem] text-[#D4AF37]/35">&#9679;</span>
       <span className="font-['Source_Serif_4'] text-[0.75rem] text-[#7A7068]">{tags}</span>
+    </div>
+  )
+}
+
+function FeaturedMetaLine({ category, location }) {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.13em] text-[#A88636]">
+        {category}
+      </span>
+      <span className="text-[0.55rem] text-[#D4AF37]/35">&#9679;</span>
+      <span className="inline-flex items-center gap-1 font-['Source_Serif_4'] text-[0.75rem] text-[#9A9590]">
+        <svg
+          className="h-2.5 w-2.5 flex-shrink-0 text-[#B08D2A]/60"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+          />
+        </svg>
+        {location}
+      </span>
     </div>
   )
 }
@@ -87,20 +116,6 @@ function ProjectTile({ project, hoveredKey, setHoveredKey, openGallery }) {
             transition={{ duration: 0.35 }}
             className="absolute inset-0 h-full w-full object-cover scale-[1.03] transition-transform duration-500 ease-out group-hover:scale-[1.06]"
           />
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {isHovered && project.hoverImage && (
-            <motion.span
-              className="absolute left-4 top-4 z-10 rounded-[4px] bg-[rgba(18,13,10,0.72)] px-2.5 py-[0.28rem] font-['Plus_Jakarta_Sans'] text-[0.6rem] font-semibold uppercase tracking-[0.13em] text-white/90"
-              initial={{ opacity: 0, y: -5 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -5 }}
-              transition={{ duration: 0.18 }}
-            >
-              Before
-            </motion.span>
-          )}
         </AnimatePresence>
 
         <AnimatePresence>
@@ -168,7 +183,7 @@ export default function PortfolioPage() {
         <PageHero
           breadcrumb="Our Work"
           title="Featured Projects"
-          subtitle="A curated selection of completed refurbishment, decorating, and bathroom fitting work across London, with real before-and-after project galleries."
+          subtitle="A curated selection of completed refurbishment, decorating, and bathroom fitting work across London, documented with finished details and project galleries."
         />
 
         <section className="bg-[#FAF9F6] px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
@@ -180,7 +195,7 @@ export default function PortfolioPage() {
                     Portfolio Overview
                   </p>
                   <h2 className="font-['Cormorant_Garamond'] text-[2rem] font-semibold leading-[1.02] tracking-[-0.03em] text-[#1C1714] sm:text-[2.5rem]">
-                    Real refurbishment work, documented with before-and-after detail.
+                    Real refurbishment work, documented with finished detail.
                   </h2>
                 </div>
 
@@ -214,29 +229,18 @@ export default function PortfolioPage() {
             </Reveal>
 
             <Reveal direction="scale" delay={0.05}>
-              <motion.article
+              <MotionLink
+                to={PORTFOLIO_FEATURED_PROJECT.caseStudyPath}
                 onHoverStart={() => setHoveredKey(PORTFOLIO_FEATURED_PROJECT.key)}
                 onHoverEnd={() => setHoveredKey(null)}
-                onClick={() => openGallery(PORTFOLIO_FEATURED_PROJECT.key)}
-                onKeyDown={(event) => {
-                  if (
-                    (event.key === 'Enter' || event.key === ' ') &&
-                    PORTFOLIO_FEATURED_PROJECT.hasGallery
-                  ) {
-                    event.preventDefault()
-                    openGallery(PORTFOLIO_FEATURED_PROJECT.key)
-                  }
-                }}
                 whileHover={{
                   y: -2,
                   boxShadow: '0 18px 44px rgba(0,0,0,0.1), 0 4px 12px rgba(212,175,55,0.08)',
                   borderColor: 'rgba(212,175,55,0.35)',
                 }}
                 transition={{ duration: 0.3 }}
-                className="group mb-8 overflow-hidden rounded-[20px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-sm"
-                role="button"
-                tabIndex={0}
-                aria-label={`Open gallery for ${PORTFOLIO_FEATURED_PROJECT.title}`}
+                className="group mb-8 block overflow-hidden rounded-[20px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] shadow-sm no-underline"
+                aria-label={`View case study for ${PORTFOLIO_FEATURED_PROJECT.title}`}
               >
                 <div className="flex flex-col lg:flex-row">
                   <div className="relative min-h-[260px] w-full flex-shrink-0 overflow-hidden sm:min-h-[340px] lg:min-h-[440px] lg:w-[60%]">
@@ -255,62 +259,17 @@ export default function PortfolioPage() {
                       />
                     </AnimatePresence>
 
-                    <AnimatePresence>
-                      {hoveredKey === PORTFOLIO_FEATURED_PROJECT.key &&
-                        PORTFOLIO_FEATURED_PROJECT.hoverImage && (
-                          <motion.span
-                            className="absolute top-4 left-4 z-10 rounded-[4px] bg-[rgba(18,13,10,0.72)] px-2.5 py-[0.28rem] font-['Plus_Jakarta_Sans'] text-[0.65rem] font-semibold uppercase tracking-[0.13em] text-white/90"
-                            initial={{ opacity: 0, y: -5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -5 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            Before
-                          </motion.span>
-                        )}
-                    </AnimatePresence>
-
-                    <AnimatePresence>
-                      {hoveredKey === PORTFOLIO_FEATURED_PROJECT.key &&
-                        PORTFOLIO_FEATURED_PROJECT.hasGallery && (
-                          <motion.div
-                            className="absolute inset-0 z-10 flex items-end justify-end bg-[#1C1714]/18 p-4"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <div className="flex items-center gap-1.5 rounded-full bg-white/90 px-3.5 py-2 shadow-md backdrop-blur-sm">
-                              <svg
-                                className="h-3.5 w-3.5 text-[#1C1714]"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.75"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                                />
-                              </svg>
-                              <span className="font-['Source_Serif_4'] text-[0.78rem] font-semibold text-[#1C1714]">
-                                View Gallery
-                              </span>
-                            </div>
-                          </motion.div>
-                        )}
-                    </AnimatePresence>
-
                     <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#FDFCF9]/50 to-transparent lg:hidden" />
                   </div>
 
                   <div className="flex flex-col justify-center px-8 py-10 lg:px-12 lg:py-14">
-                    <MetaLine
+                    <FeaturedMetaLine
                       category={PORTFOLIO_FEATURED_PROJECT.category}
                       location={PORTFOLIO_FEATURED_PROJECT.location}
-                      tags={PORTFOLIO_FEATURED_PROJECT.tags}
                     />
+                    <p className="mt-2 font-['Source_Serif_4'] text-[0.78rem] text-[#7A7068]">
+                      {PORTFOLIO_FEATURED_PROJECT.tags}
+                    </p>
 
                     <h3 className="mt-3 mb-4 font-['Cormorant_Garamond'] text-[1.6rem] font-semibold leading-[1.15] tracking-[-0.02em] text-[#1C1714] lg:text-[1.875rem]">
                       {PORTFOLIO_FEATURED_PROJECT.title}
@@ -324,15 +283,18 @@ export default function PortfolioPage() {
 
                     <div className="flex flex-wrap items-center gap-4">
                       <span className="rounded-full bg-[#FAF7F0] px-4 py-2 font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#A88636]">
-                        {PORTFOLIO_GALLERIES.refurb.length} before and after images
+                        {PORTFOLIO_FEATURED_PROJECT.pillLabel}
                       </span>
-                      <span className="font-['Source_Serif_4'] text-[0.88rem] font-semibold text-[#1C1714]">
-                        Open gallery
+                      <span className="group/project inline-flex items-center gap-2 font-['Source_Serif_4'] text-[0.88rem] font-semibold text-[#1C1714] transition-colors group-hover:text-[#B08D2A]">
+                        View case study
+                        <svg className="h-4 w-4 transition-transform duration-200 group-hover/project:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
                       </span>
                     </div>
                   </div>
                 </div>
-              </motion.article>
+              </MotionLink>
             </Reveal>
 
             <StaggerContainer className="grid grid-cols-1 gap-6 md:grid-cols-2" stagger={0.08}>

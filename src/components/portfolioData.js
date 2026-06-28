@@ -31,16 +31,18 @@ export const PORTFOLIO_GALLERIES = {
 
 export const PORTFOLIO_FEATURED_PROJECT = {
   key: 'refurb',
-  title: 'Full Property Refurbishment',
+  title: 'Complete East London Home Refurbishment',
   category: 'Property Refurbishment',
   location: 'East London',
-  tags: 'Refurbishment, Decorating, Flooring',
+  tags: 'Refurbishment, Decorating, Flooring & Finishing',
   description:
-    'A full interior refresh creating brighter, cleaner rooms with consistent decoration, flooring and finishing details.',
+    'A complete home refurbishment carried out across the main living areas, bedrooms, hallway, staircase, kitchen and bathroom. The work focused on careful preparation, clean decoration, flooring, woodwork and finishing details to create a brighter, calmer and more cohesive home.',
   longDescription:
-    'A full-house refurbishment delivered across key living spaces, circulation areas, and bedrooms. The scope included preparation, decoration, flooring, and finishing work designed to create a brighter, more cohesive home from top to bottom.',
+    'A complete home refurbishment carried out across the main living areas, bedrooms, hallway, staircase, kitchen and bathroom. The work focused on careful preparation, clean decoration, flooring, woodwork and finishing details to create a brighter, calmer and more cohesive home.',
   image: '/Portfolio/full-property-refurbishment-london-reception-room.webp',
   hoverImage: '/Portfolio/full-property-refurbishment-london-galley-kitchen.webp',
+  caseStudyPath: '/portfolio/complete-east-london-home-refurbishment',
+  pillLabel: '8 finished spaces',
   hasGallery: true,
   galleryPreview: ['Reception room', 'Kitchen and bathroom', 'Bedroom and finishing details'],
 }
