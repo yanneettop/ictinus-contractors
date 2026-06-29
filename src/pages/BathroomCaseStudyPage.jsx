@@ -73,14 +73,14 @@ function responsiveSrcSet(src) {
   return [480, 800, 1200].map((width) => `${responsiveSrc(src, width)} ${width}w`).join(', ')
 }
 
-function MetaLine() {
+function MetaLine({ inverse = false }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[#A88636]">
+      <span className={`font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.14em] ${inverse ? 'text-[#D4AF37]' : 'text-[#A88636]'}`}>
         Bathroom Renovation
       </span>
       <span className="text-[0.55rem] text-[#D4AF37]/40">&#9679;</span>
-      <span className="font-['Source_Serif_4'] text-[0.78rem] text-[#82776E]">East London</span>
+      <span className={`font-['Source_Serif_4'] text-[0.78rem] ${inverse ? 'text-[#D8CEC3]' : 'text-[#82776E]'}`}>East London</span>
     </div>
   )
 }
@@ -159,29 +159,30 @@ export default function BathroomCaseStudyPage() {
       <Nav />
 
       <main id="main-content">
-        <section className="relative overflow-hidden bg-[#FDFCF9] px-4 pb-14 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:px-8">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
+        <section className="relative overflow-hidden bg-[#1C1714] px-4 pb-14 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:px-8">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_22%,rgba(212,175,55,0.14),transparent_34%),linear-gradient(135deg,rgba(39,32,27,0.96),rgba(17,14,12,1))]" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <Reveal>
-              <div>
+              <div className="relative z-10">
                 <Link
                   to="/portfolio"
-                  className="mb-8 inline-flex items-center gap-2 font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.13em] text-[#A88636] transition-colors hover:text-[#1C1714]"
+                  className="mb-8 inline-flex items-center gap-2 font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.13em] text-[#D4AF37] transition-colors hover:text-white"
                 >
                   <span aria-hidden="true">&larr;</span>
                   Portfolio
                 </Link>
 
-                <MetaLine />
-                <p className="mt-3 font-['Source_Serif_4'] text-[0.9rem] text-[#6B625A]">
+                <MetaLine inverse />
+                <p className="mt-3 font-['Source_Serif_4'] text-[0.9rem] text-[#D8CEC3]">
                   Walk-In Shower, Vanity, Tiling & Finishing
                 </p>
 
-                <h1 className="mt-5 font-['Cormorant_Garamond'] text-[2.75rem] font-semibold leading-[0.96] tracking-normal text-[#1C1714] sm:text-[4.2rem]">
+                <h1 className="mt-5 font-['Cormorant_Garamond'] text-[2.75rem] font-semibold leading-[0.96] tracking-normal text-white sm:text-[4.2rem]">
                   Modern Walk-In Bathroom Renovation
                 </h1>
 
-                <p className="mt-7 max-w-2xl font-['Source_Serif_4'] text-[1.06rem] leading-[1.85] text-[#4E453E] sm:text-[1.16rem]">
+                <p className="mt-7 max-w-2xl font-['Source_Serif_4'] text-[1.06rem] leading-[1.85] text-[#D8CEC3] sm:text-[1.16rem]">
                   A complete bathroom refurbishment designed around a clean walk-in shower, fitted vanity storage, modern lighting and carefully finished wall and floor surfaces. The result is a practical, calm and contemporary bathroom with a premium everyday feel.
                 </p>
 
@@ -189,8 +190,8 @@ export default function BathroomCaseStudyPage() {
                   {heroBadges.map((badge) => (
                     <motion.span
                       key={badge}
-                      className="rounded-full bg-[#FAF7F0] px-4 py-2 font-['Plus_Jakarta_Sans'] text-[0.66rem] font-semibold uppercase tracking-[0.12em] text-[#A88636]"
-                      whileHover={{ y: -2, backgroundColor: '#F3EEE6', color: '#1C1714' }}
+                      className="rounded-full border border-[#D4AF37]/20 bg-white/5 px-4 py-2 font-['Plus_Jakarta_Sans'] text-[0.66rem] font-semibold uppercase tracking-[0.12em] text-[#D4AF37]"
+                      whileHover={{ y: -2, backgroundColor: 'rgba(212,175,55,0.14)', color: '#FFFFFF' }}
                       transition={{ duration: 0.2 }}
                     >
                       {badge}
@@ -210,7 +211,7 @@ export default function BathroomCaseStudyPage() {
                   <motion.button
                     type="button"
                     onClick={() => setGalleryOpen(true)}
-                    className="inline-flex items-center justify-center rounded-lg border border-[#D4AF37]/35 px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-[#1C1714] transition-colors hover:border-[#B08D2A] hover:bg-[#FAF7F0]"
+                    className="inline-flex items-center justify-center rounded-lg border border-[#D4AF37]/45 px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-white transition-colors hover:border-[#D4AF37] hover:bg-white/10"
                     whileHover={{ y: -2, scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -221,7 +222,9 @@ export default function BathroomCaseStudyPage() {
             </Reveal>
 
             <Reveal direction="scale" delay={0.08}>
-              <ImagePanel image={finalWide} eager className="rounded-[18px] shadow-[0_24px_60px_rgba(0,0,0,0.11)]" />
+              <div className="relative z-10">
+                <ImagePanel image={finalWide} eager className="rounded-[18px] shadow-[0_24px_70px_rgba(0,0,0,0.38)]" />
+              </div>
             </Reveal>
           </div>
         </section>
