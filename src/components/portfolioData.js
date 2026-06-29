@@ -1,9 +1,5 @@
 export const PORTFOLIO_GALLERIES = {
   refurb: [
-    { src: '/Portfolio/full-property-refurbishment-before-reception-room.webp', alt: 'Full Property Refurbishment - reception room before refurbishment', label: 'Before' },
-    { src: '/Portfolio/full-property-refurbishment-before-kitchen.webp', alt: 'Full Property Refurbishment - kitchen before refurbishment', label: 'Before' },
-    { src: '/Portfolio/full-property-refurbishment-before-bedroom.webp', alt: 'Full Property Refurbishment - bedroom before refurbishment', label: 'Before' },
-    { src: '/Portfolio/full-property-refurbishment-before-hallway-staircase.webp', alt: 'Full Property Refurbishment - hallway and staircase before refurbishment', label: 'Before' },
     { src: '/Portfolio/full-property-refurbishment-london-reception-room.webp', alt: 'Full Property Refurbishment - London reception room', label: 'After' },
     { src: '/Portfolio/full-property-refurbishment-london-galley-kitchen.webp', alt: 'Full Property Refurbishment - London galley kitchen', label: 'After' },
     { src: '/Portfolio/full-property-refurbishment-london-bedroom.webp', alt: 'Full Property Refurbishment - London bedroom', label: 'After' },
