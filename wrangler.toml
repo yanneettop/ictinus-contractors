@@ -2,6 +2,9 @@ name = "ictinus-contractors"
 compatibility_date = "2026-05-16"
 pages_build_output_dir = "dist"
 
+[vars]
+VITE_TURNSTILE_SITE_KEY = "0x4AAAAAADQfrmNxcoUZnMwX"
+
 [[r2_buckets]]
 binding = "QUOTE_UPLOADS"
 bucket_name = "quote-uploads"
