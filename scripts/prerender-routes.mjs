@@ -22,6 +22,11 @@ const routes = [
     file: 'portfolio/complete-east-london-home-refurbishment/index.html',
     altFile: 'portfolio/complete-east-london-home-refurbishment.html',
   },
+  {
+    route: '/portfolio/modern-walk-in-bathroom-renovation',
+    file: 'portfolio/modern-walk-in-bathroom-renovation/index.html',
+    altFile: 'portfolio/modern-walk-in-bathroom-renovation.html',
+  },
   { route: '/contact', file: 'contact/index.html', altFile: 'contact.html' },
 ]
 

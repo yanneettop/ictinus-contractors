@@ -1,0 +1,58 @@
+export const BATHROOM_CASE_STUDY_IMAGES = [
+  {
+    key: 'before',
+    src: '/Portfolio/bathroom-renovation-east-london-before.webp',
+    alt: 'Bathroom before renovation in East London',
+    label: 'Before',
+    caption: 'Original bathroom before strip-out and refurbishment work began.',
+  },
+  {
+    key: 'stripped-prep',
+    src: '/Portfolio/bathroom-renovation-east-london-stripped-prep.webp',
+    alt: 'Bathroom stripped out during preparation stage in East London',
+    label: 'During Prep',
+    caption: 'Bathroom stripped back ready for preparation, setting out and first-fix checks.',
+  },
+  {
+    key: 'waterproofing-tile-prep',
+    src: '/Portfolio/bathroom-renovation-east-london-waterproofing-tile-prep.webp',
+    alt: 'Bathroom waterproofing and tile preparation stage in East London',
+    label: 'Waterproofing',
+    caption: 'Waterproofing, backer boards and tile preparation completed before final finishes.',
+  },
+  {
+    key: 'shower-niche-detail',
+    src: '/Portfolio/bathroom-renovation-east-london-shower-niche-detail.webp',
+    alt: 'Finished shower niche detail with warm lighting and black brassware',
+    label: 'Detail',
+    caption: 'Recessed shower niche finished with warm lighting and clean edges.',
+  },
+  {
+    key: 'floating-oak-vanity',
+    src: '/Portfolio/bathroom-renovation-east-london-floating-oak-vanity.webp',
+    alt: 'Floating oak vanity with twin basins and matte black wall taps',
+    label: 'Vanity',
+    caption: 'Floating oak vanity, twin basins and matte black wall-mounted taps.',
+  },
+  {
+    key: 'backlit-mirror-lighting',
+    src: '/Portfolio/bathroom-renovation-east-london-backlit-mirror-lighting.webp',
+    alt: 'Backlit bathroom mirror and lighting detail above vanity',
+    label: 'Lighting',
+    caption: 'Backlit mirror detail with soft ambient lighting and crisp wall finish.',
+  },
+  {
+    key: 'final-wide-shot',
+    src: '/Portfolio/bathroom-renovation-east-london-final-wide-shot.webp',
+    alt: 'Completed East London bathroom renovation wide shot',
+    label: 'After',
+    caption: 'Completed bathroom with walk-in shower, double vanity and warm neutral finishes.',
+  },
+  {
+    key: 'final-detail',
+    src: '/Portfolio/bathroom-renovation-east-london-final-detail.webp',
+    alt: 'Completed bathroom vanity and mirror finishing detail',
+    label: 'Final Detail',
+    caption: 'Final detail showing clean junctions, black brassware and warm material tones.',
+  },
+]

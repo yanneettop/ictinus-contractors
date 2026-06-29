@@ -10,10 +10,14 @@ export const PORTFOLIO_GALLERIES = {
     { src: '/Portfolio/full-property-refurbishment-sage-panelling-child-room-detail.webp', alt: 'Full Property Refurbishment - sage panelling detail', label: 'Detail' },
   ],
   bath: [
-    { src: '/Portfolio/bathroom-renovation-london-walk-in-shower.webp', alt: 'Bathroom Renovation - London walk-in shower bathroom', label: 'After' },
-    { src: '/Portfolio/bathroom-renovation-london-freestanding-bath.webp', alt: 'Bathroom Renovation - London bathroom with freestanding bath', label: 'After' },
-    { src: '/Portfolio/bathroom-renovation-london-green-shower-room.webp', alt: 'Bathroom Renovation - London green tiled shower room', label: 'After' },
-    { src: '/Portfolio/bathroom-renovation-london-microcement-wet-room.webp', alt: 'Bathroom Renovation - London microcement wet room', label: 'After' },
+    { src: '/Portfolio/bathroom-renovation-east-london-before.webp', alt: 'Bathroom before renovation in East London', label: 'Before' },
+    { src: '/Portfolio/bathroom-renovation-east-london-stripped-prep.webp', alt: 'Bathroom stripped out during preparation stage in East London', label: 'During Prep' },
+    { src: '/Portfolio/bathroom-renovation-east-london-waterproofing-tile-prep.webp', alt: 'Bathroom waterproofing and tile preparation stage in East London', label: 'Waterproofing' },
+    { src: '/Portfolio/bathroom-renovation-east-london-shower-niche-detail.webp', alt: 'Finished shower niche detail with warm lighting and black brassware', label: 'Detail' },
+    { src: '/Portfolio/bathroom-renovation-east-london-floating-oak-vanity.webp', alt: 'Floating oak vanity with twin basins and matte black wall taps', label: 'Vanity' },
+    { src: '/Portfolio/bathroom-renovation-east-london-backlit-mirror-lighting.webp', alt: 'Backlit bathroom mirror and lighting detail above vanity', label: 'Lighting' },
+    { src: '/Portfolio/bathroom-renovation-east-london-final-wide-shot.webp', alt: 'Completed East London bathroom renovation wide shot', label: 'After' },
+    { src: '/Portfolio/bathroom-renovation-east-london-final-detail.webp', alt: 'Completed bathroom vanity and mirror finishing detail', label: 'Final Detail' },
   ],
   painting: [
     { src: '/Portfolio/painting-finishing-london-living-room.webp', alt: 'Painting and Finishing - London living room decoration', label: 'After' },
@@ -58,15 +62,16 @@ export const PORTFOLIO_FEATURED_PROJECT = {
 export const PORTFOLIO_CARD_PROJECTS = [
   {
     key: 'bath',
-    title: 'Bathroom Renovation',
+    title: 'Modern Walk-In Bathroom Renovation',
     category: 'Bathroom Fitting',
-    location: 'London',
-    tags: 'Bathroom Fitting, Plumbing',
+    location: 'East London',
+    tags: 'Walk-In Shower, Vanity, Tiling & Finishing',
     description:
-      'A dated bathroom transformed into a clean, practical space with neat tiling, plumbing and finishing details.',
-    image: '/Portfolio/bathroom-renovation-london-walk-in-shower.webp',
-    hoverImage: '/Portfolio/bathroom-renovation-london-freestanding-bath.webp',
+      'A complete bathroom refurbishment designed around a clean walk-in shower, fitted vanity storage, modern lighting and carefully finished wall and floor surfaces.',
+    image: '/Portfolio/bathroom-renovation-east-london-final-wide-shot.webp',
+    hoverImage: '/Portfolio/bathroom-renovation-east-london-floating-oak-vanity.webp',
     hasGallery: true,
+    caseStudyPath: '/portfolio/modern-walk-in-bathroom-renovation',
   },
   {
     key: 'painting',

@@ -17,6 +17,7 @@ const routes = [
   '/services/plumbing',
   '/portfolio',
   '/portfolio/complete-east-london-home-refurbishment',
+  '/portfolio/modern-walk-in-bathroom-renovation',
   '/contact',
   '/thank-you',
 ]
@@ -86,6 +87,11 @@ const routeMeta = {
     title: 'Complete East London Home Refurbishment & Interior Finishing | Ictinus Contractors',
     description:
       'A full-home interior refurbishment and redecoration case study in East London, focused on preparation, premium paint finishes, woodwork and consistent room-to-room detailing.',
+  },
+  '/portfolio/modern-walk-in-bathroom-renovation': {
+    title: 'Modern Walk-In Bathroom Renovation East London | Ictinus Contractors',
+    description:
+      'A modern East London bathroom renovation case study with walk-in shower, fitted vanity storage, waterproofing, tiling, lighting and final finishing.',
   },
   '/contact': {
     title: 'Request a Quote | Ictinus Contractors London',

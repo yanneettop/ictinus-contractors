@@ -71,7 +71,7 @@ function MetaLine({ location, serviceType }) {
   )
 }
 
-function GalleryCard({ project, hoveredKey, setHoveredKey, toggledKey, setToggledKey, openGallery }) {
+function GalleryCard({ project, hoveredKey, setHoveredKey, toggledKey, setToggledKey, openGallery, openProject }) {
   const isActive = hoveredKey === project.key || toggledKey === project.key
   const activeImage = isActive && project.hoverImage ? project.hoverImage : project.image
   const activeImageSize = responsivePortfolioSize(activeImage)
@@ -87,6 +87,14 @@ function GalleryCard({ project, hoveredKey, setHoveredKey, toggledKey, setToggle
   const handleGalleryClick = (event) => {
     event.stopPropagation()
     openGallery(project.key)
+  }
+
+  const handleProjectClick = () => {
+    if (project.caseStudyPath) {
+      openProject(project.caseStudyPath)
+    } else if (project.hasGallery) {
+      openGallery(project.key)
+    }
   }
 
   return (
@@ -181,7 +189,7 @@ function GalleryCard({ project, hoveredKey, setHoveredKey, toggledKey, setToggle
         </p>
         <button
           type="button"
-          onClick={() => project.hasGallery ? openGallery(project.key) : undefined}
+          onClick={handleProjectClick}
           className="group/project mt-4 inline-flex items-center gap-1.5 font-['Source_Serif_4'] text-[0.85rem] font-semibold text-[#B08D2A] transition-colors hover:text-[#8B6C2C]"
         >
           View Project
@@ -203,6 +211,8 @@ export default function Portfolio() {
   const openGallery = (key) => {
     if (PORTFOLIO_GALLERIES[key]) setGalleryKey(key)
   }
+
+  const openProject = (path) => navigate(path)
 
   const featuredKey = PORTFOLIO_FEATURED_PROJECT.key
   const featuredActive = hoveredKey === featuredKey || toggledKey === featuredKey
@@ -321,6 +331,7 @@ export default function Portfolio() {
                 toggledKey={toggledKey}
                 setToggledKey={setToggledKey}
                 openGallery={openGallery}
+                openProject={openProject}
               />
             </StaggerItem>
           ))}

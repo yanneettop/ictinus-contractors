@@ -71,20 +71,27 @@ function FeaturedMetaLine({ category, location }) {
   )
 }
 
-function ProjectTile({ project, hoveredKey, setHoveredKey, openGallery }) {
+function ProjectTile({ project, hoveredKey, setHoveredKey, openGallery, openProject }) {
   const isHovered = hoveredKey === project.key
   const image = isHovered && project.hoverImage ? project.hoverImage : project.image
   const galleryCount = PORTFOLIO_GALLERIES[project.key]?.length ?? 0
+  const handleOpen = () => {
+    if (project.caseStudyPath) {
+      openProject(project.caseStudyPath)
+    } else if (project.hasGallery) {
+      openGallery(project.key)
+    }
+  }
 
   return (
     <motion.article
       onHoverStart={() => setHoveredKey(project.key)}
       onHoverEnd={() => setHoveredKey(null)}
-      onClick={() => openGallery(project.key)}
+      onClick={handleOpen}
       onKeyDown={(event) => {
         if ((event.key === 'Enter' || event.key === ' ') && project.hasGallery) {
           event.preventDefault()
-          openGallery(project.key)
+          handleOpen()
         }
       }}
       whileHover={{
@@ -98,7 +105,7 @@ function ProjectTile({ project, hoveredKey, setHoveredKey, openGallery }) {
       }`}
       role={project.hasGallery ? 'button' : undefined}
       tabIndex={project.hasGallery ? 0 : undefined}
-      aria-label={project.hasGallery ? `Open gallery for ${project.title}` : undefined}
+      aria-label={project.hasGallery ? `Open project for ${project.title}` : undefined}
     >
       <div className="relative aspect-[16/11] overflow-hidden">
         <AnimatePresence mode="wait">
@@ -129,7 +136,7 @@ function ProjectTile({ project, hoveredKey, setHoveredKey, openGallery }) {
                 {galleryCount} images
               </span>
               <span className="rounded-full bg-white/90 px-3 py-1.5 font-['Source_Serif_4'] text-[0.74rem] font-semibold text-[#1C1714] shadow-md">
-                View Gallery
+                {project.caseStudyPath ? 'View Project' : 'View Gallery'}
               </span>
             </motion.div>
           )}
@@ -168,6 +175,7 @@ export default function PortfolioPage() {
   const openGallery = (key) => {
     if (PORTFOLIO_GALLERIES[key]) setGalleryKey(key)
   }
+  const openProject = (path) => navigate(path)
 
   const featuredImage =
     hoveredKey === PORTFOLIO_FEATURED_PROJECT.key && PORTFOLIO_FEATURED_PROJECT.hoverImage
@@ -316,6 +324,7 @@ export default function PortfolioPage() {
                     hoveredKey={hoveredKey}
                     setHoveredKey={setHoveredKey}
                     openGallery={openGallery}
+                    openProject={openProject}
                   />
                 </StaggerItem>
               ))}
