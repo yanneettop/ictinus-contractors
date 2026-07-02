@@ -71,6 +71,16 @@ function FeaturedMetaLine({ category, location }) {
   )
 }
 
+function ProjectDescription({ text, className }) {
+  return String(text)
+    .split('\n\n')
+    .map((paragraph) => (
+      <p key={paragraph} className={className}>
+        {paragraph}
+      </p>
+    ))
+}
+
 function ProjectTile({ project, hoveredKey, setHoveredKey, openGallery, openProject }) {
   const isHovered = hoveredKey === project.key
   const image = isHovered && project.hoverImage ? project.hoverImage : project.image
@@ -112,7 +122,7 @@ function ProjectTile({ project, hoveredKey, setHoveredKey, openGallery, openProj
           <motion.img
             key={image}
             src={image}
-            alt={project.title}
+            alt={project.imageAlt || project.title}
             loading="lazy"
             draggable={false}
             initial={{ opacity: 0 }}
@@ -145,12 +155,20 @@ function ProjectTile({ project, hoveredKey, setHoveredKey, openGallery, openProj
 
       <div className="px-6 py-6">
         <MetaLine category={project.category} location={project.location} tags={project.tags} />
+        {project.pillLabel && (
+          <span className="mt-3 inline-flex rounded-full bg-[#FAF7F0] px-3 py-1 font-['Plus_Jakarta_Sans'] text-[0.62rem] font-semibold uppercase tracking-[0.13em] text-[#A88636]">
+            {project.pillLabel}
+          </span>
+        )}
         <h3 className="mt-3 mb-3 font-['Cormorant_Garamond'] text-[1.25rem] font-semibold leading-[1.15] tracking-[-0.01em] text-[#1C1714] transition-colors duration-300 group-hover:text-[#B08D2A]">
           {project.title}
         </h3>
-        <p className="font-['Source_Serif_4'] text-[0.92rem] leading-[1.75] text-[#5A5048]">
-          {project.description}
-        </p>
+        <div className="space-y-3">
+          <ProjectDescription
+            text={project.description}
+            className="font-['Source_Serif_4'] text-[0.92rem] leading-[1.75] text-[#5A5048]"
+          />
+        </div>
       </div>
     </motion.article>
   )

@@ -12,43 +12,43 @@ import { useSEO } from '../hooks/useSEO'
 const heroBadges = ['Bathroom renovation', 'Walk-in shower', 'Waterproofing', 'Wall & floor tiling', 'Lighting & finishing']
 
 const priorities = [
-  'A spacious walk-in shower',
-  'Better storage',
-  'Clean wall-mounted fixtures',
-  'Durable tiling and waterproofing',
-  'Soft lighting',
-  'A calm, hotel-inspired finish',
+  'Strip-out and prep',
+  'Waterproofing',
+  'Walk-in shower layout',
+  'Wall and floor tiling',
+  'Lighting and storage',
+  'Easy maintenance',
 ]
 
 const scopeItems = [
   {
     title: 'Bathroom strip-out and preparation',
-    text: 'The existing bathroom was prepared for refurbishment, with surfaces checked and made ready for new installation work.',
+    text: 'The old bathroom finishes were removed so the room could be properly prepared for the new layout and installation.',
   },
   {
-    title: 'Walk-in shower installation',
-    text: 'A modern walk-in shower area was formed with clear glass, concealed drainage and a clean tiled finish.',
+    title: 'Wall and shower waterproofing',
+    text: 'Wet areas were prepared with waterproofing in mind before tiling and final shower installation.',
   },
   {
-    title: 'Tiling and waterproofing',
-    text: 'Wall and floor surfaces were prepared and finished with bathroom-suitable materials, with attention to waterproofing, alignment and clean transitions.',
+    title: 'Tiling and wall panelling',
+    text: 'Wall and floor finishes were installed carefully to create a cleaner, more modern bathroom surface.',
   },
   {
-    title: 'Vanity and storage',
-    text: 'A fitted vanity unit was installed to improve storage while keeping the room visually clean and uncluttered.',
+    title: 'Vanity and sanitaryware',
+    text: 'The vanity, basin, toilet and shower fittings were positioned to make the bathroom practical for daily use.',
   },
   {
     title: 'Lighting and final details',
-    text: 'Mirror lighting, recessed lighting, niches and finishing details were used to give the bathroom a warmer, more considered feel.',
+    text: 'Lighting, mirror, storage and finishing details were completed to make the space feel calm and usable.',
   },
 ]
 
 const finishCards = [
-  ['Large-format wall and floor finish', 'For a cleaner, more seamless bathroom appearance.'],
-  ['Walk-in glass screen', 'To keep the room open and practical.'],
-  ['Built-in shower niche', 'For storage without bulky accessories.'],
-  ['Wall-mounted sanitaryware', 'For a cleaner, more modern look.'],
-  ['LED mirror lighting', 'To soften the room and improve usability.'],
+  ['Large-format wall and floor tiles', 'Fewer grout lines helped create a cleaner look and made the bathroom easier to maintain.'],
+  ['Walk-in shower layout', 'The shower area was designed to feel open while keeping the room practical for everyday use.'],
+  ['Wall-mounted fittings', 'Wall-mounted taps and fittings helped keep the vanity area clean and uncluttered.'],
+  ['LED mirror lighting', 'Integrated mirror lighting added a softer, more practical light for daily use.'],
+  ['Floating vanity and storage', 'The vanity provided useful storage while keeping the bathroom feeling lighter and more open.'],
 ]
 
 const resultHighlights = [
@@ -103,7 +103,20 @@ function SectionHeading({ eyebrow, title, children, inverse = false }) {
   )
 }
 
-function ImagePanel({ image, className = '', eager = false }) {
+function InlineServiceLink({ to, children, inverse = false }) {
+  return (
+    <Link
+      to={to}
+      className={`underline decoration-[#C9A227]/55 underline-offset-4 transition-colors ${
+        inverse ? 'text-white hover:text-[#D4AF37]' : 'text-[#3F352D] hover:text-[#A88636]'
+      }`}
+    >
+      {children}
+    </Link>
+  )
+}
+
+function ImagePanel({ image, className = '', eager = false, caption }) {
   return (
     <motion.figure
       className={`group overflow-hidden rounded-[14px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] shadow-sm ${className}`}
@@ -126,7 +139,7 @@ function ImagePanel({ image, className = '', eager = false }) {
         />
       </div>
       <figcaption className="px-5 py-4 font-['Source_Serif_4'] text-[0.86rem] leading-relaxed text-[#6B625A]">
-        {image.caption}
+        {caption || image.caption}
       </figcaption>
     </motion.figure>
   )
@@ -140,18 +153,18 @@ export default function BathroomCaseStudyPage() {
   const stripped = imageByKey('stripped-prep')
   const waterproofing = imageByKey('waterproofing-tile-prep')
   const niche = imageByKey('shower-niche-detail')
+  const tileDrainDetail = imageByKey('tile-drain-detail')
   const vanity = imageByKey('floating-oak-vanity')
-  const lighting = imageByKey('backlit-mirror-lighting')
-  const finalDetail = imageByKey('final-detail')
+  const storageDetail = imageByKey('storage-toilet-detail')
 
   useSEO({
-    title: 'Modern Walk-In Bathroom Renovation East London | Ictinus Contractors',
+    title: 'Bathroom Renovation East London | Walk-In Shower & Tiling | Ictinus Contractors',
     description:
-      'A modern East London bathroom renovation case study with walk-in shower, fitted vanity storage, waterproofing, tiling, lighting and final finishing.',
+      'See an East London bathroom renovation by Ictinus Contractors, including strip-out, waterproofing, walk-in shower installation, tiling, lighting and final finishing.',
     canonical: 'https://www.ictinuscontractors.co.uk/portfolio/modern-walk-in-bathroom-renovation',
-    ogTitle: 'Modern Walk-In Bathroom Renovation | Ictinus Contractors',
+    ogTitle: 'Bathroom Renovation East London | Walk-In Shower & Tiling | Ictinus Contractors',
     ogDescription:
-      'Explore an East London bathroom refurbishment focused on a walk-in shower, fitted vanity, waterproofing, tiling and clean finishing.',
+      'See an East London bathroom renovation by Ictinus Contractors, including strip-out, waterproofing, walk-in shower installation, tiling, lighting and final finishing.',
   })
 
   return (
@@ -184,7 +197,7 @@ export default function BathroomCaseStudyPage() {
 
                 <div className="mt-7 max-w-2xl font-['Source_Serif_4'] text-[1.06rem] leading-[1.85] text-[#D8CEC3] sm:text-[1.16rem]">
                   <p>
-                    A bathroom renovation in East London focused on creating a cleaner, more practical space with a walk-in shower, new tiling, improved lighting and carefully finished details.
+                    A <InlineServiceLink to="/services/bathroom-fitting" inverse>bathroom renovation</InlineServiceLink> in East London focused on creating a cleaner, more practical space with a walk-in shower, new tiling, improved lighting and carefully finished details.
                   </p>
                   <p className="mt-4">
                     The work included strip-out, preparation, waterproofing, installation and final finishing so the bathroom could feel modern, easy to maintain and ready for everyday use.
@@ -261,9 +274,12 @@ export default function BathroomCaseStudyPage() {
               <ImagePanel image={stripped} />
             </Reveal>
             <Reveal delay={0.08}>
-              <SectionHeading eyebrow="The Brief" title="Modern, easy to maintain and warm without feeling overdone.">
+              <SectionHeading eyebrow="The Brief" title="From dated bathroom to a cleaner, easier-to-use layout">
                 <p>
-                  The client wanted a bathroom that felt modern, easy to maintain and more comfortable to use every day. The design needed to feel warm and premium without becoming overly complicated.
+                  The existing bathroom needed more than a surface refresh. The room was stripped back so the new installation could be planned properly, with attention given to waterproofing, tiling, shower access and everyday usability.
+                </p>
+                <p className="mt-4">
+                  The aim was to create a bathroom that looked modern without becoming difficult to maintain, using clean finishes, practical storage and simple details that would work well over time.
                 </p>
                 <div className="mt-6 grid gap-2 sm:grid-cols-2">
                   {priorities.map((priority) => (
@@ -280,13 +296,13 @@ export default function BathroomCaseStudyPage() {
         <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <SectionHeading eyebrow="What We Completed" title="Strip-out, waterproofing, installation and final finishing." />
+              <SectionHeading eyebrow="What We Completed" title="Strip-out, waterproofing, installation and final finishing" />
             </Reveal>
             <StaggerContainer className="mt-9 grid gap-4 md:grid-cols-2 lg:grid-cols-5" stagger={0.07}>
               {scopeItems.map((item) => (
                 <StaggerItem key={item.title}>
                   <motion.article
-                    className="h-full rounded-[12px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] p-5 shadow-sm"
+                    className="h-full rounded-[12px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] p-6 shadow-sm"
                     whileHover={{
                       y: -5,
                       backgroundColor: '#FFFEFB',
@@ -298,7 +314,7 @@ export default function BathroomCaseStudyPage() {
                     <h3 className="font-['Cormorant_Garamond'] text-[1.35rem] font-semibold leading-tight text-[#1C1714]">
                       {item.title}
                     </h3>
-                    <p className="mt-3 font-['Source_Serif_4'] text-[0.88rem] leading-[1.75] text-[#625951]">
+                    <p className="mt-3 font-['Source_Serif_4'] text-[0.9rem] leading-[1.85] text-[#625951]">
                       {item.text}
                     </p>
                   </motion.article>
@@ -311,12 +327,15 @@ export default function BathroomCaseStudyPage() {
         <section className="bg-[#1C1714] px-4 py-16 text-white sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
             <Reveal>
-              <SectionHeading eyebrow="The Challenge" title="Making the practical work disappear." inverse>
+              <SectionHeading eyebrow="The Challenge" title="The hidden work mattered as much as the final finish" inverse>
                 <p>
-                  The main challenge in a bathroom like this is making the practical work disappear. Pipework, waterproofing, drainage, lighting and storage all need to be planned properly, but the final result should feel simple and calm.
+                  A bathroom can look clean at the end, but the quality depends on what happens before the final fittings go in.
                 </p>
                 <p className="mt-4">
-                  Walk-in showers especially need careful setting out. Falls, drainage, glass positioning, tile alignment and waterproofing all have to work together. When done properly, the room looks effortless.
+                  For this project, attention was given to the hidden stages: preparation, waterproofing, pipework coordination, tiling layout and making sure the shower area worked properly for daily use.
+                </p>
+                <p className="mt-4">
+                  The aim was to create a finished bathroom that felt simple and calm, while making sure the practical work behind it was handled carefully.
                 </p>
               </SectionHeading>
             </Reveal>
@@ -329,22 +348,25 @@ export default function BathroomCaseStudyPage() {
         <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <SectionHeading eyebrow="Materials & Finishes" title="Durable bathroom-grade materials with a clean modern appearance.">
+              <SectionHeading eyebrow="Materials & Finishes" title="Durable bathroom-grade materials with a clean modern appearance">
                 <p>
-                  The bathroom was finished with durable bathroom-grade materials selected for daily use, easy maintenance and a clean modern appearance. Large-format wall and floor finishes helped reduce visual clutter, while black fixtures, warm timber tones and soft lighting added contrast and depth.
+                  The bathroom was finished with materials and fittings suited to a wet room environment, with a focus on durability, easy cleaning and a calm modern look.
+                </p>
+                <p className="mt-4">
+                  Large-format tiles, practical sanitaryware, clean lighting and simple storage details helped create a bathroom that feels more open without becoming difficult to maintain.
                 </p>
               </SectionHeading>
             </Reveal>
 
             <div className="mt-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
               <Reveal>
-                <ImagePanel image={niche} />
+                <ImagePanel image={tileDrainDetail} />
               </Reveal>
               <StaggerContainer className="grid gap-4 sm:grid-cols-2" stagger={0.06}>
                 {finishCards.map(([title, text]) => (
                   <StaggerItem key={title}>
                     <motion.article
-                      className="rounded-[12px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] p-5 shadow-sm"
+                      className="rounded-[12px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] p-6 shadow-sm"
                       whileHover={{
                         y: -4,
                         boxShadow: '0 14px 32px rgba(28,23,20,0.08), 0 2px 8px rgba(212,175,55,0.08)',
@@ -355,7 +377,7 @@ export default function BathroomCaseStudyPage() {
                       <h3 className="font-['Plus_Jakarta_Sans'] text-[0.76rem] font-semibold uppercase tracking-[0.13em] text-[#A88636]">
                         {title}
                       </h3>
-                      <p className="mt-3 font-['Source_Serif_4'] text-[0.92rem] leading-[1.75] text-[#5A5048]">
+                      <p className="mt-3 font-['Source_Serif_4'] text-[0.94rem] leading-[1.85] text-[#5A5048]">
                         {text}
                       </p>
                     </motion.article>
@@ -369,17 +391,26 @@ export default function BathroomCaseStudyPage() {
         <section className="bg-[#F3EEE6] px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <SectionHeading eyebrow="Finished Details" title="The small details that make the bathroom feel considered." />
+              <SectionHeading eyebrow="Finished Details" title="The details that make the bathroom feel properly finished" />
             </Reveal>
             <div className="mt-9 grid gap-6 lg:grid-cols-3">
               <Reveal>
-                <ImagePanel image={vanity} />
+                <ImagePanel
+                  image={vanity}
+                  caption="Clean mirror, lighting and vanity details helped the bathroom feel more complete."
+                />
               </Reveal>
               <Reveal delay={0.08}>
-                <ImagePanel image={lighting} />
+                <ImagePanel
+                  image={storageDetail}
+                  caption="Built-in storage and wall-mounted fittings kept the bathroom practical and uncluttered."
+                />
               </Reveal>
               <Reveal delay={0.16}>
-                <ImagePanel image={finalDetail} />
+                <ImagePanel
+                  image={niche}
+                  caption="Final tiling, lighting and shower details created a cleaner, more modern finish."
+                />
               </Reveal>
             </div>
           </div>
@@ -388,12 +419,15 @@ export default function BathroomCaseStudyPage() {
         <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
             <Reveal>
-              <SectionHeading eyebrow="The Result" title="A bathroom that feels larger, easier to maintain and more refined.">
+              <SectionHeading eyebrow="The Result" title="The result: a brighter bathroom that is easier to use and maintain">
                 <p>
-                  The finished bathroom feels calm, modern and practical. The walk-in shower, fitted vanity, lighting and clean wall finishes give the room a more premium feel while still being designed for everyday use.
+                  The finished bathroom now feels cleaner, brighter and more practical for everyday use.
                 </p>
                 <p className="mt-4">
-                  The final result is a bathroom that feels larger, easier to maintain and much more refined.
+                  By combining proper preparation, waterproofing, careful tiling and clean finishing details, the space was turned into a more comfortable bathroom without making it difficult to maintain.
+                </p>
+                <p className="mt-4">
+                  The final result is modern, calm and practical, with a walk-in shower, useful storage and a finish designed for daily life.
                 </p>
               </SectionHeading>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -410,7 +444,10 @@ export default function BathroomCaseStudyPage() {
               </div>
             </Reveal>
             <Reveal delay={0.08}>
-              <ImagePanel image={finalWide} />
+              <ImagePanel
+                image={finalWide}
+                caption="Finished walk-in bathroom with clean tiling, floating vanity, LED mirror and practical storage."
+              />
             </Reveal>
           </div>
         </section>
@@ -425,7 +462,10 @@ export default function BathroomCaseStudyPage() {
                 Planning a bathroom renovation?
               </h2>
               <p className="mx-auto mt-5 max-w-2xl font-['Source_Serif_4'] text-[1rem] leading-[1.8] text-[#D8CEC3]">
-                Ictinus Contractors can help with bathroom refurbishments, tiling, plumbing coordination, waterproofing, fitted storage and final finishing across London.
+                Whether you are updating a dated bathroom or planning a full renovation, we can help with clear advice, careful preparation and a clean final finish.
+              </p>
+              <p className="mx-auto mt-4 max-w-2xl font-['Source_Serif_4'] text-[1rem] leading-[1.8] text-[#D8CEC3]">
+                Tell us what you would like to change and we&rsquo;ll guide you through the best next step.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <motion.div whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.98 }}>
@@ -456,7 +496,7 @@ export default function BathroomCaseStudyPage() {
         {galleryOpen && (
           <PortfolioGalleryModal
             images={BATHROOM_CASE_STUDY_IMAGES}
-            title="Modern Walk-In Bathroom Renovation"
+            title="East London Walk-In Bathroom Renovation"
             onClose={() => setGalleryOpen(false)}
           />
         )}

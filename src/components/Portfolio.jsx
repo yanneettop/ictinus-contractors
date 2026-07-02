@@ -71,6 +71,16 @@ function MetaLine({ location, serviceType }) {
   )
 }
 
+function ProjectDescription({ text, className }) {
+  return String(text)
+    .split('\n\n')
+    .map((paragraph) => (
+      <p key={paragraph} className={className}>
+        {paragraph}
+      </p>
+    ))
+}
+
 function GalleryCard({ project, hoveredKey, setHoveredKey, toggledKey, setToggledKey, openGallery, openProject }) {
   const isActive = hoveredKey === project.key || toggledKey === project.key
   const activeImage = isActive && project.hoverImage ? project.hoverImage : project.image
@@ -128,7 +138,7 @@ function GalleryCard({ project, hoveredKey, setHoveredKey, toggledKey, setToggle
             src={responsivePortfolioSrc(activeImage)}
             srcSet={responsivePortfolioSrcSet(activeImage)}
             sizes="(min-width: 1024px) 560px, (min-width: 640px) 50vw, 100vw"
-            alt={project.title}
+            alt={project.imageAlt || project.title}
             loading="lazy"
             decoding="async"
             width={activeImageSize.width}
@@ -181,12 +191,20 @@ function GalleryCard({ project, hoveredKey, setHoveredKey, toggledKey, setToggle
 
       <div className="px-6 py-5">
         <MetaLine location={project.location} serviceType={project.category} />
+        {project.pillLabel && (
+          <span className="mt-3 inline-flex rounded-full bg-[#FAF7F0] px-3 py-1 font-['Plus_Jakarta_Sans'] text-[0.62rem] font-semibold uppercase tracking-[0.13em] text-[#A88636]">
+            {project.pillLabel}
+          </span>
+        )}
         <h3 className="mt-2 mb-2 font-['Cormorant_Garamond'] text-[1.15rem] font-semibold leading-snug tracking-[-0.01em] text-[#1C1714] transition-colors duration-300 group-hover:text-[#B08D2A]">
           {project.title}
         </h3>
-        <p className="font-['Source_Serif_4'] text-[0.875rem] leading-[1.7] text-[#7A7068]">
-          {project.description}
-        </p>
+        <div className="space-y-3">
+          <ProjectDescription
+            text={project.description}
+            className="font-['Source_Serif_4'] text-[0.875rem] leading-[1.7] text-[#7A7068]"
+          />
+        </div>
         <button
           type="button"
           onClick={handleProjectClick}
