@@ -47,17 +47,17 @@ export const PORTFOLIO_GALLERIES = {
 
 export const PORTFOLIO_FEATURED_PROJECT = {
   key: 'refurb',
-  title: 'Complete East London Home Refurbishment & Interior Finishing',
+  title: 'East London Home Refurbishment & Finishing',
   category: 'Property Refurbishment',
   location: 'East London',
-  tags: 'Interior Redecoration, Woodwork, Flooring & Finishing',
+  tags: 'Interior Redecoration, Woodwork, Flooring & Bathroom Finishing',
   description:
-    'A full interior refurbishment and redecoration project across living areas, bedrooms, kitchen, bathroom, hallway and staircase. The work focused on careful preparation, premium paint finishes, detailed woodwork and a calm, consistent look throughout the home.',
+    'A practical East London refurbishment covering interior decorating, woodwork, flooring details and bathroom finishing.\n\nThe project focused on careful preparation and a cleaner, more consistent finish across the home.',
   longDescription:
-    'A full interior refurbishment and redecoration project across living areas, bedrooms, kitchen, bathroom, hallway and staircase. The work focused on careful preparation, premium paint finishes, detailed woodwork and a calm, consistent look throughout the home.',
+    'A practical East London refurbishment covering interior decorating, woodwork, flooring details and bathroom finishing.\n\nThe project focused on careful preparation and a cleaner, more consistent finish across the home.',
   image: '/Portfolio/full-property-refurbishment-london-reception-room.webp',
   hoverImage: '/Portfolio/ictinus-property-refurbishment-london-finished-living-room-street-view.webp',
-  pillLabel: '8 finished spaces',
+  pillLabel: 'Multi-room refresh',
   hasGallery: true,
   caseStudyPath: '/portfolio/complete-east-london-home-refurbishment',
   galleryPreview: ['Reception room', 'Kitchen and bathroom', 'Bedroom and finishing details'],
