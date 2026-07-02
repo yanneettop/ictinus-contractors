@@ -49,7 +49,8 @@ body {
     scroll-behavior: auto;
   }
 
-  .animate-bounce {
+  .animate-bounce,
+  .cookie-consent-shell {
     animation: none !important;
   }
 
@@ -111,6 +112,15 @@ body {
 @keyframes ict-fadeIn {
   from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ict-cookie-reveal {
+  from { opacity: 0; transform: translate(-50%, 18px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.cookie-consent-shell {
+  animation: ict-cookie-reveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ─────────────────────────── Scroll Reveal ─────────────────────── */
