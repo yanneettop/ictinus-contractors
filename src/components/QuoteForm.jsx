@@ -582,8 +582,9 @@ export default function QuoteForm() {
             </p>
             <ul>
               {[
-                '9.97/10 Checkatrade rating',
-                'Verified reviews',
+                '10/10 Checkatrade rating',
+                '5.0/5 Google reviews',
+                '4.9/5 MyBuilder rating',
                 'Fully insured',
                 'Free estimates',
                 'Clear communication',

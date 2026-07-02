@@ -30,7 +30,7 @@ const reasons = [
   },
   {
     title: 'Premium Finish Standards',
-    description: 'We use quality materials and refined techniques to achieve a consistently high standard. Rated 9.91/10 for quality of work on Checkatrade — the result speaks for itself.',
+    description: 'We use quality materials and refined techniques to achieve a consistently high standard. Rated 10/10 for quality of work on Checkatrade — the result speaks for itself.',
     icon: (
       <>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
@@ -64,7 +64,7 @@ const reasons = [
 ]
 
 const subScores = [
-  { label: 'Quality of Work', score: '9.91' },
+  { label: 'Quality of Work', score: '10' },
   { label: 'Reliability', score: '10' },
   { label: 'Communication', score: '10' },
 ]
@@ -87,7 +87,7 @@ export default function WhyChooseUs() {
             </h2>
             <div className="w-12 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-6" />
             <p className="text-[#B8AFA6] text-[1.0625rem] leading-[1.78] max-w-[42rem] mx-auto font-['Source_Serif_4']">
-              Rated 9.97 out of 10 on Checkatrade. Our reputation is built on
+              Rated 10 out of 10 on Checkatrade. Our reputation is built on
               consistent results, honest communication, and a professional approach to every project.
             </p>
 

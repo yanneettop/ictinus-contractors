@@ -3,6 +3,7 @@ import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 
 const CHECKATRADE_URL = 'https://www.checkatrade.com/trades/ictinuscontractors'
 const MYBUILDER_URL = 'https://www.mybuilder.com/profile/ictinus-contractors'
+const GOOGLE_URL = 'https://www.google.com/maps/place/Ictinus+Contractors/@51.565339,0.1147425,11z/data=!3m1!4b1!4m6!3m5!1s0x63d2cc228ef76369:0x5eabc14ee3673111!8m2!3d51.565339!4d0.1147425!16s%2Fg%2F11nj9z39xx?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D'
 
 const reviews = [
   {
@@ -23,9 +24,9 @@ const reviews = [
 ]
 
 const badges = [
-  { val: '9.97/10', label: 'Checkatrade', href: CHECKATRADE_URL, icon: 'star' },
-  { val: 'Verified', label: 'Reviews',    href: CHECKATRADE_URL, icon: 'check' },
-  { val: 'MyBuilder', label: 'Profile',   href: MYBUILDER_URL,   icon: 'check' },
+  { val: '10/10', label: 'Checkatrade', href: CHECKATRADE_URL, icon: 'star' },
+  { val: '5.0/5', label: 'Google reviews', href: GOOGLE_URL, icon: 'star' },
+  { val: '4.9/5', label: 'MyBuilder', href: MYBUILDER_URL, icon: 'check' },
 ]
 
 function Stars() {
@@ -100,7 +101,7 @@ export default function Testimonials() {
             <p className="ict-section-label">Testimonials</p>
             <h2 className="ict-section-heading">What Our Clients Say</h2>
             <p className="ict-section-subtitle">
-              Rated 9.97/10 on Checkatrade, with MyBuilder available as an
+              Rated 10/10 on Checkatrade, with 5.0/5 Google reviews and 4.9/5 on MyBuilder as an
               additional route for customers who prefer that platform.
             </p>
           </div>

@@ -520,11 +520,11 @@ export default function ServicesPage() {
   useSEO({
     title: 'Renovation, Refurbishment & Decorating Services in London | Ictinus Contractors',
     description:
-      'Property refurbishment, bathroom renovation, painting and decorating, plastering, flooring, finishing carpentry, electrical and plumbing across London. 9.97/10 Checkatrade. Fully insured. Free quotes.',
+      'Property refurbishment, bathroom renovation, painting and decorating, plastering, flooring, finishing carpentry, electrical and plumbing across London. 10/10 Checkatrade. Fully insured. Free quotes.',
     canonical: 'https://www.ictinuscontractors.co.uk/services',
     ogTitle: 'Renovation, Refurbishment & Decorating Services in London | Ictinus Contractors',
     ogDescription:
-      'Refurbishment, bathroom renovation, decorating and supporting trades across London. 9.97/10 Checkatrade. Free quotes.',
+      'Refurbishment, bathroom renovation, decorating and supporting trades across London. 10/10 Checkatrade. Free quotes.',
   })
 
   useEffect(() => {
@@ -573,9 +573,9 @@ export default function ServicesPage() {
 
           <div className="mb-8 flex flex-wrap justify-center gap-x-6 gap-y-2">
             {[
-              '9.97/10 Checkatrade',
-              'Verified Checkatrade Reviews',
-              'Find us on MyBuilder',
+              '10/10 Checkatrade',
+              '5.0/5 Google reviews',
+              '4.9/5 MyBuilder',
               'Free Written Quotes',
             ].map((t) => (
               <span key={t} className="flex items-center gap-1.5 font-['Source_Serif_4'] text-[0.8rem] text-[#D4AF37]/80">
@@ -617,7 +617,7 @@ export default function ServicesPage() {
             Ictinus Contractors is a professional London contractor specialising in property refurbishment,
             bathroom renovation, decorating and finishing. We serve homeowners, landlords and commercial
             clients from our East London base — rated{' '}
-            <strong className="text-[#B08D2A]">9.97/10 on Checkatrade</strong>, with a MyBuilder profile available as an
+            <strong className="text-[#B08D2A]">10/10 on Checkatrade</strong>, with 5.0/5 Google reviews and a 4.9/5 MyBuilder profile available as an
             additional enquiry route. Every project is fully insured and backed by 12+ years of experience across London.
           </p>
         </div>
