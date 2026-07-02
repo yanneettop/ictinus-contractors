@@ -192,7 +192,7 @@ export default function BathroomCaseStudyPage() {
                 </p>
 
                 <h1 className="mt-5 font-['Cormorant_Garamond'] text-[2.75rem] font-semibold leading-[0.96] tracking-normal text-white sm:text-[4.2rem]">
-                  East London Walk-In Bathroom Renovation
+                  Walk-In Bathroom Renovation in East London
                 </h1>
 
                 <div className="mt-7 max-w-2xl font-['Source_Serif_4'] text-[1.06rem] leading-[1.85] text-[#D8CEC3] sm:text-[1.16rem]">
@@ -302,7 +302,7 @@ export default function BathroomCaseStudyPage() {
               {scopeItems.map((item) => (
                 <StaggerItem key={item.title}>
                   <motion.article
-                    className="h-full rounded-[12px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] p-6 shadow-sm"
+                    className="h-full rounded-[12px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] p-7 shadow-sm"
                     whileHover={{
                       y: -5,
                       backgroundColor: '#FFFEFB',
@@ -314,7 +314,7 @@ export default function BathroomCaseStudyPage() {
                     <h3 className="font-['Cormorant_Garamond'] text-[1.35rem] font-semibold leading-tight text-[#1C1714]">
                       {item.title}
                     </h3>
-                    <p className="mt-3 font-['Source_Serif_4'] text-[0.9rem] leading-[1.85] text-[#625951]">
+                    <p className="mt-3 font-['Source_Serif_4'] text-[0.9rem] leading-[1.9] text-[#625951]">
                       {item.text}
                     </p>
                   </motion.article>
@@ -348,7 +348,7 @@ export default function BathroomCaseStudyPage() {
         <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <SectionHeading eyebrow="Materials & Finishes" title="Durable bathroom-grade materials with a clean modern appearance">
+              <SectionHeading eyebrow="Materials & Finishes" title="Durable bathroom-grade materials for daily use">
                 <p>
                   The bathroom was finished with materials and fittings suited to a wet room environment, with a focus on durability, easy cleaning and a calm modern look.
                 </p>
