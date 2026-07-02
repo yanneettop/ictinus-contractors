@@ -38,10 +38,10 @@ export const PORTFOLIO_GALLERIES = {
     { src: '/Portfolio/plastering-surface-preparation-london-ceiling-before-after.webp', alt: 'Plastering and Surface Preparation - ceiling before and after', label: 'Before / After' },
   ],
   flooring: [
-    { src: '/Portfolio/hard-flooring-installation-london-open-plan-living-dining.webp', alt: 'Hard Flooring Installation - London open-plan living and dining room', label: 'After' },
-    { src: '/Portfolio/hard-flooring-installation-london-herringbone-hallway-kitchen.webp', alt: 'Hard Flooring Installation - herringbone flooring through hallway and kitchen', label: 'After' },
-    { src: '/Portfolio/hard-flooring-installation-london-skirting-threshold-detail.webp', alt: 'Hard Flooring Installation - skirting and threshold detail', label: 'Detail' },
-    { src: '/Portfolio/hard-flooring-installation-london-dark-home-office.webp', alt: 'Hard Flooring Installation - dark wood floor in London home office', label: 'After' },
+    { src: '/Portfolio/ictinus-hard-flooring-installation-london-empty-open-plan-living-dining-after-flooring.webp', alt: 'Ictinus hard flooring installation in London - empty open-plan living dining room after flooring', label: 'After' },
+    { src: '/Portfolio/ictinus-hard-flooring-installation-london-empty-herringbone-hallway-kitchen-after-flooring.webp', alt: 'Ictinus hard flooring installation in London - empty herringbone hallway and kitchen after flooring', label: 'After' },
+    { src: '/Portfolio/ictinus-hard-flooring-installation-london-skirting-threshold-detail-after-flooring.webp', alt: 'Ictinus hard flooring installation in London - skirting and threshold detail after flooring', label: 'Detail' },
+    { src: '/Portfolio/ictinus-hard-flooring-installation-london-empty-dark-home-office-after-flooring.webp', alt: 'Ictinus hard flooring installation in London - empty dark home office after flooring', label: 'After' },
   ],
 }
 
@@ -99,8 +99,8 @@ export const PORTFOLIO_CARD_PROJECTS = [
     tags: 'Flooring, Finishing',
     description:
       'Hard flooring installed with tidy edges, a clean fit and a durable finish for everyday use.',
-    image: '/Portfolio/hard-flooring-installation-london-open-plan-living-dining.webp',
-    hoverImage: '/Portfolio/hard-flooring-installation-london-herringbone-hallway-kitchen.webp',
+    image: '/Portfolio/ictinus-hard-flooring-installation-london-empty-open-plan-living-dining-after-flooring.webp',
+    hoverImage: '/Portfolio/ictinus-hard-flooring-installation-london-empty-herringbone-hallway-kitchen-after-flooring.webp',
     hasGallery: true,
   },
   {
