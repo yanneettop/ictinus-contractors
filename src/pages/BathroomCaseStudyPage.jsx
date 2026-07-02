@@ -9,7 +9,7 @@ import { BATHROOM_CASE_STUDY_IMAGES } from '../components/bathroomCaseStudyImage
 import useScrollReveal from '../hooks/useScrollReveal'
 import { useSEO } from '../hooks/useSEO'
 
-const heroBadges = ['Complete Bathroom Renovation', 'Walk-In Shower', 'Large-Format Finish', 'Built-In Niches']
+const heroBadges = ['Bathroom renovation', 'Walk-in shower', 'Waterproofing', 'Wall & floor tiling', 'Lighting & finishing']
 
 const priorities = [
   'A spacious walk-in shower',
@@ -175,16 +175,21 @@ export default function BathroomCaseStudyPage() {
 
                 <MetaLine inverse />
                 <p className="mt-3 font-['Source_Serif_4'] text-[0.9rem] text-[#D8CEC3]">
-                  Walk-In Shower, Vanity, Tiling & Finishing
+                  Walk-In Shower, Waterproofing, Tiling & Bathroom Finishing
                 </p>
 
                 <h1 className="mt-5 font-['Cormorant_Garamond'] text-[2.75rem] font-semibold leading-[0.96] tracking-normal text-white sm:text-[4.2rem]">
-                  Modern Walk-In Bathroom Renovation
+                  East London Walk-In Bathroom Renovation
                 </h1>
 
-                <p className="mt-7 max-w-2xl font-['Source_Serif_4'] text-[1.06rem] leading-[1.85] text-[#D8CEC3] sm:text-[1.16rem]">
-                  A complete bathroom refurbishment designed around a clean walk-in shower, fitted vanity storage, modern lighting and carefully finished wall and floor surfaces. The result is a practical, calm and contemporary bathroom with a premium everyday feel.
-                </p>
+                <div className="mt-7 max-w-2xl font-['Source_Serif_4'] text-[1.06rem] leading-[1.85] text-[#D8CEC3] sm:text-[1.16rem]">
+                  <p>
+                    A bathroom renovation in East London focused on creating a cleaner, more practical space with a walk-in shower, new tiling, improved lighting and carefully finished details.
+                  </p>
+                  <p className="mt-4">
+                    The work included strip-out, preparation, waterproofing, installation and final finishing so the bathroom could feel modern, easy to maintain and ready for everyday use.
+                  </p>
+                </div>
 
                 <div className="mt-7 flex flex-wrap gap-3">
                   {heroBadges.map((badge) => (
@@ -232,12 +237,15 @@ export default function BathroomCaseStudyPage() {
         <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <Reveal>
-              <SectionHeading eyebrow="Project Overview" title="A cleaner, calmer bathroom planned around daily use.">
+              <SectionHeading eyebrow="Project Overview" title="A cleaner, calmer bathroom planned around daily use">
                 <p>
-                  This bathroom renovation focused on creating a cleaner, more practical and more refined space. The existing bathroom was redesigned with a modern walk-in shower, fitted vanity storage, concealed pipework, improved lighting and durable wall and floor finishes.
+                  This bathroom renovation focused on making the space feel cleaner, more open and easier to use every day.
                 </p>
                 <p className="mt-4">
-                  Ictinus Contractors managed the key refurbishment stages, from preparation and installation through to tiling, plumbing coordination and final finishing details.
+                  The existing bathroom had a dated layout and finishes, so the work involved stripping the room back, preparing the surfaces properly and rebuilding the space with a walk-in shower, new tiling, improved lighting and practical storage details.
+                </p>
+                <p className="mt-4">
+                  The result is a bathroom that feels brighter and more modern, while still being designed around comfort, cleaning and long-term use.
                 </p>
               </SectionHeading>
             </Reveal>

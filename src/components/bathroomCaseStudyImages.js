@@ -4,7 +4,7 @@ export const BATHROOM_CASE_STUDY_IMAGES = [
     src: '/Portfolio/bathroom-renovation-east-london-before.webp',
     alt: 'Bathroom before renovation in East London',
     label: 'Before',
-    caption: 'Original bathroom before strip-out and refurbishment work began.',
+    caption: 'Original bathroom before the renovation, with dated finishes and a layout ready for improvement.',
   },
   {
     key: 'stripped-prep',
