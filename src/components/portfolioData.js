@@ -24,10 +24,10 @@ export const PORTFOLIO_GALLERIES = {
     { src: '/Portfolio/bathroom-renovation-east-london-clean-handover-final-detail.webp', alt: 'Finished East London bathroom renovation with clean tiling and modern fittings', label: 'Final Detail' },
   ],
   painting: [
-    { src: '/Portfolio/painting-finishing-london-living-room.webp', alt: 'Painting and Finishing - London living room decoration', label: 'After' },
-    { src: '/Portfolio/painting-finishing-london-kitchen-dining.webp', alt: 'Painting and Finishing - London kitchen and dining decoration', label: 'After' },
-    { src: '/Portfolio/painting-finishing-london-bedroom.webp', alt: 'Painting and Finishing - London bedroom decoration', label: 'After' },
-    { src: '/Portfolio/painting-finishing-london-hallway-staircase.webp', alt: 'Painting and Finishing - London hallway and staircase decoration', label: 'After' },
+    { src: '/Portfolio/ictinus-painting-decorating-london-empty-living-room-after-painting.webp', alt: 'Ictinus painting and decorating in London - empty living room after painting', label: 'After' },
+    { src: '/Portfolio/ictinus-painting-decorating-london-empty-kitchen-dining-after-painting.webp', alt: 'Ictinus painting and decorating in London - empty kitchen dining room after painting', label: 'After' },
+    { src: '/Portfolio/ictinus-painting-decorating-london-empty-bedroom-after-painting.webp', alt: 'Ictinus painting and decorating in London - empty bedroom after painting', label: 'After' },
+    { src: '/Portfolio/ictinus-painting-decorating-london-empty-hallway-staircase-after-painting.webp', alt: 'Ictinus painting and decorating in London - empty hallway and staircase after painting', label: 'After' },
   ],
   plastering: [
     { src: '/Portfolio/plastering-surface-preparation-london-garden-room-after.webp', alt: 'Plastering and Surface Preparation - finished garden room', label: 'After' },
@@ -87,8 +87,8 @@ export const PORTFOLIO_CARD_PROJECTS = [
     tags: 'Painting, Finishing Carpentry',
     description:
       'Careful preparation, decorating and finishing details produced a cleaner, more polished interior.',
-    image: '/Portfolio/painting-finishing-london-living-room.webp',
-    hoverImage: '/Portfolio/painting-finishing-london-hallway-staircase.webp',
+    image: '/Portfolio/ictinus-painting-decorating-london-empty-living-room-after-painting.webp',
+    hoverImage: '/Portfolio/ictinus-painting-decorating-london-empty-hallway-staircase-after-painting.webp',
     hasGallery: true,
   },
   {
