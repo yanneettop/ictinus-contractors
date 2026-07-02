@@ -10,10 +10,10 @@ import useScrollReveal from '../hooks/useScrollReveal'
 import { useSEO } from '../hooks/useSEO'
 
 const highlights = [
-  { stat: '12+', label: 'Years in the Industry' },
-  { stat: 'Verified', label: 'Checkatrade Reviews' },
-  { stat: '9.97', label: 'Out of 10 on Checkatrade' },
-  { stat: 'London', label: 'Local Contractor' },
+  { stat: '4.9/5', label: 'MyBuilder Rating' },
+  { stat: '10/10', label: 'Checkatrade Rating' },
+  { stat: '5.0/5', label: 'Google Reviews' },
+  { stat: '12+', label: 'Years Experience' },
 ]
 
 const values = [

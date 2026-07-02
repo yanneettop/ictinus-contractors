@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import Reveal, { StaggerContainer, StaggerItem } from './Reveal'
 
 const highlights = [
-  { stat: '12+', label: 'Years in the Industry' },
-  { stat: 'Verified', label: 'Checkatrade Reviews' },
-  { stat: '9.97', label: 'Out of 10 on Checkatrade' },
+  { stat: '4.9/5', label: 'MyBuilder Rating' },
+  { stat: '10/10', label: 'Checkatrade Rating' },
+  { stat: '5.0/5', label: 'Google Reviews' },
+  { stat: '12+', label: 'Years Experience' },
 ]
 
 export default function AboutSection() {
@@ -56,7 +57,7 @@ export default function AboutSection() {
           {/* Right — Stats + Values */}
           <Reveal direction="right" delay={0.2}>
             {/* Stats row */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-10">
+            <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-6 sm:mb-10">
               {highlights.map(({ stat, label }, i) => (
                 <div
                   key={label}
