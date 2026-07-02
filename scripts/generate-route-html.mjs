@@ -84,9 +84,9 @@ const routeMeta = {
       'View recent refurbishment, decorating, bathroom, flooring and plastering projects completed by Ictinus Contractors across London.',
   },
   '/portfolio/complete-east-london-home-refurbishment': {
-    title: 'Complete East London Home Refurbishment & Interior Finishing | Ictinus Contractors',
+    title: 'East London Home Refurbishment, Decorating & Finishing | Ictinus Contractors',
     description:
-      'A full-home interior refurbishment and redecoration case study in East London, focused on preparation, premium paint finishes, woodwork and consistent room-to-room detailing.',
+      'See an East London home refurbishment by Ictinus Contractors, including interior decorating, flooring details, bathroom finishing and careful preparation across the property.',
   },
   '/portfolio/modern-walk-in-bathroom-renovation': {
     title: 'Modern Walk-In Bathroom Renovation East London | Ictinus Contractors',

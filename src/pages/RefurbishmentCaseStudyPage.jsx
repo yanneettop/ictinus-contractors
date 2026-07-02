@@ -9,36 +9,38 @@ import { PORTFOLIO_FEATURED_PROJECT, PORTFOLIO_GALLERIES } from '../components/p
 import useScrollReveal from '../hooks/useScrollReveal'
 import { useSEO } from '../hooks/useSEO'
 
-const heroBadges = ['8 Finished Spaces', 'Premium Paint Finishes', 'Period Detail Work']
+const heroBadges = ['Interior decorating', 'Flooring finish', 'Bathroom finishing', 'Woodwork & details', 'East London']
+
+const heroTitle = 'East London Home Refurbishment & Finishing'
 
 const scopeItems = [
   {
-    title: 'Interior painting & decorating',
-    text: 'Walls and ceilings were prepared and finished across the main living areas, bedrooms, hallway, staircase, kitchen and bathroom areas.',
+    title: 'Surface preparation',
+    text: 'Walls and existing finishes were prepared before decorating, helping the final result look cleaner and more consistent.',
   },
   {
-    title: 'Woodwork finishing',
-    text: 'Doors, frames, skirting boards and architraves were finished carefully to create crisp lines and a more refined final look.',
+    title: 'Interior decorating',
+    text: 'Rooms were decorated with a calm, neutral finish to make the property feel brighter and easier to live in.',
   },
   {
-    title: 'Feature colours & decorative details',
-    text: 'Selected areas used more characterful colour choices and decorative finishes, helping certain rooms feel individual while keeping the overall home cohesive.',
+    title: 'Woodwork details',
+    text: 'Skirtings, doors, frames and visible edges were treated as part of the overall finish, not as afterthoughts.',
   },
   {
-    title: 'Hallway and staircase work',
-    text: 'The hallway, landing and staircase areas were treated as important connecting spaces, with careful attention to walls, trims, balustrades and visible transitions.',
+    title: 'Flooring presentation',
+    text: 'Flooring areas and room edges were finished carefully so the spaces felt more complete and connected.',
   },
   {
-    title: 'Final detailing',
-    text: 'The project was completed with focus on clean edges, durable finishes and consistency across all finished spaces.',
+    title: 'Bathroom finishing',
+    text: 'The bathroom was brought into the same overall standard with clean, practical finishing details.',
   },
 ]
 
 const finishCards = [
-  ['Selected feature colours', 'Farrow & Ball used where a more characterful colour finish was required.'],
-  ['Walls & ceilings', 'Dulux Heritage used across selected wall and ceiling areas for a refined interior finish.'],
-  ['Woodwork', 'Skirting boards, architraves and doors finished with durable eggshell or satin paint systems.'],
-  ['Surface-specific finish', 'Water-based eggshell and solvent-based satin finishes selected depending on the surface and use.'],
+  ['Practical materials', 'Finishes were selected to suit everyday living, not just the final photographs.'],
+  ['Consistent standard', 'Visible details were brought to the same level across rooms, hallways and bathroom areas.'],
+  ['Easy to maintain', 'The final look was kept clean and simple, making the home easier to live with day to day.'],
+  ['Character retained', 'Original features were respected where they added warmth and character to the property.'],
 ]
 
 const resultHighlights = [
@@ -52,33 +54,41 @@ const resultHighlights = [
 const beforeAfterStories = [
   {
     title: 'Living room transformation',
-    text: 'The reception room moved from marked walls, exposed flooring and tired finishes to a calm, bright living space with clean decoration and preserved period character.',
+    text: 'The living room was refreshed with cleaner wall finishes, improved flooring presentation and a calmer final look while keeping the original fireplace and room character.',
     before: {
       src: '/Portfolio/ictinus-property-refurbishment-london-before-living-room-fireplace.webp',
-      alt: 'Living room before property refurbishment with stripped floor, marked walls and period fireplace',
-      caption: 'Before: worn wall finishes, exposed flooring and period details ready for careful preparation.',
+      alt: 'East London living room before refurbishment and decorating work',
+      caption: 'Before: the living room needed preparation, surface repairs and a cleaner finish.',
     },
     after: {
       src: '/Portfolio/ictinus-property-refurbishment-london-finished-living-room-street-view.webp',
-      alt: 'Living room after property refurbishment with neutral walls and period fireplace',
-      caption: 'After: a cleaner, brighter room with neutral decoration, crisp woodwork and a refined finish.',
+      alt: 'East London living room after interior decorating and finishing work',
+      caption: 'After: a brighter living room with fresh decoration, improved flooring presentation and retained period character.',
     },
   },
   {
     title: 'Room preparation and finish',
-    text: 'This room shows the practical preparation behind the final result: wall repairs, surface preparation, skirting work and a clean decorative finish.',
+    text: 'Good decorating depends on what happens before the final coat. Surfaces were repaired, prepared and finished carefully so the rooms could feel clean, even and ready to use.',
     before: {
       src: '/Portfolio/ictinus-property-refurbishment-london-before-bedroom-preparation.webp',
-      alt: 'Room before property refurbishment with marked walls and exposed subfloor',
-      caption: 'Before: damaged wall surfaces, exposed floor and preparation work still required.',
+      alt: 'Room preparation before painting and finishing work in East London property',
+      caption: 'Before: walls and skirtings required preparation before the final decorating work.',
     },
     after: {
       src: '/Portfolio/ictinus-property-refurbishment-london-finished-bedroom-doorway.webp',
-      alt: 'Room after property refurbishment with clean walls, carpet and doorway',
-      caption: 'After: repaired walls, clean paintwork, fitted carpet and crisp trims around the doorway.',
+      alt: 'Finished bedroom after interior decorating and refurbishment work',
+      caption: 'After: repaired surfaces, fresh decoration and a cleaner finish across the room.',
     },
   },
 ]
+
+function InlineServiceLink({ to, children }) {
+  return (
+    <Link to={to} className="font-semibold text-[#E4C76A] underline decoration-[#D4AF37]/35 underline-offset-4 transition-colors hover:text-white">
+      {children}
+    </Link>
+  )
+}
 
 function MetaLine({ inverse = false }) {
   return (
@@ -190,13 +200,13 @@ export default function RefurbishmentCaseStudyPage() {
   const [galleryOpen, setGalleryOpen] = useState(false)
 
   useSEO({
-    title: 'Complete East London Home Refurbishment & Interior Finishing | Ictinus Contractors',
+    title: 'East London Home Refurbishment, Decorating & Finishing | Ictinus Contractors',
     description:
-      'A full-home interior refurbishment and redecoration case study in East London, focused on preparation, premium paint finishes, woodwork and consistent room-to-room detailing.',
+      'See an East London home refurbishment by Ictinus Contractors, including interior decorating, flooring details, bathroom finishing and careful preparation across the property.',
     canonical: 'https://www.ictinuscontractors.co.uk/portfolio/complete-east-london-home-refurbishment',
-    ogTitle: 'Complete East London Home Refurbishment & Interior Finishing',
+    ogTitle: 'East London Home Refurbishment, Decorating & Finishing',
     ogDescription:
-      'Explore an East London home refurbishment focused on premium interior finishing, woodwork, preparation and a calm, cohesive result.',
+      'See an East London home refurbishment by Ictinus Contractors, including interior decorating, flooring details, bathroom finishing and careful preparation across the property.',
   })
 
   return (
@@ -224,12 +234,17 @@ export default function RefurbishmentCaseStudyPage() {
                 </p>
 
                 <h1 className="mt-5 font-['Cormorant_Garamond'] text-[2.7rem] font-semibold leading-[0.96] tracking-normal text-white sm:text-[4.15rem]">
-                  {PORTFOLIO_FEATURED_PROJECT.title}
+                  {heroTitle}
                 </h1>
 
-                <p className="mt-7 max-w-2xl font-['Source_Serif_4'] text-[1.06rem] leading-[1.85] text-[#D8CEC3] sm:text-[1.16rem]">
-                  {PORTFOLIO_FEATURED_PROJECT.longDescription}
-                </p>
+                <div className="mt-7 max-w-2xl space-y-4 font-['Source_Serif_4'] text-[1.06rem] leading-[1.85] text-[#D8CEC3] sm:text-[1.16rem]">
+                  <p>
+                    A full <InlineServiceLink to="/services/property-refurbishment-extensions">interior refresh</InlineServiceLink> for an East London property, bringing together room preparation, <InlineServiceLink to="/services/painting-and-decorating">decorating</InlineServiceLink>, <InlineServiceLink to="/services/hard-flooring">flooring details</InlineServiceLink>, <InlineServiceLink to="/services/bathroom-fitting">bathroom finishing</InlineServiceLink> and final touches across the home.
+                  </p>
+                  <p>
+                    The aim was to create a cleaner, brighter and more consistent finish while keeping the character of the property intact.
+                  </p>
+                </div>
 
                 <div className="mt-7 flex flex-wrap gap-3">
                   {heroBadges.map((badge) => (
@@ -280,7 +295,7 @@ export default function RefurbishmentCaseStudyPage() {
                   <div className="aspect-[4/3] overflow-hidden lg:aspect-[5/4]">
                     <img
                       src="/Portfolio/full-property-refurbishment-london-reception-room.webp"
-                      alt="Finished furnished East London reception room with sofas, period fireplace and neutral decoration"
+                      alt="Completed East London home refurbishment with clean interior finish"
                       className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.055]"
                       loading="eager"
                       decoding="async"
@@ -298,19 +313,27 @@ export default function RefurbishmentCaseStudyPage() {
         <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <Reveal>
-              <SectionHeading eyebrow="Project Overview" title="A full-home refresh with a consistent finish from room to room.">
+              <SectionHeading eyebrow="Project Overview" title="A full interior refresh with a consistent finish from room to room">
                 <p>
-                  This East London home required a full interior refresh across several rooms and connecting spaces. The brief was to create a cleaner, brighter and more cohesive home while respecting the property&apos;s period character.
+                  This project focused on improving the property as a whole rather than treating each room separately. The work included preparation, decorating, flooring and finishing details across several areas of the home.
                 </p>
                 <p className="mt-4">
-                  Ictinus Contractors carried out preparation, painting and decorating, woodwork finishing and selected interior detail work across the property. Each space had its own finish requirements, from soft neutral walls to detailed trims, feature colours and durable finishes for doors, skirting boards and architraves.
+                  Our priority was to create a clean, calm and consistent result, with each room feeling connected while still keeping its own character.
                 </p>
               </SectionHeading>
+              <aside className="mt-7 max-w-3xl rounded-lg border border-[#D4AF37]/18 bg-[#FDFCF9] p-5 shadow-[0_10px_26px_rgba(28,23,20,0.045)]">
+                <p className="font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.15em] text-[#A88636]">
+                  Project focus
+                </p>
+                <p className="mt-3 font-['Source_Serif_4'] text-[0.96rem] leading-[1.75] text-[#5A5048]">
+                  This was not about making every room look identical. The focus was on preparation, clean decorating, practical finishing details and improving the overall feel of the property from one space to the next.
+                </p>
+              </aside>
             </Reveal>
             <Reveal delay={0.08}>
               <ImagePanel
                 src="/Portfolio/full-property-refurbishment-london-galley-kitchen.webp"
-                alt="Finished kitchen and dining area in East London refurbishment"
+                alt="Finished kitchen and dining area after East London home refurbishment"
                 caption="Kitchen and connecting dining area refreshed with a clean, durable finish suitable for everyday use."
               />
             </Reveal>
@@ -320,12 +343,12 @@ export default function RefurbishmentCaseStudyPage() {
         <section className="bg-[#F3EEE6] px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <SectionHeading eyebrow="Before & After" title="The transformation becomes clearer when each room is seen side by side.">
+              <SectionHeading eyebrow="Before & After" title="Before and after views showing the difference preparation makes">
                 <p>
-                  Before the final decoration could begin, the rooms needed proper preparation. Walls showed old fixings, patch repairs and surface wear, while the floors and skirting areas exposed the amount of work required before the home could feel clean and cohesive again.
+                  The biggest change across the property came from careful preparation, cleaner surfaces and a more consistent finish between rooms.
                 </p>
                 <p className="mt-4">
-                  The living room and adjoining room below show the refurbishment story more clearly: repair first, then a clean decorative finish that makes the spaces feel brighter and ready to use.
+                  These before and after views show how the same spaces became brighter, calmer and more usable once the decorating, flooring and finishing details were completed.
                 </p>
               </SectionHeading>
             </Reveal>
@@ -343,17 +366,20 @@ export default function RefurbishmentCaseStudyPage() {
             <Reveal>
               <ImagePanel
                 src="/Portfolio/full-property-refurbishment-london-bedroom.webp"
-                alt="Finished bedroom with calm wall tones and crisp woodwork"
+                alt="Finished bedroom after interior decorating and refurbishment work"
                 caption="Bedroom decoration completed with soft wall tones, crisp white woodwork and careful detailing around doors and trims."
               />
             </Reveal>
             <Reveal delay={0.08}>
-              <SectionHeading eyebrow="The Brief" title="Calm, refined and connected as one complete home.">
+              <SectionHeading eyebrow="The Brief" title="A calmer, cleaner finish across the whole property">
                 <p>
-                  The client wanted the home to feel calm, refined and consistent from room to room. The property included several different spaces, each with its own character, but the final result needed to feel connected as one complete home.
+                  Rather than treating each space as a separate job, the aim was to bring the rooms together with consistent preparation, decorating and finishing details.
                 </p>
                 <p className="mt-4">
-                  The work required careful preparation, clean decorating, attention to period details and the right paint systems for different surfaces, including walls, ceilings, doors, skirting boards, architraves and decorative features.
+                  Walls, woodwork, flooring edges and room transitions were handled carefully so the property felt cleaner, brighter and more ready to live in.
+                </p>
+                <p className="mt-4">
+                  The result is a practical interior refresh that improves the feel of the home without removing its original character.
                 </p>
               </SectionHeading>
             </Reveal>
@@ -363,13 +389,17 @@ export default function RefurbishmentCaseStudyPage() {
         <section className="bg-[#F3EEE6] px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <SectionHeading eyebrow="What We Completed" title="Preparation, decorating and finishing details across the home." />
+              <SectionHeading eyebrow="What We Completed" title="What the work included">
+                <p>
+                  The project brought together several practical finishing tasks across the property, with attention given to the areas that make the biggest difference to how a home feels day to day.
+                </p>
+              </SectionHeading>
             </Reveal>
             <StaggerContainer className="mt-9 grid gap-4 md:grid-cols-2 lg:grid-cols-5" stagger={0.07}>
               {scopeItems.map((item) => (
                 <StaggerItem key={item.title}>
                   <motion.article
-                    className="h-full rounded-[12px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] p-5 shadow-sm"
+                    className="h-full rounded-[12px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] p-5 shadow-sm sm:p-6"
                     whileHover={{
                       y: -5,
                       backgroundColor: '#FFFEFB',
@@ -381,7 +411,7 @@ export default function RefurbishmentCaseStudyPage() {
                     <h3 className="font-['Cormorant_Garamond'] text-[1.35rem] font-semibold leading-tight text-[#1C1714]">
                       {item.title}
                     </h3>
-                    <p className="mt-3 font-['Source_Serif_4'] text-[0.88rem] leading-[1.75] text-[#625951]">
+                    <p className="mt-3 font-['Source_Serif_4'] text-[0.9rem] leading-[1.8] text-[#625951]">
                       {item.text}
                     </p>
                   </motion.article>
@@ -394,20 +424,23 @@ export default function RefurbishmentCaseStudyPage() {
         <section className="bg-[#1C1714] px-4 py-16 text-white sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
             <Reveal>
-              <SectionHeading eyebrow="The Challenge" title="The difficult part was making every space feel consistent." inverse>
+              <SectionHeading eyebrow="The Challenge" title="The challenge was making every space feel consistent" inverse>
                 <p>
-                  With living spaces, bedrooms, kitchen areas, bathroom areas, hallway, staircase and detailed woodwork all included, the project had to be planned carefully so the finish looked clean from one room to the next.
+                  The property included different rooms, finishes and existing details, so the work had to feel connected without making everything look the same.
                 </p>
                 <p className="mt-4">
-                  Period details such as cornices, doors, trims, skirting boards, architraves and staircase elements needed extra care. These are the areas where rushed decorating usually shows.
+                  That meant paying attention to the areas between rooms: wall finishes, woodwork, flooring edges, corners, door frames and how each space flowed into the next.
+                </p>
+                <p className="mt-4">
+                  A consistent home comes from careful preparation, small finishing decisions and keeping the same standard across every area.
                 </p>
               </SectionHeading>
             </Reveal>
             <Reveal delay={0.08}>
               <ImagePanel
                 src="/Portfolio/full-property-refurbishment-london-staircase.webp"
-                alt="Finished staircase and landing with detailed woodwork"
-                caption="Staircase and landing areas required careful preparation and consistent finishing across walls, trims and detailed woodwork."
+                alt="Hallway and staircase finishing as part of East London home refurbishment"
+                caption="Hallway and staircase finishing helped connect the rooms together."
               />
             </Reveal>
           </div>
@@ -416,12 +449,12 @@ export default function RefurbishmentCaseStudyPage() {
         <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <SectionHeading eyebrow="Materials & Finishes" title="Premium and durable finishes selected for the surface.">
+              <SectionHeading eyebrow="Materials & Finishes" title="Durable finishes for everyday use">
                 <p>
-                  To achieve the right finish across different rooms and surfaces, the project used a mix of premium and durable paint systems, including Farrow & Ball for selected feature colours and Dulux Heritage for walls, ceilings and interior woodwork.
+                  The finishes were chosen and applied with everyday use in mind, from decorated walls and woodwork to flooring edges and bathroom details.
                 </p>
                 <p className="mt-4">
-                  Skirting boards, architraves and doors were finished using appropriate eggshell or satin finishes depending on the surface and durability required.
+                  Each area was approached with the same standard of preparation and finish, so the property felt complete without looking overdone.
                 </p>
               </SectionHeading>
             </Reveal>
@@ -430,8 +463,8 @@ export default function RefurbishmentCaseStudyPage() {
               <Reveal>
                 <ImagePanel
                   src="/Portfolio/full-property-refurbishment-navy-radiator-cover-hallway-detail.webp"
-                  alt="Finished hallway woodwork and radiator cover detail"
-                  caption="Doors, architraves, skirting and fitted details finished with durable paints selected for each surface."
+                  alt="Woodwork and painted surface finishing detail by Ictinus Contractors"
+                  caption="Finishing details around woodwork and painted surfaces helped give the property a cleaner, more complete look."
                 />
               </Reveal>
               <StaggerContainer className="grid gap-4 sm:grid-cols-2" stagger={0.06}>
@@ -463,20 +496,20 @@ export default function RefurbishmentCaseStudyPage() {
         <section className="bg-[#F3EEE6] px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <SectionHeading eyebrow="Feature Finishes" title="Individual room character without losing cohesion." />
+              <SectionHeading eyebrow="Feature Finishes" title="Each room kept its own character while feeling part of the same home" />
             </Reveal>
             <div className="mt-9 grid gap-6 lg:grid-cols-2">
               <Reveal>
                 <ImagePanel
                   src="/Portfolio/full-property-refurbishment-wallpaper-panelling-hallway-detail.webp"
-                  alt="Finished hallway with decorative wallcovering and painted woodwork"
+                  alt="Hallway decorative finish and painted woodwork in East London refurbishment"
                   caption="Feature hallway completed with decorative wallcovering, painted woodwork and carefully matched tones for a refined finish."
                 />
               </Reveal>
               <Reveal delay={0.08}>
                 <ImagePanel
                   src="/Portfolio/full-property-refurbishment-sage-panelling-child-room-detail.webp"
-                  alt="Finished room with sage panelling and warm neutral tones"
+                  alt="Finished room with painted panelling after decorating and finishing work"
                   caption="A softer room scheme using painted panelling and warm neutral tones to give the space character without losing cohesion."
                 />
               </Reveal>
@@ -487,12 +520,12 @@ export default function RefurbishmentCaseStudyPage() {
         <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
             <Reveal>
-              <SectionHeading eyebrow="The Result" title="A refined bathroom with a calm, premium finish.">
+              <SectionHeading eyebrow="The Result" title="The result: a cleaner, brighter home ready for everyday use">
                 <p>
-                  The bathroom was completed with a bright marble-effect finish, a freestanding bath, fitted vanity storage and a walk-in shower area. The result feels calm, practical and more refined while still sitting comfortably within the wider refurbishment.
+                  The finished property now feels more consistent from room to room, with cleaner decorated surfaces, improved finishing details and a calmer overall look.
                 </p>
                 <p className="mt-4">
-                  Wall lighting, glass shower screening, clean tiling lines and carefully finished trims give the space a more polished everyday feel, with the bathroom now working as one of the strongest finished rooms in the home.
+                  By focusing on preparation, practical materials and careful finishing, the home was brought up to a better everyday standard without losing its original character.
                 </p>
               </SectionHeading>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -511,40 +544,75 @@ export default function RefurbishmentCaseStudyPage() {
             <Reveal delay={0.08}>
               <ImagePanel
                 src="/Portfolio/ictinus-property-refurbishment-london-marble-bathroom-suite.webp"
-                alt="Finished marble bathroom suite with freestanding bath, vanity and walk-in shower"
-                caption="Finished bathroom with marble-effect surfaces, freestanding bath, walk-in shower glass, vanity storage and soft wall lighting."
+                alt="Bathroom finishing detail in East London refurbished property"
+                caption="Final finishing helped the property feel cleaner, brighter and more complete."
               />
             </Reveal>
           </div>
+        </section>
+
+        <section className="px-4 pb-16 sm:px-6 sm:pb-20 lg:px-8">
+          <Reveal>
+            <div className="mx-auto max-w-6xl rounded-[12px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] p-6 shadow-sm sm:p-7">
+              <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+                <div>
+                  <p className="mb-3 font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.15em] text-[#A88636]">
+                    Why homeowners choose Ictinus Contractors
+                  </p>
+                  <p className="font-['Source_Serif_4'] text-[1rem] leading-[1.75] text-[#5A5048]">
+                    Clear quotes, tidy working, careful preparation and a finish that is ready for everyday use.
+                  </p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {[
+                    'Clear communication from start to finish',
+                    'Tidy working and respectful property care',
+                    'Careful preparation before the final finish',
+                  ].map((point) => (
+                    <div key={point} className="rounded-lg border border-[#D4AF37]/16 bg-[#FAF7F0] px-4 py-3">
+                      <p className="font-['Source_Serif_4'] text-[0.9rem] leading-[1.55] text-[#4E453E]">
+                        {point}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </section>
 
         <section className="bg-[#1C1714] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <Reveal>
               <p className="mb-3 font-['Plus_Jakarta_Sans'] text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-[#D4AF37]/80">
-                Careful preparation. Premium finishes. Clean results.
+                Clear communication, tidy working and careful finishing from start to handover.
               </p>
               <h2 className="font-['Cormorant_Garamond'] text-[2.15rem] font-semibold leading-tight text-white sm:text-[2.9rem]">
-                Planning a similar home refurbishment?
+                Planning a refurbishment in East London?
               </h2>
-              <p className="mx-auto mt-5 max-w-2xl font-['Source_Serif_4'] text-[1rem] leading-[1.8] text-[#D8CEC3]">
-                Ictinus Contractors can help with full-home interior refurbishments, painting and decorating, woodwork finishing, flooring and detail-focused preparation across London.
-              </p>
+              <div className="mx-auto mt-5 max-w-2xl space-y-4 font-['Source_Serif_4'] text-[1rem] leading-[1.8] text-[#D8CEC3]">
+                <p>
+                  If your property needs decorating, flooring, bathroom finishing or a more complete interior refresh, we can help you understand the best next step.
+                </p>
+                <p>
+                  Tell us what you would like to improve and we&apos;ll come back with clear, practical guidance.
+                </p>
+              </div>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <motion.div whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     to="/contact#quote"
                     className="inline-flex items-center justify-center rounded-lg bg-gradient-gold px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-[#1C1714] shadow-lg shadow-[#D4AF37]/20"
                   >
-                    Request a Quote
+                    Request a Refurbishment Quote
                   </Link>
                 </motion.div>
                 <motion.div whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link
-                    to="/services"
+                    to="/portfolio"
                     className="inline-flex items-center justify-center rounded-lg border border-[#D4AF37]/35 px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-white transition-colors hover:bg-[#D4AF37]/10"
                   >
-                    View Our Services
+                    View More Projects
                   </Link>
                 </motion.div>
               </div>
