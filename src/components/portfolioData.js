@@ -1,9 +1,13 @@
 export const PORTFOLIO_GALLERIES = {
   refurb: [
-    { src: '/Portfolio/full-property-refurbishment-london-reception-room.webp', alt: 'Full Property Refurbishment - London reception room', label: 'After' },
+    { src: '/Portfolio/full-property-refurbishment-london-reception-room.webp', alt: 'Finished furnished reception room after full property refurbishment in London', label: 'After' },
+    { src: '/Portfolio/ictinus-property-refurbishment-london-before-living-room-fireplace.webp', alt: 'Property refurbishment before work - London living room with fireplace', label: 'Before' },
+    { src: '/Portfolio/ictinus-property-refurbishment-london-finished-living-room-street-view.webp', alt: 'Property refurbishment after work - finished London living room', label: 'After' },
+    { src: '/Portfolio/ictinus-property-refurbishment-london-before-bedroom-preparation.webp', alt: 'Property refurbishment before work - London bedroom preparation', label: 'Before' },
+    { src: '/Portfolio/ictinus-property-refurbishment-london-finished-bedroom-doorway.webp', alt: 'Property refurbishment after work - finished London bedroom doorway', label: 'After' },
     { src: '/Portfolio/full-property-refurbishment-london-galley-kitchen.webp', alt: 'Full Property Refurbishment - London galley kitchen', label: 'After' },
     { src: '/Portfolio/full-property-refurbishment-london-bedroom.webp', alt: 'Full Property Refurbishment - London bedroom', label: 'After' },
-    { src: '/Portfolio/full-property-refurbishment-london-white-bathroom.webp', alt: 'Full Property Refurbishment - London white bathroom', label: 'After' },
+    { src: '/Portfolio/ictinus-property-refurbishment-london-marble-bathroom-suite.webp', alt: 'Full Property Refurbishment - marble bathroom suite with freestanding bath and walk-in shower', label: 'After' },
     { src: '/Portfolio/full-property-refurbishment-london-staircase.webp', alt: 'Full Property Refurbishment - London staircase', label: 'After' },
     { src: '/Portfolio/full-property-refurbishment-wallpaper-panelling-hallway-detail.webp', alt: 'Full Property Refurbishment - wallpaper and panelling detail', label: 'Detail' },
     { src: '/Portfolio/full-property-refurbishment-navy-radiator-cover-hallway-detail.webp', alt: 'Full Property Refurbishment - bespoke radiator cover detail', label: 'Detail' },
@@ -52,7 +56,7 @@ export const PORTFOLIO_FEATURED_PROJECT = {
   longDescription:
     'A full interior refurbishment and redecoration project across living areas, bedrooms, kitchen, bathroom, hallway and staircase. The work focused on careful preparation, premium paint finishes, detailed woodwork and a calm, consistent look throughout the home.',
   image: '/Portfolio/full-property-refurbishment-london-reception-room.webp',
-  hoverImage: '/Portfolio/full-property-refurbishment-london-galley-kitchen.webp',
+  hoverImage: '/Portfolio/ictinus-property-refurbishment-london-finished-living-room-street-view.webp',
   pillLabel: '8 finished spaces',
   hasGallery: true,
   caseStudyPath: '/portfolio/complete-east-london-home-refurbishment',

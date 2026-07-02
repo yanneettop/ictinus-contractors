@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import Reveal from '../components/Reveal'
+import Reveal, { StaggerContainer, StaggerItem } from '../components/Reveal'
 import PortfolioGalleryModal from '../components/PortfolioGalleryModal'
 import { PORTFOLIO_FEATURED_PROJECT, PORTFOLIO_GALLERIES } from '../components/portfolioData'
 import useScrollReveal from '../hooks/useScrollReveal'
@@ -42,11 +42,42 @@ const finishCards = [
 ]
 
 const resultHighlights = [
-  '8 finished spaces',
-  'Premium paint systems',
-  'Detailed woodwork finishing',
-  'Cleaner room-to-room flow',
-  'Calm, cohesive interior feel',
+  'Marble-effect tiling',
+  'Walk-in shower area',
+  'Freestanding bath',
+  'Fitted vanity storage',
+  'Soft wall lighting',
+]
+
+const beforeAfterStories = [
+  {
+    title: 'Living room transformation',
+    text: 'The reception room moved from marked walls, exposed flooring and tired finishes to a calm, bright living space with clean decoration and preserved period character.',
+    before: {
+      src: '/Portfolio/ictinus-property-refurbishment-london-before-living-room-fireplace.webp',
+      alt: 'Living room before property refurbishment with stripped floor, marked walls and period fireplace',
+      caption: 'Before: worn wall finishes, exposed flooring and period details ready for careful preparation.',
+    },
+    after: {
+      src: '/Portfolio/ictinus-property-refurbishment-london-finished-living-room-street-view.webp',
+      alt: 'Living room after property refurbishment with neutral walls and period fireplace',
+      caption: 'After: a cleaner, brighter room with neutral decoration, crisp woodwork and a refined finish.',
+    },
+  },
+  {
+    title: 'Room preparation and finish',
+    text: 'This room shows the practical preparation behind the final result: wall repairs, surface preparation, skirting work and a clean decorative finish.',
+    before: {
+      src: '/Portfolio/ictinus-property-refurbishment-london-before-bedroom-preparation.webp',
+      alt: 'Room before property refurbishment with marked walls and exposed subfloor',
+      caption: 'Before: damaged wall surfaces, exposed floor and preparation work still required.',
+    },
+    after: {
+      src: '/Portfolio/ictinus-property-refurbishment-london-finished-bedroom-doorway.webp',
+      alt: 'Room after property refurbishment with clean walls, carpet and doorway',
+      caption: 'After: repaired walls, clean paintwork, fitted carpet and crisp trims around the doorway.',
+    },
+  },
 ]
 
 function MetaLine({ inverse = false }) {
@@ -61,16 +92,30 @@ function MetaLine({ inverse = false }) {
   )
 }
 
-function ImagePanel({ src, alt, caption, className = '' }) {
+function ImagePanel({ src, alt, caption, className = '', imageClassName = 'aspect-[4/3]', captionClassName = '' }) {
   return (
-    <figure className={`overflow-hidden rounded-[14px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] shadow-sm ${className}`}>
-      <div className="aspect-[4/3] overflow-hidden">
-        <img src={src} alt={alt} className="h-full w-full object-cover" loading="lazy" decoding="async" />
+    <motion.figure
+      className={`group overflow-hidden rounded-[14px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] shadow-sm ${className}`}
+      whileHover={{
+        y: -5,
+        boxShadow: '0 18px 42px rgba(28,23,20,0.1), 0 3px 10px rgba(212,175,55,0.1)',
+        borderColor: 'rgba(212,175,55,0.36)',
+      }}
+      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div className={`${imageClassName} overflow-hidden`}>
+        <img
+          src={src}
+          alt={alt}
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.055]"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
-      <figcaption className="px-5 py-4 font-['Source_Serif_4'] text-[0.86rem] leading-relaxed text-[#6B625A]">
+      <figcaption className={`px-5 py-4 font-['Source_Serif_4'] text-[0.86rem] leading-relaxed text-[#6B625A] ${captionClassName}`}>
         {caption}
       </figcaption>
-    </figure>
+    </motion.figure>
   )
 }
 
@@ -94,6 +139,49 @@ function SectionHeading({ eyebrow, title, children, inverse = false }) {
         </div>
       )}
     </div>
+  )
+}
+
+function BeforeAfterStory({ story, reverse = false }) {
+  const panelClass = 'rounded-[16px]'
+  const imageClass = 'aspect-[4/3] sm:aspect-[16/11] lg:aspect-[16/10]'
+  const captionClass = 'min-h-0 px-5 py-3.5 text-[0.82rem] leading-[1.55] sm:text-[0.86rem]'
+
+  return (
+    <article className="space-y-8">
+      <Reveal>
+        <div className="max-w-5xl">
+          <p className="mb-3 font-['Plus_Jakarta_Sans'] text-[0.68rem] font-semibold uppercase tracking-[0.15em] text-[#A88636]">
+            Before / After
+          </p>
+          <h3 className="font-['Cormorant_Garamond'] text-[2rem] font-semibold leading-tight text-[#1C1714] sm:text-[2.35rem]">
+            {story.title}
+          </h3>
+          <p className="mt-4 font-['Source_Serif_4'] text-[1rem] leading-[1.8] text-[#5A5048]">
+            {story.text}
+          </p>
+        </div>
+      </Reveal>
+
+      <div className="grid gap-5 md:grid-cols-2">
+        <Reveal delay={0.06}>
+          <ImagePanel
+            {...story.before}
+            className={panelClass}
+            imageClassName={imageClass}
+            captionClassName={captionClass}
+          />
+        </Reveal>
+        <Reveal delay={0.12}>
+          <ImagePanel
+            {...story.after}
+            className={panelClass}
+            imageClassName={imageClass}
+            captionClassName={captionClass}
+          />
+        </Reveal>
+      </div>
+    </article>
   )
 }
 
@@ -145,48 +233,64 @@ export default function RefurbishmentCaseStudyPage() {
 
                 <div className="mt-7 flex flex-wrap gap-3">
                   {heroBadges.map((badge) => (
-                    <span
+                    <motion.span
                       key={badge}
                       className="rounded-full border border-[#D4AF37]/20 bg-white/5 px-4 py-2 font-['Plus_Jakarta_Sans'] text-[0.66rem] font-semibold uppercase tracking-[0.12em] text-[#D4AF37]"
+                      whileHover={{ y: -2, backgroundColor: 'rgba(212,175,55,0.14)', color: '#FFFFFF' }}
+                      transition={{ duration: 0.2 }}
                     >
                       {badge}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
 
                 <div className="mt-8 flex flex-wrap gap-4">
-                  <Link
-                    to="/contact#quote"
-                    className="inline-flex items-center justify-center rounded-lg bg-gradient-gold px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-[#1C1714] shadow-lg shadow-[#D4AF37]/15 transition-transform hover:scale-[1.02]"
-                  >
-                    Request a Similar Quote
-                  </Link>
-                  <button
+                  <motion.div whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Link
+                      to="/contact#quote"
+                      className="inline-flex items-center justify-center rounded-lg bg-gradient-gold px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-[#1C1714] shadow-lg shadow-[#D4AF37]/15"
+                    >
+                      Request a Similar Quote
+                    </Link>
+                  </motion.div>
+                  <motion.button
                     type="button"
                     onClick={() => setGalleryOpen(true)}
                     className="inline-flex items-center justify-center rounded-lg border border-[#D4AF37]/45 px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-white transition-colors hover:border-[#D4AF37] hover:bg-white/10"
+                    whileHover={{ y: -2, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     View Gallery
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </Reveal>
 
             <Reveal direction="scale" delay={0.08}>
-              <figure className="relative z-10 overflow-hidden rounded-[18px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] shadow-[0_24px_70px_rgba(0,0,0,0.38)]">
-                <div className="aspect-[4/3] overflow-hidden lg:aspect-[5/4]">
-                  <img
-                    src="/Portfolio/full-property-refurbishment-london-reception-room.webp"
-                    alt="Finished East London living room with period fireplace and neutral decoration"
-                    className="h-full w-full object-cover"
-                    loading="eager"
-                    decoding="async"
-                  />
-                </div>
-                <figcaption className="px-5 py-4 font-['Source_Serif_4'] text-[0.9rem] leading-relaxed text-[#6B625A]">
-                  Main living room finished in a calm neutral palette, with clean walls, crisp woodwork and preserved period character.
-                </figcaption>
-              </figure>
+              <div className="relative z-10">
+                <motion.figure
+                  className="group overflow-hidden rounded-[18px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] shadow-[0_24px_70px_rgba(0,0,0,0.38)]"
+                  whileHover={{
+                    y: -6,
+                    boxShadow: '0 30px 70px rgba(28,23,20,0.14), 0 5px 16px rgba(212,175,55,0.12)',
+                    borderColor: 'rgba(212,175,55,0.4)',
+                  }}
+                  transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <div className="aspect-[4/3] overflow-hidden lg:aspect-[5/4]">
+                    <img
+                      src="/Portfolio/full-property-refurbishment-london-reception-room.webp"
+                      alt="Finished furnished East London reception room with sofas, period fireplace and neutral decoration"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.055]"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption className="px-5 py-4 font-['Source_Serif_4'] text-[0.9rem] leading-relaxed text-[#6B625A]">
+                    Finished reception room styled with soft furnishings, clean walls, crisp woodwork and preserved period character.
+                  </figcaption>
+                </motion.figure>
+              </div>
             </Reveal>
           </div>
         </section>
@@ -214,6 +318,27 @@ export default function RefurbishmentCaseStudyPage() {
         </section>
 
         <section className="bg-[#F3EEE6] px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+          <div className="mx-auto max-w-6xl">
+            <Reveal>
+              <SectionHeading eyebrow="Before & After" title="The transformation becomes clearer when each room is seen side by side.">
+                <p>
+                  Before the final decoration could begin, the rooms needed proper preparation. Walls showed old fixings, patch repairs and surface wear, while the floors and skirting areas exposed the amount of work required before the home could feel clean and cohesive again.
+                </p>
+                <p className="mt-4">
+                  The living room and adjoining room below show the refurbishment story more clearly: repair first, then a clean decorative finish that makes the spaces feel brighter and ready to use.
+                </p>
+              </SectionHeading>
+            </Reveal>
+
+            <div className="mt-10 space-y-14">
+              {beforeAfterStories.map((story, index) => (
+                <BeforeAfterStory key={story.title} story={story} reverse={index % 2 === 1} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
             <Reveal>
               <ImagePanel
@@ -235,25 +360,34 @@ export default function RefurbishmentCaseStudyPage() {
           </div>
         </section>
 
-        <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <section className="bg-[#F3EEE6] px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <Reveal>
               <SectionHeading eyebrow="What We Completed" title="Preparation, decorating and finishing details across the home." />
             </Reveal>
-            <div className="mt-9 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+            <StaggerContainer className="mt-9 grid gap-4 md:grid-cols-2 lg:grid-cols-5" stagger={0.07}>
               {scopeItems.map((item) => (
-                <Reveal key={item.title}>
-                  <article className="h-full rounded-[12px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] p-5 shadow-sm">
+                <StaggerItem key={item.title}>
+                  <motion.article
+                    className="h-full rounded-[12px] border border-[rgba(212,175,55,0.18)] bg-[#FDFCF9] p-5 shadow-sm"
+                    whileHover={{
+                      y: -5,
+                      backgroundColor: '#FFFEFB',
+                      boxShadow: '0 16px 36px rgba(28,23,20,0.08), 0 2px 8px rgba(212,175,55,0.08)',
+                      borderColor: 'rgba(212,175,55,0.36)',
+                    }}
+                    transition={{ duration: 0.25 }}
+                  >
                     <h3 className="font-['Cormorant_Garamond'] text-[1.35rem] font-semibold leading-tight text-[#1C1714]">
                       {item.title}
                     </h3>
                     <p className="mt-3 font-['Source_Serif_4'] text-[0.88rem] leading-[1.75] text-[#625951]">
                       {item.text}
                     </p>
-                  </article>
-                </Reveal>
+                  </motion.article>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </div>
         </section>
 
@@ -300,20 +434,28 @@ export default function RefurbishmentCaseStudyPage() {
                   caption="Doors, architraves, skirting and fitted details finished with durable paints selected for each surface."
                 />
               </Reveal>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <StaggerContainer className="grid gap-4 sm:grid-cols-2" stagger={0.06}>
                 {finishCards.map(([title, text]) => (
-                  <Reveal key={title}>
-                    <article className="rounded-[12px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] p-5 shadow-sm">
+                  <StaggerItem key={title}>
+                    <motion.article
+                      className="rounded-[12px] border border-[rgba(212,175,55,0.2)] bg-[#FDFCF9] p-5 shadow-sm"
+                      whileHover={{
+                        y: -4,
+                        boxShadow: '0 14px 32px rgba(28,23,20,0.08), 0 2px 8px rgba(212,175,55,0.08)',
+                        borderColor: 'rgba(212,175,55,0.38)',
+                      }}
+                      transition={{ duration: 0.25 }}
+                    >
                       <h3 className="font-['Plus_Jakarta_Sans'] text-[0.76rem] font-semibold uppercase tracking-[0.13em] text-[#A88636]">
                         {title}
                       </h3>
                       <p className="mt-3 font-['Source_Serif_4'] text-[0.92rem] leading-[1.75] text-[#5A5048]">
                         {text}
                       </p>
-                    </article>
-                  </Reveal>
+                    </motion.article>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
             </div>
           </div>
         </section>
@@ -345,30 +487,32 @@ export default function RefurbishmentCaseStudyPage() {
         <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
             <Reveal>
-              <SectionHeading eyebrow="The Result" title="A brighter, calmer and more cohesive home.">
+              <SectionHeading eyebrow="The Result" title="A refined bathroom with a calm, premium finish.">
                 <p>
-                  The completed home now feels brighter, calmer and more cohesive. The neutral palette, clean woodwork, detailed trims and selected feature finishes work together to give the property a more refined interior feel.
+                  The bathroom was completed with a bright marble-effect finish, a freestanding bath, fitted vanity storage and a walk-in shower area. The result feels calm, practical and more refined while still sitting comfortably within the wider refurbishment.
                 </p>
                 <p className="mt-4">
-                  Each room has its own character, but the overall finish remains connected throughout the home. The result is a full-home refresh that feels practical, elegant and ready to live in.
+                  Wall lighting, glass shower screening, clean tiling lines and carefully finished trims give the space a more polished everyday feel, with the bathroom now working as one of the strongest finished rooms in the home.
                 </p>
               </SectionHeading>
               <div className="mt-8 flex flex-wrap gap-3">
                 {resultHighlights.map((item) => (
-                  <span
+                  <motion.span
                     key={item}
                     className="rounded-full bg-[#FAF7F0] px-4 py-2 font-['Plus_Jakarta_Sans'] text-[0.66rem] font-semibold uppercase tracking-[0.12em] text-[#A88636]"
+                    whileHover={{ y: -2, backgroundColor: '#F3EEE6', color: '#1C1714' }}
+                    transition={{ duration: 0.2 }}
                   >
                     {item}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </Reveal>
             <Reveal delay={0.08}>
               <ImagePanel
-                src="/Portfolio/full-property-refurbishment-london-white-bathroom.webp"
-                alt="Finished bright bathroom area with clean interior detailing"
-                caption="Bathroom area finished with a bright, minimal look and clean detailing around walls, trims and visible surfaces."
+                src="/Portfolio/ictinus-property-refurbishment-london-marble-bathroom-suite.webp"
+                alt="Finished marble bathroom suite with freestanding bath, vanity and walk-in shower"
+                caption="Finished bathroom with marble-effect surfaces, freestanding bath, walk-in shower glass, vanity storage and soft wall lighting."
               />
             </Reveal>
           </div>
@@ -387,18 +531,22 @@ export default function RefurbishmentCaseStudyPage() {
                 Ictinus Contractors can help with full-home interior refurbishments, painting and decorating, woodwork finishing, flooring and detail-focused preparation across London.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <Link
-                  to="/contact#quote"
-                  className="inline-flex items-center justify-center rounded-lg bg-gradient-gold px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-[#1C1714] shadow-lg shadow-[#D4AF37]/20 transition-transform hover:scale-[1.02]"
-                >
-                  Request a Quote
-                </Link>
-                <Link
-                  to="/services"
-                  className="inline-flex items-center justify-center rounded-lg border border-[#D4AF37]/35 px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-white transition-colors hover:bg-[#D4AF37]/10"
-                >
-                  View Our Services
-                </Link>
+                <motion.div whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    to="/contact#quote"
+                    className="inline-flex items-center justify-center rounded-lg bg-gradient-gold px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-[#1C1714] shadow-lg shadow-[#D4AF37]/20"
+                  >
+                    Request a Quote
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    to="/services"
+                    className="inline-flex items-center justify-center rounded-lg border border-[#D4AF37]/35 px-7 py-3.5 font-['Source_Serif_4'] text-[0.95rem] font-semibold text-white transition-colors hover:bg-[#D4AF37]/10"
+                  >
+                    View Our Services
+                  </Link>
+                </motion.div>
               </div>
             </Reveal>
           </div>
