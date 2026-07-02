@@ -24,10 +24,34 @@ export const PORTFOLIO_GALLERIES = {
     { src: '/Portfolio/bathroom-renovation-east-london-clean-handover-final-detail.webp', alt: 'Finished East London bathroom renovation with clean tiling and modern fittings', label: 'Final Detail' },
   ],
   painting: [
-    { src: '/Portfolio/ictinus-painting-decorating-london-empty-living-room-after-painting.webp', alt: 'Ictinus painting and decorating in London - empty living room after painting', label: 'After' },
-    { src: '/Portfolio/ictinus-painting-decorating-london-empty-kitchen-dining-after-painting.webp', alt: 'Ictinus painting and decorating in London - empty kitchen dining room after painting', label: 'After' },
-    { src: '/Portfolio/ictinus-painting-decorating-london-empty-bedroom-after-painting.webp', alt: 'Ictinus painting and decorating in London - empty bedroom after painting', label: 'After' },
-    { src: '/Portfolio/ictinus-painting-decorating-london-empty-hallway-staircase-after-painting.webp', alt: 'Ictinus painting and decorating in London - empty hallway and staircase after painting', label: 'After' },
+    {
+      src: '/Portfolio/ictinus-painting-decorating-london-empty-living-room-after-painting.webp',
+      alt: 'Living room after Ictinus painting and finishing work in London',
+      label: 'After',
+      title: 'Living Room Painting',
+      subtitle: 'Feature wall, ceiling, trims & final finish',
+    },
+    {
+      src: '/Portfolio/ictinus-painting-decorating-london-empty-kitchen-dining-after-painting.webp',
+      alt: 'Open-plan kitchen and dining interior after Ictinus painting and finishing work in London',
+      label: 'After',
+      title: 'Open-Plan Interior Finish',
+      subtitle: 'Clean decoration around kitchen, lighting & woodwork',
+    },
+    {
+      src: '/Portfolio/ictinus-painting-decorating-london-empty-bedroom-after-painting.webp',
+      alt: 'Bedroom after Ictinus wall, ceiling and wardrobe finishing work in London',
+      label: 'After',
+      title: 'Bedroom Finishing Details',
+      subtitle: 'Walls, ceiling, skirting & fitted wardrobes',
+    },
+    {
+      src: '/Portfolio/ictinus-painting-decorating-london-empty-hallway-staircase-after-painting.webp',
+      alt: 'Hallway and staircase after Ictinus painting, woodwork and panelling finish in London',
+      label: 'After',
+      title: 'Hallway, Staircase & Woodwork Finish',
+      subtitle: 'Panelling, trims, stair details & decoration',
+    },
   ],
   plastering: [
     { src: '/Portfolio/plastering-surface-preparation-london-garden-room-after.webp', alt: 'Plastering and Surface Preparation - finished garden room', label: 'After' },

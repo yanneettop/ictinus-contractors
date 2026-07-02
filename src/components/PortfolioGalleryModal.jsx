@@ -146,6 +146,8 @@ export default function PortfolioGalleryModal({ images, title, onClose }) {
   const [direction, setDirection] = useState(1)
   const [fullscreen, setFullscreen] = useState(false)
   const closeButtonRef = useRef(null)
+  const currentImage = images[index]
+  const currentCaption = currentImage.title || currentImage.label
 
   const go = useCallback(
     (dir) => {
@@ -239,7 +241,7 @@ export default function PortfolioGalleryModal({ images, title, onClose }) {
           </svg>
         </motion.button>
 
-        <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#1C1714] shadow-2xl sm:aspect-[16/10] sm:rounded-[16px] sm:border sm:border-[#D4AF37]/22 sm:shadow-[0_40px_90px_rgba(0,0,0,0.55),0_0_0_1px_rgba(212,175,55,0.08)]">
+        <div className="group relative aspect-[4/5] w-full overflow-hidden bg-[#1C1714] shadow-2xl sm:aspect-[16/10] sm:rounded-[16px] sm:border sm:border-[#D4AF37]/22 sm:shadow-[0_40px_90px_rgba(0,0,0,0.55),0_0_0_1px_rgba(212,175,55,0.08)]">
           <div className="pointer-events-none absolute inset-0 z-20 hidden rounded-[16px] ring-1 ring-inset ring-[#D4AF37]/10 sm:block" />
           <div className="absolute inset-0">
             <AnimatePresence mode="wait" custom={direction}>
@@ -257,13 +259,33 @@ export default function PortfolioGalleryModal({ images, title, onClose }) {
                 className="absolute inset-0 h-full w-full cursor-zoom-in"
               >
                 <img
-                  src={images[index].src}
-                  alt={images[index].alt}
+                  src={currentImage.src}
+                  alt={currentImage.alt}
                   className="h-full w-full object-cover sm:object-contain"
                   draggable={false}
                 />
               </motion.button>
             </AnimatePresence>
+
+            {currentImage.title && currentImage.subtitle && (
+              <>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-32 bg-gradient-to-t from-black/55 via-black/24 to-transparent" />
+                <motion.div
+                  key={`caption-${index}`}
+                  className="pointer-events-none absolute bottom-4 left-4 z-20 max-w-[88%] rounded-[14px] border border-[rgba(255,255,255,0.18)] bg-[rgba(10,12,14,0.74)] px-3.5 py-3 text-left shadow-[0_14px_34px_rgba(0,0,0,0.24)] backdrop-blur-md transition-all duration-300 group-hover:translate-y-[-2px] group-hover:bg-[rgba(10,12,14,0.8)] sm:bottom-5 sm:left-5 sm:max-w-[24rem] sm:px-4 sm:py-3.5"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <p className="font-['Source_Serif_4'] text-[0.9rem] font-semibold leading-snug text-white sm:text-[1rem]">
+                    {currentImage.title}
+                  </p>
+                  <p className="mt-1 font-['Source_Serif_4'] text-[0.74rem] font-medium leading-snug text-[rgba(255,255,255,0.86)] sm:text-[0.82rem]">
+                    {currentImage.subtitle}
+                  </p>
+                </motion.div>
+              </>
+            )}
 
             {[-1, 1].map((dir) => (
               <div
@@ -325,12 +347,12 @@ export default function PortfolioGalleryModal({ images, title, onClose }) {
         </div>
 
         <p className="mt-3 px-4 text-center font-['Source_Serif_4'] text-[0.8125rem] tracking-wide text-white/40 sm:hidden">
-          {title} - {images[index].label}
+          {title} - {currentCaption}
         </p>
 
         <div className="mt-5 hidden w-full items-center justify-between gap-6 px-2 sm:flex">
           <p className="font-['Source_Serif_4'] text-[0.9rem] italic text-white/55">
-            {images[index].label}
+            {currentCaption}
           </p>
           <span className="flex items-center gap-3 font-['Plus_Jakarta_Sans'] text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white/50">
             <span className="h-px w-6 bg-[#D4AF37]/45" />
@@ -371,8 +393,8 @@ export default function PortfolioGalleryModal({ images, title, onClose }) {
       <AnimatePresence>
         {fullscreen && (
           <FullscreenViewer
-            src={images[index].src}
-            alt={images[index].alt}
+            src={currentImage.src}
+            alt={currentImage.alt}
             onClose={() => setFullscreen(false)}
           />
         )}
