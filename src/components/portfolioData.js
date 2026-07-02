@@ -56,7 +56,6 @@ export const PORTFOLIO_GALLERIES = {
   plastering: [
     { src: '/Portfolio/plastering-surface-preparation-london-garden-room-after.webp', alt: 'Plastering and Surface Preparation - finished garden room', label: 'After' },
     { src: '/Portfolio/plastering-surface-preparation-london-open-plan-room-after.webp', alt: 'Plastering and Surface Preparation - finished open-plan room', label: 'After' },
-    { src: '/Portfolio/plastering-surface-preparation-london-extension-before-after.webp', alt: 'Plastering and Surface Preparation - extension room before and after', label: 'Before / After' },
     { src: '/Portfolio/plastering-surface-preparation-london-hallway-before-after.webp', alt: 'Plastering and Surface Preparation - hallway before and after', label: 'Before / After' },
     { src: '/Portfolio/plastering-surface-preparation-london-window-reveal-before-after.webp', alt: 'Plastering and Surface Preparation - window reveal before and after', label: 'Before / After' },
     { src: '/Portfolio/plastering-surface-preparation-london-ceiling-before-after.webp', alt: 'Plastering and Surface Preparation - ceiling before and after', label: 'Before / After' },
