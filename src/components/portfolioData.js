@@ -62,10 +62,34 @@ export const PORTFOLIO_GALLERIES = {
     { src: '/Portfolio/plastering-surface-preparation-london-ceiling-before-after.webp', alt: 'Plastering and Surface Preparation - ceiling before and after', label: 'Before / After' },
   ],
   flooring: [
-    { src: '/Portfolio/ictinus-hard-flooring-installation-london-empty-open-plan-living-dining-after-flooring.webp', alt: 'Ictinus hard flooring installation in London - empty open-plan living dining room after flooring', label: 'After' },
-    { src: '/Portfolio/ictinus-hard-flooring-installation-london-empty-herringbone-hallway-kitchen-after-flooring.webp', alt: 'Ictinus hard flooring installation in London - empty herringbone hallway and kitchen after flooring', label: 'After' },
-    { src: '/Portfolio/ictinus-hard-flooring-installation-london-skirting-threshold-detail-after-flooring.webp', alt: 'Ictinus hard flooring installation in London - skirting and threshold detail after flooring', label: 'Detail' },
-    { src: '/Portfolio/ictinus-hard-flooring-installation-london-empty-dark-home-office-after-flooring.webp', alt: 'Ictinus hard flooring installation in London - empty dark home office after flooring', label: 'After' },
+    {
+      src: '/Portfolio/ictinus-hard-flooring-installation-london-empty-open-plan-living-dining-after-flooring.webp',
+      alt: 'Wide-plank flooring installation in an open-plan room with garden doors',
+      label: 'After',
+      title: 'Wide-Plank Flooring',
+      subtitle: 'Open-plan floor finish',
+    },
+    {
+      src: '/Portfolio/ictinus-hard-flooring-installation-london-empty-herringbone-hallway-kitchen-after-flooring.webp',
+      alt: 'Herringbone wood flooring detail leading into a kitchen area',
+      label: 'After',
+      title: 'Herringbone Flooring',
+      subtitle: 'Detailed pattern installation',
+    },
+    {
+      src: '/Portfolio/ictinus-hard-flooring-installation-london-skirting-threshold-detail-after-flooring.webp',
+      alt: 'Close-up of flooring and skirting finish around a radiator and doorway',
+      label: 'Detail',
+      title: 'Skirting & Floor Details',
+      subtitle: 'Clean edges and trims',
+    },
+    {
+      src: '/Portfolio/ictinus-hard-flooring-installation-london-empty-dark-home-office-after-flooring.webp',
+      alt: 'Dark wood flooring with contrasting black skirting and white walls',
+      label: 'After',
+      title: 'Dark Wood Flooring',
+      subtitle: 'Contrasting finish and trims',
+    },
   ],
 }
 
