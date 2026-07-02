@@ -71,7 +71,7 @@ export const PORTFOLIO_CARD_PROJECTS = [
     location: 'East London',
     tags: 'Walk-In Shower, Waterproofing, Tiling & Bathroom Finishing',
     description:
-      'A practical East London bathroom renovation covering strip-out, waterproofing, tiling, lighting and final finishing.\n\nThe result is a cleaner, easier-to-maintain bathroom with a walk-in shower and calm modern finish.',
+      'A practical East London bathroom renovation with strip-out, waterproofing, tiling, lighting and final finishing.\n\nFinished as a cleaner, easier-to-maintain space with a walk-in shower and calm modern look.',
     image: '/Portfolio/bathroom-renovation-east-london-clean-handover-wide-shot.webp',
     hoverImage: '/Portfolio/bathroom-renovation-east-london-clean-handover-floating-oak-vanity.webp',
     imageAlt: 'Finished walk-in bathroom renovation in East London with floating vanity and LED mirror',

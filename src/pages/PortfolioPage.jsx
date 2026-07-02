@@ -169,6 +169,12 @@ function ProjectTile({ project, hoveredKey, setHoveredKey, openGallery, openProj
             className="font-['Source_Serif_4'] text-[0.92rem] leading-[1.75] text-[#5A5048]"
           />
         </div>
+        <span className="mt-4 inline-flex items-center gap-1.5 font-['Source_Serif_4'] text-[0.9rem] font-semibold text-[#B08D2A] transition-colors group-hover:text-[#8B6C2C]">
+          {project.caseStudyPath ? 'View Project' : 'View Gallery'}
+          <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </span>
       </div>
     </motion.article>
   )
