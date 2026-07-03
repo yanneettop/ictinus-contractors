@@ -93,17 +93,17 @@ export async function onRequest(context) {
     return context.next()
   }
 
+  const redirectTarget = REDIRECTS.get(url.pathname)
+  if (redirectTarget) {
+    return Response.redirect(canonicalUrl(url, redirectTarget), 301)
+  }
+
   if (!LOCAL_HOSTS.has(url.hostname) && (url.hostname !== CANONICAL_HOST || url.protocol !== 'https:')) {
     return Response.redirect(canonicalUrl(url, url.pathname), 301)
   }
 
   if (isWordPressJunk(url.pathname)) {
     return notFound(context)
-  }
-
-  const redirectTarget = REDIRECTS.get(url.pathname)
-  if (redirectTarget) {
-    return Response.redirect(canonicalUrl(url, redirectTarget), 301)
   }
 
   return context.next()
