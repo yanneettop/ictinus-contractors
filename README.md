@@ -2,6 +2,10 @@
 
 Vite + React website for Ictinus Contractors.
 
+The repository also includes the private Ictinus Job Manager at `/job-manager`.
+See [JOB_MANAGER.md](JOB_MANAGER.md) for its structure, demo access, data layer,
+Supabase migration path and Google Calendar integration notes.
+
 ## Local Development
 
 ```bash

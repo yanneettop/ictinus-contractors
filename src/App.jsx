@@ -23,6 +23,7 @@ const RefurbishmentCaseStudyPage = lazy(() => import('./pages/RefurbishmentCaseS
 const BathroomCaseStudyPage = lazy(() => import('./pages/BathroomCaseStudyPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
 const ThankYouPage = lazy(() => import('./pages/ThankYouPage'))
+const JobManagerApp = lazy(() => import('./job-manager/JobManagerApp'))
 const BathroomFittingPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.BathroomFittingPage })))
 const ElectricalWorksPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.ElectricalWorksPage })))
 const FinishingCarpentryPage = lazy(() => import('./pages/ServicePageTemplate').then((module) => ({ default: module.FinishingCarpentryPage })))
@@ -593,13 +594,16 @@ function ScrollManager() {
 
 export default function App() {
   useContactLinkTracking()
+  const location = useLocation()
+  const isJobManager = location.pathname.startsWith('/job-manager')
 
   return (
     <MotionConfig reducedMotion="user">
       <ScrollManager />
-      <CookieConsent />
+      {!isJobManager && <CookieConsent />}
       <Suspense fallback={null}>
         <Routes>
+          <Route path="/job-manager/*" element={<JobManagerApp />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />

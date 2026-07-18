@@ -12,6 +12,10 @@
 /contact/ /contact 301
 /thank-you/ /thank-you 301
 
+# Private job manager is a client-side application. Cloudflare serves the app
+# shell for direct links while React Router handles the nested route.
+/job-manager/* /index.html 200
+
 /booking /contact 301
 /booking/ /contact 301
 /request-a-quote /contact#quote 301
