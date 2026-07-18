@@ -20,6 +20,17 @@ const routes = [
   '/portfolio/modern-walk-in-bathroom-renovation',
   '/contact',
   '/thank-you',
+  '/job-manager',
+  '/job-manager/login',
+  '/job-manager/calendar',
+  '/job-manager/projects',
+  '/job-manager/projects/new',
+  '/job-manager/projects/project-stratford',
+  '/job-manager/projects/project-george',
+  '/job-manager/projects/project-emma',
+  '/job-manager/projects/project-millie',
+  '/job-manager/payments',
+  '/job-manager/settings',
 ]
 
 const routeMeta = {
@@ -103,6 +114,10 @@ const routeMeta = {
     description:
       'Thank you for contacting Ictinus Contractors. We will review your enquiry and get back to you as soon as possible.',
   },
+  '/job-manager': {
+    title: 'Ictinus Job Manager | Private Operations Workspace',
+    description: 'Private project operations workspace for Ictinus Contractors.',
+  },
 }
 
 const distDir = join(process.cwd(), 'dist')
@@ -115,7 +130,7 @@ function canonicalForRoute(route) {
 
 function htmlForRoute(route) {
   const routeUrl = canonicalForRoute(route)
-  const meta = routeMeta[route] || routeMeta['/']
+  const meta = routeMeta[route] || (route.startsWith('/job-manager') ? routeMeta['/job-manager'] : routeMeta['/'])
 
   let html = sourceHtml.replace(
     /<title>.*?<\/title>/,
@@ -169,6 +184,13 @@ function htmlForRoute(route) {
     )
   }
 
+  if (route.startsWith('/job-manager')) {
+    html = html.replace(
+      /<meta\s+name="robots"\s+content="[^"]*"\s*\/>/,
+      '<meta name="robots" content="noindex, nofollow" />',
+    )
+  }
+
   return html
 }
 
@@ -188,3 +210,8 @@ for (const route of routes) {
   writeFileSync(directoryTarget, html)
   writeFileSync(fileTarget, html)
 }
+
+// GitHub Pages does not support SPA rewrites. Its custom 404 document keeps the
+// requested URL in the browser, allowing React Router to resolve dynamic manager
+// routes after the application shell loads.
+writeFileSync(join(distDir, '404.html'), htmlForRoute('/job-manager'))
