@@ -7,12 +7,12 @@ const newId = (prefix) => `${prefix}-${Date.now()}-${Math.random().toString(36).
 
 const migrate = (source) => {
   const data = { ...clone(initialData), ...source }
-  data.version = 2
+  data.version = 3
   data.journalEntries = source.journalEntries || clone(initialData.journalEntries)
   data.photos = source.photos || clone(initialData.photos)
   data.clients = (source.clients || initialData.clients).map((client) => ({ preferredContact: 'Phone', bestContactTime: '', emergencyContact: '', ...client }))
   data.tasks = (source.tasks || initialData.tasks).map((task) => ({ status: task.completed ? 'Completed' : 'Pending', ...task }))
-  data.documents = (source.documents || initialData.documents).map((document) => ({ createdAt: new Date().toISOString(), uploadedBy: 'user-ioannis', ...document }))
+  data.documents = (source.documents || initialData.documents).map((document) => ({ createdAt: new Date().toISOString(), uploadedBy: 'user-admin', ...document }))
   return data
 }
 
@@ -42,5 +42,4 @@ export const localRepository = {
   createId: newId,
 }
 
-// Supabase replacement point: implement this same load/save/reset contract using
-// typed table queries, then inject that repository into JobManagerProvider.
+// This repository is deliberately limited to the fictional browser demo.

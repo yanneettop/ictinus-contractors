@@ -1,6 +1,9 @@
 node_modules/
 dist/
 dist-optimized/
+.env
+.env.*
+!.env.example
 .dev.vars
 .dev.vars.*
 !.dev.vars.example
@@ -41,6 +44,7 @@ dist-optimized/
 dist-test/
 vite-dev.err
 vite-dev.log
+vite-*.log
 
 # Skills
 skills/

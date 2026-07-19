@@ -1,33 +1,58 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { demoUsers } from '../data/seed'
 import { localRepository } from '../data/repository'
+import { supabaseRepository } from '../data/supabaseRepository'
+import { authService, supabaseConfigured } from '../services/authService'
 
 const JobManagerContext = createContext(null)
-const SESSION_KEY = 'ictinus-job-manager-session'
+const defaultRepository = supabaseConfigured ? supabaseRepository : localRepository
 
-export function JobManagerProvider({ children, repository = localRepository }) {
+export function JobManagerProvider({ children, repository = defaultRepository }) {
   const [data, setData] = useState(null)
-  const [user, setUser] = useState(() => demoUsers.find((item) => item.id === sessionStorage.getItem(SESSION_KEY)) || null)
+  const [user, setUser] = useState(null)
+  const [authReady, setAuthReady] = useState(false)
   const [error, setError] = useState('')
+  const dataRef = useRef(null)
+  const saveQueue = useRef(Promise.resolve())
 
-  useEffect(() => { repository.load().then(setData).catch(() => setError('The local project data could not be loaded.')) }, [repository])
+  useEffect(() => {
+    let active = true
+    authService.getUser().then((nextUser) => { if (active) setUser(nextUser) }).catch((authError) => setError(authError.message)).finally(() => { if (active) setAuthReady(true) })
+    const unsubscribe = authService.onAuthStateChange((nextUser) => { setUser(nextUser); if (!nextUser) setData(null) })
+    return () => { active = false; unsubscribe() }
+  }, [])
+
+  useEffect(() => {
+    if (!user) return undefined
+    let active = true
+    repository.load().then((next) => { if (active) { dataRef.current = next; setData(next) } }).catch(() => setError('The project data could not be loaded.'))
+    const unsubscribe = repository.subscribe?.((next) => { if (active) { dataRef.current = next; setData(next) } })
+    return () => { active = false; unsubscribe?.() }
+  }, [repository, user])
 
   const commit = useCallback(async (updater) => {
-    setData((current) => {
-      const next = typeof updater === 'function' ? updater(current) : updater
-      repository.save(next).catch(() => setError('Your latest change could not be saved.'))
-      return next
+    const current = dataRef.current
+    if (!current) throw new Error('Project data is still loading.')
+    const next = typeof updater === 'function' ? updater(current) : updater
+    dataRef.current = next
+    setData(next)
+    const operation = saveQueue.current.catch(() => undefined).then(() => repository.save(next))
+    saveQueue.current = operation
+    return operation.catch(async () => {
+      setError('Your latest change could not be saved. The shared data has been reloaded.')
+      const restored = await repository.load()
+      dataRef.current = restored
+      setData(restored)
+      throw new Error('The change could not be saved.')
     })
   }, [repository])
 
-  const login = (username, password) => {
-    const match = demoUsers.find((item) => item.username.toLowerCase() === username.toLowerCase().trim() && item.password === password)
-    if (!match) return false
-    sessionStorage.setItem(SESSION_KEY, match.id)
-    setUser(match)
-    return true
+  const login = async (identifier, password) => {
+    const nextUser = await authService.signIn(identifier, password)
+    setUser(nextUser)
+    return nextUser
   }
-  const logout = () => { sessionStorage.removeItem(SESSION_KEY); setUser(null) }
+  const logout = async () => { await authService.signOut(); dataRef.current = null; setUser(null); setData(null) }
   const can = (permission) => {
     if (!user) return false
     if (user.role === 'administrator') return true
@@ -99,9 +124,10 @@ export function JobManagerProvider({ children, repository = localRepository }) {
   const addDocument = (projectId, values) => commit((current) => {
     const next = structuredClone(current); next.documents.push({ id: repository.createId('document'), projectId, ...values, createdAt: new Date().toISOString(), uploadedBy: user.id }); addActivity(next, projectId, `Document added: ${values.name}`); return next
   })
-  const deleteDocument = (documentId) => commit((current) => {
-    const next = structuredClone(current); const document = next.documents.find((item) => item.id === documentId); next.documents = next.documents.filter((item) => item.id !== documentId); addActivity(next, document.projectId, `Document removed: ${document.name}`); return next
-  })
+  const deleteDocument = async (documentId) => {
+    const document = data.documents.find((item) => item.id === documentId); await repository.deleteFile?.(document?.storagePath)
+    return commit((current) => { const next = structuredClone(current); next.documents = next.documents.filter((item) => item.id !== documentId); addActivity(next, document.projectId, `Document removed: ${document.name}`); return next })
+  }
   const addEvent = (projectId, values) => commit((current) => {
     const next = structuredClone(current); const project = next.projects.find((item) => item.id === projectId); const client = next.clients.find((item) => item.id === project.clientId)
     next.events.push({ id: repository.createId('event'), projectId, ...values, title: `${client.name.split(' ')[0]} – ${project.postcode}`, allDay: values.allDay ?? true, googleCalendarEventId: null }); addActivity(next, projectId, `${values.type} added to calendar`); return next
@@ -118,12 +144,24 @@ export function JobManagerProvider({ children, repository = localRepository }) {
   const addPhoto = (projectId, values) => commit((current) => {
     const next = structuredClone(current); next.photos.unshift({ id: repository.createId('photo'), projectId, ...values, createdAt: new Date().toISOString(), uploadedBy: user.id }); addActivity(next, projectId, `Photo added · ${values.stage}`); return next
   })
-  const deletePhoto = (photoId) => commit((current) => {
-    const next = structuredClone(current); const photo = next.photos.find((item) => item.id === photoId); next.photos = next.photos.filter((item) => item.id !== photoId); addActivity(next, photo.projectId, `Photo removed · ${photo.stage}`); return next
-  })
-  const resetData = () => repository.reset().then(setData)
+  const deletePhoto = async (photoId) => {
+    const photo = data.photos.find((item) => item.id === photoId); await repository.deleteFile?.(photo?.storagePath)
+    return commit((current) => { const next = structuredClone(current); next.photos = next.photos.filter((item) => item.id !== photoId); addActivity(next, photo.projectId, `Photo removed · ${photo.stage}`); return next })
+  }
+  const uploadDocument = async (projectId, values, file) => {
+    const uploaded = await repository.uploadFile(projectId, file, 'documents')
+    return addDocument(projectId, { ...values, ...uploaded })
+  }
+  const uploadPhoto = async (projectId, values, file) => {
+    const uploaded = await repository.uploadFile(projectId, file, 'photos')
+    return addPhoto(projectId, { ...values, ...uploaded })
+  }
+  const resetData = () => repository.reset().then((next) => { dataRef.current = next; setData(next); return next })
+  const refreshData = () => repository.load().then((next) => { dataRef.current = next; setData(next); return next })
+  const resetPassword = (email) => authService.resetPassword(email)
+  const updatePassword = (password) => authService.updatePassword(password)
 
-  const value = { data, user, users: demoUsers, error, setError, login, logout, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, deletePhoto, resetData }
+  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, login, logout, resetPassword, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData }
   return <JobManagerContext.Provider value={value}>{children}</JobManagerContext.Provider>
 }
 
