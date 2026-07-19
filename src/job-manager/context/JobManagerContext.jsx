@@ -12,6 +12,8 @@ export function JobManagerProvider({ children, repository = defaultRepository })
   const [user, setUser] = useState(null)
   const [authReady, setAuthReady] = useState(false)
   const [error, setError] = useState('')
+  const [realtimeStatus, setRealtimeStatus] = useState(repository.mode === 'supabase' ? 'connecting' : 'local')
+  const [lastSyncedAt, setLastSyncedAt] = useState(null)
   const dataRef = useRef(null)
   const saveQueue = useRef(Promise.resolve())
 
@@ -25,8 +27,8 @@ export function JobManagerProvider({ children, repository = defaultRepository })
   useEffect(() => {
     if (!user) return undefined
     let active = true
-    repository.load().then((next) => { if (active) { dataRef.current = next; setData(next) } }).catch(() => setError('The project data could not be loaded.'))
-    const unsubscribe = repository.subscribe?.((next) => { if (active) { dataRef.current = next; setData(next) } })
+    repository.load().then((next) => { if (active) { dataRef.current = next; setData(next); setLastSyncedAt(new Date()); if (repository.mode !== 'supabase') setRealtimeStatus('local') } }).catch(() => { setRealtimeStatus('offline'); setError('The project data could not be loaded.') })
+    const unsubscribe = repository.subscribe?.((next) => { if (active) { dataRef.current = next; setData(next); setLastSyncedAt(new Date()) } }, (status) => { if (active) setRealtimeStatus(status) })
     return () => { active = false; unsubscribe?.() }
   }, [repository, user])
 
@@ -157,11 +159,11 @@ export function JobManagerProvider({ children, repository = defaultRepository })
     return addPhoto(projectId, { ...values, ...uploaded })
   }
   const resetData = () => repository.reset().then((next) => { dataRef.current = next; setData(next); return next })
-  const refreshData = () => repository.load().then((next) => { dataRef.current = next; setData(next); return next })
+  const refreshData = () => repository.load().then((next) => { dataRef.current = next; setData(next); setLastSyncedAt(new Date()); return next })
   const resetPassword = (email) => authService.resetPassword(email)
   const updatePassword = (password) => authService.updatePassword(password)
 
-  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, login, logout, resetPassword, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData }
+  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, realtimeStatus, lastSyncedAt, login, logout, resetPassword, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData }
   return <JobManagerContext.Provider value={value}>{children}</JobManagerContext.Provider>
 }
 

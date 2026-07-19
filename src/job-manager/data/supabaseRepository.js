@@ -72,11 +72,18 @@ export const supabaseRepository = {
     return data
   },
   async reset() { throw new Error('Production data cannot be reset from the client.') },
-  subscribe(onChange) {
+  subscribe(onChange, onStatus) {
     const client = requireSupabase(); let timer
     const channel = client.channel('job-manager-sync').on('postgres_changes', { event: '*', schema: 'public' }, () => {
-      clearTimeout(timer); timer = setTimeout(async () => onChange(await this.load()), 250)
-    }).subscribe()
+      clearTimeout(timer); timer = setTimeout(async () => {
+        try { onChange(await this.load()) }
+        catch { onStatus?.('offline') }
+      }, 250)
+    }).subscribe((status) => {
+      if (status === 'SUBSCRIBED') onStatus?.('live')
+      else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') onStatus?.('offline')
+      else if (status === 'CLOSED') onStatus?.('connecting')
+    })
     return () => { clearTimeout(timer); client.removeChannel(channel) }
   },
   async uploadFile(projectId, file, kind) {

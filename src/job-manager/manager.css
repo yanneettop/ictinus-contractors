@@ -86,3 +86,21 @@
   .jm-login-copy,.jm-login-copy--setup{margin-top:44px}
   .jm-login-copy h1{font-size:34px}
 }
+
+/* Live calendar status */
+.jm-calendar-sync{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px;padding:11px 13px;border:1px solid var(--jm-border);border-radius:9px;background:var(--jm-card)}
+.jm-calendar-sync>div{display:flex;align-items:center;gap:8px;min-width:0}
+.jm-calendar-sync strong{font-size:11px}
+.jm-calendar-sync small{color:var(--jm-muted);font-size:9px;font-variant-numeric:tabular-nums}
+.jm-live-dot{width:8px;height:8px;flex:0 0 auto;border-radius:50%;background:#9ca4a4}
+.jm-live-dot.is-live{background:var(--jm-green)}
+.jm-calendar-sync-error{margin:-4px 0 12px;padding:9px 11px;border:1px solid #e1b7b2;border-radius:7px;background:#fff4f2;color:#873d37;font-size:10px;text-wrap:pretty}
+.jm-calendar-empty{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0;border-top:1px solid #e7e6e1}
+.jm-calendar-empty p{margin:0;color:var(--jm-muted);font-size:11px;text-wrap:pretty}
+
+@media(max-width:760px){
+  .jm-calendar-sync{align-items:flex-start}
+  .jm-calendar-sync>div{display:grid;grid-template-columns:auto 1fr;gap:2px 7px}
+  .jm-calendar-sync>div small{grid-column:2}
+  .jm-calendar-sync .jm-button{flex:0 0 auto;padding-inline:10px}
+}
