@@ -9,6 +9,7 @@ function assertResult(result, operation) {
 export class SupabaseIntegrationRepository {
   constructor(client) {
     this.client = client
+    this.databaseAuditsMutations = true
   }
 
   async projects() {

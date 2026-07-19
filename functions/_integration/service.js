@@ -151,6 +151,7 @@ export class IntegrationService {
   }
 
   async audit(action, entityType, entityId, projectId, previous, next) {
+    if (this.repository.databaseAuditsMutations) return
     await this.repository.audit({
       project_id: projectId,
       user_id: null,
