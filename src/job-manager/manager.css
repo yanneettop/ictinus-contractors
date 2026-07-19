@@ -36,3 +36,53 @@
 @media(max-width:380px){.jm-project-progress-dates{grid-template-columns:1fr 1fr}.jm-project-progress-dates>div:last-child{grid-column:1/-1}.jm-photo-grid{grid-template-columns:1fr}.jm-journal-list article{grid-template-columns:1fr auto}.jm-journal-date{grid-column:1}.jm-journal-entry{grid-column:1/-1}.jm-row-actions{grid-column:2;grid-row:1}}
 .jm-form-notice{font-size:10px;color:var(--jm-green);margin:8px 0 0}.jm-login-recover{display:block;margin:11px auto 0;border:0;background:none;color:var(--jm-gold-dark);font-size:9px;font-weight:700}.jm-secure-login-note{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:22px;padding-top:17px;border-top:1px solid #deddd7;color:#697474;font-size:9px}.jm-team-invite{margin-top:15px;padding-top:14px;border-top:1px solid #e6e5df;display:grid;grid-template-columns:1fr 1fr;gap:7px}.jm-team-invite h3{grid-column:1/-1;display:flex;align-items:center;gap:6px;font-size:10px;margin:0 0 3px}.jm-team-invite input,.jm-team-invite select{height:37px;border:1px solid #d8d9d4;background:white;border-radius:7px;padding:0 9px;font-size:9px}.jm-team-invite p{grid-column:1/-1;font-size:9px;color:var(--jm-muted);margin:0}
 @media(max-width:760px){.jm-team-invite{grid-template-columns:1fr}.jm-team-invite h3,.jm-team-invite p{grid-column:1}}
+
+/* Authentication views */
+.jm-login{min-height:100dvh}
+.jm-login-panel{display:flex;min-height:100%;flex-direction:column;justify-content:center}
+.jm-login-brand{flex:0 0 auto}
+.jm-login-copy{margin:64px 0 30px}
+.jm-login-copy p{display:flex;align-items:center;gap:7px;margin:0}
+.jm-login-copy h1{text-wrap:balance}
+.jm-login-copy>span,.jm-login-visual span{text-wrap:pretty;line-height:1.65}
+.jm-login form label{font-size:11px}
+.jm-login input{height:48px;font-size:14px;padding:0 14px}
+.jm-login input::placeholder{color:#8a9393}
+.jm-password input{padding-right:46px}
+.jm-password button{top:9px;right:6px;display:grid;place-items:center;min-width:34px;min-height:34px;border-radius:6px;cursor:pointer}
+.jm-password button:hover{background:#f1efe8;color:var(--jm-ink)}
+.jm-login form>.jm-button{min-height:48px}
+.jm-login-recover{font-size:11px;min-height:34px;padding:0 8px;cursor:pointer}
+.jm-login-recover:disabled{cursor:not-allowed;opacity:.55}
+.jm-auth-message{min-height:22px;margin-top:8px}
+.jm-auth-message .jm-form-error,.jm-auth-message .jm-form-notice{margin:0;padding:8px 10px;border-radius:7px;font-size:11px;line-height:1.45}
+.jm-auth-message .jm-form-error{border:1px solid #e1b7b2;background:#fff4f2;color:#873d37}
+.jm-auth-message .jm-form-notice{border:1px solid #b9d6c8;background:#f2faf6;color:#27664e}
+.jm-field-hint{margin:7px 0 0;color:var(--jm-muted);font-size:10px;line-height:1.5;text-wrap:pretty}
+.jm-auth-back{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin-top:18px;color:var(--jm-muted);font-size:11px;font-weight:700;text-decoration:none}
+.jm-auth-back:hover{color:var(--jm-ink)}
+.jm-brand-mark--secure{color:#e0bc60}
+.jm-login-copy--setup{margin-top:58px}
+.jm-login-panel--message .jm-login-copy{margin-bottom:28px}
+.jm-login-visual{position:relative;isolation:isolate;overflow:hidden;background:var(--jm-charcoal)}
+.jm-login-visual::before{content:"";position:absolute;inset:0;z-index:-1;background:url('/Portfolio/painting-finishing-london-living-room.webp') center/cover;opacity:.28}
+.jm-login-visual>div{max-width:560px}
+.jm-login-visual h2{text-wrap:balance}
+.jm-login-visual--setup::before{background-image:url('/Portfolio/full-property-refurbishment-london-reception-room.webp');opacity:.22}
+.jm-secure-login-note{font-size:10px;line-height:1.45;text-align:center}
+
+@media(max-width:760px){
+  body:has(.jm-login){min-height:100dvh}
+  .jm-login{min-height:100dvh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+  .jm-login-panel{min-height:100dvh;justify-content:flex-start;padding:34px 22px 28px}
+  .jm-login-copy,.jm-login-copy--setup{margin:56px 0 26px}
+  .jm-login-copy h1{font-size:38px;line-height:1.02}
+  .jm-login form label{margin-top:16px}
+  .jm-login input{font-size:16px}
+}
+
+@media(max-width:380px){
+  .jm-login-panel{padding-inline:18px}
+  .jm-login-copy,.jm-login-copy--setup{margin-top:44px}
+  .jm-login-copy h1{font-size:34px}
+}
