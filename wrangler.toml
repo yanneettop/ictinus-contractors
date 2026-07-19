@@ -1,4 +1,5 @@
 name = "ictinus-contractors"
+account_id = "fba9282d1424845cbf29136030d91af3"
 compatibility_date = "2026-05-16"
 pages_build_output_dir = "dist"
 
