@@ -44,8 +44,15 @@ export const supabaseAuthService = {
   },
   async signOut() { const { error } = await requireSupabase().auth.signOut(); if (error) throw error },
   onAuthStateChange(callback) {
-    const { data } = requireSupabase().auth.onAuthStateChange((event) => {
-      if (event === 'SIGNED_OUT') callback(null)
+    const client = requireSupabase()
+    const { data } = client.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') { callback(null); return }
+      if (session?.user && ['INITIAL_SESSION', 'SIGNED_IN', 'PASSWORD_RECOVERY', 'USER_UPDATED'].includes(event)) {
+        setTimeout(async () => {
+          const { data: profile } = await client.from('profiles').select('*').eq('id', session.user.id).single()
+          if (profile?.active) callback(profileToUser(profile, session.user))
+        }, 0)
+      }
     })
     return () => data.subscription.unsubscribe()
   },
