@@ -10,6 +10,7 @@ import ProjectsPage from './pages/ProjectsPage'
 import ProjectFormPage from './pages/ProjectFormPage'
 import ProjectDetailPage from './pages/ProjectDetailPage'
 import PaymentsPage from './pages/PaymentsPage'
+import FilesPage from './pages/FilesPage'
 import SettingsPage from './pages/SettingsPage'
 import './manager.css'
 
@@ -33,6 +34,7 @@ function ManagerRoutes() {
       <Route path="projects/:id" element={<ProjectDetailPage />} />
       <Route path="projects/:id/edit" element={<ProjectFormPage />} />
       <Route path="payments" element={<PaymentsPage />} />
+      <Route path="files" element={<FilesPage />} />
       <Route path="settings" element={<SettingsPage />} />
     </Route>
     <Route path="*" element={<Navigate to="/job-manager" replace />} />
