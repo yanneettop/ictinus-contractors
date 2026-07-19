@@ -1,2 +1,24 @@
+project_id = "ictinus-job-manager"
+
+[auth]
+site_url = "https://www.ictinuscontractors.co.uk"
+additional_redirect_urls = ["https://www.ictinuscontractors.co.uk/job-manager/update-password"]
+enable_signup = false
+enable_anonymous_sign_ins = false
+minimum_password_length = 10
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
+[auth.email]
+enable_signup = false
+double_confirm_changes = true
+enable_confirmations = true
+secure_password_change = true
+max_frequency = "1m0s"
+otp_length = 8
+otp_expiry = 3600
+
 [functions.invite-user]
 verify_jwt = true

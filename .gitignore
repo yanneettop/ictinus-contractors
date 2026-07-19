@@ -45,6 +45,8 @@ dist-test/
 vite-dev.err
 vite-dev.log
 vite-*.log
+temp_screenshot.png
+supabase/.temp/
 
 # Skills
 skills/
