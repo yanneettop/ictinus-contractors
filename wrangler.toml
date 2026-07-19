@@ -4,6 +4,7 @@ pages_build_output_dir = "dist"
 
 [vars]
 VITE_TURNSTILE_SITE_KEY = "0x4AAAAAADQfrmNxcoUZnMwX"
+SUPABASE_URL = "https://tgzluhuipfxetpuhwcmv.supabase.co"
 
 [[r2_buckets]]
 binding = "QUOTE_UPLOADS"

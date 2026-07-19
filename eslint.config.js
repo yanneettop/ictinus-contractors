@@ -19,4 +19,24 @@ export default [
       'no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
     },
   },
+  {
+    files: ['functions/**/*.js'],
+    ...js.configs.recommended,
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: { ...globals.worker },
+    },
+    rules: { 'no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }] },
+  },
+  {
+    files: ['tests/**/*.js'],
+    ...js.configs.recommended,
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: { ...globals.node, ...globals.browser },
+    },
+    rules: { 'no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }] },
+  },
 ]

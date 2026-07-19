@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "lint": "eslint src/job-manager",
+    "lint": "eslint src/job-manager functions tests",
     "typecheck": "tsc -p tsconfig.job-manager.json",
+    "test": "node --test tests/integration-api.test.js",
     "build": "vite build && node scripts/generate-route-html.mjs && node scripts/prerender-routes.mjs",
     "preview": "vite preview"
   },
@@ -23,6 +24,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@apidevtools/swagger-parser": "^12.1.0",
     "@eslint/js": "^10.0.1",
     "@vitejs/plugin-react": "^4.3.2",
     "autoprefixer": "^10.4.20",
