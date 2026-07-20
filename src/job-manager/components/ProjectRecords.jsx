@@ -1,13 +1,33 @@
-import { Download, ExternalLink, File, FileCheck2, FileImage, FolderOpen, ImagePlus, Maximize2, Trash2, X } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { Download, Eye, File, FileCheck2, FileImage, FolderOpen, ImagePlus, Maximize2, Trash2, X } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
 import { formatDate } from '../utils/format'
 
 const documentGroups = ['Quotation', 'Invoice', 'Payment schedule', 'Photos', 'Contract', 'Certificate', 'Google Drive folder', 'Other']
 const documentIcon = (type) => type === 'Photos' ? FileImage : type.includes('Drive') ? FolderOpen : type === 'Certificate' ? FileCheck2 : File
 
 export function DocumentsSection({ documents, users, canDelete = () => false, onDelete }) {
+  const [preview, setPreview] = useState(null)
   const groups = useMemo(() => documentGroups.map((type) => ({ type, items: documents.filter((document) => document.type.toLowerCase() === type.toLowerCase()) })).filter((group) => group.items.length), [documents])
-  return <section className="jm-detail-card"><div className="jm-card-heading"><div><h2>Documents</h2><p>{documents.length} linked file{documents.length === 1 ? '' : 's'}</p></div><span>Grouped by type</span></div>{groups.length ? <div className="jm-document-groups">{groups.map((group) => <div key={group.type}><h3>{group.type}</h3>{group.items.map((document) => { const Icon = documentIcon(document.type); const uploader = users.find((user) => user.id === document.uploadedBy); return <article key={document.id}><span className="jm-document-icon"><Icon size={18} /></span><div><strong>{document.name}</strong><small>{formatDate(document.createdAt)} · {uploader?.name || 'Ictinus'}</small></div><a href={document.url} target="_blank" rel="noreferrer" aria-label="Open document"><ExternalLink size={15} /></a><a href={document.url} download aria-label="Download document"><Download size={15} /></a>{canDelete(document) && <button onClick={() => onDelete(document.id)} aria-label="Delete document"><Trash2 size={15} /></button>}</article> })}</div>)}</div> : <p className="jm-empty-copy">No documents linked yet.</p>}</section>
+  useEffect(() => {
+    if (!preview) return undefined
+    const previousOverflow = document.body.style.overflow
+    const closeOnEscape = (event) => { if (event.key === 'Escape') setPreview(null) }
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', closeOnEscape)
+    return () => { document.body.style.overflow = previousOverflow; window.removeEventListener('keydown', closeOnEscape) }
+  }, [preview])
+  return <section className="jm-detail-card"><div className="jm-card-heading"><div><h2>Documents</h2><p>{documents.length} linked file{documents.length === 1 ? '' : 's'}</p></div><span>Grouped by type</span></div>{groups.length ? <div className="jm-document-groups">{groups.map((group) => <div key={group.type}><h3>{group.type}</h3>{group.items.map((document) => { const Icon = documentIcon(document.type); const uploader = users.find((user) => user.id === document.uploadedBy); return <article key={document.id}><span className="jm-document-icon"><Icon size={18} /></span><div><strong>{document.name}</strong><small>{formatDate(document.createdAt)} · {uploader?.name || 'Ictinus'}</small></div><button type="button" onClick={() => setPreview(document)} aria-label={`Preview ${document.name}`} disabled={!document.url}><Eye size={15} /></button><a href={document.url} download aria-label={`Download ${document.name}`}><Download size={15} /></a>{canDelete(document) && <button onClick={() => onDelete(document.id)} aria-label={`Delete ${document.name}`}><Trash2 size={15} /></button>}</article> })}</div>)}</div> : <p className="jm-empty-copy">No documents linked yet.</p>}{preview && <DocumentPreview document={preview} onClose={() => setPreview(null)} />}</section>
+}
+
+function DocumentPreview({ document: selectedDocument, onClose }) {
+  const source = selectedDocument.storagePath || selectedDocument.url
+  const imageFile = /\.(jpe?g|png|webp)(?:\?|$)/i.test(source)
+  return <div className="jm-document-preview" role="dialog" aria-modal="true" aria-labelledby="jm-document-preview-title" onMouseDown={onClose}>
+    <div className="jm-document-preview-shell" onMouseDown={(event) => event.stopPropagation()}>
+      <header><div><span>{selectedDocument.type}</span><strong id="jm-document-preview-title">{selectedDocument.name}</strong></div><div><a href={selectedDocument.url} download aria-label={`Download ${selectedDocument.name}`}><Download size={18} /><span>Download</span></a><button type="button" onClick={onClose} aria-label="Close document preview" autoFocus><X size={21} /></button></div></header>
+      <div className="jm-document-preview-content">{imageFile ? <img src={selectedDocument.url} alt={selectedDocument.name} /> : <iframe src={selectedDocument.url} title={selectedDocument.name} />}</div>
+    </div>
+  </div>
 }
 
 export function PhotoGallery({ photos, users, canDelete = () => false, onDelete, onAdd, onUpload, storageEnabled }) {
