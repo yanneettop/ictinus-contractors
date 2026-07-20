@@ -94,9 +94,9 @@ export const supabaseRepository = {
   },
   async uploadFile(projectId, file, kind) {
     if (file.size > 25 * 1024 * 1024) throw new Error('Files must be 25 MB or smaller.')
-    const allowed = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf']; if (!allowed.includes(file.type)) throw new Error('Use JPG, PNG, WebP or PDF files.')
+    const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif', 'application/pdf']; const extensionAllowed = /\.(jpe?g|png|webp|heic|heif|pdf)$/i.test(file.name); if (!allowed.includes(file.type) && !(extensionAllowed && !file.type)) throw new Error('Use JPG, PNG, WebP, HEIC, HEIF or PDF files.')
     const safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, '-'); const path = `${projectId}/${kind}/${crypto.randomUUID()}-${safeName}`; const client = requireSupabase()
-    const { error } = await client.storage.from('ictinus-project-files').upload(path, file, { upsert: false, contentType: file.type }); if (error) throw error
+    const { error } = await client.storage.from('ictinus-project-files').upload(path, file, { upsert: false, contentType: file.type || 'application/octet-stream' }); if (error) throw error
     return { storagePath: path, url: await signedUrl(client, path) }
   },
   async deleteFile(path) { if (!path) return; const { error } = await requireSupabase().storage.from('ictinus-project-files').remove([path]); if (error) throw error },
