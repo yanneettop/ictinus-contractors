@@ -41,8 +41,10 @@ test('site manager project reads redact financial values', async () => {
 test('chat completes an OpenAI function-call loop and returns action metadata', async () => {
   const originalFetch = globalThis.fetch
   let call = 0
-  globalThis.fetch = async () => {
+  const requests = []
+  globalThis.fetch = async (_url, options) => {
     call += 1
+    requests.push(JSON.parse(options.body))
     const payload = call === 1
       ? { id: 'resp-1', output: [{ type: 'function_call', name: 'list_overdue_tasks', call_id: 'call-1', arguments: '{}' }] }
       : { id: 'resp-2', output_text: 'There are no overdue tasks.', output: [] }
@@ -53,6 +55,7 @@ test('chat completes an OpenAI function-call loop and returns action metadata', 
     assert.equal(result.message, 'There are no overdue tasks.')
     assert.deepEqual(result.actions, [{ name: 'list_overdue_tasks', success: true }])
     assert.equal(call, 2)
+    assert.ok(requests.every((payload) => payload.instructions.includes('Never put ** around words.')))
+    assert.ok(requests.every((payload) => payload.instructions.includes('warm, natural and practical tone')))
   } finally { globalThis.fetch = originalFetch }
 })
-

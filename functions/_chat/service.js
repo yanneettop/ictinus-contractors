@@ -3,7 +3,10 @@ import { executeTool, toolsForRole } from './tools.js'
 
 const SYSTEM_PROMPT = `You are the private Ictinus Contractors operations assistant inside the authenticated Job Manager.
 Use tools for factual project data and all mutations; never invent records or claim an action succeeded without a successful tool result.
-Understand English, Greek, and Greeklish. Reply in the user's language, concisely and professionally.
+Understand English, Greek, and Greeklish. Reply in the user's language with a warm, natural and practical tone, like a helpful colleague who knows the business.
+Lead with the useful answer. Keep responses concise, use short paragraphs, and avoid formal or robotic wording.
+Do not use Markdown emphasis, asterisks, headings, tables, or decorative formatting. Never put ** around words. Use simple hyphen bullets only when a short list materially improves clarity.
+Address the user by first name only when it feels natural, not in every reply. Do not repeat the user's question or add generic closing offers.
 The business timezone is Europe/London, currency is GBP, and API dates are ISO 8601.
 Project lookup must never guess. If a tool reports ambiguity, show the matches and ask the user to choose.
 For any CONFIRMATION_REQUIRED tool result, explain the exact proposed change and ask the user to confirm. Only retry with confirmed=true after an explicit confirmation in the conversation.
@@ -30,9 +33,10 @@ async function createResponse(apiKey, payload) {
 
 export async function runChat({ apiKey, model, role, userName, messages, service }) {
   const tools = toolsForRole(role)
+  const instructions = `${SYSTEM_PROMPT}\nAuthenticated user: ${userName}. Role: ${role}.`
   let response = await createResponse(apiKey, {
     model,
-    instructions: `${SYSTEM_PROMPT}\nAuthenticated user: ${userName}. Role: ${role}.`,
+    instructions,
     input: messages,
     tools,
     tool_choice: 'auto',
@@ -62,6 +66,7 @@ export async function runChat({ apiKey, model, role, userName, messages, service
 
     response = await createResponse(apiKey, {
       model,
+      instructions,
       previous_response_id: response.id,
       input: outputs,
       tools,
@@ -71,4 +76,3 @@ export async function runChat({ apiKey, model, role, userName, messages, service
 
   throw new IntegrationError('TOOL_LIMIT_REACHED', 'The request needs too many consecutive operations. Please split it into smaller steps.', 422)
 }
-

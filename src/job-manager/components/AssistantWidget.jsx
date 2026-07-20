@@ -6,6 +6,20 @@ import { sendChatMessages } from '../services/chatService'
 const welcome = { id: 'welcome', role: 'assistant', content: 'Hello — I can help with projects, tasks, payments, journal notes and the live calendar. What would you like to do?' }
 const suggestions = ['Show today’s priorities', 'List overdue tasks', 'Show active projects', 'Show outstanding payments']
 
+function InlineMessage({ text }) {
+  return text.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).map((part, index) => part.startsWith('**') && part.endsWith('**')
+    ? <strong key={`${part}-${index}`}>{part.slice(2, -2)}</strong>
+    : part)
+}
+
+function MessageContent({ content }) {
+  return <div className="jm-assistant-copy">{content.split('\n').map((line, index) => {
+    const bullet = /^\s*[-•]\s+/.test(line)
+    const text = bullet ? line.replace(/^\s*[-•]\s+/, '') : line
+    return <p className={bullet ? 'jm-assistant-copy-bullet' : undefined} key={`${line}-${index}`}>{bullet && <span aria-hidden="true">•</span>}<InlineMessage text={text} /></p>
+  })}</div>
+}
+
 function storedValue(key, fallback) {
   try {
     const stored = localStorage.getItem(key) ?? sessionStorage.getItem(key)
@@ -70,7 +84,7 @@ export default function AssistantWidget() {
       <div className="jm-assistant-messages">
         {messages.map((message) => <article key={message.id} className={`jm-assistant-message jm-assistant-message--${message.role}`}>
           {message.role === 'assistant' && <span><Bot size={17} /></span>}
-          <div><p>{message.content}</p>{message.actions?.length > 0 && <small><Check size={12} />{message.actions.some((action) => action.success) ? 'Live data updated' : 'No changes made'}</small>}</div>
+          <div><MessageContent content={message.content} />{message.actions?.length > 0 && <small><Check size={12} />{message.actions.some((action) => action.success) ? 'Live data updated' : 'No changes made'}</small>}</div>
         </article>)}
         {sending && <article className="jm-assistant-message jm-assistant-message--assistant"><span><Bot size={17} /></span><div className="jm-assistant-thinking"><i /><i /><i /></div></article>}
         <div ref={endRef} />
