@@ -20,7 +20,7 @@ export default function ManagerLayout() {
   const current = nav.slice().reverse().find((item) => location.pathname.startsWith(item.to) && item.to !== '/job-manager') || nav[0]
   return <div className="jm-shell">
     <aside className="jm-sidebar">
-      <div className="jm-brand"><div className="jm-brand-mark">I</div><div><strong>Ictinus</strong><span>Job Manager</span></div></div>
+      <div className="jm-brand"><div className="jm-brand-mark jm-brand-mark--logo"><img src="/logo_trans-120.webp" alt="" /></div><div><strong>Ictinus</strong><span>Job Manager</span></div></div>
       <nav aria-label="Main navigation">{nav.map(({ to, label, icon: Icon, end }) => <NavLink key={to} to={to} end={end}><Icon size={20} /><span>{label}</span></NavLink>)}</nav>
       <div className="jm-sidebar-note"><strong>Private workspace</strong><span>{authMode === 'supabase' ? (realtimeStatus === 'live' ? 'Supabase · Live' : 'Supabase connected') : 'Local demo data'}</span></div>
     </aside>

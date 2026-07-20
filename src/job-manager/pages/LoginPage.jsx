@@ -40,7 +40,7 @@ export default function LoginPage() {
   return <main className="jm-login">
     <section className="jm-login-panel" aria-labelledby="jm-login-title">
       <div className="jm-login-brand">
-        <div className="jm-brand-mark" aria-hidden="true">I</div>
+        <div className="jm-brand-mark jm-brand-mark--logo" aria-hidden="true"><img src="/logo_trans-120.webp" alt="" /></div>
         <div><strong>Ictinus</strong><span>Job Manager</span></div>
       </div>
 
