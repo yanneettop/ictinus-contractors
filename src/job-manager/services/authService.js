@@ -22,6 +22,7 @@ export const localAuthService = {
   async signOut() { sessionStorage.removeItem(SESSION_KEY) },
   onAuthStateChange() { return () => {} },
   async resetPassword() { throw new Error('Password reset requires Supabase.') },
+  async getAccessToken() { return null },
 }
 
 export const supabaseAuthService = {
@@ -33,6 +34,11 @@ export const supabaseAuthService = {
     if (profileError) throw profileError
     if (!profile.active) { await client.auth.signOut(); throw new Error('This account has been disabled.') }
     return profileToUser(profile, user)
+  },
+  async getAccessToken() {
+    const { data: { session }, error } = await requireSupabase().auth.getSession()
+    if (error) throw error
+    return session?.access_token || null
   },
   async signIn(email, password) {
     const client = requireSupabase(); const { data, error } = await client.auth.signInWithPassword({ email: email.trim().toLowerCase(), password })

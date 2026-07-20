@@ -12,6 +12,7 @@ import ProjectDetailPage from './pages/ProjectDetailPage'
 import PaymentsPage from './pages/PaymentsPage'
 import FilesPage from './pages/FilesPage'
 import SettingsPage from './pages/SettingsPage'
+import AssistantPage from './pages/AssistantPage'
 import './manager.css'
 
 function ProtectedLayout() {
@@ -35,6 +36,7 @@ function ManagerRoutes() {
       <Route path="projects/:id/edit" element={<ProjectFormPage />} />
       <Route path="payments" element={<PaymentsPage />} />
       <Route path="files" element={<FilesPage />} />
+      <Route path="assistant" element={<AssistantPage />} />
       <Route path="settings" element={<SettingsPage />} />
     </Route>
     <Route path="*" element={<Navigate to="/job-manager" replace />} />
