@@ -113,6 +113,22 @@ export function JobManagerProvider({ children, repository = defaultRepository })
       return quoteId
     } catch (uploadError) { await repository.deleteFile?.(uploaded.storagePath); throw uploadError }
   }
+  const attachLeadQuoteDocument = async (leadId, values, documentId) => {
+    const quoteId = repository.createId('lead-quote'); const now = new Date().toISOString()
+    await commit((current) => {
+      const next = structuredClone(current); const lead = next.leads.find((item) => item.id === leadId); const document = next.documents.find((item) => item.id === documentId && item.leadId === leadId)
+      if (!document) throw new Error('The quotation file could not be found.')
+      document.type = 'Quotation'
+      next.leadQuotes.push({ id: quoteId, leadId, documentId, reference: values.reference || '', amount: Number(values.amount || 0), status: values.status || 'Sent', sentAt: values.status === 'Sent' ? now : null, notes: values.notes || '', projectTitle: values.projectTitle || `${lead.projectType} - ${lead.clientName}`, projectType: values.projectType || lead.projectType, description: values.description || lead.enquirySummary, scope: (values.scopeText || '').split('\n').map((item) => item.trim()).filter(Boolean), address: values.address || lead.fullAddress, postcode: values.postcode || lead.postcode, startDate: values.startDate || null, endDate: values.endDate || null, createdBy: user.id, createdAt: now, updatedAt: now })
+      lead.quoteId = quoteId
+      if (Number(values.amount || 0) > 0) lead.estimatedValue = Number(values.amount)
+      lead.stage = values.status === 'Preparing' ? 'Quote Preparing' : 'Quote Sent'
+      lead.updatedAt = now
+      addLeadActivity(next, leadId, `Quote details added to ${document.name}`)
+      return next
+    })
+    return quoteId
+  }
   const selectLeadQuote = (leadId, quoteId) => commit((current) => {
     const next = structuredClone(current); const lead = next.leads.find((item) => item.id === leadId); const quote = next.leadQuotes.find((item) => item.id === quoteId)
     lead.quoteId = quoteId; if (quote?.amount > 0) lead.estimatedValue = quote.amount; lead.updatedAt = new Date().toISOString(); addLeadActivity(next, leadId, `Quote ${quote?.reference || ''} selected for project`); return next
@@ -218,7 +234,7 @@ export function JobManagerProvider({ children, repository = defaultRepository })
   const preparePasswordUpdate = useCallback(() => authService.preparePasswordUpdate?.() || Promise.resolve({ ready: false, error: 'Password setup requires Supabase.' }), [])
   const updatePassword = (password) => authService.updatePassword(password)
 
-  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, realtimeStatus, lastSyncedAt, login, logout, resetPassword, preparePasswordUpdate, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData, saveLead, updateLeadStage, logLeadCommunication, addLeadTask, bookLeadVisit, markLeadLost, uploadLeadDocument, uploadLeadQuote, selectLeadQuote, convertLead }
+  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, realtimeStatus, lastSyncedAt, login, logout, resetPassword, preparePasswordUpdate, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData, saveLead, updateLeadStage, logLeadCommunication, addLeadTask, bookLeadVisit, markLeadLost, uploadLeadDocument, uploadLeadQuote, attachLeadQuoteDocument, selectLeadQuote, convertLead }
   return <JobManagerContext.Provider value={value}>{children}</JobManagerContext.Provider>
 }
 
