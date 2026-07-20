@@ -5,7 +5,7 @@ import { EmptyState, PageHeader } from '../components/UI'
 import { useJobManager } from '../context/JobManagerContext'
 import { formatDate, projectClient } from '../utils/format'
 
-const documentTypes = ['Quotation', 'Invoice', 'Payment schedule', 'Photos', 'Contract', 'Certificate', 'Google Drive folder', 'Other']
+const documentTypes = ['Quotation', 'Site survey', 'Client brief', 'Plans', 'Invoice', 'Payment schedule', 'Photos', 'Contract', 'Certificate', 'Google Drive folder', 'Other']
 
 function documentIcon(type) {
   if (type === 'Photos') return FileImage
@@ -26,12 +26,14 @@ export default function FilesPage() {
 
   const rows = useMemo(() => data.documents.map((document) => {
     const project = data.projects.find((item) => item.id === document.projectId)
+    const lead = data.leads.find((item) => item.id === document.leadId)
     const client = project ? projectClient(data, project) : null
-    return { document, project, client }
-  }).filter(({ document, project, client }) => {
+    return { document, project, lead, client }
+  }).filter(({ document, project, lead, client }) => {
     const needle = search.trim().toLowerCase()
-    const haystack = `${document.name} ${document.type} ${project?.title || ''} ${project?.postcode || ''} ${client?.name || ''}`.toLowerCase()
-    return (!needle || haystack.includes(needle)) && (type === 'All' || document.type === type) && (projectId === 'All' || document.projectId === projectId)
+    const haystack = `${document.name} ${document.type} ${project?.title || ''} ${project?.postcode || ''} ${client?.name || ''} ${lead?.clientName || ''} ${lead?.postcode || ''}`.toLowerCase()
+    const ownerMatches = projectId === 'All' || document.projectId === projectId || `lead:${document.leadId}` === projectId
+    return (!needle || haystack.includes(needle)) && (type === 'All' || document.type === type) && ownerMatches
   }).sort((a, b) => (b.document.createdAt || '').localeCompare(a.document.createdAt || '')), [data, search, type, projectId])
 
   const submit = async (event) => {
@@ -77,16 +79,16 @@ export default function FilesPage() {
     <section className="jm-file-filters" aria-label="File filters">
       <label className="jm-search"><Search size={18} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search file, client, project or postcode" aria-label="Search files" /></label>
       <label><span>Type</span><select value={type} onChange={(event) => setType(event.target.value)}><option>All</option>{documentTypes.map((item) => <option key={item}>{item}</option>)}</select></label>
-      <label><span>Project</span><select value={projectId} onChange={(event) => setProjectId(event.target.value)}><option value="All">All projects</option>{data.projects.map((project) => <option key={project.id} value={project.id}>{projectClient(data, project)?.name} · {project.postcode}</option>)}</select></label>
+      <label><span>Linked to</span><select value={projectId} onChange={(event) => setProjectId(event.target.value)}><option value="All">All records</option><optgroup label="Projects">{data.projects.map((project) => <option key={project.id} value={project.id}>{projectClient(data, project)?.name} · {project.postcode}</option>)}</optgroup><optgroup label="Leads">{data.leads.map((lead) => <option key={lead.id} value={`lead:${lead.id}`}>{lead.clientName} · {lead.postcode}</option>)}</optgroup></select></label>
     </section>
 
-    {rows.length ? <div className="jm-files-list">{rows.map(({ document, project, client }) => {
+    {rows.length ? <div className="jm-files-list">{rows.map(({ document, project, lead, client }) => {
       const Icon = documentIcon(document.type)
       const uploader = users.find((item) => item.id === document.uploadedBy)
       return <article key={document.id}>
         <span className="jm-file-icon"><Icon size={20} /></span>
         <div className="jm-file-name"><strong>{document.name}</strong><span>{document.type} · {formatDate(document.createdAt)} · {uploader?.name || 'Ictinus'}</span></div>
-        <div className="jm-file-project">{project ? <Link to={`/job-manager/projects/${project.id}`}><strong>{client?.name || project.title}</strong><span>{project.postcode} · {project.title}</span></Link> : <span>Project unavailable</span>}</div>
+        <div className="jm-file-project">{project ? <Link to={`/job-manager/projects/${project.id}`}><strong>{client?.name || project.title}</strong><span>{project.postcode} · {project.title}</span></Link> : lead ? <Link to={`/job-manager/leads/${lead.id}`}><strong>{lead.clientName}</strong><span>Lead · {lead.postcode} · {lead.projectType}</span></Link> : <span>Record unavailable</span>}</div>
         <div className="jm-file-actions"><a href={document.url} target="_blank" rel="noreferrer" aria-label={`Open ${document.name}`}><ExternalLink size={16} /></a><a href={document.url} download aria-label={`Download ${document.name}`}><Download size={16} /></a></div>
       </article>
     })}</div> : <EmptyState title="No files match" text={data.documents.length ? 'Try clearing one or more filters.' : 'Upload the first quotation, invoice or project document.'} action={data.documents.length ? <button className="jm-button jm-button--secondary" type="button" onClick={clearFilters}>Clear filters</button> : <button className="jm-button jm-button--primary" type="button" onClick={() => setAdding(true)}><Files size={17} />Add first file</button>} />}

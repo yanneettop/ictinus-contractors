@@ -19,7 +19,7 @@ export function DocumentsSection({ documents, users, canDelete = () => false, on
   return <section className="jm-detail-card"><div className="jm-card-heading"><div><h2>Documents</h2><p>{documents.length} linked file{documents.length === 1 ? '' : 's'}</p></div><span>Grouped by type</span></div>{groups.length ? <div className="jm-document-groups">{groups.map((group) => <div key={group.type}><h3>{group.type}</h3>{group.items.map((document) => { const Icon = documentIcon(document.type); const uploader = users.find((user) => user.id === document.uploadedBy); return <article key={document.id}><span className="jm-document-icon"><Icon size={18} /></span><div><strong>{document.name}</strong><small>{formatDate(document.createdAt)} · {uploader?.name || 'Ictinus'}</small></div><button type="button" onClick={() => setPreview(document)} aria-label={`Preview ${document.name}`} disabled={!document.url}><Eye size={15} /></button><a href={document.url} download aria-label={`Download ${document.name}`}><Download size={15} /></a>{canDelete(document) && <button onClick={() => onDelete(document.id)} aria-label={`Delete ${document.name}`}><Trash2 size={15} /></button>}</article> })}</div>)}</div> : <p className="jm-empty-copy">No documents linked yet.</p>}{preview && <DocumentPreview document={preview} onClose={() => setPreview(null)} />}</section>
 }
 
-function DocumentPreview({ document: selectedDocument, onClose }) {
+export function DocumentPreview({ document: selectedDocument, onClose }) {
   const source = selectedDocument.storagePath || selectedDocument.url
   const imageFile = /\.(jpe?g|png|webp)(?:\?|$)/i.test(source)
   return <div className="jm-document-preview" role="dialog" aria-modal="true" aria-labelledby="jm-document-preview-title" onMouseDown={onClose}>

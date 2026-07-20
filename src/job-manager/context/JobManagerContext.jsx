@@ -84,6 +84,39 @@ export function JobManagerProvider({ children, repository = defaultRepository })
   const addLeadTask = (leadId, values) => commit((current) => { const next = structuredClone(current); next.tasks.push({ id: repository.createId('task'), projectId: null, leadId, title: values.title, dueDate: values.dueDate, assignedTo: values.assignedTo || user.id, priority: values.priority || 'Normal', completed: false, status: 'Pending', createdBy: user.id }); addLeadActivity(next, leadId, `Task added: ${values.title}`); return next })
   const bookLeadVisit = (leadId, values) => commit((current) => { const next = structuredClone(current); const lead = next.leads.find((item) => item.id === leadId); next.events.push({ id: repository.createId('event'), projectId: null, leadId, type: 'Site visit', title: `${lead.clientName} – ${lead.postcode}`, startDate: values.startDate, endDate: values.endDate || values.startDate, allDay: false, location: `${lead.fullAddress} ${lead.postcode}`.trim(), notes: values.notes || '', colourCategory: 'blue', googleCalendarEventId: null, syncStatus: 'not_configured', createdBy: user.id }); lead.siteVisitDate = values.startDate; lead.siteVisitStatus = 'Booked'; lead.stage = 'Site Visit Booked'; if (lead.source === 'Bark') lead.barkSiteVisitBooked = true; addLeadActivity(next, leadId, 'Site visit booked'); return next })
   const markLeadLost = (leadId, values) => commit((current) => { const next = structuredClone(current); const lead = next.leads.find((item) => item.id === leadId); Object.assign(lead, { stage: 'Lost', lostReason: values.reason, lostNotes: values.notes || '', updatedAt: new Date().toISOString() }); addLeadActivity(next, leadId, `Lead lost: ${values.reason}`); return next })
+  const uploadLeadDocument = async (leadId, values, file) => {
+    const uploaded = await repository.uploadFile(leadId, file, 'lead-documents')
+    try {
+      await commit((current) => {
+        const next = structuredClone(current)
+        next.documents.push({ id: repository.createId('document'), projectId: null, leadId, ...values, ...uploaded, createdAt: new Date().toISOString(), uploadedBy: user.id })
+        addLeadActivity(next, leadId, `File uploaded: ${values.name}`)
+        return next
+      })
+    } catch (uploadError) { await repository.deleteFile?.(uploaded.storagePath); throw uploadError }
+  }
+  const uploadLeadQuote = async (leadId, values, file) => {
+    const uploaded = await repository.uploadFile(leadId, file, 'lead-quotes')
+    const quoteId = repository.createId('lead-quote'); const documentId = repository.createId('document'); const now = new Date().toISOString()
+    try {
+      await commit((current) => {
+        const next = structuredClone(current); const lead = next.leads.find((item) => item.id === leadId)
+        next.documents.push({ id: documentId, projectId: null, leadId, type: 'Quotation', name: values.fileName || file.name, ...uploaded, createdAt: now, uploadedBy: user.id })
+        next.leadQuotes.push({ id: quoteId, leadId, documentId, reference: values.reference || '', amount: Number(values.amount || 0), status: values.status || 'Sent', sentAt: values.status === 'Sent' ? now : null, notes: values.notes || '', projectTitle: values.projectTitle || `${lead.projectType} - ${lead.clientName}`, projectType: values.projectType || lead.projectType, description: values.description || lead.enquirySummary, scope: (values.scopeText || '').split('\n').map((item) => item.trim()).filter(Boolean), address: values.address || lead.fullAddress, postcode: values.postcode || lead.postcode, startDate: values.startDate || null, endDate: values.endDate || null, createdBy: user.id, createdAt: now, updatedAt: now })
+        lead.quoteId = quoteId
+        if (Number(values.amount || 0) > 0) lead.estimatedValue = Number(values.amount)
+        lead.stage = values.status === 'Preparing' ? 'Quote Preparing' : 'Quote Sent'
+        lead.updatedAt = now
+        addLeadActivity(next, leadId, `Quote ${values.reference || file.name} uploaded and selected`)
+        return next
+      })
+      return quoteId
+    } catch (uploadError) { await repository.deleteFile?.(uploaded.storagePath); throw uploadError }
+  }
+  const selectLeadQuote = (leadId, quoteId) => commit((current) => {
+    const next = structuredClone(current); const lead = next.leads.find((item) => item.id === leadId); const quote = next.leadQuotes.find((item) => item.id === quoteId)
+    lead.quoteId = quoteId; if (quote?.amount > 0) lead.estimatedValue = quote.amount; lead.updatedAt = new Date().toISOString(); addLeadActivity(next, leadId, `Quote ${quote?.reference || ''} selected for project`); return next
+  })
   const convertLead = async (leadId, values) => { const projectId = await repository.convertLead(leadId, values); await refreshData(); return projectId }
 
   const saveProject = async (values, projectId) => {
@@ -149,7 +182,7 @@ export function JobManagerProvider({ children, repository = defaultRepository })
   })
   const deleteDocument = async (documentId) => {
     const document = data.documents.find((item) => item.id === documentId); await repository.deleteFile?.(document?.storagePath)
-    return commit((current) => { const next = structuredClone(current); next.documents = next.documents.filter((item) => item.id !== documentId); addActivity(next, document.projectId, `Document removed: ${document.name}`); return next })
+    return commit((current) => { const next = structuredClone(current); next.documents = next.documents.filter((item) => item.id !== documentId); next.leadQuotes.forEach((quote) => { if (quote.documentId === documentId) quote.documentId = null }); if (document.leadId) addLeadActivity(next, document.leadId, `File removed: ${document.name}`); else addActivity(next, document.projectId, `Document removed: ${document.name}`); return next })
   }
   const addEvent = (projectId, values) => commit((current) => {
     const next = structuredClone(current); const project = next.projects.find((item) => item.id === projectId); const client = next.clients.find((item) => item.id === project.clientId)
@@ -185,7 +218,7 @@ export function JobManagerProvider({ children, repository = defaultRepository })
   const preparePasswordUpdate = useCallback(() => authService.preparePasswordUpdate?.() || Promise.resolve({ ready: false, error: 'Password setup requires Supabase.' }), [])
   const updatePassword = (password) => authService.updatePassword(password)
 
-  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, realtimeStatus, lastSyncedAt, login, logout, resetPassword, preparePasswordUpdate, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData, saveLead, updateLeadStage, logLeadCommunication, addLeadTask, bookLeadVisit, markLeadLost, convertLead }
+  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, realtimeStatus, lastSyncedAt, login, logout, resetPassword, preparePasswordUpdate, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData, saveLead, updateLeadStage, logLeadCommunication, addLeadTask, bookLeadVisit, markLeadLost, uploadLeadDocument, uploadLeadQuote, selectLeadQuote, convertLead }
   return <JobManagerContext.Provider value={value}>{children}</JobManagerContext.Provider>
 }
 

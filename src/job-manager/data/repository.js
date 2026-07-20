@@ -7,7 +7,7 @@ const newId = (prefix) => `${prefix}-${Date.now()}-${Math.random().toString(36).
 
 const migrate = (source) => {
   const data = { ...clone(initialData), ...source }
-  data.version = 4
+  data.version = 5
   data.leads = source.leads || []
   data.leadCommunications = source.leadCommunications || []
   data.leadQuotes = source.leadQuotes || []
@@ -48,13 +48,15 @@ export const localRepository = {
     const lead = data.leads.find((item) => item.id === leadId)
     if (!lead) throw new Error('Lead not found.')
     if (lead.convertedProjectId) return lead.convertedProjectId
+    const quote = data.leadQuotes.find((item) => item.id === lead.quoteId) || [...data.leadQuotes].reverse().find((item) => item.leadId === leadId)
     const clientId = newId('client'); const projectId = newId('project'); const now = new Date().toISOString()
     data.clients.push({ id: clientId, name: lead.clientName, email: lead.email, phone: lead.phone, preferredContact: lead.preferredContactMethod })
-    const value = Number(conversion.contractValue || lead.estimatedValue || 0)
-    data.projects.unshift({ id: projectId, clientId, title: conversion.title || `${lead.projectType} - ${lead.clientName}`, projectType: lead.projectType, description: lead.enquirySummary, status: 'Confirmed', address: lead.fullAddress, postcode: lead.postcode, startDate: conversion.startDate, endDate: conversion.endDate, assignedTo: conversion.assignedTo || lead.assignedTo, contractValue: value, amountPaid: 0, outstandingBalance: value, internalNotes: lead.internalNotes, nextAction: 'Plan confirmed works', scope: [], provisional: false, createdAt: now, updatedAt: now })
+    const value = Number(conversion.contractValue || quote?.amount || lead.estimatedValue || 0)
+    data.projects.unshift({ id: projectId, clientId, title: conversion.title || quote?.projectTitle || `${lead.projectType} - ${lead.clientName}`, projectType: quote?.projectType || lead.projectType, description: quote?.description || lead.enquirySummary, status: 'Confirmed', address: quote?.address || lead.fullAddress, postcode: quote?.postcode || lead.postcode, startDate: conversion.startDate || quote?.startDate || now.slice(0, 10), endDate: conversion.endDate || quote?.endDate || conversion.startDate || now.slice(0, 10), assignedTo: conversion.assignedTo || lead.assignedTo, contractValue: value, amountPaid: 0, outstandingBalance: value, internalNotes: [lead.internalNotes, quote?.reference ? `Accepted quote: ${quote.reference}` : ''].filter(Boolean).join('\n'), nextAction: 'Plan confirmed works', scope: quote?.scope || [], provisional: false, createdAt: now, updatedAt: now })
     lead.stage = 'Won'; lead.convertedProjectId = projectId; lead.updatedAt = now
     data.events.forEach((item) => { if (item.leadId === leadId) { item.projectId = projectId; item.leadId = null } })
     data.tasks.forEach((item) => { if (item.leadId === leadId) { item.projectId = projectId; item.leadId = null } })
+    data.documents.forEach((item) => { if (item.leadId === leadId) { item.projectId = projectId; item.leadId = null } })
     await this.save(data); return projectId
   },
 }
