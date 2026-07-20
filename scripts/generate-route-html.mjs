@@ -24,6 +24,7 @@ const routes = [
   '/job-manager/login',
   '/job-manager/update-password',
   '/job-manager/calendar',
+  '/job-manager/leads',
   '/job-manager/assistant',
   '/job-manager/projects',
   '/job-manager/files',

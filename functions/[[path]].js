@@ -106,5 +106,9 @@ export async function onRequest(context) {
     return notFound(context)
   }
 
+  if (url.pathname === '/job-manager' || url.pathname.startsWith('/job-manager/')) {
+    return context.env.ASSETS.fetch(new URL('/job-manager/index.html', request.url))
+  }
+
   return context.next()
 }
