@@ -11,6 +11,30 @@ const normalisePostcode = (value = '') => value.toUpperCase().replace(/\s+/g, ''
 const normaliseName = (value = '') => value.trim().toLowerCase().replace(/\s+/g, ' ')
 const now = () => new Date().toISOString()
 
+export function mapProjectPatch(input, timestamp = now()) {
+  const values = {
+    title: input.title,
+    project_type: input.projectType,
+    description: input.description,
+    status: input.status,
+    address: input.address,
+    postcode: input.postcode,
+    start_date: input.startDate,
+    end_date: input.endDate,
+    estimated_duration: input.estimatedDuration,
+    contract_value_pence: input.contractValue === undefined ? undefined : pence(input.contractValue),
+    access_notes: input.accessNotes,
+    parking_notes: input.parkingNotes,
+    key_status: input.keyStatus,
+    internal_notes: input.internalNotes,
+    next_action: input.nextAction,
+    scope: input.scope,
+    provisional: input.provisional,
+    updated_at: timestamp,
+  }
+  return Object.fromEntries(Object.entries(values).filter(([, value]) => value !== undefined))
+}
+
 function projectView(row) {
   if (!row) return null
   return {
@@ -66,11 +90,14 @@ export class IntegrationService {
     this.repository = repository
   }
 
+  setRequestContext(context) { this.repository.setContext?.(context) }
+
   async resolveProject(identifier, lookup) {
     const id = lookup?.id || (UUID_PATTERN.test(identifier || '') ? identifier : null)
     if (id) {
       const row = await this.repository.project(id)
       if (!row) throw notFound('project', id)
+      this.repository.setContext?.({ projectId: row.id })
       return row
     }
 
@@ -92,6 +119,7 @@ export class IntegrationService {
 
     if (matches.length === 0) throw notFound('project', lookup || identifier)
     if (matches.length > 1) ambiguity(matches)
+    this.repository.setContext?.({ projectId: matches[0].id })
     return matches[0]
   }
 
@@ -186,14 +214,7 @@ export class IntegrationService {
     if (!validateDateRange(input.startDate || previous.start_date, input.endDate || previous.end_date)) throw new IntegrationError('INVALID_DATE_RANGE', 'endDate must be on or after startDate.', 422)
     if (input.status === 'Completed' && (input.startDate || previous.start_date) > new Date().toISOString().slice(0, 10)) throw new IntegrationError('INVALID_COMPLETION_DATE', 'A project cannot be completed before its start date.', 422)
 
-    const values = {
-      title: input.title, project_type: input.projectType, description: input.description, status: input.status,
-      address: input.address, postcode: input.postcode, start_date: input.startDate, end_date: input.endDate,
-      estimated_duration: input.estimatedDuration, contract_value_pence: input.contractValue === undefined ? undefined : pence(input.contractValue),
-      access_notes: input.accessNotes, parking_notes: input.parkingNotes, key_status: input.keyStatus,
-      internal_notes: input.internalNotes, next_action: input.nextAction, scope: input.scope, provisional: input.provisional, updated_at: now(),
-    }
-    Object.keys(values).forEach((key) => values[key] === undefined && delete values[key])
+    const values = mapProjectPatch(input)
     const updated = await this.repository.update('projects', previous.id, values)
     if (!updated) throw notFound('project', previous.id)
     const action = updated.status === 'Completed' && previous.status !== 'Completed' ? 'project.completed' : 'project.updated'
@@ -272,5 +293,25 @@ export class IntegrationService {
     const updated = await this.repository.update('project_events', id, values)
     await this.audit('event.updated', 'event', id, previous.project_id, previous, updated)
     return { event: eventView(updated), calendarSync: updated.google_calendar_event_id ? 'pending' : 'not_configured' }
+  }
+
+  async applyProjectFinancialCorrection(input) {
+    const result = await this.repository.rpc('apply_integration_project_correction', {
+      target_project_id: input.projectId,
+      project_patch: {
+        address: input.address,
+        postcode: input.postcode,
+        title: input.title,
+        description: input.description,
+        scope: input.scope,
+        contractValuePence: pence(input.contractValue),
+        endDate: input.endDate,
+        status: input.status,
+        nextAction: input.nextAction,
+      },
+      deposit_patch: { amountPence: pence(input.deposit.amount), percentage: input.deposit.percentage, paidDate: input.deposit.paidDate },
+      final_payment_patch: { amountPence: pence(input.finalPayment.amount), percentage: input.finalPayment.percentage, dueDate: input.finalPayment.dueDate },
+    })
+    return result
   }
 }

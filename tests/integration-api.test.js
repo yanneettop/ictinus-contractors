@@ -3,7 +3,10 @@ import test from 'node:test'
 import SwaggerParser from '@apidevtools/swagger-parser'
 import { integrationOpenApi } from '../functions/_integration/openapi.js'
 import { handleIntegrationRequest } from '../functions/_integration/router.js'
-import { IntegrationService } from '../functions/_integration/service.js'
+import { IntegrationError } from '../functions/_integration/errors.js'
+import { SupabaseIntegrationRepository } from '../functions/_integration/repository.js'
+import { projectCorrectionSchema, projectPatchSchema } from '../functions/_integration/schemas.js'
+import { IntegrationService, mapProjectPatch } from '../functions/_integration/service.js'
 
 const GEORGE_ID = '11111111-1111-4111-8111-111111111111'
 const STRATFORD_ID = '22222222-2222-4222-8222-222222222222'
@@ -50,6 +53,38 @@ class MemoryRepository {
     return structuredClone(row)
   }
   async audit(values) { return this.insert('activity_logs', values) }
+  setContext(context) { this.context = { ...this.context, ...context } }
+  async rpc(name, values) {
+    assert.equal(name, 'apply_integration_project_correction')
+    this.lastRpc = structuredClone(values)
+    const project = this.tables.projects.find((row) => row.id === values.target_project_id)
+    Object.assign(project, {
+      address: values.project_patch.address,
+      postcode: values.project_patch.postcode,
+      title: values.project_patch.title,
+      description: values.project_patch.description,
+      scope: values.project_patch.scope,
+      contract_value_pence: values.project_patch.contractValuePence,
+      end_date: values.project_patch.endDate,
+      status: values.project_patch.status,
+      next_action: values.project_patch.nextAction,
+    })
+    const upsertPayment = (title, patch, status) => {
+      let payment = this.tables.payments.find((row) => row.project_id === project.id && row.title.toLowerCase() === title.toLowerCase())
+      if (!payment) {
+        payment = { id: crypto.randomUUID(), project_id: project.id, title, created_at: new Date().toISOString() }
+        this.tables.payments.push(payment)
+      }
+      Object.assign(payment, { amount_pence: patch.amountPence, percentage: patch.percentage, status })
+      if (title === 'Final payment') Object.assign(payment, { due_date: patch.dueDate, paid_date: null })
+      return payment
+    }
+    const deposit = upsertPayment('Deposit', values.deposit_patch, 'Paid')
+    const finalPayment = upsertPayment('Final payment', values.final_payment_patch, 'Due')
+    project.amount_paid_pence = deposit.amount_pence
+    project.outstanding_balance_pence = Math.max(0, project.contract_value_pence - deposit.amount_pence)
+    return { projectId: project.id, depositId: deposit.id, finalPaymentId: finalPayment.id }
+  }
 }
 
 const request = (path, { method = 'GET', key = 'test-key', body } = {}) => new Request(`https://www.ictinuscontractors.co.uk/api/integration${path}`, {
@@ -146,6 +181,66 @@ test('returns field validation errors and blocks unsupported permissions', async
   assert.equal(deletion.response.status, 404)
 })
 
+test('normalises canonical project statuses and rejects unsupported project fields', () => {
+  assert.equal(projectPatchSchema.parse({ status: 'in_progress' }).status, 'In Progress')
+  assert.throws(() => projectPatchSchema.parse({ amountPaid: 750 }), /Unrecognized key/)
+})
+
+test('maps only allow-listed project fields and never maps derived financial totals', () => {
+  const mapped = mapProjectPatch({ title: 'Interior Repairs', contractValue: 2500, amountPaid: 750, outstandingBalance: 1750 }, '2026-07-20T12:00:00.000Z')
+  assert.deepEqual(mapped, { title: 'Interior Repairs', contract_value_pence: 250000, updated_at: '2026-07-20T12:00:00.000Z' })
+  assert.equal('amount_paid_pence' in mapped, false)
+  assert.equal('outstanding_balance_pence' in mapped, false)
+})
+
+test('keeps the project correction atomic, payment-driven, and idempotent', async () => {
+  const repository = new MemoryRepository()
+  repository.tables.projects.find((row) => row.id === STRATFORD_ID).client.name = 'Stratford'
+  const service = new IntegrationService(repository)
+  const input = projectCorrectionSchema.parse({
+    projectId: STRATFORD_ID,
+    address: '17 Waddington Road, London E15 1QF', postcode: 'E15 1QF', title: 'Interior Repairs & Repainting',
+    description: 'Repairs and repainting following water damage, covering two bedrooms, hallway and utility cupboard.',
+    scope: ['Repairs and repainting following water damage, covering two bedrooms, hallway and utility cupboard.'],
+    contractValue: 2500, endDate: '2026-07-21', status: 'in_progress',
+    nextAction: 'Complete final inspection and collect the £1,750 final payment.',
+    deposit: { amount: 750, percentage: 30 }, finalPayment: { amount: 1750, percentage: 70, dueDate: '2026-07-21' }, confirmed: true,
+  })
+  const first = await service.applyProjectFinancialCorrection(input)
+  const second = await service.applyProjectFinancialCorrection(input)
+  assert.equal(first.depositId, second.depositId)
+  assert.equal(first.finalPaymentId, second.finalPaymentId)
+  assert.equal(repository.tables.payments.filter((row) => row.project_id === STRATFORD_ID && /^(deposit|final payment)$/i.test(row.title)).length, 2)
+  assert.equal(repository.lastRpc.project_patch.status, 'In Progress')
+  assert.equal('amountPaidPence' in repository.lastRpc.project_patch, false)
+  assert.equal('outstandingBalancePence' in repository.lastRpc.project_patch, false)
+  assert.equal(repository.tables.projects.find((row) => row.id === STRATFORD_ID).outstanding_balance_pence, 175000)
+})
+
+test('returns a safe database error with correlation metadata and no request values', async () => {
+  const error = new IntegrationError('DATABASE_ERROR', 'Project update failed.', 500, { requestId: 'request-safe', step: 'activity_log_insert' })
+  const repository = new MemoryRepository()
+  repository.update = async () => { throw error }
+  const result = await invoke(`/projects/${GEORGE_ID}`, { method: 'PATCH', body: { nextAction: 'private client detail' } }, repository)
+  assert.equal(result.response.status, 500)
+  assert.equal(result.json.error.code, 'DATABASE_ERROR')
+  assert.equal(result.json.error.step, 'activity_log_insert')
+  assert.equal(JSON.stringify(result.json).includes('private client detail'), false)
+})
+
+test('classifies the broken audit trigger as an activity-log database failure', async () => {
+  const terminal = { maybeSingle: async () => ({ data: null, error: { code: '42703', message: 'record "new" has no field "project_id"' } }) }
+  const chain = { eq: () => chain, select: () => terminal }
+  const client = { from: () => ({ update: () => chain }) }
+  const repository = new SupabaseIntegrationRepository(client)
+  repository.setContext({ requestId: 'request-123', operationId: 'updateProject', route: 'PATCH /projects/id', projectId: GEORGE_ID })
+  await assert.rejects(repository.update('projects', GEORGE_ID, { next_action: 'x' }), (error) => {
+    assert.equal(error.code, 'DATABASE_ERROR')
+    assert.deepEqual(error.details, { requestId: 'request-123', step: 'activity_log_insert' })
+    return true
+  })
+})
+
 test('publishes a valid OpenAPI 3.1 document with unique safe operation IDs', async () => {
   await SwaggerParser.validate(integrationOpenApi)
   assert.equal(integrationOpenApi.openapi, '3.1.0')
@@ -154,4 +249,3 @@ test('publishes a valid OpenAPI 3.1 document with unique safe operation IDs', as
   assert.ok(operations.includes('findProject'))
   assert.equal(Object.keys(integrationOpenApi.paths).some((path) => /delete|users|admin/i.test(path)), false)
 })
-

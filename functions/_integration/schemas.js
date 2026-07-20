@@ -19,7 +19,7 @@ export const projectLookupSchema = z.object({
 const projectStatuses = ['Enquiry', 'Quoted', 'Confirmed', 'Scheduled', 'In Progress', 'On Hold', 'Completed', 'Cancelled']
 const statusLookup = new Map(projectStatuses.map((status) => [status.toLowerCase(), status]))
 const projectStatus = z.string().transform((value, context) => {
-  const status = statusLookup.get(value.trim().toLowerCase())
+  const status = statusLookup.get(value.trim().toLowerCase().replaceAll('_', ' ').replaceAll('-', ' ').replace(/\s+/g, ' '))
   if (!status) context.addIssue({ code: 'custom', message: `Use one of: ${projectStatuses.join(', ')}.` })
   return status
 })
@@ -123,3 +123,19 @@ export const eventPatchSchema = eventCreateSchema.omit({ project: true }).partia
 export function validateDateRange(startDate, endDate) {
   return !startDate || !endDate || new Date(endDate).getTime() >= new Date(startDate).getTime()
 }
+
+export const projectCorrectionSchema = z.object({
+  projectId: z.string().uuid(),
+  address: shortText,
+  postcode: ukPostcode,
+  title: shortText,
+  description: z.string().trim().min(1).max(10000),
+  scope: z.array(z.string().trim().min(1).max(1000)).min(1).max(100),
+  contractValue: money,
+  endDate: isoDate,
+  status: projectStatus,
+  nextAction: z.string().trim().min(1).max(1000),
+  deposit: z.object({ amount: money.positive(), percentage: z.number().min(0).max(100), paidDate: isoDate.optional() }).strict(),
+  finalPayment: z.object({ amount: money.positive(), percentage: z.number().min(0).max(100), dueDate: isoDate }).strict(),
+  confirmed: z.literal(true),
+}).strict()
