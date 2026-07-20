@@ -18,7 +18,7 @@ export default function ProjectsPage() {
     const needle = search.toLowerCase()
     return (!needle || `${client?.name} ${project.title} ${project.address} ${project.postcode}`.toLowerCase().includes(needle)) &&
       (status === 'All' || project.status === status) && (!postcode || project.postcode.toLowerCase().includes(postcode.toLowerCase())) && (!from || project.startDate >= from)
-  }), [data, search, status, postcode, from])
+  }).sort((first, second) => (first.startDate || '9999-12-31').localeCompare(second.startDate || '9999-12-31') || first.title.localeCompare(second.title)), [data, search, status, postcode, from])
 
   return <>
     <PageHeader eyebrow="Project pipeline" title="Projects" description={`${filtered.length} of ${data.projects.length} jobs shown`} action={can('create_projects') ? <AddProjectButton /> : null} />
