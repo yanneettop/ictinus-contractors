@@ -12,6 +12,8 @@ import ProjectDetailPage from './pages/ProjectDetailPage'
 import PaymentsPage from './pages/PaymentsPage'
 import FilesPage from './pages/FilesPage'
 import SettingsPage from './pages/SettingsPage'
+import LeadsPage from './pages/LeadsPage'
+import LeadDetailPage from './pages/LeadDetailPage'
 import './manager.css'
 
 function ProtectedLayout() {
@@ -29,6 +31,8 @@ function ManagerRoutes() {
     <Route element={<ProtectedLayout />}>
       <Route index element={<DashboardPage />} />
       <Route path="calendar" element={<CalendarPage />} />
+      <Route path="leads" element={<LeadsPage />} />
+      <Route path="leads/:id" element={<LeadDetailPage />} />
       <Route path="projects" element={<ProjectsPage />} />
       <Route path="projects/new" element={<ProjectFormPage />} />
       <Route path="projects/:id" element={<ProjectDetailPage />} />

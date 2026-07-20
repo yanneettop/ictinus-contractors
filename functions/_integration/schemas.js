@@ -124,6 +124,18 @@ export function validateDateRange(startDate, endDate) {
   return !startDate || !endDate || new Date(endDate).getTime() >= new Date(startDate).getTime()
 }
 
+const leadStage = z.enum(['New','Contacted','Site Visit Booked','Site Visit Completed','Quote Preparing','Quote Sent','Follow-up Due','Negotiation','Won','Lost','Archived'])
+const leadPriority = z.enum(['Low','Normal','High','Urgent'])
+export const leadCreateSchema = z.object({
+  clientName: shortText, email: z.string().email().max(240).optional().default(''), phone: z.string().max(60).optional().default(''), postcode: z.string().max(16).optional().default(''), fullAddress: z.string().max(500).optional().default(''), projectType: shortText, enquirySummary: optionalText(), estimatedValue: money.optional(), budget: money.optional(), stage: leadStage.default('New'), priority: leadPriority.default('Normal'), source: shortText.default('Other'), sourceReference: z.string().max(240).optional(), assignedTo: z.string().uuid().nullable().optional(), preferredContactMethod: z.enum(['Phone','Email','SMS','WhatsApp']).default('Phone'), preferredContactTime: z.string().max(120).optional(), nextAction: z.string().max(500).optional(), nextActionDueAt: dateTime.nullable().optional(), internalNotes: optionalText(), barkCreditsSpent: z.number().nonnegative().optional(), confirmed: z.boolean().optional(),
+}).strict()
+export const leadPatchSchema = leadCreateSchema.partial().strict().refine((value) => Object.keys(value).some((key) => key !== 'confirmed'), { message: 'Provide at least one lead field to update.' })
+export const leadCommunicationSchema = z.object({ type: z.enum(['Call','Email','SMS','WhatsApp','Meeting','Note']), direction: z.enum(['Inbound','Outbound','Internal']).default('Internal'), occurredAt: dateTime.optional(), summary: shortText, note: optionalText(), attachmentUrl: z.string().url().optional(), externalLink: z.string().url().optional() }).strict()
+export const leadSiteVisitSchema = z.object({ startDate: dateTime, endDate: dateTime.optional(), notes: optionalText(), confirmed: z.boolean().optional() }).strict()
+export const leadTaskSchema = z.object({ title: shortText, dueDate: isoDate, priority: leadPriority.default('Normal'), assignedTo: z.string().uuid().nullable().optional() }).strict()
+export const leadConvertSchema = z.object({ title: shortText.optional(), startDate: isoDate, endDate: isoDate, assignedTo: z.string().uuid().nullable().optional(), contractValue: money.optional(), confirmed: z.literal(true) }).strict()
+export const leadLostSchema = z.object({ reason: z.enum(['Price','No response','Chose competitor','Timing','Not suitable','Duplicate','Other']), notes: optionalText(), confirmed: z.literal(true) }).strict()
+
 export const projectCorrectionSchema = z.object({
   projectId: z.string().uuid(),
   address: shortText,

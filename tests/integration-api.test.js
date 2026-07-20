@@ -15,6 +15,7 @@ const PAYMENT_ID = '44444444-4444-4444-8444-444444444444'
 const TASK_ID = '55555555-5555-4555-8555-555555555555'
 const EVENT_ID = '66666666-6666-4666-8666-666666666666'
 const PROFILE_ID = '77777777-7777-4777-8777-777777777777'
+const LEAD_ID = '88888888-8888-4888-8888-888888888888'
 
 const baseProject = (id, name, postcode, title = 'Property Refurbishment') => ({
   id, client_id: crypto.randomUUID(), client: { id: crypto.randomUUID(), name, phone: '', email: '' }, assignee: null,
@@ -31,7 +32,8 @@ class MemoryRepository {
       projects: [baseProject(GEORGE_ID, 'George Brown', 'SE18 7RU'), baseProject(STRATFORD_ID, 'Emma Stone', 'E15 1QF', 'Stratford Renovation')],
       tasks: [{ id: TASK_ID, project_id: GEORGE_ID, title: 'Old task', due_date: '2026-07-01', assigned_to: null, priority: 'Low', completed: false, created_at: '2026-07-01T09:00:00.000Z', updated_at: '2026-07-01T09:00:00.000Z' }],
       payments: [{ id: PAYMENT_ID, project_id: GEORGE_ID, title: 'Final payment', percentage: 50, amount_pence: 500000, due_date: '2026-07-10', paid_date: null, status: 'Due', invoice_reference: '', notes: '', created_at: '2026-07-01T09:00:00.000Z', updated_at: '2026-07-01T09:00:00.000Z' }],
-      project_events: [], journal_entries: [], activity_logs: [],
+      project_events: [], journal_entries: [], activity_logs: [], lead_communications: [], lead_quotes: [],
+      leads: [{ id: LEAD_ID, client_name: 'Alex Example', email: 'alex@example.com', phone: '07111111111', postcode: 'E3 2AA', full_address: '2 Example Road', project_type: 'Interior Painting', enquiry_summary: 'Paint two rooms', estimated_value_pence: 240000, budget_pence: null, stage: 'New', priority: 'High', source: 'Website', source_reference: '', bark_credits_spent: null, bark_site_visit_booked: false, assigned_to: PROFILE_ID, preferred_contact_method: 'Phone', preferred_contact_time: '', first_contacted_at: null, last_contacted_at: null, next_action: 'Call client', next_action_due_at: '2026-07-19T09:00:00.000Z', reminder_status: 'None', site_visit_date: null, site_visit_status: 'Not booked', internal_notes: '', created_at: '2026-07-18T09:00:00.000Z', updated_at: '2026-07-18T09:00:00.000Z' }],
     }
     if (duplicateGeorge) this.tables.projects.push(baseProject(OTHER_GEORGE_ID, 'George Smith', 'SE18 7RU', 'Kitchen Works'))
   }
@@ -55,6 +57,12 @@ class MemoryRepository {
   async audit(values) { return this.insert('activity_logs', values) }
   setContext(context) { this.context = { ...this.context, ...context } }
   async rpc(name, values) {
+    if (name === 'convert_lead_to_project') {
+      const lead = this.tables.leads.find((row) => row.id === values.target_lead_id)
+      if (lead.converted_project_id) return lead.converted_project_id
+      const id = crypto.randomUUID(); lead.stage = 'Won'; lead.converted_project_id = id
+      this.tables.projects.push(baseProject(id, lead.client_name, lead.postcode, values.conversion.title)); return id
+    }
     assert.equal(name, 'apply_integration_project_correction')
     this.lastRpc = structuredClone(values)
     const project = this.tables.projects.find((row) => row.id === values.target_project_id)
@@ -241,11 +249,63 @@ test('classifies the broken audit trigger as an activity-log database failure', 
   })
 })
 
+test('supports lead intake, lookup, updates and duplicate-safe resolution', async () => {
+  const repository = new MemoryRepository()
+  const listed = await invoke('/leads?stage=New', {}, repository)
+  assert.equal(listed.json.data.result[0].clientName, 'Alex Example')
+  const resolved = await invoke('/leads/resolve?email=alex%40example.com', {}, repository)
+  assert.equal(resolved.json.data.result.id, LEAD_ID)
+  const created = await invoke('/leads', { method: 'POST', body: { clientName: 'New Client', projectType: 'Exterior Painting', phone: '07000000001', priority: 'Urgent' } }, repository)
+  assert.equal(created.response.status, 201)
+  assert.equal(created.json.data.result.priority, 'Urgent')
+  const updated = await invoke(`/leads/${LEAD_ID}`, { method: 'PATCH', body: { nextAction: 'Arrange access' } }, repository)
+  assert.equal(updated.json.data.result.nextAction, 'Arrange access')
+})
+
+test('logs lead communications and promotes a new lead to contacted', async () => {
+  const repository = new MemoryRepository()
+  const result = await invoke(`/leads/${LEAD_ID}/communications`, { method: 'POST', body: { type: 'Call', direction: 'Outbound', summary: 'Discussed the work' } }, repository)
+  assert.equal(result.response.status, 201)
+  assert.equal(repository.tables.lead_communications.length, 1)
+  assert.equal(repository.tables.leads[0].stage, 'Contacted')
+  assert.ok(repository.tables.activity_logs.some((row) => row.action === 'lead.communication_logged'))
+})
+
+test('creates lead tasks and blue site visits without claiming calendar sync', async () => {
+  const repository = new MemoryRepository()
+  const task = await invoke(`/leads/${LEAD_ID}/tasks`, { method: 'POST', body: { title: 'Measure rooms', dueDate: '2026-07-23', priority: 'High' } }, repository)
+  assert.equal(task.response.status, 201)
+  assert.equal(repository.tables.tasks.at(-1).lead_id, LEAD_ID)
+  const visit = await invoke(`/leads/${LEAD_ID}/site-visits`, { method: 'POST', body: { startDate: '2026-07-24T09:00:00+01:00', endDate: '2026-07-24T10:00:00+01:00' } }, repository)
+  assert.equal(visit.json.data.result.calendarSync, 'not_configured')
+  assert.equal(repository.tables.project_events[0].colour_category, 'blue')
+  assert.equal(repository.tables.leads[0].stage, 'Site Visit Booked')
+})
+
+test('requires confirmation for lost/won and keeps conversion idempotent', async () => {
+  const repository = new MemoryRepository()
+  const rejectedLost = await invoke(`/leads/${LEAD_ID}/mark-lost`, { method: 'POST', body: { reason: 'Price' } }, repository)
+  assert.equal(rejectedLost.response.status, 422)
+  const won = await invoke(`/leads/${LEAD_ID}/convert`, { method: 'POST', body: { title: 'Alex Painting', startDate: '2026-08-01', endDate: '2026-08-07', confirmed: true } }, repository)
+  const repeat = await invoke(`/leads/${LEAD_ID}/convert`, { method: 'POST', body: { title: 'Alex Painting', startDate: '2026-08-01', endDate: '2026-08-07', confirmed: true } }, repository)
+  assert.equal(won.json.data.result.projectId, repeat.json.data.result.projectId)
+  assert.equal(repository.tables.projects.filter((row) => row.id === won.json.data.result.projectId).length, 1)
+})
+
+test('returns lead follow-ups and overdue actions from real stored dates', async () => {
+  const repository = new MemoryRepository()
+  const followUps = await invoke('/leads/follow-ups', {}, repository)
+  const overdue = await invoke('/leads/overdue', {}, repository)
+  assert.equal(followUps.json.data.result.length, 1)
+  assert.equal(overdue.json.data.result.length, 1)
+})
+
 test('publishes a valid OpenAPI 3.1 document with unique safe operation IDs', async () => {
   await SwaggerParser.validate(integrationOpenApi)
   assert.equal(integrationOpenApi.openapi, '3.1.0')
   const operations = Object.values(integrationOpenApi.paths).flatMap((path) => Object.values(path).map((operation) => operation.operationId))
   assert.equal(new Set(operations).size, operations.length)
   assert.ok(operations.includes('findProject'))
+  assert.ok(operations.includes('convertLeadToProject'))
   assert.equal(Object.keys(integrationOpenApi.paths).some((path) => /delete|users|admin/i.test(path)), false)
 })

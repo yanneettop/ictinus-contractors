@@ -22,7 +22,10 @@ export default function CalendarPage() {
     const paymentEvents = data.payments.flatMap((payment) => {
       if (payment.status === 'Paid' || !payment.dueDate) return []
       const project = data.projects.find((item) => item.id === payment.projectId)
-      if (!project) return []
+      if (!project) {
+        const lead = data.leads.find((item) => item.id === task.leadId)
+        return lead ? [{ id: `task-${task.id}`, leadId: lead.id, type: 'Task', title: task.title, startDate: task.dueDate, endDate: task.dueDate, allDay: true, location: lead.fullAddress, notes: `${lead.clientName} · ${lead.projectType}`, colourCategory: task.priority === 'Urgent' ? 'red' : 'blue', source: 'task' }] : []
+      }
       const client = data.clients.find((item) => item.id === project.clientId)
       return [{ id: `payment-${payment.id}`, projectId: project.id, type: 'Payment', title: `${client?.name?.split(' ')[0] || project.title} – ${project.postcode}`, startDate: payment.dueDate, endDate: payment.dueDate, allDay: true, location: project.address, notes: payment.title, colourCategory: 'red', source: 'payment' }]
     })
@@ -69,11 +72,11 @@ export default function CalendarPage() {
 
     {view === 'month' ? <div className="jm-calendar-month"><div className="jm-weekdays">{['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => <span key={day}>{day}</span>)}</div><div className="jm-month-grid">{days.map((day) => { const dayEvents = events.filter((event) => eventForDay(event, day)); return <div key={day.toISOString()} className={`${!isSameMonth(day, cursor) ? 'outside' : ''} ${isSameDay(day, today) ? 'today' : ''}`}><span className="jm-day-number">{format(day, 'd')}</span><div className="jm-day-events">{dayEvents.slice(0, 3).map((event) => <CalendarEvent key={event.id} event={event} compact />)}{dayEvents.length > 3 && <small>+{dayEvents.length - 3} more</small>}</div></div> })}</div></div> : <div className="jm-calendar-week">{days.map((day) => { const dayEvents = events.filter((event) => eventForDay(event, day)); return <section key={day.toISOString()} className={isSameDay(day, today) ? 'today' : ''}><header><span>{format(day, 'EEE')}</span><strong>{format(day, 'd')}</strong></header><div>{dayEvents.length ? dayEvents.map((event) => <CalendarEvent key={event.id} event={event} />) : <p>No events</p>}</div></section> })}</div>}
 
-    <section className="jm-calendar-agenda"><h2>Next scheduled items</h2>{upcoming.length ? upcoming.map((event) => { const Icon = iconMap[event.type] || CalendarCheck; return <Link key={event.id} to={`/job-manager/projects/${event.projectId}`}><span className={`jm-agenda-icon jm-agenda-icon--${event.colourCategory}`}><Icon size={18} /></span><div><strong>{event.title}</strong><span>{event.type}{event.notes ? ` · ${event.notes}` : ''}</span></div><div><strong>{formatDate(event.startDate, !event.allDay)}</strong><span><MapPin size={13} />{event.location || 'No location'}</span></div></Link> }) : <div className="jm-calendar-empty"><p>No upcoming items yet.</p><Link className="jm-button jm-button--secondary jm-button--small" to="/job-manager/projects">Open projects</Link></div>}</section>
+    <section className="jm-calendar-agenda"><h2>Next scheduled items</h2>{upcoming.length ? upcoming.map((event) => { const Icon = iconMap[event.type] || CalendarCheck; return <Link key={event.id} to={event.leadId ? `/job-manager/leads/${event.leadId}` : `/job-manager/projects/${event.projectId}`}><span className={`jm-agenda-icon jm-agenda-icon--${event.colourCategory}`}><Icon size={18} /></span><div><strong>{event.title}</strong><span>{event.type}{event.notes ? ` · ${event.notes}` : ''}</span></div><div><strong>{formatDate(event.startDate, !event.allDay)}</strong><span><MapPin size={13} />{event.location || 'No location'}</span></div></Link> }) : <div className="jm-calendar-empty"><p>No upcoming items yet.</p><Link className="jm-button jm-button--secondary jm-button--small" to="/job-manager/projects">Open projects</Link></div>}</section>
   </>
 }
 
 function CalendarEvent({ event, compact = false }) {
   const Icon = iconMap[event.type] || CalendarCheck
-  return <Link title={`${event.type}: ${event.title}`} to={`/job-manager/projects/${event.projectId}`} className={`jm-calendar-event jm-calendar-event--${event.colourCategory}`}>{!compact && <Icon size={15} />}<span>{event.title}</span>{!compact && <small>{event.type}</small>}</Link>
+  return <Link title={`${event.type}: ${event.title}`} to={event.leadId ? `/job-manager/leads/${event.leadId}` : `/job-manager/projects/${event.projectId}`} className={`jm-calendar-event jm-calendar-event--${event.colourCategory}`}>{!compact && <Icon size={15} />}<span>{event.title}</span>{!compact && <small>{event.type}</small>}</Link>
 }

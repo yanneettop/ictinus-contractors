@@ -6,7 +6,10 @@ export const demoUsers = [
 // Public, fictional data used only when Supabase environment variables are absent.
 // Never place real customer or project information in this browser bundle.
 export const initialData = {
-  version: 3,
+  version: 4,
+  leads: [],
+  leadCommunications: [],
+  leadQuotes: [],
   clients: [
     { id: 'client-sample', name: 'Sample Client', phone: '07000 000000', email: 'client@example.test', preferredContact: 'Phone', bestContactTime: 'Weekdays', emergencyContact: '' },
   ],

@@ -65,6 +65,27 @@ export function JobManagerProvider({ children, repository = defaultRepository })
     draft.activities.unshift({ id: repository.createId('activity'), projectId, userId: user.id, action, createdAt: new Date().toISOString() })
   }
 
+  const addLeadActivity = (draft, leadId, action) => {
+    draft.activities.unshift({ id: repository.createId('activity'), projectId: null, leadId, userId: user.id, action, entityType: 'lead', entityId: leadId, source: 'job_manager', createdAt: new Date().toISOString() })
+  }
+
+  const saveLead = async (values, leadId) => {
+    const id = leadId || repository.createId('lead'); const now = new Date().toISOString()
+    await commit((current) => {
+      const next = structuredClone(current)
+      const record = { clientName: values.clientName, email: values.email || '', phone: values.phone || '', postcode: (values.postcode || '').toUpperCase(), fullAddress: values.fullAddress || '', projectType: values.projectType || 'Other', enquirySummary: values.enquirySummary || '', estimatedValue: values.estimatedValue === '' ? null : Number(values.estimatedValue || 0), budget: values.budget === '' ? null : Number(values.budget || 0), stage: values.stage || 'New', priority: values.priority || 'Normal', source: values.source || 'Other', sourceReference: values.sourceReference || '', assignedTo: values.assignedTo || null, preferredContactMethod: values.preferredContactMethod || 'Phone', preferredContactTime: values.preferredContactTime || '', nextAction: values.nextAction || '', nextActionDueAt: values.nextActionDueAt || null, internalNotes: values.internalNotes || '', updatedBy: user.id, updatedAt: now }
+      if (leadId) Object.assign(next.leads.find((item) => item.id === leadId), record)
+      else next.leads.unshift({ id, ...record, siteVisitStatus: 'Not booked', reminderStatus: 'None', barkCreditsSpent: Number(values.barkCreditsSpent || 0), createdBy: user.id, createdAt: now })
+      addLeadActivity(next, id, leadId ? 'Lead updated' : 'Lead created'); return next
+    }); return id
+  }
+  const updateLeadStage = (leadId, stage) => commit((current) => { const next = structuredClone(current); const lead = next.leads.find((item) => item.id === leadId); lead.stage = stage; lead.updatedAt = new Date().toISOString(); addLeadActivity(next, leadId, `Stage changed to ${stage}`); return next })
+  const logLeadCommunication = (leadId, values) => commit((current) => { const next = structuredClone(current); const now = new Date().toISOString(); next.leadCommunications.unshift({ id: repository.createId('lead-communication'), leadId, type: values.type, direction: values.direction, occurredAt: values.occurredAt || now, summary: values.summary, note: values.note || '', externalLink: values.externalLink || null, authorId: user.id, createdAt: now }); const lead = next.leads.find((item) => item.id === leadId); lead.lastContactedAt = now; if (!lead.firstContactedAt) lead.firstContactedAt = now; if (lead.stage === 'New') lead.stage = 'Contacted'; addLeadActivity(next, leadId, `${values.type} logged: ${values.summary}`); return next })
+  const addLeadTask = (leadId, values) => commit((current) => { const next = structuredClone(current); next.tasks.push({ id: repository.createId('task'), projectId: null, leadId, title: values.title, dueDate: values.dueDate, assignedTo: values.assignedTo || user.id, priority: values.priority || 'Normal', completed: false, status: 'Pending', createdBy: user.id }); addLeadActivity(next, leadId, `Task added: ${values.title}`); return next })
+  const bookLeadVisit = (leadId, values) => commit((current) => { const next = structuredClone(current); const lead = next.leads.find((item) => item.id === leadId); next.events.push({ id: repository.createId('event'), projectId: null, leadId, type: 'Site visit', title: `${lead.clientName} – ${lead.postcode}`, startDate: values.startDate, endDate: values.endDate || values.startDate, allDay: false, location: `${lead.fullAddress} ${lead.postcode}`.trim(), notes: values.notes || '', colourCategory: 'blue', googleCalendarEventId: null, syncStatus: 'not_configured', createdBy: user.id }); lead.siteVisitDate = values.startDate; lead.siteVisitStatus = 'Booked'; lead.stage = 'Site Visit Booked'; if (lead.source === 'Bark') lead.barkSiteVisitBooked = true; addLeadActivity(next, leadId, 'Site visit booked'); return next })
+  const markLeadLost = (leadId, values) => commit((current) => { const next = structuredClone(current); const lead = next.leads.find((item) => item.id === leadId); Object.assign(lead, { stage: 'Lost', lostReason: values.reason, lostNotes: values.notes || '', updatedAt: new Date().toISOString() }); addLeadActivity(next, leadId, `Lead lost: ${values.reason}`); return next })
+  const convertLead = async (leadId, values) => { const projectId = await repository.convertLead(leadId, values); await refreshData(); return projectId }
+
   const saveProject = async (values, projectId) => {
     const savedId = projectId || repository.createId('project')
     await commit((current) => {
@@ -163,7 +184,7 @@ export function JobManagerProvider({ children, repository = defaultRepository })
   const resetPassword = (email) => authService.resetPassword(email)
   const updatePassword = (password) => authService.updatePassword(password)
 
-  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, realtimeStatus, lastSyncedAt, login, logout, resetPassword, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData }
+  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, realtimeStatus, lastSyncedAt, login, logout, resetPassword, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData, saveLead, updateLeadStage, logLeadCommunication, addLeadTask, bookLeadVisit, markLeadLost, convertLead }
   return <JobManagerContext.Provider value={value}>{children}</JobManagerContext.Provider>
 }
 
