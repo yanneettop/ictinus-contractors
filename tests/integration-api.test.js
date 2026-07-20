@@ -260,6 +260,9 @@ test('supports lead intake, lookup, updates and duplicate-safe resolution', asyn
   assert.equal(created.json.data.result.priority, 'Urgent')
   const updated = await invoke(`/leads/${LEAD_ID}`, { method: 'PATCH', body: { nextAction: 'Arrange access' } }, repository)
   assert.equal(updated.json.data.result.nextAction, 'Arrange access')
+  const duplicate = await invoke('/leads', { method: 'POST', body: { clientName: 'Alex Example', projectType: 'Painting', email: 'alex@example.com' } }, repository)
+  assert.equal(duplicate.response.status, 201)
+  assert.equal(duplicate.json.data.result.duplicateWarning.matches[0].id, LEAD_ID)
 })
 
 test('logs lead communications and promotes a new lead to contacted', async () => {

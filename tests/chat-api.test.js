@@ -22,12 +22,24 @@ test('site managers do not receive financial tools', () => {
   assert.equal(siteTools.includes('list_outstanding_payments'), false)
   assert.equal(siteTools.includes('create_payment'), false)
   assert.equal(toolsForRole('administrator').some((tool) => tool.name === 'create_payment'), true)
+  assert.equal(siteTools.includes('create_lead'), false)
+  assert.equal(toolsForRole('administrator').some((tool) => tool.name === 'create_lead'), true)
 })
 
 test('site managers cannot execute financial or protected project mutations', async () => {
   const service = { outstandingPayments: async () => [], patchProject: async () => ({}) }
   await assert.rejects(() => executeTool(service, 'site_manager', 'list_outstanding_payments', {}), (error) => error.code === 'FORBIDDEN')
   await assert.rejects(() => executeTool(service, 'site_manager', 'update_project', { projectId: 'George', contractValue: 5000 }), (error) => error.code === 'FORBIDDEN')
+  await assert.rejects(() => executeTool(service, 'site_manager', 'create_lead', { clientName: 'Alex', projectType: 'Painting' }), (error) => error.code === 'FORBIDDEN')
+})
+
+test('administrator assistant can create a validated CRM lead', async () => {
+  let received
+  const service = { createLead: async (input) => { received = input; return { id: 'lead-1', ...input, duplicateWarning: null } } }
+  const result = await executeTool(service, 'administrator', 'create_lead', { clientName: 'Alex Example', projectType: 'Interior Painting', phone: '07111 111111', priority: 'High', source: 'Referral' })
+  assert.equal(received.clientName, 'Alex Example')
+  assert.equal(received.stage, 'New')
+  assert.equal(result.id, 'lead-1')
 })
 
 test('site manager project reads redact financial values', async () => {

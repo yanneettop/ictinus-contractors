@@ -1,5 +1,5 @@
 import { IntegrationError } from '../_integration/errors.js'
-import { eventCreateSchema, journalCreateSchema, paymentCreateSchema, paymentPatchSchema, projectPatchSchema, taskCreateSchema, taskPatchSchema } from '../_integration/schemas.js'
+import { eventCreateSchema, journalCreateSchema, leadCreateSchema, paymentCreateSchema, paymentPatchSchema, projectPatchSchema, taskCreateSchema, taskPatchSchema } from '../_integration/schemas.js'
 
 const projectReference = { type: 'string', description: 'Project UUID, client name, postcode, or client name plus postcode.' }
 
@@ -7,6 +7,9 @@ const definitions = [
   { type: 'function', name: 'list_projects', description: 'List or filter Ictinus projects.', parameters: { type: 'object', additionalProperties: false, properties: { name: { type: 'string' }, postcode: { type: 'string' }, status: { type: 'string' } } } },
   { type: 'function', name: 'get_project', description: 'Get one project and its tasks, events, journal and permitted financial information.', parameters: { type: 'object', additionalProperties: false, required: ['projectId'], properties: { projectId: projectReference } } },
   { type: 'function', name: 'get_dashboard', description: 'Get a current operational dashboard summary.', parameters: { type: 'object', additionalProperties: false, properties: {} } },
+  { type: 'function', name: 'list_leads', description: 'List or filter Ictinus leads and enquiries. Administrators only.', parameters: { type: 'object', additionalProperties: false, properties: { stage: { type: 'string' }, source: { type: 'string' }, assignedTo: { type: 'string', format: 'uuid' } } } },
+  { type: 'function', name: 'get_lead', description: 'Get one lead with its communications, tasks, visits and quote placeholders. Administrators only.', parameters: { type: 'object', additionalProperties: false, required: ['leadId'], properties: { leadId: { type: 'string', description: 'Lead UUID, exact client name, email, phone, postcode, or name plus postcode.' } } } },
+  { type: 'function', name: 'create_lead', description: 'Create a new lead or enquiry in the live Ictinus CRM. Administrators only. Never invent missing client details.', parameters: { type: 'object', additionalProperties: false, required: ['clientName', 'projectType'], properties: { clientName: { type: 'string' }, email: { type: 'string', format: 'email' }, phone: { type: 'string' }, postcode: { type: 'string' }, fullAddress: { type: 'string' }, projectType: { type: 'string' }, enquirySummary: { type: 'string' }, estimatedValue: { type: 'number', minimum: 0 }, budget: { type: 'number', minimum: 0 }, stage: { type: 'string', enum: ['New','Contacted','Site Visit Booked','Site Visit Completed','Quote Preparing','Quote Sent','Follow-up Due','Negotiation'] }, priority: { type: 'string', enum: ['Low','Normal','High','Urgent'] }, source: { type: 'string' }, sourceReference: { type: 'string' }, assignedTo: { type: ['string','null'], format: 'uuid' }, preferredContactMethod: { type: 'string', enum: ['Phone','Email','SMS','WhatsApp'] }, preferredContactTime: { type: 'string' }, nextAction: { type: 'string' }, nextActionDueAt: { type: ['string','null'], format: 'date-time' }, internalNotes: { type: 'string' }, barkCreditsSpent: { type: 'number', minimum: 0 } } } },
   { type: 'function', name: 'list_outstanding_payments', description: 'List all unpaid payments. Administrators only.', parameters: { type: 'object', additionalProperties: false, properties: { overdueOnly: { type: 'boolean' } } } },
   { type: 'function', name: 'list_overdue_tasks', description: 'List overdue incomplete tasks.', parameters: { type: 'object', additionalProperties: false, properties: {} } },
   { type: 'function', name: 'update_project', description: 'Update an existing project. Sensitive changes require confirmed=true.', parameters: { type: 'object', additionalProperties: false, required: ['projectId'], properties: { projectId: projectReference, title: { type: 'string' }, projectType: { type: 'string' }, description: { type: 'string' }, status: { type: 'string' }, address: { type: 'string' }, postcode: { type: 'string' }, startDate: { type: 'string', format: 'date' }, endDate: { type: 'string', format: 'date' }, estimatedDuration: { type: 'string' }, contractValue: { type: 'number' }, accessNotes: { type: 'string' }, parkingNotes: { type: 'string' }, keyStatus: { type: 'string' }, internalNotes: { type: 'string' }, nextAction: { type: 'string' }, provisional: { type: 'boolean' }, confirmed: { type: 'boolean' } } } },
@@ -19,10 +22,11 @@ const definitions = [
 ]
 
 const financialTools = new Set(['list_outstanding_payments', 'create_payment', 'update_payment'])
+const administratorTools = new Set([...financialTools, 'list_leads', 'get_lead', 'create_lead'])
 const operationalProjectFields = new Set(['status', 'accessNotes', 'parkingNotes', 'keyStatus', 'internalNotes', 'nextAction', 'confirmed'])
 
 export function toolsForRole(role) {
-  return role === 'administrator' ? definitions : definitions.filter((tool) => !financialTools.has(tool.name))
+  return role === 'administrator' ? definitions : definitions.filter((tool) => !administratorTools.has(tool.name))
 }
 
 function redactFinancials(value) {
@@ -37,12 +41,15 @@ function redactFinancials(value) {
 const without = (object, keys) => Object.fromEntries(Object.entries(object).filter(([key]) => !keys.includes(key)))
 
 export async function executeTool(service, role, name, rawArguments) {
-  if (financialTools.has(name) && role !== 'administrator') throw new IntegrationError('FORBIDDEN', 'Financial chat actions require an administrator.', 403)
+  if (administratorTools.has(name) && role !== 'administrator') throw new IntegrationError('FORBIDDEN', 'This chat action requires an administrator.', 403)
 
   let result
   if (name === 'list_projects') result = await service.listProjects(rawArguments)
   else if (name === 'get_project') result = await service.getProject(rawArguments.projectId)
   else if (name === 'get_dashboard') result = await service.dashboard()
+  else if (name === 'list_leads') result = await service.listLeads(rawArguments)
+  else if (name === 'get_lead') result = await service.getLead(rawArguments.leadId)
+  else if (name === 'create_lead') result = await service.createLead(leadCreateSchema.parse(rawArguments))
   else if (name === 'list_outstanding_payments') result = await service.outstandingPayments(Boolean(rawArguments.overdueOnly))
   else if (name === 'list_overdue_tasks') result = await service.overdueTasks()
   else if (name === 'update_project') {
@@ -59,4 +66,3 @@ export async function executeTool(service, role, name, rawArguments) {
 
   return role === 'administrator' ? result : redactFinancials(result)
 }
-
