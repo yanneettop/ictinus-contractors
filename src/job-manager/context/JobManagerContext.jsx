@@ -182,9 +182,10 @@ export function JobManagerProvider({ children, repository = defaultRepository })
   const resetData = () => repository.reset().then((next) => { dataRef.current = next; setData(next); return next })
   const refreshData = () => repository.load().then((next) => { dataRef.current = next; setData(next); setLastSyncedAt(new Date()); return next })
   const resetPassword = (email) => authService.resetPassword(email)
+  const preparePasswordUpdate = useCallback(() => authService.preparePasswordUpdate?.() || Promise.resolve({ ready: false, error: 'Password setup requires Supabase.' }), [])
   const updatePassword = (password) => authService.updatePassword(password)
 
-  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, realtimeStatus, lastSyncedAt, login, logout, resetPassword, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData, saveLead, updateLeadStage, logLeadCommunication, addLeadTask, bookLeadVisit, markLeadLost, convertLead }
+  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, realtimeStatus, lastSyncedAt, login, logout, resetPassword, preparePasswordUpdate, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData, saveLead, updateLeadStage, logLeadCommunication, addLeadTask, bookLeadVisit, markLeadLost, convertLead }
   return <JobManagerContext.Provider value={value}>{children}</JobManagerContext.Provider>
 }
 

@@ -3,6 +3,18 @@ import { requireSupabase, supabaseConfigured } from './supabaseClient'
 
 const SESSION_KEY = 'ictinus-job-manager-session'
 
+const passwordLinkFailure = () => {
+  const query = new URLSearchParams(window.location.search)
+  const hash = new URLSearchParams(window.location.hash.replace(/^#/, ''))
+  const code = query.get('error_code') || hash.get('error_code')
+  const description = query.get('error_description') || hash.get('error_description')
+  if (!code && !description) return null
+  if (code === 'otp_expired' || /expired|invalid|already been used/i.test(description || '')) {
+    return 'This password link has expired or has already been used. Request a new link below.'
+  }
+  return 'This password link is not valid. Request a new link below.'
+}
+
 const profileToUser = (profile, authUser) => profile ? {
   id: profile.id,
   name: profile.display_name,
@@ -66,8 +78,19 @@ export const supabaseAuthService = {
     const { error } = await requireSupabase().auth.resetPasswordForEmail(email.trim().toLowerCase(), { redirectTo: `${window.location.origin}/job-manager/update-password` })
     if (error) throw error
   },
+  async preparePasswordUpdate() {
+    const linkError = passwordLinkFailure()
+    if (linkError) return { ready: false, error: linkError }
+    const { data: { session }, error } = await requireSupabase().auth.getSession()
+    if (error) return { ready: false, error: 'We could not verify this password link. Request a new link below.' }
+    if (!session) return { ready: false, error: 'This password link is missing or is no longer valid. Request a new link below.' }
+    return { ready: true, error: '' }
+  },
   async updatePassword(password) {
-    const { error } = await requireSupabase().auth.updateUser({ password })
+    const client = requireSupabase()
+    const { data: { session } } = await client.auth.getSession()
+    if (!session) throw new Error('Your password link has expired. Request a new link and use the newest email.')
+    const { error } = await client.auth.updateUser({ password })
     if (error) throw error
   },
 }
