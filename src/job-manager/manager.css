@@ -150,7 +150,7 @@
 }
 
 @media(max-width:760px){
-  .jm-bottom-nav{grid-template-columns:repeat(6,1fr)}
+  .jm-bottom-nav{grid-template-columns:repeat(5,1fr)}
   .jm-file-upload{padding:14px}
   .jm-file-upload-heading{display:block}
   .jm-file-upload-heading>span{display:block;margin-top:9px}
@@ -188,7 +188,16 @@
 .jm-assistant-composer{display:grid;grid-template-columns:1fr auto;gap:10px;padding:13px 16px;border-top:1px solid #e4e2da;background:white}.jm-assistant-composer textarea{resize:none;min-height:48px;max-height:120px;border:1px solid #d8d7d1;border-radius:10px;padding:11px 13px;font:400 12px/1.4 inherit;outline:none}.jm-assistant-composer textarea:focus{border-color:#aa8d42;box-shadow:0 0 0 3px rgba(170,141,66,.1)}.jm-assistant-composer button{align-self:end;width:45px;height:45px;border:0;border-radius:10px;background:var(--jm-charcoal);color:#f0d57d;display:grid;place-items:center}.jm-assistant-composer button:disabled{opacity:.45}
 .jm-assistant-shell>footer{padding:0 16px 11px;background:white;color:#8a9292;font-size:7px;display:flex;align-items:center;justify-content:center;gap:5px}.jm-spin{animation:jmSpin .8s linear infinite}@keyframes jmSpin{to{transform:rotate(360deg)}}
 
+/* Persistent assistant widget */
+.jm-assistant-launcher{position:fixed;right:24px;bottom:24px;z-index:65;min-width:128px;height:52px;padding:0 17px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:var(--jm-charcoal);color:#f0d57d;box-shadow:0 16px 40px rgba(20,31,31,.28);display:flex;align-items:center;justify-content:center;gap:9px;font-size:11px;font-weight:800;transition:transform .16s ease,box-shadow .16s ease}.jm-assistant-launcher:hover{transform:translateY(-2px);box-shadow:0 19px 44px rgba(20,31,31,.34)}.jm-assistant-launcher i{position:absolute;right:5px;top:4px;width:9px;height:9px;border:2px solid var(--jm-charcoal);border-radius:50%;background:#48a77d}
+.jm-assistant-widget{position:fixed;right:24px;bottom:24px;z-index:65;width:min(410px,calc(100vw - 48px));height:min(680px,calc(100dvh - 110px));filter:drop-shadow(0 22px 38px rgba(20,31,31,.2))}.jm-assistant-shell--widget{width:100%;height:100%;min-height:0;grid-template-rows:auto 1fr auto auto auto auto;border-color:#d5d4ce;box-shadow:none}.jm-assistant-shell--widget .jm-assistant-status{padding:12px 13px}.jm-assistant-shell--widget .jm-assistant-status>div{min-width:0}.jm-assistant-shell--widget .jm-assistant-status small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.jm-assistant-shell--widget .jm-assistant-status em{margin-left:auto}.jm-assistant-shell--widget .jm-assistant-status>button{flex:0 0 auto;width:31px;height:31px;padding:0;border:0;border-radius:7px;background:transparent;color:#667171;display:grid;place-items:center}.jm-assistant-shell--widget .jm-assistant-status>button:hover{background:#eceae3;color:var(--jm-ink)}.jm-assistant-shell--widget .jm-assistant-messages{padding:17px 15px}.jm-assistant-shell--widget .jm-assistant-message{max-width:88%}.jm-assistant-shell--widget .jm-assistant-suggestions{padding-inline:13px}.jm-assistant-shell--widget .jm-assistant-confirm{margin-inline:13px}.jm-assistant-shell--widget .jm-assistant-composer{padding:11px 12px}.jm-assistant-shell--widget>footer{padding:0 12px 8px}
+
 @media(max-width:760px){
   .jm-assistant-page{margin:-22px -14px -25px}.jm-assistant-page>.jm-page-header{padding:20px 14px 13px;margin:0}.jm-assistant-page>.jm-page-header h1{font-size:27px}.jm-assistant-page>.jm-page-header>div>p:last-child{display:none}
   .jm-assistant-shell{height:calc(100dvh - 176px);min-height:430px;border-left:0;border-right:0;border-bottom:0;border-radius:0;box-shadow:none}.jm-assistant-messages{padding:16px 13px}.jm-assistant-message{max-width:91%}.jm-assistant-message p{font-size:13px}.jm-assistant-message--user p{font-size:11px}.jm-assistant-suggestions{padding:0 12px 10px}.jm-assistant-confirm{margin:0 12px 9px}.jm-assistant-composer{padding:10px 12px}.jm-assistant-composer textarea{font-size:16px}.jm-assistant-shell>footer{padding-bottom:8px}
+}
+
+@media(max-width:760px){
+  .jm-assistant-launcher{right:14px;bottom:calc(79px + env(safe-area-inset-bottom));min-width:0;width:52px;padding:0;border-radius:50%}.jm-assistant-launcher span{display:none}
+  .jm-assistant-widget{inset:68px 8px calc(75px + env(safe-area-inset-bottom));width:auto;height:auto}.jm-assistant-shell--widget{height:100%;min-height:0;border:1px solid var(--jm-border);border-radius:14px;box-shadow:none}.jm-assistant-shell--widget .jm-assistant-status em{display:none}.jm-assistant-shell--widget .jm-assistant-messages{padding:14px 12px}.jm-assistant-shell--widget .jm-assistant-composer textarea{font-size:16px}
 }

@@ -1,11 +1,11 @@
-import { Bot, CalendarDays, ChevronDown, CreditCard, Files, FolderKanban, LayoutDashboard, LogOut, Settings, X } from 'lucide-react'
+import { CalendarDays, ChevronDown, CreditCard, Files, FolderKanban, LayoutDashboard, LogOut, Settings, X } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useJobManager } from '../context/JobManagerContext'
+import AssistantWidget from './AssistantWidget'
 
 const nav = [
   { to: '/job-manager', label: 'Dashboard', icon: LayoutDashboard, end: true },
-  { to: '/job-manager/assistant', label: 'Assistant', icon: Bot },
   { to: '/job-manager/calendar', label: 'Calendar', icon: CalendarDays },
   { to: '/job-manager/projects', label: 'Projects', icon: FolderKanban },
   { to: '/job-manager/files', label: 'Files', icon: Files },
@@ -30,5 +30,6 @@ export default function ManagerLayout() {
       <main className="jm-main"><Outlet /></main>
     </div>
     <nav className="jm-bottom-nav" aria-label="Mobile navigation">{nav.filter((item) => item.mobile !== false).map(({ to, label, icon: Icon, end }) => <NavLink key={to} to={to} end={end}><Icon size={20} /><span>{label}</span></NavLink>)}</nav>
+    <AssistantWidget />
   </div>
 }
