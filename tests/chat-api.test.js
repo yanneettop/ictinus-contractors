@@ -50,6 +50,15 @@ test('site manager project reads redact financial values', async () => {
   assert.equal(result.nextAction, 'Visit site')
 })
 
+test('site manager dashboard hides financial priorities while retaining operational work', async () => {
+  const service = { dashboard: async () => ({ summary: { activeProjects: 2, outstandingPayments: 900 }, counts: { overduePayments: 1 }, actionItems: [{ id: 'payment', kind: 'payment', adminOnly: true, title: 'Invoice overdue' }, { id: 'task', kind: 'task', title: 'Protect floors' }], health: [{ projectId: 'one', reasons: ['1 overdue payment', '2 overdue tasks'] }] }) }
+  const result = await executeTool(service, 'site_manager', 'get_dashboard', {})
+  assert.equal(result.summary.outstandingPayments, undefined)
+  assert.equal(result.counts.overduePayments, undefined)
+  assert.deepEqual(result.actionItems.map((item) => item.kind), ['task'])
+  assert.deepEqual(result.health[0].reasons, ['2 overdue tasks'])
+})
+
 test('chat completes an OpenAI function-call loop and returns action metadata', async () => {
   const originalFetch = globalThis.fetch
   let call = 0

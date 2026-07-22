@@ -1,5 +1,6 @@
 import { confirmationRequired, IntegrationError, notFound } from './errors.js'
 import { validateDateRange } from './schemas.js'
+import { buildTodayDashboard } from '../../src/job-manager/utils/todayDashboard.js'
 
 const ACTOR = Object.freeze({ actor_type: 'integration', actor_name: 'ChatGPT', source: 'chatgpt_integration' })
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
@@ -149,19 +150,12 @@ export class IntegrationService {
   }
 
   async dashboard() {
-    const [projects, tasks, payments, events] = await Promise.all([
+    const [projects, tasks, payments, events, leads, activities, journalEntries] = await Promise.all([
       this.repository.projects(), this.repository.rows('tasks'), this.repository.rows('payments'), this.repository.rows('project_events'),
+      this.repository.rows('leads'), this.repository.rows('activity_logs'), this.repository.rows('journal_entries'),
     ])
-    const today = new Date().toISOString().slice(0, 10)
-    const active = projects.filter((row) => !['Completed', 'Cancelled'].includes(row.status))
-    const outstanding = payments.filter((row) => row.status !== 'Paid')
-    return {
-      projects: { total: projects.length, active: active.length, completed: projects.length - active.length },
-      financials: { contractValue: projects.reduce((sum, row) => sum + pounds(row.contract_value_pence), 0), outstanding: outstanding.reduce((sum, row) => sum + pounds(row.amount_pence), 0) },
-      overdueTasks: tasks.filter((row) => !row.completed && row.due_date < today).length,
-      overduePayments: outstanding.filter((row) => row.due_date < today).length,
-      upcomingEvents: events.filter((row) => row.end_date >= now()).slice(0, 10).map(eventView),
-    }
+    const dashboard = buildTodayDashboard({ projects, tasks, payments, events, leads, activities, journalEntries })
+    return { ...dashboard, performance: { queryCount: 7, strategy: 'parallel aggregate' } }
   }
 
   async outstandingPayments(overdueOnly = false) {

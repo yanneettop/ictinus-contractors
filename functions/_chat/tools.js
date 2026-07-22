@@ -6,7 +6,7 @@ const projectReference = { type: 'string', description: 'Project UUID, client na
 const definitions = [
   { type: 'function', name: 'list_projects', description: 'List or filter Ictinus projects.', parameters: { type: 'object', additionalProperties: false, properties: { name: { type: 'string' }, postcode: { type: 'string' }, status: { type: 'string' } } } },
   { type: 'function', name: 'get_project', description: 'Get one project and its tasks, events, journal and permitted financial information.', parameters: { type: 'object', additionalProperties: false, required: ['projectId'], properties: { projectId: projectReference } } },
-  { type: 'function', name: 'get_dashboard', description: 'Get a current operational dashboard summary.', parameters: { type: 'object', additionalProperties: false, properties: {} } },
+  { type: 'function', name: 'get_dashboard', description: 'Get the live Today Dashboard: urgent actions in priority order, today schedule, project health, recent activity and the next seven days. Use for questions such as what should we do today, what is urgent, and what starts tomorrow.', parameters: { type: 'object', additionalProperties: false, properties: {} } },
   { type: 'function', name: 'list_leads', description: 'List or filter Ictinus leads and enquiries. Administrators only.', parameters: { type: 'object', additionalProperties: false, properties: { stage: { type: 'string' }, source: { type: 'string' }, assignedTo: { type: 'string', format: 'uuid' } } } },
   { type: 'function', name: 'get_lead', description: 'Get one lead with its communications, tasks, visits and quote placeholders. Administrators only.', parameters: { type: 'object', additionalProperties: false, required: ['leadId'], properties: { leadId: { type: 'string', description: 'Lead UUID, exact client name, email, phone, postcode, or name plus postcode.' } } } },
   { type: 'function', name: 'create_lead', description: 'Create a new lead or enquiry in the live Ictinus CRM. Administrators only. Never invent missing client details.', parameters: { type: 'object', additionalProperties: false, required: ['clientName', 'projectType'], properties: { clientName: { type: 'string' }, email: { type: 'string', format: 'email' }, phone: { type: 'string' }, postcode: { type: 'string' }, fullAddress: { type: 'string' }, projectType: { type: 'string' }, enquirySummary: { type: 'string' }, estimatedValue: { type: 'number', minimum: 0 }, budget: { type: 'number', minimum: 0 }, stage: { type: 'string', enum: ['New','Contacted','Site Visit Booked','Site Visit Completed','Quote Preparing','Quote Sent','Follow-up Due','Negotiation'] }, priority: { type: 'string', enum: ['Low','Normal','High','Urgent'] }, source: { type: 'string' }, sourceReference: { type: 'string' }, assignedTo: { type: ['string','null'], format: 'uuid' }, preferredContactMethod: { type: 'string', enum: ['Phone','Email','SMS','WhatsApp'] }, preferredContactTime: { type: 'string' }, nextAction: { type: 'string' }, nextActionDueAt: { type: ['string','null'], format: 'date-time' }, internalNotes: { type: 'string' }, barkCreditsSpent: { type: 'number', minimum: 0 } } } },
@@ -30,11 +30,11 @@ export function toolsForRole(role) {
 }
 
 function redactFinancials(value) {
-  if (Array.isArray(value)) return value.map(redactFinancials)
+  if (Array.isArray(value)) return value.filter((item) => !item?.adminOnly).map(redactFinancials)
   if (!value || typeof value !== 'object') return value
   const redacted = {}
-  const blocked = new Set(['contractValue', 'amountPaid', 'outstandingBalance', 'payments', 'financials', 'amount', 'percentage', 'invoiceReference', 'paidDate'])
-  for (const [key, item] of Object.entries(value)) if (!blocked.has(key)) redacted[key] = redactFinancials(item)
+  const blocked = new Set(['contractValue', 'amountPaid', 'outstandingBalance', 'outstandingPayments', 'overduePayments', 'payments', 'financials', 'amount', 'percentage', 'invoiceReference', 'paidDate', 'adminOnly'])
+  for (const [key, item] of Object.entries(value)) if (!blocked.has(key)) redacted[key] = key === 'reasons' && Array.isArray(item) ? item.filter((reason) => !/payment|invoice/i.test(reason)) : redactFinancials(item)
   return redacted
 }
 

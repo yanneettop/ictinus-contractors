@@ -303,6 +303,17 @@ test('returns lead follow-ups and overdue actions from real stored dates', async
   assert.equal(overdue.json.data.result.length, 1)
 })
 
+test('returns one aggregated Today Dashboard ordered by operational urgency', async () => {
+  const result = await invoke('/dashboard')
+  const dashboard = result.json.data.result
+  assert.equal(result.response.status, 200)
+  assert.equal(dashboard.performance.queryCount, 7)
+  assert.equal(dashboard.summary.activeProjects, 2)
+  assert.equal(dashboard.actionItems[0].kind, 'payment')
+  assert.equal(dashboard.actionItems.some((item) => item.kind === 'task'), true)
+  assert.equal(Array.isArray(dashboard.health), true)
+})
+
 test('publishes a valid OpenAPI 3.1 document with unique safe operation IDs', async () => {
   await SwaggerParser.validate(integrationOpenApi)
   assert.equal(integrationOpenApi.openapi, '3.1.0')
@@ -310,5 +321,6 @@ test('publishes a valid OpenAPI 3.1 document with unique safe operation IDs', as
   assert.equal(new Set(operations).size, operations.length)
   assert.ok(operations.includes('findProject'))
   assert.ok(operations.includes('convertLeadToProject'))
+  assert.ok(operations.includes('getTodayDashboard'))
   assert.equal(Object.keys(integrationOpenApi.paths).some((path) => /delete|users|admin/i.test(path)), false)
 })
