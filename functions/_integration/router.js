@@ -42,7 +42,7 @@ export async function handleIntegrationRequest({ request, env, service }) {
       operation('findProject'); const project = await service.resolveProject('', { name: url.searchParams.get('name') || undefined, postcode: url.searchParams.get('postcode') || undefined })
       return success(await service.getProject(project.id), 'Project resolved.')
     }
-    if (request.method === 'GET' && path === '/dashboard') { operation('getDashboardSummary'); return success(await service.dashboard(), 'Dashboard summary retrieved.') }
+    if (request.method === 'GET' && path === '/dashboard') { operation('getTodayDashboard'); return success(await service.dashboard(), 'Today Dashboard retrieved.') }
     if (request.method === 'GET' && path === '/payments/outstanding') { operation('listOutstandingPayments'); return success(await service.outstandingPayments(false), 'Outstanding payments retrieved.') }
     if (request.method === 'GET' && path === '/payments/overdue') { operation('listOverduePayments'); return success(await service.outstandingPayments(true), 'Overdue payments retrieved.') }
     if (request.method === 'GET' && path === '/tasks/overdue') { operation('listOverdueTasks'); return success(await service.overdueTasks(), 'Overdue tasks retrieved.') }
