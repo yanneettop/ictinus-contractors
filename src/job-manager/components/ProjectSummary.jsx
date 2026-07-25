@@ -1,6 +1,6 @@
 import { AlertTriangle, CalendarClock, CheckCircle2, CircleDollarSign, FileText, Image, ListChecks, TimerReset } from 'lucide-react'
 import { differenceInCalendarDays, isAfter, isBefore, parseISO, startOfDay } from 'date-fns'
-import { formatDate, formatGBP, paymentStatus } from '../utils/format'
+import { formatDate, formatGBP, londonDateKey, paymentStatus } from '../utils/format'
 import { ProgressBar } from './UI'
 
 const today = () => startOfDay(new Date())
@@ -25,7 +25,7 @@ export function FinancialControlCard({ project, payments, canEdit, onMarkPaid })
 }
 
 export function ProjectHealthCard({ project, tasks, payments }) {
-  const todayIso = new Date().toISOString().slice(0, 10)
+  const todayIso = londonDateKey()
   const overdueTasks = tasks.filter((task) => !task.completed && task.dueDate < todayIso).length
   const latePayments = payments.filter((payment) => paymentStatus(payment, todayIso) === 'Overdue').length
   const lateCompletion = project.status !== 'Completed' && project.endDate < todayIso

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { formatDate, projectClient, projectUser } from '../utils/format'
 import { ProgressBar, StatusBadge } from './UI'
 
-export default function ProjectCard({ project, data, users }) {
+export default function ProjectCard({ project, data, users, showFinancials = true }) {
   const navigate = useNavigate()
   const client = projectClient(data, project)
   const assignee = projectUser(users, project)
@@ -16,7 +16,7 @@ export default function ProjectCard({ project, data, users }) {
       <span><CalendarDays size={15} />{formatDate(project.startDate)} – {formatDate(project.endDate)}</span>
       <span><UserRound size={15} />{assignee?.name}</span>
     </div>
-    <ProgressBar paid={project.amountPaid} total={project.contractValue} />
+    {showFinancials && <ProgressBar paid={project.amountPaid} total={project.contractValue} />}
     <div className="jm-next-action"><span>Next action</span><strong>{project.nextAction}</strong></div>
     <Link className="jm-card-link" to={projectUrl} onClick={(event) => event.stopPropagation()}>Open project <ArrowRight size={16} /></Link>
   </article>

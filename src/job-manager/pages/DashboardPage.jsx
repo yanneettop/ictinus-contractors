@@ -19,7 +19,7 @@ const actionIcons = { Task: ListTodo, Expense: Receipt, 'Site Note': MessageSqua
 export default function DashboardPage() {
   const { data, users, user, addTask, addPayment, addJournalEntry, uploadPhoto, saveLead } = useJobManager()
   const [quickAction, setQuickAction] = useState(''); const [fabOpen, setFabOpen] = useState(false)
-  const dashboard = useMemo(() => buildTodayDashboard(data), [data])
+  const dashboard = useMemo(() => buildTodayDashboard(data, { includeFinancials: user.role === 'administrator' }), [data, user.role])
   const visible = (item) => !item.adminOnly || user.role === 'administrator'
   const urgentItems = dashboard.actionItems.filter(visible)
   const attention = dashboard.attention.filter(visible)

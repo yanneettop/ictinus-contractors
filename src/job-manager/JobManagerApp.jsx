@@ -1,20 +1,22 @@
+import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { JobManagerProvider, useJobManager } from './context/JobManagerContext'
 import ManagerLayout from './components/ManagerLayout'
 import { LoadingState } from './components/UI'
-import LoginPage from './pages/LoginPage'
-import UpdatePasswordPage from './pages/UpdatePasswordPage'
-import DashboardPage from './pages/DashboardPage'
-import CalendarPage from './pages/CalendarPage'
-import ProjectsPage from './pages/ProjectsPage'
-import ProjectFormPage from './pages/ProjectFormPage'
-import ProjectDetailPage from './pages/ProjectDetailPage'
-import PaymentsPage from './pages/PaymentsPage'
-import FilesPage from './pages/FilesPage'
-import SettingsPage from './pages/SettingsPage'
-import LeadsPage from './pages/LeadsPage'
-import LeadDetailPage from './pages/LeadDetailPage'
 import './manager.css'
+
+const LoginPage = lazy(() => import('./pages/LoginPage'))
+const UpdatePasswordPage = lazy(() => import('./pages/UpdatePasswordPage'))
+const DashboardPage = lazy(() => import('./pages/DashboardPage'))
+const CalendarPage = lazy(() => import('./pages/CalendarPage'))
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage'))
+const ProjectFormPage = lazy(() => import('./pages/ProjectFormPage'))
+const ProjectDetailPage = lazy(() => import('./pages/ProjectDetailPage'))
+const PaymentsPage = lazy(() => import('./pages/PaymentsPage'))
+const FilesPage = lazy(() => import('./pages/FilesPage'))
+const SettingsPage = lazy(() => import('./pages/SettingsPage'))
+const LeadsPage = lazy(() => import('./pages/LeadsPage'))
+const LeadDetailPage = lazy(() => import('./pages/LeadDetailPage'))
 
 function ProtectedLayout() {
   const { data, user, authReady } = useJobManager(); const location = useLocation()
@@ -22,6 +24,11 @@ function ProtectedLayout() {
   if (!user) return <Navigate to="/job-manager/login" state={{ from: location.pathname }} replace />
   if (!data) return <LoadingState />
   return <ManagerLayout />
+}
+
+function PermissionRoute({ permission, children }) {
+  const { can } = useJobManager()
+  return can(permission) ? children : <Navigate to="/job-manager" replace />
 }
 
 function ManagerRoutes() {
@@ -34,10 +41,10 @@ function ManagerRoutes() {
       <Route path="leads" element={<LeadsPage />} />
       <Route path="leads/:id" element={<LeadDetailPage />} />
       <Route path="projects" element={<ProjectsPage />} />
-      <Route path="projects/new" element={<ProjectFormPage />} />
+      <Route path="projects/new" element={<PermissionRoute permission="create_projects"><ProjectFormPage /></PermissionRoute>} />
       <Route path="projects/:id" element={<ProjectDetailPage />} />
-      <Route path="projects/:id/edit" element={<ProjectFormPage />} />
-      <Route path="payments" element={<PaymentsPage />} />
+      <Route path="projects/:id/edit" element={<PermissionRoute permission="edit_projects"><ProjectFormPage /></PermissionRoute>} />
+      <Route path="payments" element={<PermissionRoute permission="view_financials"><PaymentsPage /></PermissionRoute>} />
       <Route path="files" element={<FilesPage />} />
       <Route path="assistant" element={<Navigate to="/job-manager" replace />} />
       <Route path="settings" element={<SettingsPage />} />
@@ -46,4 +53,4 @@ function ManagerRoutes() {
   </Routes>
 }
 
-export default function JobManagerApp() { return <JobManagerProvider><ManagerRoutes /></JobManagerProvider> }
+export default function JobManagerApp() { return <JobManagerProvider><Suspense fallback={<LoadingState />}><ManagerRoutes /></Suspense></JobManagerProvider> }

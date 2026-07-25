@@ -2,18 +2,18 @@ import { CheckCircle2, Clock3, CreditCard, TriangleAlert, WalletCards } from 'lu
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useJobManager } from '../context/JobManagerContext'
-import { formatDate, formatGBP, paymentStatus, projectClient } from '../utils/format'
+import { formatDate, formatGBP, londonDateKey, monthEndDateKey, paymentStatus, projectClient } from '../utils/format'
 import { MetricCard, PageHeader } from '../components/UI'
 
-const TODAY = '2026-07-18'
 export default function PaymentsPage() {
   const { data, can, markPaymentPaid } = useJobManager(); const [filter, setFilter] = useState('All'); const [projectId, setProjectId] = useState('All'); const [from, setFrom] = useState(''); const [to, setTo] = useState('')
-  const rows = useMemo(() => data.payments.map((payment) => ({ ...payment, computedStatus: paymentStatus(payment, TODAY) })).filter((payment) => (filter === 'All' || payment.computedStatus === filter) && (projectId === 'All' || payment.projectId === projectId) && (!from || payment.dueDate >= from) && (!to || payment.dueDate <= to)), [data, filter, projectId, from, to])
+  const today = londonDateKey(); const monthEnd = monthEndDateKey(today)
+  const rows = useMemo(() => data.payments.map((payment) => ({ ...payment, computedStatus: paymentStatus(payment, today) })).filter((payment) => data.projects.some((project) => project.id === payment.projectId) && (filter === 'All' || payment.computedStatus === filter) && (projectId === 'All' || payment.projectId === projectId) && (!from || payment.dueDate >= from) && (!to || payment.dueDate <= to)), [data, filter, projectId, from, to, today])
   const activeIds = data.projects.filter((project) => ['Confirmed', 'Scheduled', 'In Progress', 'On Hold'].includes(project.status)).map((project) => project.id)
   const contractTotal = data.projects.filter((project) => activeIds.includes(project.id)).reduce((sum, project) => sum + project.contractValue, 0)
   const received = data.payments.filter((payment) => payment.status === 'Paid').reduce((sum, payment) => sum + payment.amount, 0)
   const outstanding = data.payments.filter((payment) => payment.status !== 'Paid').reduce((sum, payment) => sum + payment.amount, 0)
-  const dueSoon = data.payments.filter((payment) => payment.status !== 'Paid' && payment.dueDate >= TODAY && payment.dueDate <= '2026-07-31').reduce((sum, payment) => sum + payment.amount, 0)
+  const dueSoon = data.payments.filter((payment) => payment.status !== 'Paid' && payment.dueDate >= today && payment.dueDate <= monthEnd).reduce((sum, payment) => sum + payment.amount, 0)
   return <>
     <PageHeader eyebrow="Financial overview" title="Payments" description="Track every stage without losing sight of the job behind it." />
     <section className="jm-metrics"><MetricCard icon={WalletCards} label="Active contract value" value={formatGBP(contractTotal)} tone="neutral" /><MetricCard icon={CheckCircle2} label="Payments received" value={formatGBP(received)} tone="green" /><MetricCard icon={TriangleAlert} label="Outstanding" value={formatGBP(outstanding)} tone="red" /><MetricCard icon={Clock3} label="Due by month end" value={formatGBP(dueSoon)} tone="orange" /></section>

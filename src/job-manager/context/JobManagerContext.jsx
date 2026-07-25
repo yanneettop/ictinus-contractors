@@ -3,6 +3,7 @@ import { demoUsers } from '../data/seed'
 import { localRepository } from '../data/repository'
 import { supabaseRepository } from '../data/supabaseRepository'
 import { authService, supabaseConfigured } from '../services/authService'
+import { londonDateKey } from '../utils/format'
 
 const JobManagerContext = createContext(null)
 const defaultRepository = supabaseConfigured ? supabaseRepository : localRepository
@@ -187,11 +188,11 @@ export function JobManagerProvider({ children, repository = defaultRepository })
     const next = structuredClone(current); const task = next.tasks.find((item) => item.id === taskId); task.completed = !task.completed; task.status = task.completed ? 'Completed' : 'Pending'; addActivity(next, task.projectId, task.completed ? `Task completed: ${task.title}` : `Task reopened: ${task.title}`); return next
   })
   const addPayment = (projectId, values) => commit((current) => {
-    const next = structuredClone(current); next.payments.push({ id: repository.createId('payment'), projectId, ...values, amount: Number(values.amount), percentage: Number(values.percentage) || 0, paidDate: values.status === 'Paid' ? (values.paidDate || new Date().toISOString().slice(0, 10)) : '' });
+    const next = structuredClone(current); next.payments.push({ id: repository.createId('payment'), projectId, ...values, amount: Number(values.amount), percentage: Number(values.percentage) || 0, paidDate: values.status === 'Paid' ? (values.paidDate || londonDateKey()) : '' });
     recalculateProject(next, projectId); addActivity(next, projectId, `Payment stage added: ${values.title}`); return next
   })
   const markPaymentPaid = (paymentId) => commit((current) => {
-    const next = structuredClone(current); const payment = next.payments.find((item) => item.id === paymentId); payment.status = 'Paid'; payment.paidDate = new Date().toISOString().slice(0, 10); recalculateProject(next, payment.projectId); addActivity(next, payment.projectId, `Payment received: ${payment.title}`); return next
+    const next = structuredClone(current); const payment = next.payments.find((item) => item.id === paymentId); payment.status = 'Paid'; payment.paidDate = londonDateKey(); recalculateProject(next, payment.projectId); addActivity(next, payment.projectId, `Payment received: ${payment.title}`); return next
   })
   const addDocument = (projectId, values) => commit((current) => {
     const next = structuredClone(current); next.documents.push({ id: repository.createId('document'), projectId, ...values, createdAt: new Date().toISOString(), uploadedBy: user.id }); addActivity(next, projectId, `Document added: ${values.name}`); return next

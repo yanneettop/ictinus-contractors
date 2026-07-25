@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import LeadFilesPanel from '../components/LeadFilesPanel'
 import { EmptyState } from '../components/UI'
 import { useJobManager } from '../context/JobManagerContext'
-import { formatDate, formatGBP, mapsUrl } from '../utils/format'
+import { formatDate, formatGBP, londonDateKey, mapsUrl } from '../utils/format'
 import { leadStages } from '../utils/leads'
 
 export default function LeadDetailPage() {
@@ -62,7 +62,7 @@ export default function LeadDetailPage() {
 }
 
 function LeadDialog({ type, lead, quote, users, close, submit, busy }) {
-  const today = new Date().toISOString().slice(0, 10)
+  const today = londonDateKey()
   const defaults = { communication: { type: 'Call', direction: 'Outbound', summary: '', note: '' }, task: { title: '', dueDate: '', priority: 'Normal', assignedTo: lead.assignedTo }, visit: { startDate: '', endDate: '', notes: '' }, lost: { reason: 'Price', notes: '' }, convert: { title: quote?.projectTitle || `${lead.projectType} - ${lead.clientName}`, startDate: quote?.startDate || today, endDate: quote?.endDate || quote?.startDate || today, assignedTo: lead.assignedTo, contractValue: quote?.amount || lead.estimatedValue || '' } }
   const [form, setForm] = useState(defaults[type]); const titles = { communication: 'Log communication', task: 'Add lead task', visit: 'Book site visit', lost: 'Mark lead as lost', convert: 'Won job · Create project' }
   return <div className="jm-modal-backdrop" onMouseDown={close}><section className="jm-modal jm-lead-dialog" onMouseDown={(event) => event.stopPropagation()}><header><h2>{titles[type]}</h2><button onClick={close}>×</button></header><form onSubmit={(event) => { event.preventDefault(); submit(form) }} className="jm-form-grid">

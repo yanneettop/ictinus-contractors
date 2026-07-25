@@ -1,6 +1,6 @@
 import { confirmationRequired, IntegrationError, notFound } from './errors.js'
 import { validateDateRange } from './schemas.js'
-import { buildTodayDashboard } from '../../src/job-manager/utils/todayDashboard.js'
+import { buildTodayDashboard, londonToday } from '../../src/job-manager/utils/todayDashboard.js'
 
 const ACTOR = Object.freeze({ actor_type: 'integration', actor_name: 'ChatGPT', source: 'chatgpt_integration' })
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
@@ -159,7 +159,7 @@ export class IntegrationService {
   }
 
   async outstandingPayments(overdueOnly = false) {
-    const today = new Date().toISOString().slice(0, 10)
+    const today = londonToday()
     const [paymentRows, projects] = await Promise.all([this.repository.rows('payments'), this.repository.projects()])
     let rows = paymentRows.filter((row) => row.status !== 'Paid')
     if (overdueOnly) rows = rows.filter((row) => row.due_date < today)
@@ -168,7 +168,7 @@ export class IntegrationService {
   }
 
   async overdueTasks() {
-    const today = new Date().toISOString().slice(0, 10)
+    const today = londonToday()
     const [taskRows, projects] = await Promise.all([this.repository.rows('tasks'), this.repository.projects()])
     const projectById = new Map(projects.map((row) => [row.id, row]))
     return taskRows.filter((row) => !row.completed && row.due_date < today).map((row) => ({ ...taskView(row), projectDisplayName: projectView(projectById.get(row.project_id))?.displayName || row.project_id }))
@@ -209,7 +209,7 @@ export class IntegrationService {
     if (input.status && input.status !== previous.status && (input.status === 'Completed' || previous.status === 'Completed')) sensitive.push('status')
     if (sensitive.length && !input.confirmed) throw confirmationRequired(sensitive)
     if (!validateDateRange(input.startDate || previous.start_date, input.endDate || previous.end_date)) throw new IntegrationError('INVALID_DATE_RANGE', 'endDate must be on or after startDate.', 422)
-    if (input.status === 'Completed' && (input.startDate || previous.start_date) > new Date().toISOString().slice(0, 10)) throw new IntegrationError('INVALID_COMPLETION_DATE', 'A project cannot be completed before its start date.', 422)
+    if (input.status === 'Completed' && (input.startDate || previous.start_date) > londonToday()) throw new IntegrationError('INVALID_COMPLETION_DATE', 'A project cannot be completed before its start date.', 422)
 
     const values = mapProjectPatch(input)
     const updated = await this.repository.update('projects', previous.id, values)
@@ -241,7 +241,7 @@ export class IntegrationService {
   async createPayment(identifier, input) {
     const project = await this.resolveProject(identifier, input.project)
     if (input.status === 'paid' && !input.confirmed) throw confirmationRequired(['status'])
-    const createdDate = new Date().toISOString().slice(0, 10)
+    const createdDate = londonToday()
     if (input.paidDate && input.paidDate < createdDate) throw new IntegrationError('INVALID_PAID_DATE', 'paidDate cannot be before the payment was created.', 422)
     const row = await this.repository.insert('payments', { project_id: project.id, title: input.title, percentage: input.percentage, amount_pence: pence(input.amount), due_date: input.dueDate, paid_date: input.status === 'paid' ? (input.paidDate || createdDate) : null, status: paymentStatus(input.status), invoice_reference: input.invoiceReference || '', notes: input.notes || '', updated_at: now() })
     await this.audit('payment.created', 'payment', row.id, project.id, null, row)
@@ -256,7 +256,7 @@ export class IntegrationService {
     if (input.amount !== undefined && (previous.status === 'Paid' || /final/i.test(previous.title)) && pence(input.amount) !== Number(previous.amount_pence)) sensitive.push('amount')
     if (sensitive.length && !input.confirmed) throw confirmationRequired(sensitive)
     const nextStatus = input.status ? paymentStatus(input.status) : previous.status
-    const paidDate = nextStatus === 'Paid' ? (input.paidDate || previous.paid_date || new Date().toISOString().slice(0, 10)) : null
+    const paidDate = nextStatus === 'Paid' ? (input.paidDate || previous.paid_date || londonToday()) : null
     if (paidDate && paidDate < previous.created_at.slice(0, 10)) throw new IntegrationError('INVALID_PAID_DATE', 'paidDate cannot be before the payment was created.', 422)
     const values = { title: input.title, percentage: input.percentage, amount_pence: input.amount === undefined ? undefined : pence(input.amount), due_date: input.dueDate, paid_date: paidDate, status: nextStatus, invoice_reference: input.invoiceReference, notes: input.notes, updated_at: now() }
     Object.keys(values).forEach((key) => values[key] === undefined && delete values[key])

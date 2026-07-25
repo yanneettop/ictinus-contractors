@@ -22,18 +22,18 @@ export default function CalendarPage() {
     const paymentEvents = data.payments.flatMap((payment) => {
       if (payment.status === 'Paid' || !payment.dueDate) return []
       const project = data.projects.find((item) => item.id === payment.projectId)
-      if (!project) {
-        const lead = data.leads.find((item) => item.id === task.leadId)
-        return lead ? [{ id: `task-${task.id}`, leadId: lead.id, type: 'Task', title: task.title, startDate: task.dueDate, endDate: task.dueDate, allDay: true, location: lead.fullAddress, notes: `${lead.clientName} · ${lead.projectType}`, colourCategory: task.priority === 'Urgent' ? 'red' : 'blue', source: 'task' }] : []
-      }
+      if (!project) return []
       const client = data.clients.find((item) => item.id === project.clientId)
       return [{ id: `payment-${payment.id}`, projectId: project.id, type: 'Payment', title: `${client?.name?.split(' ')[0] || project.title} – ${project.postcode}`, startDate: payment.dueDate, endDate: payment.dueDate, allDay: true, location: project.address, notes: payment.title, colourCategory: 'red', source: 'payment' }]
     })
     const taskEvents = data.tasks.flatMap((task) => {
       if (task.completed || !task.dueDate) return []
       const project = data.projects.find((item) => item.id === task.projectId)
-      if (!project) return []
-      return [{ id: `task-${task.id}`, projectId: project.id, type: 'Task', title: task.title, startDate: task.dueDate, endDate: task.dueDate, allDay: true, location: project.address, notes: project.title, colourCategory: task.priority === 'High' ? 'red' : 'blue', source: 'task' }]
+      if (!project) {
+        const lead = data.leads.find((item) => item.id === task.leadId)
+        return lead ? [{ id: `task-${task.id}`, leadId: lead.id, type: 'Task', title: task.title, startDate: task.dueDate, endDate: task.dueDate, allDay: true, location: lead.fullAddress, notes: `${lead.clientName} · ${lead.projectType}`, colourCategory: ['High', 'Urgent'].includes(task.priority) ? 'red' : 'blue', source: 'task' }] : []
+      }
+      return [{ id: `task-${task.id}`, projectId: project.id, type: 'Task', title: task.title, startDate: task.dueDate, endDate: task.dueDate, allDay: true, location: project.address, notes: project.title, colourCategory: ['High', 'Urgent'].includes(task.priority) ? 'red' : 'blue', source: 'task' }]
     })
     return [...data.events.map((event) => ({ ...event, source: 'event' })), ...taskEvents, ...paymentEvents].filter((event) => event.startDate)
   }, [data])

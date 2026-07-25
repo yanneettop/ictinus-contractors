@@ -8,7 +8,7 @@ const projectId = (record) => value(record, 'projectId', 'project_id')
 const leadId = (record) => value(record, 'leadId', 'lead_id')
 const isPaid = (payment) => String(payment.status).toLowerCase() === 'paid'
 const daysBetween = (from, to) => Math.max(0, Math.round((new Date(`${to}T12:00:00Z`) - new Date(`${from}T12:00:00Z`)) / 86400000))
-const londonToday = () => {
+export const londonToday = () => {
   const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date()).map((part) => [part.type, part.value]))
   return `${parts.year}-${parts.month}-${parts.day}`
 }
@@ -37,8 +37,9 @@ export function calculateProjectHealth(project, data, today) {
 }
 
 export function buildTodayDashboard(rawData, options = {}) {
+  const includeFinancials = options.includeFinancials !== false
   const data = {
-    projects: rawData.projects || [], clients: rawData.clients || [], tasks: rawData.tasks || [], payments: rawData.payments || [], events: rawData.events || rawData.project_events || [],
+    projects: rawData.projects || [], clients: rawData.clients || [], tasks: rawData.tasks || [], payments: includeFinancials ? (rawData.payments || []) : [], events: rawData.events || rawData.project_events || [],
     leads: rawData.leads || [], activities: rawData.activities || rawData.activity_logs || [], journalEntries: rawData.journalEntries || rawData.journal_entries || [], documents: rawData.documents || [],
   }
   const today = options.today || londonToday()
@@ -59,12 +60,12 @@ export function buildTodayDashboard(rawData, options = {}) {
   const leadFollowUps = openLeads.filter((lead) => day(value(lead, 'nextActionDueAt', 'next_action_due_at')) && day(value(lead, 'nextActionDueAt', 'next_action_due_at')) <= today)
 
   const actionItems = [
-    ...overduePayments.map((payment) => ({ id: payment.id, kind: 'payment', severity: 'critical', priority: 100 + daysBetween(day(value(payment, 'dueDate', 'due_date')), today), title: `${payment.title || 'Payment'} overdue`, subtitle: `${projectName(projectId(payment))} · £${money(payment).toLocaleString('en-GB')}`, href: hrefFor(payment), adminOnly: true })),
-    ...overdueTasks.map((task) => ({ id: task.id, kind: 'task', severity: 'critical', priority: 90 + daysBetween(day(value(task, 'dueDate', 'due_date')), today), title: task.title, subtitle: `${projectName(projectId(task))} · overdue`, href: hrefFor(task) })),
-    ...leadFollowUps.map((lead) => ({ id: lead.id, kind: 'lead', severity: 'warning', priority: 80 + daysBetween(day(value(lead, 'nextActionDueAt', 'next_action_due_at')), today), title: lead.nextAction || 'Client follow-up', subtitle: `${lead.clientName || lead.client_name} · ${lead.postcode || 'No postcode'}`, href: `/job-manager/leads/${lead.id}`, adminOnly: true })),
-    ...todayEvents.map((event) => ({ id: event.id, kind: 'event', severity: 'today', priority: 70, title: event.title, subtitle: `${projectName(projectId(event))} · ${event.type}`, href: hrefFor(event) })),
-    ...tasksDueToday.map((task) => ({ id: task.id, kind: 'task', severity: 'today', priority: 60, title: task.title, subtitle: `${projectName(projectId(task))} · due today`, href: hrefFor(task) })),
-  ].sort((a, b) => b.priority - a.priority || a.title.localeCompare(b.title))
+    ...overduePayments.map((payment) => ({ id: payment.id, kind: 'payment', severity: 'critical', priority: 100, ageDays: daysBetween(day(value(payment, 'dueDate', 'due_date')), today), title: `${payment.title || 'Payment'} overdue`, subtitle: `${projectName(projectId(payment))} · £${money(payment).toLocaleString('en-GB')}`, href: hrefFor(payment), adminOnly: true })),
+    ...overdueTasks.map((task) => ({ id: task.id, kind: 'task', severity: 'critical', priority: 90, ageDays: daysBetween(day(value(task, 'dueDate', 'due_date')), today), title: task.title, subtitle: `${projectName(projectId(task))} · overdue`, href: hrefFor(task) })),
+    ...leadFollowUps.map((lead) => ({ id: lead.id, kind: 'lead', severity: 'warning', priority: 80, ageDays: daysBetween(day(value(lead, 'nextActionDueAt', 'next_action_due_at')), today), title: lead.nextAction || 'Client follow-up', subtitle: `${lead.clientName || lead.client_name} · ${lead.postcode || 'No postcode'}`, href: `/job-manager/leads/${lead.id}`, adminOnly: true })),
+    ...todayEvents.map((event) => ({ id: event.id, kind: 'event', severity: 'today', priority: 70, ageDays: 0, title: event.title, subtitle: `${projectName(projectId(event))} · ${event.type}`, href: hrefFor(event) })),
+    ...tasksDueToday.map((task) => ({ id: task.id, kind: 'task', severity: 'today', priority: 60, ageDays: 0, title: task.title, subtitle: `${projectName(projectId(task))} · due today`, href: hrefFor(task) })),
+  ].sort((a, b) => b.priority - a.priority || b.ageDays - a.ageDays || a.title.localeCompare(b.title))
 
   const health = activeProjects.map((project) => ({ ...calculateProjectHealth(project, data, today), project, clientName: projectName(project.id) })).sort((a, b) => b.score - a.score || a.clientName.localeCompare(b.clientName))
   const attention = health.filter((item) => item.status !== 'Healthy').map((item) => ({ id: item.projectId, title: item.clientName, reason: item.reasons[0], status: item.status, href: `/job-manager/projects/${item.projectId}` }))

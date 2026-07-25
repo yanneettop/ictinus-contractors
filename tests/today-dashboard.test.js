@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import test from 'node:test'
+import { monthEndDateKey, paymentStatus } from '../src/job-manager/utils/format.js'
 import { buildTodayDashboard, calculateProjectHealth, dashboardQuickActions } from '../src/job-manager/utils/todayDashboard.js'
 
 const today = '2026-07-22'
@@ -31,6 +32,28 @@ test('priority ordering puts overdue payments before tasks, follow-ups, visits a
   assert.deepEqual(buildTodayDashboard(data, { today }).actionItems.map((item) => item.kind), ['payment', 'task', 'lead', 'event', 'task'])
 })
 
+test('priority classes stay stable even when a lower class item is much older', () => {
+  const data = base()
+  data.payments.push({ id: 'payment', projectId: 'project-1', title: 'Final payment', amount: 500, dueDate: '2026-07-21', status: 'Due' })
+  data.tasks.push({ id: 'old-task', projectId: 'project-1', title: 'Very old task', dueDate: '2026-01-01', completed: false })
+  assert.deepEqual(buildTodayDashboard(data, { today }).actionItems.map((item) => item.kind), ['payment', 'task'])
+})
+
+test('site-manager dashboard calculations exclude financial amounts and payment risks', () => {
+  const data = base()
+  data.payments.push({ id: 'payment', projectId: 'project-1', title: 'Final payment', amount: 500, dueDate: '2026-07-01', status: 'Due' })
+  const dashboard = buildTodayDashboard(data, { today, includeFinancials: false })
+  assert.equal(dashboard.summary.outstandingPayments, 0)
+  assert.equal(dashboard.actionItems.some((item) => item.kind === 'payment'), false)
+  assert.equal(dashboard.health[0].reasons.some((reason) => reason.includes('payment')), false)
+})
+
+test('payment dates use the requested day and calculate the real month end', () => {
+  assert.equal(paymentStatus({ status: 'Due', dueDate: '2026-07-21' }, '2026-07-22'), 'Overdue')
+  assert.equal(paymentStatus({ status: 'Due', dueDate: '2026-07-22' }, '2026-07-22'), 'Due')
+  assert.equal(monthEndDateKey('2028-02-10'), '2028-02-29')
+})
+
 test('project health uses transparent overdue, schedule, materials and approval rules', () => {
   const data = base()
   data.projects[0].endDate = '2026-07-21'
@@ -59,4 +82,12 @@ test('dashboard includes a phone layout with stacked cards and a floating action
   assert.match(page, /jm-today-fab/)
   assert.match(css, /@media\(max-width:680px\)/)
   assert.match(css, /\.jm-today-summary\{grid-template-columns:1fr 1fr;/)
+})
+
+test('calendar safely ignores payments whose project no longer exists', async () => {
+  const page = await readFile(new URL('../src/job-manager/pages/CalendarPage.jsx', import.meta.url), 'utf8')
+  const paymentBlock = page.slice(page.indexOf('const paymentEvents'), page.indexOf('const taskEvents'))
+  assert.match(paymentBlock, /if \(!project\) return \[\]/)
+  assert.doesNotMatch(paymentBlock, /task\.leadId/)
+  assert.match(page, /data\.leads\.find\(\(item\) => item\.id === task\.leadId\)/)
 })
