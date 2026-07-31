@@ -48,7 +48,28 @@ npx supabase secrets set ALLOWED_APP_ORIGIN=https://www.ictinuscontractors.co.uk
 
 Supabase automatically supplies the URL, anonymous key and service-role key to its Edge Functions. Never add the service-role key to GitHub Pages or browser environment variables.
 
-## 5. Configure GitHub Pages
+## 5. Configure Google Calendar
+
+1. In Google Cloud Console, enable the Google Calendar API and configure an OAuth consent screen.
+2. Create an OAuth 2.0 **Web application** client.
+3. Add the exact production redirect URI: `https://YOUR_CLOUDFLARE_DOMAIN/api/google-calendar/callback`.
+4. Generate a 32-byte encryption key with `openssl rand -base64 32` and store it separately from the database.
+5. Add these encrypted Cloudflare Pages secrets/variables (never prefix them with `VITE_`):
+
+```text
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+GOOGLE_OAUTH_REDIRECT_URI
+GOOGLE_TOKEN_ENCRYPTION_KEY
+```
+
+6. Deploy through Cloudflare Pages, sign in as an administrator, open Settings, connect Google, and select a writable calendar.
+
+The app requests only event read/write and calendar-list read access. OAuth state values are single-use and expire after ten minutes. Rotate the encryption key only with a planned re-encryption or reconnection of the stored credentials.
+
+For local OAuth testing, copy `.dev.vars.example` to `.dev.vars`, use `http://localhost:8788/api/google-calendar/callback` as an authorised redirect URI, then run `npm run build` followed by `npx wrangler pages dev dist`.
+
+## 6. Configure GitHub Pages
 
 Add these repository settings:
 
@@ -57,7 +78,9 @@ Add these repository settings:
 
 Re-run the `Deploy to GitHub Pages` workflow. A configured production build automatically uses Supabase; a build without these variables stays in local demo mode.
 
-## 6. Verification
+Static GitHub Pages cannot execute the OAuth or event-sync Functions. Use the Cloudflare Pages deployment for Google Calendar sync.
+
+## 7. Verification
 
 - Anonymous visitors are redirected to login and cannot query any table.
 - Ioannis can create/delete projects and edit financial records.
@@ -66,9 +89,14 @@ Re-run the `Deploy to GitHub Pages` workflow. A configured production build auto
 - Uploaded PDFs/images are private and accessed with expiring signed URLs.
 - Invitation and password-reset links open the secure password setup page.
 - Deactivating a profile immediately removes its database access through RLS.
+- Only administrators can start OAuth or choose the calendar.
+- Creating an event returns `calendarSync: synced` and stores both Google IDs when configured.
+- Updating that event changes the same Google event ID.
+- With Google unavailable, the event database write still succeeds and returns `calendarSync: failed`.
 
 ## Secrets and rotation
 
 - Browser: only project URL and publishable key.
 - Edge Function: service-role key supplied by Supabase runtime only.
+- Cloudflare Function: Google OAuth secrets and the token-encryption key; OAuth tokens are encrypted in Supabase and never exposed to the browser.
 - Rotate keys after suspected exposure and review Auth/activity logs.

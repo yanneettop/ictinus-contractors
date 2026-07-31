@@ -1,15 +1,23 @@
-export const calendarService = {
-  async createExternalEvent() {
-    throw new Error('Google Calendar is not connected.')
-  },
-  async updateExternalEvent() {
-    throw new Error('Google Calendar is not connected.')
-  },
-  async removeExternalEvent() {
-    throw new Error('Google Calendar is not connected.')
-  },
+import { authService } from './authService'
+
+async function request(path, options = {}) {
+  const token = await authService.getAccessToken()
+  if (!token) throw new Error('Please sign in again.')
+  const response = await fetch(`/api/google-calendar${path}`, {
+    ...options,
+    headers: { authorization: `Bearer ${token}`, ...(options.body ? { 'content-type': 'application/json' } : {}), ...(options.headers || {}) },
+  })
+  const payload = await response.json().catch(() => null)
+  if (!response.ok || !payload?.success) throw new Error(payload?.error?.message || 'Google Calendar request failed.')
+  return payload.data
 }
 
-// TODO: Add a Cloudflare Pages server endpoint for Google OAuth, store refresh
-// tokens server-side, call the Google Calendar API there, and persist the returned
-// event id to ProjectEvent.googleCalendarEventId. Never expose OAuth secrets here.
+export const calendarService = {
+  status: () => request('/status'),
+  calendars: () => request('/calendars'),
+  async connect() {
+    const { authorizationUrl } = await request('/connect', { method: 'POST' })
+    window.location.assign(authorizationUrl)
+  },
+  selectCalendar: (calendarId) => request('/selection', { method: 'PUT', body: JSON.stringify({ calendarId }) }),
+}
