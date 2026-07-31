@@ -287,3 +287,14 @@
 .jm-calendar-select { display: grid; gap: .45rem; margin: 1rem 0; }
 .jm-calendar-select span { color: var(--jm-muted); font-size: .82rem; font-weight: 700; }
 .jm-calendar-select select { width: 100%; min-height: 2.75rem; border: 1px solid var(--jm-border); border-radius: .65rem; background: var(--jm-surface); color: var(--jm-text); padding: .65rem .75rem; }
+.jm-project-list-section + .jm-project-list-section { margin-top: 2.25rem; }
+.jm-project-list-section > header { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin: 0 0 1rem; }
+.jm-project-list-section > header h2 { margin: 0; font-family: var(--jm-display); font-size: 1.45rem; }
+.jm-project-list-section > header p { margin: .2rem 0 0; color: var(--jm-muted); font-size: .86rem; }
+.jm-project-list-section > header > span { display: grid; place-items: center; min-width: 2rem; height: 2rem; padding: 0 .55rem; border-radius: 999px; background: var(--jm-surface); border: 1px solid var(--jm-border); font-weight: 800; }
+.jm-project-list-section--completed { padding-top: 2rem; border-top: 1px solid var(--jm-border); }
+.jm-project-unpaid { display: flex; align-items: center; gap: .65rem; margin-top: .85rem; padding: .7rem .8rem; border: 1px solid #f1b9ae; border-radius: .7rem; background: #fff5f2; color: #9f2d20; }
+.jm-project-unpaid div { display: grid; gap: .1rem; }
+.jm-project-unpaid strong { font-size: .82rem; }
+.jm-project-unpaid span { font-size: .76rem; }
+.jm-table-unpaid { color: #a33124; font-weight: 800; white-space: nowrap; }
