@@ -5,6 +5,8 @@ pages_build_output_dir = "dist"
 [vars]
 VITE_TURNSTILE_SITE_KEY = "0x4AAAAAADQfrmNxcoUZnMwX"
 SUPABASE_URL = "https://tgzluhuipfxetpuhwcmv.supabase.co"
+QUOTE_TO_EMAIL = "info@ictinuscontractors.co.uk"
+QUOTE_FROM_EMAIL = "Ictinus Contractors <quotes@ictinuscontractors.co.uk>"
 
 [[r2_buckets]]
 binding = "QUOTE_UPLOADS"
