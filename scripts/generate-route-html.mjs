@@ -133,6 +133,20 @@ function canonicalForRoute(route) {
   return route === '/' ? `${SITE_URL}/` : `${SITE_URL}${route}`
 }
 
+// Google reads WebSite structured data from the homepage only. Repeating the
+// entity on every route gives it competing site name candidates, so it falls
+// back to showing the bare domain in search results.
+const WEBSITE_SCHEMA_PATTERN =
+  /\n\s*<!-- Structured Data - WebSite -->\s*<script type="application\/ld\+json">[\s\S]*?<\/script>/
+
+function removeWebsiteSchema(html) {
+  if (!WEBSITE_SCHEMA_PATTERN.test(html)) {
+    throw new Error('WebSite structured data block not found in dist/index.html')
+  }
+
+  return html.replace(WEBSITE_SCHEMA_PATTERN, '')
+}
+
 function htmlForRoute(route) {
   const routeUrl = canonicalForRoute(route)
   const meta = routeMeta[route] || (route.startsWith('/job-manager') ? routeMeta['/job-manager'] : routeMeta['/'])
@@ -194,6 +208,10 @@ function htmlForRoute(route) {
       /<meta\s+name="robots"\s+content="[^"]*"\s*\/>/,
       '<meta name="robots" content="noindex, nofollow" />',
     )
+  }
+
+  if (route !== '/') {
+    html = removeWebsiteSchema(html)
   }
 
   return html
