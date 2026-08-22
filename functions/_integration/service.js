@@ -70,7 +70,7 @@ function projectView(row) {
 const taskView = (row) => ({ id: row.id, projectId: row.project_id, title: row.title, dueDate: row.due_date, assignedTo: row.assigned_to, priority: row.priority, completed: row.completed, status: row.completed ? 'Completed' : 'Pending', createdAt: row.created_at, updatedAt: row.updated_at })
 const paymentView = (row) => ({ id: row.id, projectId: row.project_id, title: row.title, percentage: Number(row.percentage), amount: pounds(row.amount_pence), dueDate: row.due_date, paidDate: row.paid_date, status: row.status, invoiceReference: row.invoice_reference, notes: row.notes, createdAt: row.created_at, updatedAt: row.updated_at })
 const journalView = (row) => ({ id: row.id, projectId: row.project_id, category: row.category, message: row.message, createdAt: row.created_at, updatedAt: row.updated_at })
-const eventView = (row) => ({ id: row.id, projectId: row.project_id, leadId: row.lead_id, type: row.type, title: row.title, startDate: row.start_date, endDate: row.end_date, allDay: row.all_day, location: row.location, notes: row.notes, colourCategory: row.colour_category, googleCalendarEventId: row.google_calendar_event_id, syncStatus: row.sync_status, lastSyncedAt: row.last_synced_at, createdAt: row.created_at, updatedAt: row.updated_at })
+const eventView = (row) => ({ id: row.id, projectId: row.project_id, leadId: row.lead_id, type: row.type, title: row.title, startDate: row.start_date, endDate: row.end_date, allDay: row.all_day, location: row.location, notes: row.notes, colourCategory: row.colour_category, googleCalendarId: row.google_calendar_id, googleCalendarEventId: row.google_calendar_event_id, syncStatus: row.sync_status, lastSyncedAt: row.last_synced_at, createdAt: row.created_at, updatedAt: row.updated_at })
 const leadView = (row) => row && ({ id: row.id, clientName: row.client_name, email: row.email, phone: row.phone, postcode: row.postcode, fullAddress: row.full_address, projectType: row.project_type, enquirySummary: row.enquiry_summary, estimatedValue: pounds(row.estimated_value_pence), budget: pounds(row.budget_pence), stage: row.stage, priority: row.priority, source: row.source, sourceReference: row.source_reference, barkCreditsSpent: Number(row.bark_credits_spent || 0), assignedTo: row.assigned_to, preferredContactMethod: row.preferred_contact_method, preferredContactTime: row.preferred_contact_time, firstContactedAt: row.first_contacted_at, lastContactedAt: row.last_contacted_at, nextAction: row.next_action, nextActionDueAt: row.next_action_due_at, reminderStatus: row.reminder_status, siteVisitDate: row.site_visit_date, siteVisitStatus: row.site_visit_status, quoteId: row.quote_id, convertedProjectId: row.converted_project_id, lostReason: row.lost_reason, lostNotes: row.lost_notes, internalNotes: row.internal_notes, createdAt: row.created_at, updatedAt: row.updated_at })
 const leadValues = (input) => Object.fromEntries(Object.entries({ client_name: input.clientName, email: input.email, phone: input.phone, postcode: input.postcode?.toUpperCase(), full_address: input.fullAddress, project_type: input.projectType, enquiry_summary: input.enquirySummary, estimated_value_pence: input.estimatedValue === undefined ? undefined : pence(input.estimatedValue), budget_pence: input.budget === undefined ? undefined : pence(input.budget), stage: input.stage, priority: input.priority, source: input.source, source_reference: input.sourceReference, assigned_to: input.assignedTo, preferred_contact_method: input.preferredContactMethod, preferred_contact_time: input.preferredContactTime, next_action: input.nextAction, next_action_due_at: input.nextActionDueAt, internal_notes: input.internalNotes, bark_credits_spent: input.barkCreditsSpent, updated_at: now() }).filter(([,value]) => value !== undefined))
 
@@ -89,8 +89,9 @@ function safeAuditValue(row) {
 }
 
 export class IntegrationService {
-  constructor(repository) {
+  constructor(repository, calendar = null) {
     this.repository = repository
+    this.calendar = calendar
   }
 
   setRequestContext(context) { this.repository.setContext?.(context) }
@@ -276,20 +277,45 @@ export class IntegrationService {
   async createEvent(identifier, input) {
     const project = await this.resolveProject(identifier, input.project)
     if (!validateDateRange(input.startDate, input.endDate)) throw new IntegrationError('INVALID_DATE_RANGE', 'endDate must be on or after startDate.', 422)
-    const row = await this.repository.insert('project_events', { project_id: project.id, type: input.type, title: input.title, start_date: input.startDate, end_date: input.endDate, all_day: input.allDay, location: input.location || '', notes: input.notes || '', colour_category: input.colourCategory, google_calendar_event_id: null, sync_status: 'not_configured', last_synced_at: null, created_by: null, updated_at: now() })
+    const row = await this.repository.insert('project_events', { project_id: project.id, type: input.type, title: input.title, start_date: input.startDate, end_date: input.endDate, all_day: input.allDay, location: input.location || '', notes: input.notes || '', colour_category: input.colourCategory, google_calendar_id: null, google_calendar_event_id: null, sync_status: 'not_configured', last_synced_at: null, created_by: null, updated_at: now() })
     await this.audit('event.created', 'event', row.id, project.id, null, row)
-    return { event: eventView(row), calendarSync: 'not_configured' }
+    return this.syncEvent(row)
   }
 
   async patchEvent(id, input) {
     const previous = await this.repository.row('project_events', id)
     if (!previous) throw notFound('event', id)
     if (!validateDateRange(input.startDate || previous.start_date, input.endDate || previous.end_date)) throw new IntegrationError('INVALID_DATE_RANGE', 'endDate must be on or after startDate.', 422)
-    const values = { type: input.type, title: input.title, start_date: input.startDate, end_date: input.endDate, all_day: input.allDay, location: input.location, notes: input.notes, colour_category: input.colourCategory, sync_status: previous.google_calendar_event_id ? 'pending' : 'not_configured', updated_at: now() }
+    const values = { type: input.type, title: input.title, start_date: input.startDate, end_date: input.endDate, all_day: input.allDay, location: input.location, notes: input.notes, colour_category: input.colourCategory, updated_at: now() }
     Object.keys(values).forEach((key) => values[key] === undefined && delete values[key])
     const updated = await this.repository.update('project_events', id, values)
     await this.audit('event.updated', 'event', id, previous.project_id, previous, updated)
-    return { event: eventView(updated), calendarSync: updated.google_calendar_event_id ? 'pending' : 'not_configured' }
+    return this.syncEvent(updated)
+  }
+
+  async syncEvent(row) {
+    if (!this.calendar) return { event: eventView(row), calendarSync: 'not_configured' }
+    try {
+      const result = await this.calendar.syncEvent(row)
+      const status = result?.status === 'synced' ? 'synced' : 'not_configured'
+      const values = {
+        sync_status: status,
+        google_calendar_id: result?.calendarId || row.google_calendar_id || null,
+        google_calendar_event_id: result?.eventId || row.google_calendar_event_id || null,
+        last_synced_at: status === 'synced' ? now() : row.last_synced_at || null,
+        updated_at: now(),
+      }
+      try {
+        const updated = await this.repository.update('project_events', row.id, values)
+        return { event: eventView(updated || { ...row, ...values }), calendarSync: status }
+      } catch {
+        return { event: eventView({ ...row, ...values }), calendarSync: status }
+      }
+    } catch {
+      const values = { sync_status: 'failed', updated_at: now() }
+      try { await this.repository.update('project_events', row.id, values) } catch { /* The primary event write remains authoritative. */ }
+      return { event: eventView({ ...row, ...values }), calendarSync: 'failed' }
+    }
   }
 
   async resolveLead(identifier, lookup = {}) {

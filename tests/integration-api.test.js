@@ -168,6 +168,38 @@ test('creates journal entries and events database-first', async () => {
   assert.equal(repository.tables.project_events.length, 1)
 })
 
+test('creates and updates the same Google event after database writes', async () => {
+  const repository = new MemoryRepository()
+  const calls = []
+  const calendar = {
+    async syncEvent(event) {
+      calls.push(structuredClone(event))
+      return { status: 'synced', calendarId: 'calendar@example.com', eventId: event.google_calendar_event_id || 'google-event-1' }
+    },
+  }
+  const service = new IntegrationService(repository, calendar)
+  const created = await service.createEvent(GEORGE_ID, { type: 'Site visit', title: 'Final inspection', startDate: '2026-07-25T09:00:00+01:00', endDate: '2026-07-25T10:00:00+01:00', allDay: false, colourCategory: 'blue' })
+  assert.equal(created.calendarSync, 'synced')
+  assert.equal(repository.tables.project_events[0].google_calendar_id, 'calendar@example.com')
+  assert.equal(repository.tables.project_events[0].google_calendar_event_id, 'google-event-1')
+
+  const updated = await service.patchEvent(EVENT_ID, { title: 'Revised inspection' })
+  assert.equal(updated.calendarSync, 'synced')
+  assert.equal(calls.length, 2)
+  assert.equal(calls[1].google_calendar_event_id, 'google-event-1')
+  assert.equal(repository.tables.project_events.length, 1)
+})
+
+test('keeps event database writes successful when Google sync fails', async () => {
+  const repository = new MemoryRepository()
+  const service = new IntegrationService(repository, { async syncEvent() { throw new Error('sensitive upstream detail') } })
+  const created = await service.createEvent(GEORGE_ID, { type: 'Work', title: 'Painting', startDate: '2026-07-25T09:00:00+01:00', endDate: '2026-07-25T17:00:00+01:00', allDay: false, colourCategory: 'green' })
+  assert.equal(created.calendarSync, 'failed')
+  assert.equal(repository.tables.project_events.length, 1)
+  assert.equal(repository.tables.project_events[0].sync_status, 'failed')
+  assert.equal(JSON.stringify(created).includes('sensitive upstream detail'), false)
+})
+
 test('logs every mutation with integration actor metadata and before/after values', async () => {
   const repository = new MemoryRepository()
   await invoke(`/projects/${GEORGE_ID}`, { method: 'PATCH', body: { nextAction: 'Call client' } }, repository)

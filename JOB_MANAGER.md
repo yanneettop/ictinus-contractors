@@ -51,9 +51,11 @@ localStorage is deliberately a demo implementation: it is browser-specific, has 
 
 ## Google Calendar integration
 
-Project events already include `googleCalendarEventId`. `services/calendarService.js` defines the external service boundary and intentionally throws while disconnected.
+Administrators connect a Google account and choose a writable calendar under Job Manager > Settings. OAuth code exchange, token refresh and Calendar API calls run only in Cloudflare Pages Functions. Access and refresh tokens are AES-256-GCM encrypted before being stored in server-only Supabase tables; neither token is returned to the browser or written to logs.
 
-Add OAuth through a server-side Cloudflare Pages Function. Keep the client secret and refresh tokens server-side, request the narrow Calendar scope, exchange tokens in the Function, and call the Google Calendar API there. After an event is created, store its returned id on the matching project event. Add retry/idempotency handling and an explicit per-event sync state before enabling the Settings connection control.
+`createProjectEvent` and `updateProjectEvent` write the Supabase event first. They then insert or update the Google event, retaining both `google_calendar_id` and `google_calendar_event_id` so later updates never create a duplicate. The response reports `calendarSync` as `synced`, `failed`, or `not_configured`. A Google error never rolls back the database mutation. Timed events explicitly use `Europe/London`; all-day database end dates are translated to Google's exclusive end-date representation.
+
+See `SUPABASE_SETUP.md` for Google Cloud and Cloudflare configuration.
 
 ## Deployment
 
