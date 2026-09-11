@@ -1,14 +1,17 @@
-import { Download, ExternalLink, File, FileCheck2, FileImage, Files, FolderOpen, Plus, Search, Upload } from 'lucide-react'
+import { Download, ExternalLink, File, FileCheck2, FileImage, FileText, Files, FolderOpen, Plus, Search, Upload, Video } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { EmptyState, PageHeader } from '../components/UI'
 import { useJobManager } from '../context/JobManagerContext'
 import { formatDate, projectClient } from '../utils/format'
+import { applySelectedFileDefaults, PROJECT_FILE_ACCEPT, PROJECT_FILE_HELP } from '../utils/fileUploads'
 
-const documentTypes = ['Quotation', 'Site survey', 'Client brief', 'Plans', 'Invoice', 'Payment schedule', 'Photos', 'Contract', 'Certificate', 'Google Drive folder', 'Other']
+const documentTypes = ['Quotation', 'Site survey', 'Client brief', 'Plans', 'Invoice', 'Payment schedule', 'Photos', 'Video', 'Word document', 'Contract', 'Certificate', 'Google Drive folder', 'Other']
 
 function documentIcon(type) {
   if (type === 'Photos') return FileImage
+  if (type === 'Video') return Video
+  if (type === 'Word document') return FileText
   if (type.includes('Drive')) return FolderOpen
   if (type === 'Certificate' || type === 'Contract') return FileCheck2
   return File
@@ -49,7 +52,7 @@ export default function FilesPage() {
     try {
       if (file?.size) await uploadDocument(selectedProject, values, file)
       else if (values.url) await addDocument(selectedProject, values)
-      else throw new Error(authMode === 'supabase' ? 'Choose a PDF/image or add an external URL.' : 'Add an external file URL.')
+      else throw new Error(authMode === 'supabase' ? 'Choose a supported file or add an external URL.' : 'Add an external file URL.')
       form.reset()
       setAdding(false)
       setNotice('File added to the account and linked to its project.')
@@ -63,12 +66,12 @@ export default function FilesPage() {
     <PageHeader eyebrow="Private workspace" title="Files" description={`${rows.length} of ${data.documents.length} documents shown`} action={<button className="jm-button jm-button--primary" type="button" onClick={() => { setAdding((value) => !value); setError(''); setNotice('') }}><Plus size={18} />Add file</button>} />
 
     {adding && <form className="jm-file-upload" onSubmit={submit}>
-      <div className="jm-file-upload-heading"><div><Upload size={20} /><div><h2>Add a document</h2><p>Store it privately and link it to the correct project.</p></div></div><span>PDF, JPG, PNG or WebP · 25 MB max</span></div>
+      <div className="jm-file-upload-heading"><div><Upload size={20} /><div><h2>Add a file</h2><p>Store it privately and link it to the correct project.</p></div></div><span>{PROJECT_FILE_HELP}</span></div>
       <div className="jm-file-upload-grid">
         <label>Project<select name="projectId" required defaultValue=""><option value="" disabled>Select project</option>{data.projects.map((project) => <option key={project.id} value={project.id}>{projectClient(data, project)?.name} · {project.postcode}</option>)}</select></label>
         <label>Document type<select name="type" defaultValue="Quotation">{documentTypes.map((item) => <option key={item}>{item}</option>)}</select></label>
         <label>Display name<input name="name" placeholder="e.g. Final quotation" required /></label>
-        {authMode === 'supabase' && <label>Upload file<input name="file" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" /></label>}
+        {authMode === 'supabase' && <label>Upload file<input name="file" type="file" accept={PROJECT_FILE_ACCEPT} onChange={(event) => applySelectedFileDefaults(event.currentTarget)} /></label>}
         <label className="jm-file-url">External URL <span>optional</span><input name="url" type="url" placeholder="https://drive.google.com/…" /></label>
       </div>
       {error && <p className="jm-file-message jm-file-message--error" role="alert">{error}</p>}

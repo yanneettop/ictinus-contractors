@@ -1,4 +1,6 @@
+import { Upload } from 'tus-js-client'
 import { requireSupabase } from '../services/supabaseClient'
+import { RESUMABLE_UPLOAD_THRESHOLD, uploadContentType, validateUploadFile } from '../utils/fileUploads'
 
 const clone = (value) => structuredClone(value)
 const pounds = (pence) => Number(pence || 0) / 100
@@ -50,6 +52,46 @@ async function signedUrl(client, path) {
   return error ? '' : data.signedUrl
 }
 
+function resumableEndpoint(client) {
+  const endpoint = new URL(client.supabaseUrl)
+  if (endpoint.hostname.endsWith('.supabase.co')) endpoint.hostname = endpoint.hostname.replace(/\.supabase\.co$/, '.storage.supabase.co')
+  endpoint.pathname = '/storage/v1/upload/resumable'
+  endpoint.search = ''
+  endpoint.hash = ''
+  return endpoint.toString()
+}
+
+async function resumableUpload(client, path, file) {
+  const { data: { session }, error } = await client.auth.getSession()
+  if (error) throw error
+  if (!session?.access_token) throw new Error('Your session has expired. Sign in again before uploading.')
+  await new Promise((resolve, reject) => {
+    const upload = new Upload(file, {
+      endpoint: resumableEndpoint(client),
+      retryDelays: [0, 3000, 5000, 10000, 20000],
+      headers: { authorization: `Bearer ${session.access_token}`, 'x-upsert': 'false' },
+      uploadDataDuringCreation: true,
+      removeFingerprintOnSuccess: true,
+      fingerprint: (selectedFile) => Promise.resolve(['ictinus-project-files', path, selectedFile.name, selectedFile.size, selectedFile.lastModified].join('-')),
+      chunkSize: RESUMABLE_UPLOAD_THRESHOLD,
+      metadata: {
+        bucketName: 'ictinus-project-files',
+        objectName: path,
+        contentType: uploadContentType(file),
+        cacheControl: '3600',
+      },
+      onError: reject,
+      onSuccess: resolve,
+    })
+    upload.findPreviousUploads()
+      .then((previousUploads) => {
+        if (previousUploads.length) upload.resumeFromPreviousUpload(previousUploads[0])
+        upload.start()
+      })
+      .catch(reject)
+  })
+}
+
 async function syncCollection(client, key, current, previous) {
   const table = tableNames[key]; const mapper = dbMaps[key]
   const currentIds = new Set(current.map((row) => row.id)); const removed = previous.filter((row) => !currentIds.has(row.id)).map((row) => row.id)
@@ -94,10 +136,10 @@ export const supabaseRepository = {
     return () => { clearTimeout(timer); client.removeChannel(channel) }
   },
   async uploadFile(projectId, file, kind) {
-    if (file.size > 25 * 1024 * 1024) throw new Error('Files must be 25 MB or smaller.')
-    const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif', 'application/pdf']; const extensionAllowed = /\.(jpe?g|png|webp|heic|heif|pdf)$/i.test(file.name); if (!allowed.includes(file.type) && !(extensionAllowed && !file.type)) throw new Error('Use JPG, PNG, WebP, HEIC, HEIF or PDF files.')
+    validateUploadFile(file, kind)
     const safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, '-'); const path = `${projectId}/${kind}/${crypto.randomUUID()}-${safeName}`; const client = requireSupabase()
-    const { error } = await client.storage.from('ictinus-project-files').upload(path, file, { upsert: false, contentType: file.type || 'application/octet-stream' }); if (error) throw error
+    if (file.size > RESUMABLE_UPLOAD_THRESHOLD) await resumableUpload(client, path, file)
+    else { const { error } = await client.storage.from('ictinus-project-files').upload(path, file, { upsert: false, contentType: uploadContentType(file) }); if (error) throw error }
     return { storagePath: path, url: await signedUrl(client, path) }
   },
   async deleteFile(path) { if (!path) return; const { error } = await requireSupabase().storage.from('ictinus-project-files').remove([path]); if (error) throw error },

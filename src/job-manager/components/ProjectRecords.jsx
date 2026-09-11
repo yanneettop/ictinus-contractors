@@ -1,13 +1,26 @@
-import { Camera, Check, Download, Eye, File, FileCheck2, FileImage, FolderOpen, ImagePlus, LoaderCircle, Maximize2, Trash2, UploadCloud, X } from 'lucide-react'
+import { Camera, Check, Download, ExternalLink, Eye, File, FileCheck2, FileImage, FilePlus2, FileText, FolderOpen, ImagePlus, LoaderCircle, Maximize2, Trash2, UploadCloud, Video, X } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { formatDate } from '../utils/format'
+import { applySelectedFileDefaults, PROJECT_FILE_ACCEPT, PROJECT_FILE_HELP, uploadFileKind } from '../utils/fileUploads'
 
-const documentGroups = ['Quotation', 'Invoice', 'Payment schedule', 'Photos', 'Contract', 'Certificate', 'Google Drive folder', 'Other']
-const documentIcon = (type) => type === 'Photos' ? FileImage : type.includes('Drive') ? FolderOpen : type === 'Certificate' ? FileCheck2 : File
+const documentGroups = ['Quotation', 'Invoice', 'Payment schedule', 'Photos', 'Video', 'Word document', 'Contract', 'Certificate', 'Google Drive folder', 'Other']
+const documentIcon = (document) => {
+  const kind = uploadFileKind(document.name, document.type)
+  if (kind === 'video') return Video
+  if (kind === 'word') return FileText
+  if (kind === 'image') return FileImage
+  if (document.type.includes('Drive')) return FolderOpen
+  if (document.type === 'Certificate' || document.type === 'Contract') return FileCheck2
+  return File
+}
 
-export function DocumentsSection({ documents, users, canDelete = () => false, onDelete }) {
-  const [preview, setPreview] = useState(null)
-  const groups = useMemo(() => documentGroups.map((type) => ({ type, items: documents.filter((document) => document.type.toLowerCase() === type.toLowerCase()) })).filter((group) => group.items.length), [documents])
+export function DocumentsSection({ documents, users, canDelete = () => false, onDelete, onAdd, onUpload, storageEnabled }) {
+  const [preview, setPreview] = useState(null); const [adding, setAdding] = useState(false); const [uploading, setUploading] = useState(false); const [error, setError] = useState(''); const [notice, setNotice] = useState('')
+  const groups = useMemo(() => {
+    const types = [...documentGroups]
+    documents.forEach((document) => { if (!types.some((type) => type.toLowerCase() === document.type.toLowerCase())) types.push(document.type) })
+    return types.map((type) => ({ type, items: documents.filter((document) => document.type.toLowerCase() === type.toLowerCase()) })).filter((group) => group.items.length)
+  }, [documents])
   useEffect(() => {
     if (!preview) return undefined
     const previousOverflow = document.body.style.overflow
@@ -16,16 +29,27 @@ export function DocumentsSection({ documents, users, canDelete = () => false, on
     window.addEventListener('keydown', closeOnEscape)
     return () => { document.body.style.overflow = previousOverflow; window.removeEventListener('keydown', closeOnEscape) }
   }, [preview])
-  return <section className="jm-detail-card"><div className="jm-card-heading"><div><h2>Documents</h2><p>{documents.length} linked file{documents.length === 1 ? '' : 's'}</p></div><span>Grouped by type</span></div>{groups.length ? <div className="jm-document-groups">{groups.map((group) => <div key={group.type}><h3>{group.type}</h3>{group.items.map((document) => { const Icon = documentIcon(document.type); const uploader = users.find((user) => user.id === document.uploadedBy); return <article key={document.id}><span className="jm-document-icon"><Icon size={18} /></span><div><strong>{document.name}</strong><small>{formatDate(document.createdAt)} · {uploader?.name || 'Ictinus'}</small></div><button type="button" onClick={() => setPreview(document)} aria-label={`Preview ${document.name}`} disabled={!document.url}><Eye size={15} /></button><a href={document.url} download aria-label={`Download ${document.name}`}><Download size={15} /></a>{canDelete(document) && <button onClick={() => onDelete(document.id)} aria-label={`Delete ${document.name}`}><Trash2 size={15} /></button>}</article> })}</div>)}</div> : <p className="jm-empty-copy">No documents linked yet.</p>}{preview && <DocumentPreview document={preview} onClose={() => setPreview(null)} />}</section>
+  const submitDocument = async (event) => {
+    event.preventDefault(); setError(''); setNotice(''); setUploading(true)
+    const form = event.currentTarget; const formData = new FormData(form); const file = formData.get('file'); const values = { name: String(formData.get('name')).trim(), type: formData.get('type'), url: String(formData.get('url') || '').trim() }
+    try {
+      if (storageEnabled) { if (!file?.size) throw new Error('Choose a file to store in the account.'); await onUpload(values, file) }
+      else { if (!values.url) throw new Error('Add an external file URL.'); await onAdd(values) }
+      form.reset(); setAdding(false); setNotice('Document added to this project.')
+    } catch (uploadError) { setError(uploadError.message) }
+    finally { setUploading(false) }
+  }
+  const closeUploader = () => { if (uploading) return; setAdding(false); setError('') }
+  return <section className="jm-detail-card jm-documents-section"><div className="jm-card-heading"><div><h2>Documents</h2><p>{documents.length} linked file{documents.length === 1 ? '' : 's'}</p></div><div className="jm-document-heading-actions"><span>Grouped by type</span><button type="button" className="jm-button jm-button--small jm-button--secondary" onClick={() => { setAdding((value) => !value); setError(''); setNotice('') }}><FilePlus2 size={15} />{adding ? 'Close' : 'Add documents'}</button></div></div>{notice && <p className="jm-upload-notice"><Check size={15} />{notice}</p>}{adding && <form className="jm-document-upload-form" onSubmit={submitDocument}><div><label><span>Name</span><input name="name" placeholder="e.g. Site walkthrough" required /></label><label><span>Type</span><select name="type"><option>Quotation</option><option>Invoice</option><option>Payment schedule</option><option>Photos</option><option>Video</option><option>Word document</option><option>Contract</option><option>Certificate</option><option>Other</option></select></label>{storageEnabled ? <label className="jm-document-upload-picker"><span>Choose file</span><input name="file" type="file" accept={PROJECT_FILE_ACCEPT} onChange={(event) => applySelectedFileDefaults(event.currentTarget)} required /><small>{PROJECT_FILE_HELP}</small></label> : <label className="jm-document-upload-picker"><span>External URL</span><input name="url" type="url" placeholder="https://" required /></label>}</div>{error && <p className="jm-form-error" role="alert">{error}</p>}<footer><button type="button" className="jm-button jm-button--secondary" onClick={closeUploader}>Cancel</button><button type="submit" className="jm-button jm-button--primary" disabled={uploading}>{uploading ? <><LoaderCircle className="jm-spin" size={16} />Uploading…</> : 'Add document'}</button></footer></form>}{groups.length ? <div className="jm-document-groups">{groups.map((group) => <div key={group.type}><h3>{group.type}</h3>{group.items.map((document) => { const Icon = documentIcon(document); const uploader = users.find((user) => user.id === document.uploadedBy); return <article key={document.id}><span className="jm-document-icon"><Icon size={18} /></span><div><strong>{document.name}</strong><small>{formatDate(document.createdAt)} · {uploader?.name || 'Ictinus'}</small></div><button type="button" onClick={() => setPreview(document)} aria-label={`Preview ${document.name}`} disabled={!document.url}><Eye size={15} /></button><a href={document.url} download aria-label={`Download ${document.name}`}><Download size={15} /></a>{canDelete(document) && <button onClick={() => onDelete(document.id)} aria-label={`Delete ${document.name}`}><Trash2 size={15} /></button>}</article> })}</div>)}</div> : <p className="jm-empty-copy">No documents linked yet.</p>}{preview && <DocumentPreview document={preview} onClose={() => setPreview(null)} />}</section>
 }
 
 export function DocumentPreview({ document: selectedDocument, onClose }) {
   const source = selectedDocument.storagePath || selectedDocument.url
-  const imageFile = /\.(jpe?g|png|webp)(?:\?|$)/i.test(source)
+  const kind = uploadFileKind(selectedDocument.name || source, selectedDocument.type)
   return <div className="jm-document-preview" role="dialog" aria-modal="true" aria-labelledby="jm-document-preview-title" onMouseDown={onClose}>
     <div className="jm-document-preview-shell" onMouseDown={(event) => event.stopPropagation()}>
       <header><div><span>{selectedDocument.type}</span><strong id="jm-document-preview-title">{selectedDocument.name}</strong></div><div><a href={selectedDocument.url} download aria-label={`Download ${selectedDocument.name}`}><Download size={18} /><span>Download</span></a><button type="button" onClick={onClose} aria-label="Close document preview" autoFocus><X size={21} /></button></div></header>
-      <div className="jm-document-preview-content">{imageFile ? <img src={selectedDocument.url} alt={selectedDocument.name} /> : <iframe src={selectedDocument.url} title={selectedDocument.name} />}</div>
+      <div className="jm-document-preview-content">{kind === 'image' ? <img src={selectedDocument.url} alt={selectedDocument.name} /> : kind === 'video' ? <video src={selectedDocument.url} controls playsInline preload="metadata">Your browser cannot play this video.</video> : kind === 'pdf' ? <iframe src={selectedDocument.url} title={selectedDocument.name} /> : <div className="jm-document-preview-unavailable"><FileText size={46} /><strong>Preview is not available for this file</strong><p>Word documents open in Microsoft Word or your phone’s document viewer.</p><a href={selectedDocument.url} target="_blank" rel="noreferrer"><ExternalLink size={17} />Open file</a></div>}</div>
     </div>
   </div>
 }
