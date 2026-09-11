@@ -1,4 +1,4 @@
-import { Grid2X2, List, Search } from 'lucide-react'
+import { Grid2X2, List, Search, SlidersHorizontal } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useJobManager } from '../context/JobManagerContext'
@@ -33,6 +33,7 @@ export default function ProjectsPage() {
   const [postcode, setPostcode] = useState('')
   const [from, setFrom] = useState('')
   const [view, setView] = useState('cards')
+  const [filtersOpen, setFiltersOpen] = useState(false)
   const showFinancials = can('view_financials')
   const filtered = useMemo(() => data.projects.filter((project) => {
     const client = projectClient(data, project)
@@ -46,12 +47,14 @@ export default function ProjectsPage() {
 
   return <>
     <PageHeader eyebrow="Project pipeline" title="Projects" description={`${filtered.length} of ${data.projects.length} jobs shown`} action={can('create_projects') ? <AddProjectButton /> : null} />
-    <section className="jm-filter-bar">
-      <label className="jm-search"><Search size={18} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search client, address or job" aria-label="Search projects" /></label>
-      <label><span>Status</span><select value={status} onChange={(event) => setStatus(event.target.value)}><option>All</option>{statuses.map((item) => <option key={item}>{item}</option>)}</select></label>
-      <label><span>Postcode</span><input value={postcode} onChange={(event) => setPostcode(event.target.value)} placeholder="e.g. E15" /></label>
-      <label><span>Starting after</span><input type="date" value={from} onChange={(event) => setFrom(event.target.value)} /></label>
-      <div className="jm-view-toggle"><button className={view === 'cards' ? 'active' : ''} onClick={() => setView('cards')} aria-label="Card view"><Grid2X2 size={18} /></button><button className={view === 'table' ? 'active' : ''} onClick={() => setView('table')} aria-label="Compact table view"><List size={19} /></button></div>
+    <section className="jm-filter-bar jm-filter-bar--simple" aria-label="Project filters">
+      <div className="jm-filter-primary">
+        <label className="jm-search"><Search size={18} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search by client, address or project" aria-label="Search projects" /></label>
+        <label><span>Status</span><select value={status} onChange={(event) => setStatus(event.target.value)}><option>All</option>{statuses.map((item) => <option key={item}>{item}</option>)}</select></label>
+        <button type="button" className={`jm-more-filters-button${filtersOpen ? ' active' : ''}`} aria-expanded={filtersOpen} onClick={() => setFiltersOpen((open) => !open)}><SlidersHorizontal size={17} />More filters{(postcode || from) && <span>{Number(Boolean(postcode)) + Number(Boolean(from))}</span>}</button>
+        <div className="jm-view-toggle"><button type="button" className={view === 'cards' ? 'active' : ''} onClick={() => setView('cards')} aria-label="Card view"><Grid2X2 size={18} /></button><button type="button" className={view === 'table' ? 'active' : ''} onClick={() => setView('table')} aria-label="Compact table view"><List size={19} /></button></div>
+      </div>
+      {filtersOpen && <div className="jm-filter-advanced"><label><span>Postcode</span><input value={postcode} onChange={(event) => setPostcode(event.target.value)} placeholder="e.g. E15" /></label><label><span>Starting after</span><input type="date" value={from} onChange={(event) => setFrom(event.target.value)} /></label>{(postcode || from) && <button type="button" className="jm-button jm-button--secondary" onClick={() => { setPostcode(''); setFrom('') }}>Clear extra filters</button>}</div>}
     </section>
     {filtered.length === 0 ? <EmptyState title="No projects match" text="Try clearing one or more filters." action={<button className="jm-button jm-button--secondary" onClick={() => { setSearch(''); setStatus('All'); setPostcode(''); setFrom('') }}>Clear filters</button>} /> : <>
       <ProjectSection title="Active projects" description="Current and upcoming work" projects={activeProjects} {...resultsProps} />

@@ -4,6 +4,7 @@ import {
   PROJECT_FILE_ACCEPT,
   STANDARD_FILE_LIMIT,
   VIDEO_FILE_LIMIT,
+  friendlyUploadError,
   suggestedDocumentType,
   uploadContentType,
   uploadFileKind,
@@ -38,4 +39,10 @@ test('video and non-video uploads enforce separate size limits', () => {
 
 test('photo uploads remain restricted to image formats', () => {
   assert.throws(() => validateUploadFile(file('scope.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'), 'photos'), /Use JPG/)
+})
+
+test('technical upload errors are translated into clear next steps', () => {
+  assert.equal(friendlyUploadError(new Error('mime type application/example is not supported')), 'This file type is not accepted. Choose a PDF, image, Word document or supported video.')
+  assert.match(friendlyUploadError(new Error('Payload too large')), /too large/)
+  assert.match(friendlyUploadError(new Error('Network request failed')), /internet connection/)
 })

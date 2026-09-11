@@ -17,21 +17,26 @@ const summaryCards = [
 const actionIcons = { Task: ListTodo, Expense: Receipt, 'Site Note': MessageSquareText, Note: MessageSquareText, 'Upload Photo': Camera, Photo: Camera, Payment: Banknote, Lead: UserRoundPlus }
 
 export default function DashboardPage() {
-  const { data, users, user, addTask, addPayment, addJournalEntry, uploadPhoto, saveLead } = useJobManager()
+  const { data, users, user, can, addTask, addPayment, addJournalEntry, uploadPhoto, saveLead } = useJobManager()
   const [quickAction, setQuickAction] = useState(''); const [fabOpen, setFabOpen] = useState(false)
   const dashboard = useMemo(() => buildTodayDashboard(data, { includeFinancials: user.role === 'administrator' }), [data, user.role])
   const visible = (item) => !item.adminOnly || user.role === 'administrator'
   const urgentItems = dashboard.actionItems.filter(visible)
   const attention = dashboard.attention.filter(visible)
   const upcoming = dashboard.upcoming.filter(visible)
-  const hour = new Date().getHours(); const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening'
-  const dateLabel = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date())
+  const now = new Date()
+  const hour = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', hourCycle: 'h23' }).format(now)); const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening'
+  const dateLabel = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(now)
+  const timeLabel = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(now)
   const desktopActions = dashboardQuickActions(user.role)
   const mobileActions = dashboardQuickActions(user.role, true)
+  const commonActions = desktopActions.filter((label) => ['Task', 'Site Note', 'Upload Photo', 'Payment'].includes(label))
   const actionContext = { data, users, user, addTask, addPayment, addJournalEntry, uploadPhoto, saveLead }
 
   return <div className="jm-today-dashboard">
-    <header className="jm-today-hero"><div><p className="jm-eyebrow">Today · Operations</p><h1>{greeting}, {user.name}.</h1><p>{dateLabel}</p></div><div className="jm-weather-placeholder"><CloudSun size={25} /><div><strong>London weather</strong><span>Forecast integration coming soon</span></div></div></header>
+    <header className="jm-today-hero"><div><p className="jm-eyebrow">Today · Operations</p><h1>{greeting}, {user.name}.</h1><p>{dateLabel} · {timeLabel}</p></div><div className="jm-weather-placeholder"><CloudSun size={25} /><div><strong>London weather</strong><span>Forecast integration coming soon</span></div></div></header>
+
+    <section className="jm-start-here" aria-labelledby="jm-start-here-title"><header><div><p className="jm-eyebrow">Start here</p><h2 id="jm-start-here-title">What would you like to do?</h2></div><span>Choose one action to begin</span></header><div>{can('create_projects') && <Link to="/job-manager/projects/new"><span><BriefcaseBusiness size={20} /></span><strong>Add a project</strong><small>Create a new job</small><ChevronRight size={17} /></Link>}{commonActions.map((label) => { const Icon = actionIcons[label]; return <button type="button" key={label} onClick={() => setQuickAction(label)}><span><Icon size={20} /></span><strong>{label === 'Upload Photo' ? 'Add photos' : `Add ${label.toLowerCase()}`}</strong><small>{label === 'Task' ? 'Plan work for the team' : label === 'Payment' ? 'Record money due' : label === 'Site Note' ? 'Write a project update' : 'Upload from phone or computer'}</small><ChevronRight size={17} /></button> })}</div></section>
 
     <section className="jm-today-summary" aria-label="Today's summary">{summaryCards.filter(visible).map(({ key, label, icon: Icon, tone, href, money }) => <Link key={key} to={href} className={`jm-today-metric jm-today-metric--${tone}`}><span><Icon size={20} /></span><div><small>{label}</small><strong>{money ? formatGBP(dashboard.summary[key]) : dashboard.summary[key]}</strong></div><ChevronRight size={16} /></Link>)}</section>
 
@@ -49,7 +54,6 @@ export default function DashboardPage() {
       <DashboardSection eyebrow="Live workspace" title="Recent activity">{dashboard.recentActivity.length ? <div className="jm-dashboard-activity">{dashboard.recentActivity.map((item) => item.href ? <Link key={item.id} to={item.href}><span /><div><strong>{item.action}</strong><small>{item.projectName} · {formatDate(item.createdAt, true)}</small></div></Link> : <div key={item.id}><span /><div><strong>{item.action}</strong><small>{formatDate(item.createdAt, true)}</small></div></div>)}</div> : <SmallEmpty text="New project updates will appear here." />}</DashboardSection>
     </div>
 
-    <div className="jm-today-quickbar"><span>Quick add</span>{desktopActions.map((label) => { const Icon = actionIcons[label]; return <button key={label} onClick={() => setQuickAction(label)}><Icon size={17} />{label}</button> })}</div>
     <div className={`jm-today-fab ${fabOpen ? 'is-open' : ''}`}>{fabOpen && <div className="jm-today-fab-menu">{mobileActions.map((label) => { const Icon = actionIcons[label]; return <button key={label} onClick={() => { setQuickAction(label); setFabOpen(false) }}><span>{label}</span><b><Icon size={19} /></b></button> })}</div>}<button className="jm-today-fab-main" aria-label="Quick actions" aria-expanded={fabOpen} onClick={() => setFabOpen((open) => !open)}>{fabOpen ? <X size={24} /> : <Plus size={25} />}</button></div>
     {quickAction && <QuickActionDialog type={quickAction} context={actionContext} close={() => setQuickAction('')} />}
   </div>

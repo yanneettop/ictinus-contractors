@@ -34,6 +34,16 @@ export const PROJECT_FILE_ACCEPT = [
 
 export const PROJECT_FILE_HELP = 'PDF, images, Word, MP4, MOV, WebM, M4V or 3GP · 25 MB per file, 50 MB per video'
 
+export function friendlyUploadError(error, fallback = 'The file could not be uploaded. Please try again.') {
+  const message = String(error?.message || error || '').trim()
+  if (!message) return fallback
+  if (/mime type .*not supported|invalid mime|unsupported mime/i.test(message)) return 'This file type is not accepted. Choose a PDF, image, Word document or supported video.'
+  if (/exceeded.*size|too large|maximum.*size|payload too large/i.test(message)) return 'This file is too large. Documents can be up to 25 MB and videos up to 50 MB.'
+  if (/network|fetch|offline|connection/i.test(message)) return 'The upload was interrupted. Check your internet connection and try again.'
+  if (/unauthori[sz]ed|permission|row-level security|jwt/i.test(message)) return 'Your session may have expired. Sign in again and retry the upload.'
+  return message
+}
+
 export function uploadFileKind(fileOrName, declaredType = '') {
   const name = typeof fileOrName === 'string' ? fileOrName : fileOrName?.name || ''
   const mimeType = typeof fileOrName === 'string' ? '' : fileOrName?.type || ''
