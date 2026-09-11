@@ -32,6 +32,14 @@ export const PROJECT_FILE_ACCEPT = [
   '.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif', '.pdf', '.doc', '.docx', '.mp4', '.mov', '.webm', '.m4v', '.3gp',
 ].join(',')
 
+export const PROJECT_GALLERY_ACCEPT = [
+  ...imageMimeTypes,
+  ...videoMimeTypes,
+  '.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif', '.mp4', '.mov', '.webm', '.m4v', '.3gp',
+].join(',')
+
+export const PROJECT_GALLERY_HELP = 'Photos or videos from your camera roll · 25 MB per photo, 50 MB per video'
+
 export const PROJECT_FILE_HELP = 'PDF, images, Word, MP4, MOV, WebM, M4V or 3GP · 25 MB per file, 50 MB per video'
 
 export function friendlyUploadError(error, fallback = 'The file could not be uploaded. Please try again.') {
@@ -54,6 +62,11 @@ export function uploadFileKind(fileOrName, declaredType = '') {
   return 'other'
 }
 
+export function documentPreviewKind(document) {
+  const storedSource = `${document?.storagePath || document?.url || ''}`.split(/[?#]/)[0]
+  return uploadFileKind(storedSource || document?.name || '', document?.type || '')
+}
+
 export function suggestedDocumentType(file) {
   const kind = uploadFileKind(file)
   if (kind === 'video') return 'Video'
@@ -71,12 +84,12 @@ export function uploadContentType(file) {
 export function validateUploadFile(file, kind = 'documents') {
   if (!file?.size) throw new Error('Choose a file to upload.')
   const type = file.type || ''
-  const photoUpload = kind === 'photos'
-  const extensionAllowed = photoUpload ? imageExtension.test(file.name) : supportedExtension.test(file.name)
-  const mimeAllowed = photoUpload ? imageMimeTypes.includes(type) : supportedMimeTypes.has(type)
+  const galleryUpload = kind === 'photos'
+  const extensionAllowed = galleryUpload ? (imageExtension.test(file.name) || videoExtension.test(file.name)) : supportedExtension.test(file.name)
+  const mimeAllowed = galleryUpload ? (imageMimeTypes.includes(type) || videoMimeTypes.includes(type)) : supportedMimeTypes.has(type)
   if (!mimeAllowed && !(extensionAllowed && genericMimeTypes.has(type))) {
-    throw new Error(photoUpload
-      ? 'Use JPG, PNG, WebP, HEIC or HEIF files.'
+    throw new Error(galleryUpload
+      ? 'Use JPG, PNG, WebP, HEIC, HEIF, MP4, MOV, WebM, M4V or 3GP files.'
       : 'Use PDF, JPG, PNG, WebP, HEIC, HEIF, DOC, DOCX, MP4, MOV, WebM, M4V or 3GP files.')
   }
   const video = uploadFileKind(file) === 'video'

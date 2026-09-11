@@ -4,6 +4,7 @@ import {
   PROJECT_FILE_ACCEPT,
   STANDARD_FILE_LIMIT,
   VIDEO_FILE_LIMIT,
+  documentPreviewKind,
   friendlyUploadError,
   suggestedDocumentType,
   uploadContentType,
@@ -25,6 +26,14 @@ test('Word and video files are classified and suggested automatically', () => {
   assert.equal(suggestedDocumentType(file('handover.doc', 'application/msword')), 'Word document')
 })
 
+test('document preview uses the stored filename when the display name has no extension', () => {
+  assert.equal(documentPreviewKind({
+    name: 'Ictinus-Contractors-Quotation-67-Wernbrook-Street-Final',
+    type: 'Quotation',
+    storagePath: 'project/documents/123-ictinus-contractors-quotation-final.pdf',
+  }), 'pdf')
+})
+
 test('mobile files with a generic MIME type use their extension safely', () => {
   assert.doesNotThrow(() => validateUploadFile(file('site-walk.MOV', 'application/octet-stream', VIDEO_FILE_LIMIT)))
   assert.equal(uploadContentType(file('site-walk.MOV', 'application/octet-stream')), 'video/quicktime')
@@ -37,7 +46,9 @@ test('video and non-video uploads enforce separate size limits', () => {
   assert.throws(() => validateUploadFile(file('scope.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', STANDARD_FILE_LIMIT + 1)), /25 MB/)
 })
 
-test('photo uploads remain restricted to image formats', () => {
+test('project gallery accepts photos and mobile videos but rejects documents', () => {
+  assert.doesNotThrow(() => validateUploadFile(file('camera-roll.mov', 'video/quicktime'), 'photos'))
+  assert.doesNotThrow(() => validateUploadFile(file('site-video.MP4', 'application/octet-stream'), 'photos'))
   assert.throws(() => validateUploadFile(file('scope.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'), 'photos'), /Use JPG/)
 })
 
