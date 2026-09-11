@@ -6,12 +6,12 @@ import { useJobManager } from '../context/JobManagerContext'
 import { formatDate, projectClient } from '../utils/format'
 import { applySelectedFileDefaults, PROJECT_FILE_ACCEPT, PROJECT_FILE_HELP } from '../utils/fileUploads'
 
-const documentTypes = ['Quotation', 'Site survey', 'Client brief', 'Plans', 'Invoice', 'Payment schedule', 'Photos', 'Video', 'Word document', 'Contract', 'Certificate', 'Google Drive folder', 'Other']
+const documentTypes = ['Quotation', 'Site survey', 'Client brief', 'Plans', 'Invoice', 'Payment schedule', 'Photos', 'Video', 'Word document', 'Text file', 'Contract', 'Certificate', 'Google Drive folder', 'Other']
 
 function documentIcon(type) {
   if (type === 'Photos') return FileImage
   if (type === 'Video') return Video
-  if (type === 'Word document') return FileText
+  if (type === 'Word document' || type === 'Text file') return FileText
   if (type.includes('Drive')) return FolderOpen
   if (type === 'Certificate' || type === 'Contract') return FileCheck2
   return File

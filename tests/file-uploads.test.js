@@ -16,6 +16,7 @@ const file = (name, type, size = 1024) => ({ name, type, size })
 
 test('project picker accepts Word and common mobile video formats', () => {
   assert.match(PROJECT_FILE_ACCEPT, /\.docx/)
+  assert.match(PROJECT_FILE_ACCEPT, /\.txt/)
   assert.match(PROJECT_FILE_ACCEPT, /video\/quicktime/)
   assert.match(PROJECT_FILE_ACCEPT, /\.mp4/)
 })
@@ -32,12 +33,15 @@ test('document preview uses the stored filename when the display name has no ext
     type: 'Quotation',
     storagePath: 'project/documents/123-ictinus-contractors-quotation-final.pdf',
   }), 'pdf')
+  assert.equal(documentPreviewKind({ name: 'Site notes', storagePath: 'project/documents/site-notes.docx' }), 'docx')
+  assert.equal(documentPreviewKind({ name: 'Snagging list', storagePath: 'project/documents/snagging-list.txt' }), 'text')
 })
 
 test('mobile files with a generic MIME type use their extension safely', () => {
   assert.doesNotThrow(() => validateUploadFile(file('site-walk.MOV', 'application/octet-stream', VIDEO_FILE_LIMIT)))
   assert.equal(uploadContentType(file('site-walk.MOV', 'application/octet-stream')), 'video/quicktime')
   assert.equal(uploadContentType(file('scope.DOCX', '')), 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+  assert.equal(uploadContentType(file('notes.TXT', '')), 'text/plain')
 })
 
 test('video and non-video uploads enforce separate size limits', () => {
@@ -53,7 +57,7 @@ test('project gallery accepts photos and mobile videos but rejects documents', (
 })
 
 test('technical upload errors are translated into clear next steps', () => {
-  assert.equal(friendlyUploadError(new Error('mime type application/example is not supported')), 'This file type is not accepted. Choose a PDF, image, Word document or supported video.')
+  assert.equal(friendlyUploadError(new Error('mime type application/example is not supported')), 'This file type is not accepted. Choose a PDF, image, Word, TXT or supported video file.')
   assert.match(friendlyUploadError(new Error('Payload too large')), /too large/)
   assert.match(friendlyUploadError(new Error('Network request failed')), /internet connection/)
 })
