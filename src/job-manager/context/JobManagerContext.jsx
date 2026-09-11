@@ -178,7 +178,7 @@ export function JobManagerProvider({ children, repository = defaultRepository })
   const deleteProject = (projectId) => commit((current) => {
     const next = structuredClone(current)
     next.projects = next.projects.filter((item) => item.id !== projectId)
-    for (const key of ['payments', 'events', 'tasks', 'documents', 'journalEntries', 'photos', 'activities']) next[key] = next[key].filter((item) => item.projectId !== projectId)
+    for (const key of ['payments', 'expenses', 'events', 'tasks', 'documents', 'journalEntries', 'photos', 'activities']) next[key] = next[key].filter((item) => item.projectId !== projectId)
     return next
   })
   const addTask = (projectId, values) => commit((current) => {
@@ -194,6 +194,21 @@ export function JobManagerProvider({ children, repository = defaultRepository })
   const markPaymentPaid = (paymentId) => commit((current) => {
     const next = structuredClone(current); const payment = next.payments.find((item) => item.id === paymentId); payment.status = 'Paid'; payment.paidDate = londonDateKey(); recalculateProject(next, payment.projectId); addActivity(next, payment.projectId, `Payment received: ${payment.title}`); return next
   })
+  const addExpense = (values) => commit((current) => {
+    const next = structuredClone(current); const now = new Date().toISOString(); const projectId = values.projectId || null
+    next.expenses.unshift({ id: repository.createId('expense'), ...values, projectId, amount: Number(values.amount), createdBy: user.id, createdAt: now, updatedAt: now })
+    if (projectId) addActivity(next, projectId, `Expense added: ${values.description}`)
+    return next
+  })
+  const uploadExpense = async (values, file) => {
+    const uploaded = await repository.uploadFile(values.projectId || 'general', file, 'expenses')
+    try { return await addExpense({ ...values, ...uploaded, attachmentName: file.name, attachmentType: file.type || '' }) }
+    catch (uploadError) { await repository.deleteFile?.(uploaded.storagePath); throw uploadError }
+  }
+  const deleteExpense = async (expenseId) => {
+    const expense = data.expenses.find((item) => item.id === expenseId); await repository.deleteFile?.(expense?.storagePath)
+    return commit((current) => { const next = structuredClone(current); next.expenses = next.expenses.filter((item) => item.id !== expenseId); if (expense?.projectId) addActivity(next, expense.projectId, `Expense removed: ${expense.description}`); return next })
+  }
   const addDocument = (projectId, values) => commit((current) => {
     const next = structuredClone(current); next.documents.push({ id: repository.createId('document'), projectId, ...values, createdAt: new Date().toISOString(), uploadedBy: user.id }); addActivity(next, projectId, `Document added: ${values.name}`); return next
   })
@@ -235,7 +250,7 @@ export function JobManagerProvider({ children, repository = defaultRepository })
   const preparePasswordUpdate = useCallback(() => authService.preparePasswordUpdate?.() || Promise.resolve({ ready: false, error: 'Password setup requires Supabase.' }), [])
   const updatePassword = (password) => authService.updatePassword(password)
 
-  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, realtimeStatus, lastSyncedAt, login, logout, resetPassword, preparePasswordUpdate, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData, saveLead, updateLeadStage, logLeadCommunication, addLeadTask, bookLeadVisit, markLeadLost, uploadLeadDocument, uploadLeadQuote, attachLeadQuoteDocument, selectLeadQuote, convertLead }
+  const value = { data, user, users: data?.users || demoUsers, error, setError, authReady, authMode: authService.mode, realtimeStatus, lastSyncedAt, login, logout, resetPassword, preparePasswordUpdate, updatePassword, can, saveProject, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addExpense, uploadExpense, deleteExpense, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto, resetData, refreshData, saveLead, updateLeadStage, logLeadCommunication, addLeadTask, bookLeadVisit, markLeadLost, uploadLeadDocument, uploadLeadQuote, attachLeadQuoteDocument, selectLeadQuote, convertLead }
   return <JobManagerContext.Provider value={value}>{children}</JobManagerContext.Provider>
 }
 

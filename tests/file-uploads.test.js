@@ -56,6 +56,14 @@ test('project gallery accepts photos and mobile videos but rejects documents', (
   assert.throws(() => validateUploadFile(file('scope.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'), 'photos'), /Use JPG/)
 })
 
+test('expense attachments accept receipts and text but reject Word and video files', () => {
+  assert.doesNotThrow(() => validateUploadFile(file('receipt.pdf', 'application/pdf'), 'expenses'))
+  assert.doesNotThrow(() => validateUploadFile(file('receipt.HEIC', 'application/octet-stream'), 'expenses'))
+  assert.doesNotThrow(() => validateUploadFile(file('notes.txt', 'text/plain'), 'expenses'))
+  assert.throws(() => validateUploadFile(file('invoice.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'), 'expenses'), /Use PDF/)
+  assert.throws(() => validateUploadFile(file('walkthrough.mp4', 'video/mp4'), 'expenses'), /Use PDF/)
+})
+
 test('technical upload errors are translated into clear next steps', () => {
   assert.equal(friendlyUploadError(new Error('mime type application/example is not supported')), 'This file type is not accepted. Choose a PDF, image, Word, TXT or supported video file.')
   assert.match(friendlyUploadError(new Error('Payload too large')), /too large/)

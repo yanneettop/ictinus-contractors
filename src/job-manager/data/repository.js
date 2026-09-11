@@ -7,10 +7,11 @@ const newId = (prefix) => `${prefix}-${Date.now()}-${Math.random().toString(36).
 
 const migrate = (source) => {
   const data = { ...clone(initialData), ...source }
-  data.version = 5
+  data.version = 6
   data.leads = source.leads || []
   data.leadCommunications = source.leadCommunications || []
   data.leadQuotes = source.leadQuotes || []
+  data.expenses = source.expenses || []
   data.journalEntries = source.journalEntries || clone(initialData.journalEntries)
   data.photos = source.photos || clone(initialData.photos)
   data.clients = (source.clients || initialData.clients).map((client) => ({ preferredContact: 'Phone', bestContactTime: '', emergencyContact: '', ...client }))

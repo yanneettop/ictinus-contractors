@@ -6,7 +6,7 @@ export const demoUsers = [
 // Public, fictional data used only when Supabase environment variables are absent.
 // Never place real customer or project information in this browser bundle.
 export const initialData = {
-  version: 4,
+  version: 6,
   leads: [],
   leadCommunications: [],
   leadQuotes: [],
@@ -27,6 +27,7 @@ export const initialData = {
     { id: 'payment-deposit', projectId: 'project-sample', title: 'Deposit', percentage: 30, amount: 3000, dueDate: '2026-07-15', paidDate: '2026-07-15', status: 'Paid', invoiceReference: 'SAMPLE-001', notes: '' },
     { id: 'payment-balance', projectId: 'project-sample', title: 'Balance', percentage: 70, amount: 7000, dueDate: '2026-08-14', paidDate: '', status: 'Due', invoiceReference: 'SAMPLE-002', notes: '' },
   ],
+  expenses: [],
   events: [
     { id: 'event-sample-work', projectId: 'project-sample', type: 'Work', title: 'Sample – SW1A 1AA', startDate: '2026-07-20', endDate: '2026-08-14', allDay: true, location: '1 Example Street, London SW1A 1AA', notes: '', colourCategory: 'green', googleCalendarEventId: null },
   ],

@@ -13,6 +13,7 @@ const ProjectsPage = lazy(() => import('./pages/ProjectsPage'))
 const ProjectFormPage = lazy(() => import('./pages/ProjectFormPage'))
 const ProjectDetailPage = lazy(() => import('./pages/ProjectDetailPage'))
 const PaymentsPage = lazy(() => import('./pages/PaymentsPage'))
+const ExpensesPage = lazy(() => import('./pages/ExpensesPage'))
 const FilesPage = lazy(() => import('./pages/FilesPage'))
 const SettingsPage = lazy(() => import('./pages/SettingsPage'))
 const LeadsPage = lazy(() => import('./pages/LeadsPage'))
@@ -45,6 +46,7 @@ function ManagerRoutes() {
       <Route path="projects/:id" element={<ProjectDetailPage />} />
       <Route path="projects/:id/edit" element={<PermissionRoute permission="edit_projects"><ProjectFormPage /></PermissionRoute>} />
       <Route path="payments" element={<PermissionRoute permission="view_financials"><PaymentsPage /></PermissionRoute>} />
+      <Route path="expenses" element={<PermissionRoute permission="view_financials"><ExpensesPage /></PermissionRoute>} />
       <Route path="files" element={<FilesPage />} />
       <Route path="assistant" element={<Navigate to="/job-manager" replace />} />
       <Route path="settings" element={<SettingsPage />} />

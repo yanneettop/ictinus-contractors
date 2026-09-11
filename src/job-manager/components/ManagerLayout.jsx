@@ -1,4 +1,4 @@
-import { CalendarDays, ChevronDown, CreditCard, Files, FolderKanban, LayoutDashboard, LogOut, Settings, UserRoundSearch, X } from 'lucide-react'
+import { CalendarDays, ChevronDown, CreditCard, Files, FolderKanban, LayoutDashboard, LogOut, ReceiptPoundSterling, Settings, UserRoundSearch, X } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useJobManager } from '../context/JobManagerContext'
@@ -11,6 +11,7 @@ const nav = [
   { to: '/job-manager/projects', label: 'Projects', icon: FolderKanban },
   { to: '/job-manager/files', label: 'Files', icon: Files },
   { to: '/job-manager/payments', label: 'Payments', icon: CreditCard, permission: 'view_financials' },
+  { to: '/job-manager/expenses', label: 'Expenses', icon: ReceiptPoundSterling, permission: 'view_financials' },
   { to: '/job-manager/settings', label: 'Settings', icon: Settings, mobile: false },
 ]
 
@@ -31,7 +32,7 @@ export default function ManagerLayout() {
       {error && <div className="jm-alert" role="alert"><span>{error}</span><button onClick={() => setError('')} aria-label="Dismiss"><X size={17} /></button></div>}
       <main className="jm-main"><Outlet /></main>
     </div>
-    <nav className="jm-bottom-nav" aria-label="Mobile navigation">{visibleNav.filter((item) => ['Dashboard','Calendar','Leads','Projects','Files'].includes(item.label)).map(({ to, label, icon: Icon, end }) => <NavLink key={to} to={to} end={end}><Icon size={20} /><span>{label}</span>{label === 'Leads' && attentionCount(data, user) > 0 && <b className="jm-nav-badge">{attentionCount(data, user)}</b>}</NavLink>)}</nav>
+    <nav className="jm-bottom-nav" aria-label="Mobile navigation">{visibleNav.filter((item) => ['Dashboard','Calendar','Leads','Projects','Files','Expenses'].includes(item.label)).map(({ to, label, icon: Icon, end }) => <NavLink key={to} to={to} end={end}><Icon size={20} /><span>{label}</span>{label === 'Leads' && attentionCount(data, user) > 0 && <b className="jm-nav-badge">{attentionCount(data, user)}</b>}</NavLink>)}</nav>
     <AssistantWidget />
   </div>
 }

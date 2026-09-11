@@ -10,6 +10,7 @@ import { ClientInformationCard, LocationCard } from '../components/ProjectContac
 import ProjectJournal from '../components/ProjectJournal'
 import ProjectTasks from '../components/ProjectTasks'
 import { DocumentsSection, PhotoGallery } from '../components/ProjectRecords'
+import ExpensesSection from '../components/ExpensesSection'
 import { ActivityFeed, ProjectTimeline } from '../components/ProjectHistory'
 import { applySelectedFileDefaults, friendlyUploadError, PROJECT_FILE_ACCEPT, PROJECT_FILE_HELP } from '../utils/fileUploads'
 
@@ -17,12 +18,12 @@ const eventColours = { Work: 'green', 'Site visit': 'blue', 'Key collection': 'b
 
 export default function ProjectDetailPage() {
   const { id } = useParams(); const navigate = useNavigate()
-  const { data, user, users, can, authMode, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto } = useJobManager()
+  const { data, user, users, can, authMode, updateProjectStatus, deleteProject, addTask, toggleTask, addPayment, markPaymentPaid, addExpense, uploadExpense, deleteExpense, addDocument, uploadDocument, deleteDocument, addEvent, addJournalEntry, updateJournalEntry, deleteJournalEntry, addPhoto, uploadPhoto, deletePhoto } = useJobManager()
   const [confirmDelete, setConfirmDelete] = useState(false); const [message, setMessage] = useState(''); const [journalComposer, setJournalComposer] = useState(0); const [addingUpdate, setAddingUpdate] = useState(false)
   const project = data.projects.find((item) => item.id === id)
   if (!project) return <EmptyState title="Project not found" text="This project may have been removed." action={<Link className="jm-button jm-button--secondary" to="/job-manager/projects">Back to projects</Link>} />
   const client = projectClient(data, project); const assignee = projectUser(users, project)
-  const payments = data.payments.filter((item) => item.projectId === id).sort((a, b) => a.dueDate.localeCompare(b.dueDate)); const tasks = data.tasks.filter((item) => item.projectId === id)
+  const payments = data.payments.filter((item) => item.projectId === id).sort((a, b) => a.dueDate.localeCompare(b.dueDate)); const expenses = (data.expenses || []).filter((item) => item.projectId === id); const tasks = data.tasks.filter((item) => item.projectId === id)
   const documents = data.documents.filter((item) => item.projectId === id); const journal = (data.journalEntries || []).filter((item) => item.projectId === id); const photos = (data.photos || []).filter((item) => item.projectId === id)
   const activities = data.activities.filter((item) => item.projectId === id); const events = data.events.filter((item) => item.projectId === id)
   const submitTask = (event) => { event.preventDefault(); const values = Object.fromEntries(new FormData(event.currentTarget)); addTask(id, { title: values.title, dueDate: values.dueDate, assignedTo: values.assignedTo, priority: values.priority }); closeActionForm(event) }
@@ -56,6 +57,7 @@ export default function ProjectDetailPage() {
       <DocumentsSection documents={documents} users={users} canDelete={(document) => can('edit_projects') || document.uploadedBy === user.id} onDelete={(documentId) => window.confirm('Remove this document link?') && deleteDocument(documentId)} onAdd={(values) => addDocument(id, values)} onUpload={(values, file) => uploadDocument(id, values, file)} storageEnabled={authMode === 'supabase'} />
       <PhotoGallery photos={photos} users={users} canDelete={(photo) => can('edit_projects') || photo.uploadedBy === user.id} onDelete={(photoId) => window.confirm('Delete this project photo?') && deletePhoto(photoId)} onAdd={(values) => addPhoto(id, values)} onUpload={(values, file) => uploadPhoto(id, values, file)} storageEnabled={authMode === 'supabase'} />
       {can('view_financials') && <PaymentHistory payments={payments} canEdit={can('edit_financials')} onMarkPaid={markPaymentPaid} />}
+      {can('view_financials') && <ExpensesSection title="Project expenses" expenses={expenses} projects={data.projects} fixedProjectId={id} onAdd={addExpense} onUpload={uploadExpense} onDelete={deleteExpense} storageEnabled={authMode === 'supabase'} canEdit={can('edit_financials')} />}
       <ProjectTimeline activities={activities} events={events} payments={can('view_financials') ? payments : []} />
     </div><aside className="jm-detail-side">
       <ProjectHealthCard project={project} tasks={tasks} payments={can('view_financials') ? payments : []} />

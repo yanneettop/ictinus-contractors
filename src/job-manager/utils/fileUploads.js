@@ -44,6 +44,15 @@ export const PROJECT_GALLERY_ACCEPT = [
 
 export const PROJECT_GALLERY_HELP = 'Photos or videos from your camera roll · 25 MB per photo, 50 MB per video'
 
+export const EXPENSE_FILE_ACCEPT = [
+  ...imageMimeTypes,
+  ...textMimeTypes,
+  'application/pdf',
+  '.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif', '.pdf', '.txt',
+].join(',')
+
+export const EXPENSE_FILE_HELP = 'Optional receipt or supporting file · PDF, image or TXT · up to 25 MB'
+
 export const PROJECT_FILE_HELP = 'PDF, images, Word, TXT, MP4, MOV, WebM, M4V or 3GP · 25 MB per file, 50 MB per video'
 
 export function friendlyUploadError(error, fallback = 'The file could not be uploaded. Please try again.') {
@@ -93,12 +102,18 @@ export function validateUploadFile(file, kind = 'documents') {
   if (!file?.size) throw new Error('Choose a file to upload.')
   const type = file.type || ''
   const galleryUpload = kind === 'photos'
-  const extensionAllowed = galleryUpload ? (imageExtension.test(file.name) || videoExtension.test(file.name)) : supportedExtension.test(file.name)
-  const mimeAllowed = galleryUpload ? (imageMimeTypes.includes(type) || videoMimeTypes.includes(type)) : supportedMimeTypes.has(type)
+  const expenseUpload = kind === 'expenses'
+  const extensionAllowed = galleryUpload
+    ? (imageExtension.test(file.name) || videoExtension.test(file.name))
+    : expenseUpload ? (imageExtension.test(file.name) || pdfExtension.test(file.name) || textExtension.test(file.name)) : supportedExtension.test(file.name)
+  const mimeAllowed = galleryUpload
+    ? (imageMimeTypes.includes(type) || videoMimeTypes.includes(type))
+    : expenseUpload ? (imageMimeTypes.includes(type) || type === 'application/pdf' || textMimeTypes.includes(type)) : supportedMimeTypes.has(type)
   if (!mimeAllowed && !(extensionAllowed && genericMimeTypes.has(type))) {
     throw new Error(galleryUpload
       ? 'Use JPG, PNG, WebP, HEIC, HEIF, MP4, MOV, WebM, M4V or 3GP files.'
-      : 'Use PDF, JPG, PNG, WebP, HEIC, HEIF, DOC, DOCX, TXT, MP4, MOV, WebM, M4V or 3GP files.')
+      : expenseUpload ? 'Use PDF, JPG, PNG, WebP, HEIC, HEIF or TXT files for expenses.'
+        : 'Use PDF, JPG, PNG, WebP, HEIC, HEIF, DOC, DOCX, TXT, MP4, MOV, WebM, M4V or 3GP files.')
   }
   const video = uploadFileKind(file) === 'video'
   const limit = video ? VIDEO_FILE_LIMIT : STANDARD_FILE_LIMIT
