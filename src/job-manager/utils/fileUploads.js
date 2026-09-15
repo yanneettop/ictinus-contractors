@@ -84,6 +84,7 @@ export function documentPreviewKind(document) {
 }
 
 export function suggestedDocumentType(file) {
+  if (/(^|[^a-z0-9])(invoice|inv[\s_-]*\d+)([^a-z0-9]|$)/i.test(file?.name || '')) return 'Invoice'
   const kind = uploadFileKind(file)
   if (kind === 'video') return 'Video'
   if (kind === 'word') return 'Word document'

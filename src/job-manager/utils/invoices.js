@@ -1,5 +1,7 @@
 export function isInvoiceDocument(document) {
-  return String(document?.type || '').trim().toLowerCase() === 'invoice'
+  const type = String(document?.type || '').trim().toLowerCase()
+  const filename = `${document?.name || ''} ${document?.storagePath || ''}`
+  return type === 'invoice' || /(^|[^a-z0-9])(invoice|inv[\s_-]*\d+)([^a-z0-9]|$)/i.test(filename)
 }
 
 export function invoiceRows(data) {

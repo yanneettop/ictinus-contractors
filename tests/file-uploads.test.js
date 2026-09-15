@@ -27,6 +27,12 @@ test('Word and video files are classified and suggested automatically', () => {
   assert.equal(suggestedDocumentType(file('handover.doc', 'application/msword')), 'Word document')
 })
 
+test('invoice filenames select the Invoice document type automatically', () => {
+  assert.equal(suggestedDocumentType(file('George-final-invoice.pdf', 'application/pdf')), 'Invoice')
+  assert.equal(suggestedDocumentType(file('INV-2026-014.pdf', 'application/pdf')), 'Invoice')
+  assert.equal(suggestedDocumentType(file('inventory-list.pdf', 'application/pdf')), '')
+})
+
 test('document preview uses the stored filename when the display name has no extension', () => {
   assert.equal(documentPreviewKind({
     name: 'Ictinus-Contractors-Quotation-67-Wernbrook-Street-Final',

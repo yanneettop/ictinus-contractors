@@ -5,7 +5,10 @@ import { invoiceRows, isInvoiceDocument } from '../src/job-manager/utils/invoice
 test('invoice documents are detected without case or whitespace sensitivity', () => {
   assert.equal(isInvoiceDocument({ type: 'Invoice' }), true)
   assert.equal(isInvoiceDocument({ type: ' invoice ' }), true)
+  assert.equal(isInvoiceDocument({ type: 'Quotation', name: 'Ictinus Final Invoice George.pdf' }), true)
+  assert.equal(isInvoiceDocument({ type: 'Quotation', storagePath: 'george/documents/INV-2026-014.pdf' }), true)
   assert.equal(isInvoiceDocument({ type: 'Quotation' }), false)
+  assert.equal(isInvoiceDocument({ type: 'Quotation', name: 'inventory-list.pdf' }), false)
 })
 
 test('central invoice rows include project and client details, newest first', () => {
