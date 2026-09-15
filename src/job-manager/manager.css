@@ -144,6 +144,17 @@
 .jm-file-project a{color:var(--jm-ink)}
 .jm-file-actions{display:flex;gap:5px}
 .jm-file-actions a{width:34px;height:34px;display:grid;place-items:center;border:1px solid #deded9;border-radius:7px;background:white;color:#5e6969}
+.jm-invoice-filters{grid-template-columns:minmax(260px,1fr) minmax(240px,.55fr)}
+.jm-invoice-table-wrap{overflow-x:auto;border:1px solid var(--jm-border);border-radius:10px;background:var(--jm-card)}
+.jm-invoice-table{width:100%;border-collapse:collapse;min-width:820px}
+.jm-invoice-table th{padding:11px 14px;border-bottom:1px solid var(--jm-border);background:#faf8f0;color:var(--jm-muted);font-size:8px;text-align:left;text-transform:uppercase;letter-spacing:.08em}
+.jm-invoice-table td{padding:13px 14px;border-top:1px solid #e8e7e2;color:var(--jm-ink);font-size:10px;vertical-align:middle}
+.jm-invoice-table tbody tr:first-child td{border-top:0}
+.jm-invoice-table td>a{display:grid;gap:3px;color:var(--jm-ink)}
+.jm-invoice-table strong,.jm-invoice-table small{display:block}
+.jm-invoice-table strong{font-size:10px}.jm-invoice-table small{margin-top:3px;color:var(--jm-muted);font-size:8px}
+.jm-invoice-name{display:flex;align-items:center;gap:10px;min-width:210px}.jm-invoice-name>span{width:36px;height:36px;display:grid;place-items:center;border-radius:8px;background:#f2eee1;color:var(--jm-gold-dark)}
+.jm-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 @media(max-width:980px){
   .jm-file-upload-grid{grid-template-columns:1fr 1fr}
@@ -359,4 +370,5 @@
 .jm-expense-list{display:grid}.jm-expense-list article{display:grid;grid-template-columns:auto minmax(170px,1.5fr) minmax(85px,.7fr) minmax(110px,.8fr) minmax(80px,.6fr) auto;gap:13px;align-items:center;padding:12px 0;border-top:1px solid #e8e7e2}.jm-expense-list article:first-child{border-top:0}.jm-expense-icon{width:38px;height:38px;border-radius:8px;background:#f3ecda;color:var(--jm-gold-dark);display:grid;place-items:center}.jm-expense-main,.jm-expense-list article>div{min-width:0}.jm-expense-list strong,.jm-expense-list article>div>span{display:block}.jm-expense-list strong{font-size:10px}.jm-expense-list article>div>span{margin-bottom:3px;color:var(--jm-muted);font-size:8px}.jm-expense-main strong{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.jm-expense-main span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.jm-expense-amount{text-align:right}.jm-expense-amount strong{font-size:12px;color:var(--jm-ink)}.jm-expense-actions{display:flex;gap:5px}.jm-expense-actions>a,.jm-expense-actions>button{width:34px;height:34px;padding:0;border:0;border-radius:7px;background:#f1f0eb;color:#596565;display:grid;place-items:center}.jm-expense-actions>button:last-child{color:#994b44}.jm-expense-empty{padding:28px 16px;border:1px dashed var(--jm-border);border-radius:9px;color:var(--jm-muted);display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px}.jm-expense-empty strong{color:var(--jm-ink);font-size:11px}.jm-expense-empty span{font-size:9px}
 @media(max-width:1100px){.jm-expense-filters{grid-template-columns:1fr 1fr 1fr}.jm-expense-filters .jm-search{grid-column:1/-1}.jm-expense-list article{grid-template-columns:auto minmax(170px,1fr) 100px 90px auto}.jm-expense-list article>div:nth-of-type(3){display:none}}
 @media(max-width:760px){.jm-bottom-nav{grid-template-columns:repeat(6,1fr)}.jm-bottom-nav a{font-size:7px}.jm-expense-filters{grid-template-columns:1fr 1fr}.jm-expense-form{grid-template-columns:1fr;padding:13px}.jm-expense-form .jm-field-wide{grid-column:1}.jm-expense-form input,.jm-expense-form select,.jm-expense-form textarea{font-size:16px}.jm-expense-form footer{flex-direction:column-reverse}.jm-expense-form footer .jm-button{width:100%;min-height:46px;justify-content:center}.jm-expense-list article{grid-template-columns:38px minmax(0,1fr) auto;gap:8px;padding:12px 0}.jm-expense-list article>div:nth-of-type(1){grid-column:2}.jm-expense-list article>div:nth-of-type(2),.jm-expense-list article>div:nth-of-type(3){display:none}.jm-expense-amount{grid-column:3;grid-row:1;text-align:right}.jm-expense-actions{grid-column:2/-1;justify-content:flex-end}.jm-expense-main strong,.jm-expense-main span{white-space:normal}.jm-expenses-section{padding:14px}}
+@media(max-width:760px){.jm-bottom-nav{grid-template-columns:repeat(7,1fr)}.jm-invoice-filters{grid-template-columns:1fr}.jm-invoice-filters .jm-search{grid-column:1}.jm-invoice-table-wrap{border-radius:8px}.jm-invoice-table th,.jm-invoice-table td{padding-inline:11px}}
 @media(max-width:380px){.jm-expense-filters{grid-template-columns:1fr}}
